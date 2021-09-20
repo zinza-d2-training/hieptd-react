@@ -17,11 +17,10 @@ export enum TaskStatus {
    Cancelled = 6,
 }
 export enum ProjectStatus {
-   Requesting = 1,
-   Pending = 2,
-   InProgress = 3,
-   Completed = 4,
-   Cancelled = 5,
+   Pending = 1,
+   InProgress = 2,
+   Completed = 3,
+   Cancelled = 4,
 }
 export enum Priority {
    High = 'high',
