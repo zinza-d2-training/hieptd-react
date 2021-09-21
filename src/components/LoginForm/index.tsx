@@ -1,9 +1,12 @@
 import { USERS } from 'fakeData/users';
-import { useForm } from 'hooks';
 import React from 'react';
 import './LoginForm.scss';
+import { useLoginForm } from './useLoginForm';
+import { login } from 'utils/auth';
+import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
+   const history = useHistory();
    // handle login
    const handleLogin = () => {
       const { username, password } = values;
@@ -16,13 +19,14 @@ function LoginForm() {
       if (!user) {
          alert('Login information is incorrect!');
       } else {
-         window.localStorage.setItem('user', JSON.stringify(user));
+         login(user);
          alert('Logged in successfully');
          resetForm();
+         history.push('/');
       }
    };
    const { values, errors, handleChange, handleSubmit, resetForm } =
-      useForm(handleLogin);
+      useLoginForm(handleLogin);
 
    return (
       <div className="loginForm">
