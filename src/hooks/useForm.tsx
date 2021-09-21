@@ -10,10 +10,10 @@ type FormErr = {
 };
 export const validateValue = (values: FormValue) => {
    let errors: FormErr = {};
-   if (!values.username) {
+   if (!values.username || values.username.length === 0) {
       errors.username = 'Username is required';
-   } else if (!/^(?=[a-zA-Z0-9._]{6,20}$)/.test(values.username)) {
-      errors.username = 'Invalid username, at least 6 characters required';
+   } else if (!/^(?=[a-zA-Z0-9._]{5,20}$)/.test(values.username)) {
+      errors.username = 'Invalid username, at least 5 characters required';
    }
    if (!values.password) {
       errors.password = 'Password is required';
@@ -33,7 +33,7 @@ export const useForm = (handleLogin) => {
          handleLogin();
       }
       // eslint-disable-next-line
-   }, [errors]);
+   }, [errors, isSubmit]);
    // handleSubmit
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -42,17 +42,19 @@ export const useForm = (handleLogin) => {
    };
    const handleChange = (event) => {
       event.persist();
+      setIsSubmit(false);
       setValues((values) => ({
          ...values,
          [event.target.name]: event.target.value,
       }));
-      setErrors(validateValue(values));
    };
-
+   //reset form
+   const resetForm = () => setValues({});
    return {
       handleChange,
       handleSubmit,
       values,
       errors,
+      resetForm,
    };
 };
