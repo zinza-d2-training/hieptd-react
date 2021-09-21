@@ -1,0 +1,52 @@
+@import 'styles/variables';
+
+.loginForm {
+   form {
+      margin: 0 auto;
+      margin-top: 100px;
+      width: 400px;
+      height: 450px;
+      box-shadow: $box-shadow;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      h1 {
+         color: $primary;
+         opacity: 0.8;
+      }
+      .login__item {
+         color: $text;
+         font-weight: 400;
+         line-height: 1.2;
+         label {
+            font-size: 18px;
+            color: $primary;
+            letter-spacing: 1px;
+         }
+         input {
+            padding: 10px 5px;
+            border: 1px solid $lightBlue;
+            outline: none;
+            border-radius: 5px;
+            margin-left: 10px;
+         }
+         .login__err {
+            color: $error;
+            font-size: 14px;
+            transition: 0.2s ease-in-out;
+         }
+      }
+      button {
+         width: 80%;
+         padding: 10px 5px;
+         border: 1px solid $lightBlue;
+         outline: none;
+         background: $primary;
+         border-radius: 5px;
+         color: $background;
+         text-transform: uppercase;
+         cursor: pointer;
+      }
+   }
+}
