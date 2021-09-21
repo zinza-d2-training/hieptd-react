@@ -1,7 +1,7 @@
 import { USERS } from 'fakeData/users';
-import { useForm } from 'hooks';
 import React from 'react';
 import './LoginForm.scss';
+import { useLoginForm } from './useLoginForm';
 
 function LoginForm() {
    // handle login
@@ -22,7 +22,7 @@ function LoginForm() {
       }
    };
    const { values, errors, handleChange, handleSubmit, resetForm } =
-      useForm(handleLogin);
+      useLoginForm(handleLogin);
 
    return (
       <div className="loginForm">
