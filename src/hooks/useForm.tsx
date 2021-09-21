@@ -1,44 +1,53 @@
 import { useEffect, useState } from 'react';
 
-type FormValue = {
-   username?: string;
-   password?: string;
+type Field = {
+   name: string; //field name;
+   validate?: (value: any) => string | null;
 };
-type FormErr = {
-   username?: string;
-   password?: string;
-};
-export const validateValue = (values: FormValue) => {
-   let errors: FormErr = {};
-   if (!values.username || values.username.length === 0) {
-      errors.username = 'Username is required';
-   } else if (!/^(?=[a-zA-Z0-9._]{5,20}$)/.test(values.username)) {
-      errors.username = 'Invalid username, at least 5 characters required';
-   }
-   if (!values.password) {
-      errors.password = 'Password is required';
-   } else if (values.password.length < 6) {
-      errors.password = 'Invalid password, at least 6 characters required';
-   }
+
+interface Dependencies {
+   onSubmit: () => void;
+   fields: Field[];
+}
+
+type FormValue = { [x: string]: string };
+type FormErr = { [x: string]: string };
+
+const validateValue = (values: FormValue, fields: Field[]): FormErr => {
+   const errors: FormErr = {};
+   Object.keys(values).forEach((field) => {
+      const fieldConfig = fields.find((fieldConfig) => {
+         return fieldConfig.name === field;
+      });
+      if (
+         fieldConfig &&
+         fieldConfig.validate &&
+         fieldConfig.validate(values[field]) !== null
+      ) {
+         errors[field] = fieldConfig.validate(values[field])!;
+      }
+   });
    return errors;
 };
-export const useForm = (handleLogin) => {
+
+export const useForm = ({ fields = [], onSubmit }: Dependencies) => {
    const [values, setValues] = useState<FormValue>({});
    const [errors, setErrors] = useState<FormErr>({});
    const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-   // check if no errr , confirm to login
+   // check if no errr , confirm to Submit
    useEffect(() => {
       if (isSubmit && Object.keys(errors).length === 0) {
-         handleLogin();
+         onSubmit();
       }
       // eslint-disable-next-line
    }, [errors, isSubmit]);
+
    // handleSubmit
    const handleSubmit = (event) => {
       event.preventDefault();
       setIsSubmit(true);
-      setErrors(validateValue(values));
+      setErrors(validateValue(values, fields));
    };
    const handleChange = (event) => {
       event.persist();
