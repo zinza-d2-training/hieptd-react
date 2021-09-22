@@ -5,7 +5,8 @@ export function login(user: LoginData) {
 }
 
 export function getUser(): User | undefined {
-   const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+
    return currentUser;
 }
 

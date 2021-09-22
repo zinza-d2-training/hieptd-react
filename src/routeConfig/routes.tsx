@@ -1,29 +1,27 @@
-import { HomePage, LoginPage } from 'pages';
+import { Dashboard, LoginPage } from 'pages';
 import React from 'react';
 
 interface Router {
-   name: string;
    path: string;
+
    exact: boolean;
    isProtect: boolean;
    component: React.ComponentType<any>;
-   isLayout: boolean;
+   withLayout: boolean;
 }
 export const routes: Router[] = [
    {
-      name: 'HomePage',
       path: '/',
       exact: true,
       isProtect: true,
-      component: () => <HomePage />,
-      isLayout: false,
+      component: () => <Dashboard />,
+      withLayout: true,
    },
    {
-      name: 'Login',
       path: '/login',
       exact: true,
       isProtect: false,
       component: () => <LoginPage />,
-      isLayout: false,
+      withLayout: false,
    },
 ];

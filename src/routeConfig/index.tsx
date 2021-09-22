@@ -13,13 +13,13 @@ interface Props extends RouteProps {
 function RouterConfig({ isAuth, layout: Layout }: Props) {
    const login: React.ComponentType<any> = () => <LoginPage />;
    return routes.map((route, index) => {
-      const { path, exact, component, isProtect, isLayout } = route;
+      const { path, exact, component, isProtect, withLayout } = route;
       const componentRender = !isProtect
          ? component
          : isAuth
          ? component
          : login;
-      if (isLayout) {
+      if (withLayout) {
          return (
             <Layout>
                <Route

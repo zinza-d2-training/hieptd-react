@@ -9,7 +9,6 @@ function App() {
    const [isLogin, setIsLogin] = useState(false);
    useEffect(() => {
       const currentUser = getUser();
-      console.log(currentUser);
       if (currentUser) {
          setIsLogin(true);
       }
