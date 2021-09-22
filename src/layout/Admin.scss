@@ -4,10 +4,10 @@ $dashNavWidth: calc(100vw - 300px);
 $dashNavHeight: 60px;
 
 .admin {
-   border: 1px solid rgba(0, 0, 0, 0.5);
    .dashboard__children {
       margin-top: $dashNavHeight + 10px;
       margin-left: $menuWidth + 10px;
+      border: none;
    }
 
    .menu {

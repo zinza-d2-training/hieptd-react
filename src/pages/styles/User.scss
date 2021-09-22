@@ -1,0 +1,82 @@
+@import 'styles/variables';
+.user {
+   .user__button {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 5px;
+   }
+   button {
+      padding: 10px 15px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      outline: none;
+      border-radius: 5px;
+      background: $violet;
+      color: $white;
+      opacity: 1;
+      cursor: pointer;
+      margin: 10px 0;
+   }
+   .dropdown {
+      position: relative;
+      button {
+         i {
+            margin-left: 5px;
+            cursor: pointer;
+         }
+      }
+      &:hover .dropdown-content {
+         display: block;
+      }
+      .dropdown-content {
+         display: none;
+         overflow: hidden;
+         position: absolute;
+         background-color: $white;
+         box-shadow: $box-shadow;
+         z-index: 1;
+         min-width: 160px;
+         padding-top: 10px;
+         a {
+            float: none;
+            color: $text;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: 0.2s ease;
+            &:hover {
+               background-color: $primary;
+               color: $white;
+            }
+         }
+      }
+   }
+   .user__header {
+      padding: 10px 5px;
+      font-size: 16px;
+      a {
+         color: $primary;
+      }
+   }
+
+   .user__option {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 15px;
+      .user__input {
+         padding: 10px;
+         display: flex;
+         align-items: center;
+         input,
+         select {
+            padding: 5px;
+            margin-left: 5px;
+            border: 1px solid $lightBlue;
+            outline: none;
+            border-radius: 5px;
+         }
+      }
+   }
+}

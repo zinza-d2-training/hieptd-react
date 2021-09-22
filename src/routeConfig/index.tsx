@@ -5,7 +5,6 @@ import { Role } from 'utils/types';
 import { routes } from './routes';
 interface Props extends RouteProps {
    roles?: Role[];
-   isProtect?: boolean;
    layout: React.ComponentType<any>;
    isAuth: boolean;
 }
@@ -30,15 +29,15 @@ function RouterConfig({ isAuth, layout: Layout }: Props) {
                />
             </Layout>
          );
-      }
-      return (
-         <Route
-            key={index}
-            path={path}
-            exact={exact}
-            component={componentRender}
-         />
-      );
+      } else
+         return (
+            <Route
+               key={index}
+               path={path}
+               exact={exact}
+               component={componentRender}
+            />
+         );
    });
 }
 

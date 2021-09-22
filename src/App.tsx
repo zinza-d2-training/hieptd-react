@@ -7,9 +7,10 @@ import { getUser } from 'utils/auth';
 
 function App() {
    const [isLogin, setIsLogin] = useState(false);
+
    useEffect(() => {
       const currentUser = getUser();
-      if (currentUser) {
+      if (currentUser?.email) {
          setIsLogin(true);
       }
    }, []);
