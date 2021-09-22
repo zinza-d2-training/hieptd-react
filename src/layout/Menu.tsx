@@ -30,9 +30,11 @@ export default function Menu(props: PropsMenu) {
                   to="/"
                   exact
                   activeStyle={{
-                     color: 'black',
+                     color: '#fff',
                      fontWeight: 'bold',
                      cursor: 'default',
+                     display: 'block',
+                     background: 'rgba(255,255,255,0.04)',
                   }}
                >
                   <div className="menu__option-item">
@@ -43,9 +45,11 @@ export default function Menu(props: PropsMenu) {
                   to="/user"
                   exact
                   activeStyle={{
-                     color: 'black',
+                     color: '#fff',
                      fontWeight: 'bold',
                      cursor: 'default',
+                     display: 'block',
+                     background: 'rgba(255,255,255,0.04)',
                   }}
                >
                   <div className="menu__option-item">
@@ -56,9 +60,11 @@ export default function Menu(props: PropsMenu) {
                   to="project"
                   exact
                   activeStyle={{
-                     color: 'black',
+                     color: '#fff',
                      fontWeight: 'bold',
                      cursor: 'default',
+                     display: 'block',
+                     background: 'rgba(255,255,255,0.04)',
                   }}
                >
                   <div className="menu__option-item">
