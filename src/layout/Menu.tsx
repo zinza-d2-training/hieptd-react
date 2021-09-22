@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Admin.scss';
 import { getUser } from 'utils/auth';
 
@@ -12,7 +12,7 @@ export default function Menu(props: PropsMenu) {
    const currentUser = getUser();
    return (
       <div className={`menu ${classMobile}`}>
-         <h1>Welcome to Dashboard</h1>
+         <h1>Welcome to ZinZa</h1>
          <div className="menu__user">
             <img
                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
@@ -26,16 +26,45 @@ export default function Menu(props: PropsMenu) {
          </div>
          <div className="menu__option">
             <div className="menu__option-menu">
-               <Link to="user">
+               <NavLink
+                  to="/"
+                  exact
+                  activeStyle={{
+                     color: 'black',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                  }}
+               >
+                  <div className="menu__option-item">
+                     <i className="fas fa-chalkboard-teacher"></i> Dashboard
+                  </div>
+               </NavLink>
+               <NavLink
+                  to="/user"
+                  exact
+                  activeStyle={{
+                     color: 'black',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                  }}
+               >
                   <div className="menu__option-item">
                      <i className="fas fa-users"></i> Users
                   </div>
-               </Link>
-               <Link to="project">
+               </NavLink>
+               <NavLink
+                  to="project"
+                  exact
+                  activeStyle={{
+                     color: 'black',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                  }}
+               >
                   <div className="menu__option-item">
                      <i className="fas fa-project-diagram"></i> Projects
                   </div>
-               </Link>
+               </NavLink>
             </div>
          </div>
       </div>

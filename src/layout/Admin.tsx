@@ -55,7 +55,6 @@ const Admin = ({ children }: Props) => {
                               </div>
                            </div>
                         </i>
-
                         <i
                            onClick={() => setIsVisible(!isVisible)}
                            className="fas fa-user"
