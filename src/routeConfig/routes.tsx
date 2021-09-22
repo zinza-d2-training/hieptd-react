@@ -1,4 +1,4 @@
-import { HomePage, LoginPage } from 'pages';
+import { Dashboard, LoginPage } from 'pages';
 import React from 'react';
 
 interface Router {
@@ -15,8 +15,8 @@ export const routes: Router[] = [
       path: '/',
       exact: true,
       isProtect: true,
-      component: () => <HomePage />,
-      isLayout: false,
+      component: () => <Dashboard />,
+      isLayout: true,
    },
    {
       name: 'Login',
