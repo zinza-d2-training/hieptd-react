@@ -58,25 +58,4 @@
          color: $primary;
       }
    }
-
-   .user__option {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px 15px;
-      .user__input {
-         padding: 10px;
-         display: flex;
-         align-items: center;
-         input,
-         select {
-            padding: 5px;
-            margin-left: 5px;
-            border: 1px solid $lightBlue;
-            outline: none;
-            border-radius: 5px;
-         }
-      }
-   }
 }

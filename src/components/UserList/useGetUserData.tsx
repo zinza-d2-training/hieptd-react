@@ -2,10 +2,10 @@ import { USERS } from 'fakeData/users';
 import { useMemo } from 'react';
 import { nonAccentVietnameses } from 'utils/converString';
 import { User } from 'utils/types';
-import { filterType } from './types';
+import { FilterType } from './types';
 
 interface GetUsersProps {
-   filter: filterType;
+   filter: FilterType;
    pagination: {
       total: number;
       page: number;
@@ -19,7 +19,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
    const endIndex = page * limit;
 
    //--------handle filter----------
-   const handleFilterMultiple = (filter: filterType, list: User[]) => {
+   const handleFilterMultiple = (filter: FilterType, list: User[]) => {
       const filterKeys = Object.keys(filter);
 
       return list.filter((user) => {
@@ -47,7 +47,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
       }
       if (filter.search) {
          const searchWord: string = nonAccentVietnameses(filter.search);
-         const listUserBySearch = result.filter(
+         let listUserBySearch = result.filter(
             (user) =>
                nonAccentVietnameses(user.lastName).includes(
                   nonAccentVietnameses(searchWord)
@@ -58,7 +58,14 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
                user.email?.toLowerCase().includes(searchWord) ||
                user.role?.toLowerCase().includes(searchWord)
          );
+         if (filter.active) {
+            listUserBySearch = listUserBySearch.filter((user) => user.active);
+         }
          return handleFilterMultiple(filter, listUserBySearch);
+      }
+      if (filter.active) {
+         const listUserByActive = result.filter((user) => user.active);
+         return handleFilterMultiple(filter, listUserByActive);
       }
 
       return handleFilterMultiple(filter, result);

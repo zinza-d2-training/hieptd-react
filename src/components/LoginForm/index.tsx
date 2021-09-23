@@ -20,7 +20,6 @@ function LoginForm() {
          alert('Login information is incorrect!');
       } else {
          login(user);
-         alert('Logged in successfully');
          resetForm();
          history.push('/');
          window.location.reload();

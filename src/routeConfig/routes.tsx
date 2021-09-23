@@ -11,7 +11,7 @@ interface Router {
 }
 export const routes: Router[] = [
    {
-      path: '/user',
+      path: '/users',
       component: () => <UserPage />,
       withLayout: true,
       roles: [Role.Admin],

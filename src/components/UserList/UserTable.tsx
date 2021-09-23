@@ -9,8 +9,15 @@ interface TableUserProps {
 
 function UserTable({ data, handleConfirmDelete }: TableUserProps) {
    const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+   const [showDropdownActive, setShowDropdownActive] = useState<boolean>(false);
    return (
       <>
+         {showDropdownActive && (
+            <div className="td-dropdown">
+               <p>Active</p>
+               <p>Inactive</p>
+            </div>
+         )}
          {showModalDelete && (
             <div className="user__modal">
                <div className="user__modal-overlay"></div>
@@ -53,7 +60,12 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                      <td>{user.email}</td>
                      <td>{user.dateOfBirth}</td>
                      <td>{user.role}</td>
-                     <td>{user.active ? 'Active' : 'Inactive'}</td>
+                     <td
+                        className="td-active"
+                        onClick={() => setShowDropdownActive(true)}
+                     >
+                        {user.active ? 'Active' : 'Inactive'}
+                     </td>
                      <td className="user__edit">
                         <span className="user__edit-edit">
                            <i className="fas fa-edit"></i>

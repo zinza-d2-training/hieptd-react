@@ -1,6 +1,6 @@
-import { Breadcrumb } from 'components';
-import { Filter, Pagination, UserTable } from 'components/UserList';
-import { filterType } from 'components/UserList/types';
+import { Breadcrumb, Pagination } from 'components';
+import { Filter, UserTable } from 'components/UserList';
+import { FilterType } from 'components/UserList/types';
 import { useGetUserData } from 'components/UserList/useGetUserData';
 import { USERS } from 'fakeData/users';
 import { useTitle } from 'hooks';
@@ -10,10 +10,10 @@ import './styles/User.scss';
 function UserPage() {
    useTitle('User list');
 
-   const [filter, setFilter] = useState<filterType>({
+   const [filter, setFilter] = useState<FilterType>({
       dateOfBirth: '',
       role: '',
-      active: true,
+      active: false,
       search: '',
    });
 
@@ -29,7 +29,7 @@ function UserPage() {
    return (
       <div className="user">
          <div className="user__header">
-            <Breadcrumb listLink={['home', 'user']} />
+            <Breadcrumb listLink={['home', 'users']} />
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
          <UserTable
