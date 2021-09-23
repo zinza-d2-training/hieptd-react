@@ -10,7 +10,6 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
    const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
    return (
       <>
-         {' '}
          {showModalDelete && (
             <div className="user__modal">
                <div className="user__modal-overlay"></div>

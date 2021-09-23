@@ -23,6 +23,7 @@ function LoginForm() {
          alert('Logged in successfully');
          resetForm();
          history.push('/');
+         window.location.reload();
       }
    };
    const { values, errors, handleChange, handleSubmit, resetForm } =

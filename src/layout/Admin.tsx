@@ -3,7 +3,7 @@ import './Admin.scss';
 import './Admin.scss';
 import Menu from './Menu';
 import { useVisiable } from 'hooks';
-import { getUser } from 'utils/auth';
+import { getUser, logout } from 'utils/auth';
 
 interface Props {
    children: React.ReactNode;
@@ -76,7 +76,10 @@ const Admin = ({ children }: Props) => {
                                  <div className="dashboard__user-item">
                                     Your Profile
                                  </div>
-                                 <div className="dashboard__user-item">
+                                 <div
+                                    className="dashboard__user-item"
+                                    onClick={() => logout()}
+                                 >
                                     Logout
                                  </div>
                               </div>
