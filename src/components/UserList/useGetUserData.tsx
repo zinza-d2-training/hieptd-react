@@ -21,7 +21,6 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
    //--------handle filter----------
    const handleFilterMultiple = (filter: FilterType, list: User[]) => {
       const filterKeys = Object.keys(filter);
-
       return list.filter((user) => {
          return filterKeys.every((eachKey) => {
             if (!filter[eachKey].length) {
@@ -30,7 +29,6 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
             if (eachKey === 'search') {
                return true;
             }
-
             return user[eachKey]
                .toString()
                .toLowerCase()

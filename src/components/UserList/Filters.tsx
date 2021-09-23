@@ -3,7 +3,7 @@ import { getUser } from 'utils/auth';
 import { Link } from 'react-router-dom';
 import { Role } from 'utils/types';
 import { FilterType } from './types';
-import './Filter.scss';
+import './styles/Filter.scss';
 
 interface FilterProps {
    filter: FilterType;

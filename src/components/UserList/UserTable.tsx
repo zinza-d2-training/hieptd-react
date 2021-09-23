@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User } from 'utils/types';
-import './UserTable.scss';
-
+import './styles/UserTable.scss';
+import { ModalConfirm } from 'components';
 interface TableUserProps {
    data: User[];
    handleConfirmDelete: Function;
@@ -9,76 +9,94 @@ interface TableUserProps {
 
 function UserTable({ data, handleConfirmDelete }: TableUserProps) {
    const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
-   const [showDropdownActive, setShowDropdownActive] = useState<boolean>(false);
+   const [showModalChangeActive, setShowModalChangeActive] =
+      useState<boolean>(false);
+
+   const handleChangeActive = (e, status: boolean) => {
+      const value = e?.target.value;
+      const check = value === 'active';
+      if (check === !status) {
+         setShowModalChangeActive(true);
+      } else return;
+   };
+
    return (
       <>
-         {showDropdownActive && (
-            <div className="td-dropdown">
-               <p>Active</p>
-               <p>Inactive</p>
-            </div>
-         )}
-         {showModalDelete && (
-            <div className="user__modal">
-               <div className="user__modal-overlay"></div>
-               <div className="user__modal-body">
-                  <h2>Confirm Delete</h2>
-                  <p>Are you sure you want to delete this record?</p>
-                  <div className="user__modal-btn">
-                     <button
-                        type="button"
-                        onClick={() => setShowModalDelete(false)}
-                     >
-                        No
-                     </button>
-                     <button
-                        onClick={() => {
-                           handleConfirmDelete();
-                           setShowModalDelete(false);
-                        }}
-                        type="button"
-                     >
-                        Yes
-                     </button>
-                  </div>
-               </div>
-            </div>
-         )}
+         <ModalConfirm
+            show={showModalDelete}
+            setShow={setShowModalDelete}
+            handleConfirm={handleConfirmDelete}
+            title="Confirm Delete"
+            content="Are you sure you want to delete?"
+         />
+         <ModalConfirm
+            show={showModalChangeActive}
+            setShow={setShowModalChangeActive}
+            handleConfirm={handleChangeActive}
+            title="Confirm Change"
+            content="Are you sure you want to change?"
+         />
          <div className="user__table">
             <table>
-               <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>DateOfBirth</th>
-                  <th>Role</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-               </tr>
-               {data?.map((user, index) => (
-                  <tr key={index}>
-                     <td>{`${user.firstName} ${user.lastName}`}</td>
-                     <td>{user.email}</td>
-                     <td>{user.dateOfBirth}</td>
-                     <td>{user.role}</td>
-                     <td
-                        className="td-active"
-                        onClick={() => setShowDropdownActive(true)}
-                     >
-                        {user.active ? 'Active' : 'Inactive'}
-                     </td>
-                     <td className="user__edit">
-                        <span className="user__edit-edit">
-                           <i className="fas fa-edit"></i>
-                        </span>{' '}
-                        <span
-                           onClick={() => setShowModalDelete(true)}
-                           className="user__edit-delete"
-                        >
-                           <i className="fas fa-trash-alt"></i>
-                        </span>
-                     </td>
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Email</th>
+                     <th>DateOfBirth</th>
+                     <th>Role</th>
+                     <th>Status</th>
+                     <th>Actions</th>
                   </tr>
-               ))}
+               </thead>
+               <tbody>
+                  {data.length > 0 ? (
+                     data.map((user, index) => (
+                        <tr key={index}>
+                           <td>{`${user.firstName} ${user.lastName}`}</td>
+                           <td>{user.email}</td>
+                           <td>{user.dateOfBirth}</td>
+                           <td>{user.role}</td>
+
+                           <td className="td-active">
+                              <select
+                                 onChange={(e) =>
+                                    handleChangeActive(e, user.active)
+                                 }
+                              >
+                                 {user.active ? (
+                                    <>
+                                       <option value="active">Active</option>
+                                       <option value="inactive">
+                                          Inactive
+                                       </option>
+                                    </>
+                                 ) : (
+                                    <>
+                                       <option value="inactive">
+                                          Inactive
+                                       </option>
+                                       <option value="active">Active</option>
+                                    </>
+                                 )}
+                              </select>
+                           </td>
+                           <td className="user__edit">
+                              <span className="user__edit-edit">
+                                 <i className="fas fa-edit"></i>
+                              </span>{' '}
+                              <span
+                                 onClick={() => setShowModalDelete(true)}
+                                 className="user__edit-delete"
+                              >
+                                 <i className="fas fa-trash-alt"></i>
+                              </span>
+                           </td>
+                        </tr>
+                     ))
+                  ) : (
+                     <h1>No result</h1>
+                  )}
+               </tbody>
             </table>
          </div>
       </>
