@@ -74,7 +74,7 @@
    tr {
       transition: 0.2s ease;
       &:hover {
-         background-color: rgba(0, 0, 0, 0.1);
+         background-color: $violet;
          color: $white;
       }
    }
@@ -85,29 +85,6 @@
       .user__edit-delete {
          color: $error;
          margin-left: 5px;
-      }
-   }
-   .pagination {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-      span {
-         color: $text;
-         padding: 8px 16px;
-         text-decoration: none;
-         transition: 0.3s ease;
-         border: 1px solid rgba(0, 0, 0, 0.1);
-         margin: 0 4px;
-         &.active {
-            background-color: $primary;
-            color: $white;
-         }
-         &:hover:not(.active) {
-            background-color: $secondary;
-            cursor: pointer;
-            color: $white;
-         }
       }
    }
 }

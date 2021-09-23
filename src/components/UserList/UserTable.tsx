@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './Table.scss';
+import { User } from 'utils/types';
+import './UserTable.scss';
 
 interface TableUserProps {
-   data?: any[];
+   data: User[];
    handleConfirmDelete: Function;
 }
 
@@ -52,7 +53,7 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                      <td>{user.email}</td>
                      <td>{user.dateOfBirth}</td>
                      <td>{user.role}</td>
-                     <td>{user.active}</td>
+                     <td>{user.active ? 'Active' : 'Inactive'}</td>
                      <td className="user__edit">
                         <span className="user__edit-edit">
                            <i className="fas fa-edit"></i>
@@ -67,13 +68,6 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                   </tr>
                ))}
             </table>
-            <div className="pagination">
-               <span>&laquo;</span>
-               <span className="active">1</span>
-               <span>2</span>
-               <span>3</span>
-               <span>&raquo;</span>
-            </div>
          </div>
       </>
    );

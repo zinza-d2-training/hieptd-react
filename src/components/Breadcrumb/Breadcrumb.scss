@@ -1,0 +1,10 @@
+@import 'styles/variables';
+.breadcrumb {
+   span {
+      font-size: 18px;
+      text-transform: capitalize;
+      a {
+         color: $primary;
+      }
+   }
+}

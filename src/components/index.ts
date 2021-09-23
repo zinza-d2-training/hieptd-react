@@ -1,2 +1,2 @@
 export { default as LoginForm } from './LoginForm';
-export { default as UserTable } from './Table';
+export { default as Breadcrumb } from './Breadcrumb';
