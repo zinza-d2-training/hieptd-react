@@ -17,13 +17,15 @@
       background: rgba(0, 0, 0, 0.7);
    }
    .user__modal-body {
-      position: relative;
+      position: fixed;
+      top: 20%;
+      left: 40%;
       width: 320px;
       background-color: $background;
       text-align: center;
       padding: 20px 10px;
       border-radius: 5px;
-      margin: 10% auto;
+
       z-index: 999;
       h2 {
          color: $error;
