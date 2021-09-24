@@ -13,9 +13,6 @@ interface FilterProps {
 function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
-   const [selectValue, setSelectValue] = useState<any>();
-   const [checkBoxValue, setCheckBoxValue] = useState<boolean>(false);
-
    //--------handle filter----------
    return (
       <>
@@ -62,7 +59,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <input
                      type="date"
                      id="date"
-                     placeholder={filter.dateOfBirth}
+                     value={filter.dateOfBirth}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
@@ -83,14 +80,13 @@ function Filter({ filter, handleFilter }: FilterProps) {
                <div className="filter__input">
                   <span>Role</span>
                   <select
-                     value={selectValue}
+                     value={filter.role}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
                               role: Role[e.target.value],
                            });
-                           setSelectValue(e.target.value);
                         } else {
                            handleFilter({
                               ...filter,
@@ -107,13 +103,12 @@ function Filter({ filter, handleFilter }: FilterProps) {
                </div>
                <div className="filter__input">
                   <input
-                     defaultChecked={checkBoxValue}
-                     checked={checkBoxValue}
+                     defaultChecked={filter.active}
+                     checked={filter.active}
                      onChange={() => {
-                        setCheckBoxValue(!checkBoxValue);
                         handleFilter({
                            ...filter,
-                           active: !checkBoxValue,
+                           active: !filter.active,
                         });
                      }}
                      id="check"
@@ -125,8 +120,6 @@ function Filter({ filter, handleFilter }: FilterProps) {
                <button
                   type="button"
                   onClick={() => {
-                     setSelectValue('Role');
-                     setCheckBoxValue(false);
                      handleFilter({
                         dateOfBirth: '',
                         role: '',
