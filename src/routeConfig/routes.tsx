@@ -1,4 +1,5 @@
-import { Dashboard, UserPage } from 'pages';
+import Dashboard from 'components/Dashboard';
+import Users from 'components/Users';
 import React from 'react';
 import { Role } from 'utils/types';
 
@@ -12,7 +13,7 @@ interface Router {
 export const routes: Router[] = [
    {
       path: '/users',
-      component: () => <UserPage />,
+      component: () => <Users />,
       withLayout: true,
       roles: [Role.Admin],
    },

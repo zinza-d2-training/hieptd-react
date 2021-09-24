@@ -1,4 +1,5 @@
-import { LoginPage, Permission } from 'pages';
+import Login from 'components/Login';
+import Permission from 'components/Permission';
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { getUser } from 'utils/auth';
@@ -51,7 +52,7 @@ function RouterConfig({ layout: Layout }: Props) {
          );
       });
    }
-   return <Route key="login" path="/" component={LoginPage} />;
+   return <Route key="login" path="/" component={Login} />;
 }
 
 export default RouterConfig;

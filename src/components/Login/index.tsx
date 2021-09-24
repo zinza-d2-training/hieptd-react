@@ -1,11 +1,11 @@
 import { USERS } from 'fakeData/users';
 import React from 'react';
-import './LoginForm.scss';
+import './styles/Login.scss';
 import { useLoginForm } from './useLoginForm';
 import { login } from 'utils/auth';
 import { useHistory } from 'react-router-dom';
 
-function LoginForm() {
+function Login() {
    const history = useHistory();
    // handle login
    const handleLogin = () => {
@@ -61,4 +61,4 @@ function LoginForm() {
    );
 }
 
-export default LoginForm;
+export default Login;
