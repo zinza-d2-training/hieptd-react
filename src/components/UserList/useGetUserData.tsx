@@ -21,7 +21,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
    //--------handle filter----------
    const handleFilterMultiple = (filter: FilterType, list: User[]) => {
       const filterKeys = Object.keys(filter);
-      return list.filter((user) => {
+      let result: User[] = list.filter((user) => {
          return filterKeys.every((eachKey) => {
             if (!filter[eachKey].length) {
                return true;
@@ -44,17 +44,15 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
             }
          });
       });
+
+      return result.splice(startIndex, endIndex);
    };
 
    // ----useMemo()----
    const listUsers: User[] = useMemo(() => {
-      const result: User[] = [];
-      for (let i = startIndex; i < endIndex; i++) {
-         result.push(USERS[i]);
-      }
       if (filter.search) {
          const searchWord: string = nonAccentVietnameses(filter.search);
-         let listUserBySearch = result.filter(
+         let listUserBySearch = USERS.filter(
             (user) =>
                nonAccentVietnameses(user.lastName).includes(
                   nonAccentVietnameses(searchWord)
@@ -71,12 +69,13 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
          return handleFilterMultiple(filter, listUserBySearch);
       }
       if (filter.active) {
-         const listUserByActive = result.filter((user) => user.active);
+         const listUserByActive = USERS.filter((user) => user.active);
          return handleFilterMultiple(filter, listUserByActive);
       }
 
-      return handleFilterMultiple(filter, result);
-   }, [filter, startIndex, endIndex]);
+      return handleFilterMultiple(filter, USERS);
+      // eslint-disable-next-line
+   }, [filter, page, limit]);
 
    return { listUsers };
 };

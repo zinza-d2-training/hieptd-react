@@ -13,7 +13,9 @@ interface FilterProps {
 function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
-   console.log(filter);
+   const [selectValue, setSelectValue] = useState<any>();
+   const [checkBoxValue, setCheckBoxValue] = useState<boolean>(false);
+
    //--------handle filter----------
    return (
       <>
@@ -81,12 +83,14 @@ function Filter({ filter, handleFilter }: FilterProps) {
                <div className="filter__input">
                   <span>Role</span>
                   <select
+                     value={selectValue}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
                               role: Role[e.target.value],
                            });
+                           setSelectValue(e.target.value);
                         } else {
                            handleFilter({
                               ...filter,
@@ -103,11 +107,13 @@ function Filter({ filter, handleFilter }: FilterProps) {
                </div>
                <div className="filter__input">
                   <input
-                     defaultChecked={filter.active}
+                     defaultChecked={checkBoxValue}
+                     checked={checkBoxValue}
                      onChange={() => {
+                        setCheckBoxValue(!checkBoxValue);
                         handleFilter({
                            ...filter,
-                           active: !filter.active,
+                           active: !checkBoxValue,
                         });
                      }}
                      id="check"
@@ -119,8 +125,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
                <button
                   type="button"
                   onClick={() => {
+                     setSelectValue('Role');
+                     setCheckBoxValue(false);
                      handleFilter({
-                        ...filter,
                         dateOfBirth: '',
                         role: '',
                         active: false,
