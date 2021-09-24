@@ -24,6 +24,17 @@ export const USERS: User[] = [
       active: true,
    },
    {
+      id: 99,
+      username: 'projectmanager',
+      password: '123456',
+      firstName: 'Văn',
+      lastName: 'Hiệp',
+      email: 'hellozinza@gmail.com',
+      dateOfBirth: '07/09/2021',
+      role: Role.PM,
+      active: false,
+   },
+   {
       id: 3,
       username: 'member',
       password: '123456',

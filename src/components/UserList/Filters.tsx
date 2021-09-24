@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { getUser } from 'utils/auth';
 import { Link } from 'react-router-dom';
 import { Role } from 'utils/types';
@@ -13,7 +13,20 @@ interface FilterProps {
 function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
+   const selectRef = useRef<HTMLSelectElement>(null);
    //--------handle filter----------
+
+   const handleClearFilter = () => {
+      handleFilter({
+         dateOfBirth: '',
+         role: '',
+         active: false,
+         search: '',
+      });
+      if (selectRef.current) {
+         selectRef.current.selectedIndex = 0;
+      }
+   };
    return (
       <>
          <div className="filter__header">
@@ -80,7 +93,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                <div className="filter__input">
                   <span>Role</span>
                   <select
-                     value={filter.role}
+                     ref={selectRef}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
@@ -117,17 +130,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <label htmlFor="check">Active</label>
                </div>
                {/* clear filter */}
-               <button
-                  type="button"
-                  onClick={() => {
-                     handleFilter({
-                        dateOfBirth: '',
-                        role: '',
-                        active: false,
-                        search: '',
-                     });
-                  }}
-               >
+               <button type="button" onClick={handleClearFilter}>
                   Clear filter
                </button>
             </div>

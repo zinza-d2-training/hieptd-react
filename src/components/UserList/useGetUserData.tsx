@@ -40,7 +40,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
                      .toLowerCase()
                      .includes(filter[eachKey].toString().toLowerCase());
                default:
-                  return false;
+                  return true;
             }
          });
       });
@@ -64,7 +64,9 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
                user.role?.toLowerCase().includes(searchWord)
          );
          if (filter.active) {
-            listUserBySearch = listUserBySearch.filter((user) => user.active);
+            listUserBySearch = listUserBySearch.filter(
+               (user) => user.active === filter.active
+            );
          }
          return handleFilterMultiple(filter, listUserBySearch);
       }
