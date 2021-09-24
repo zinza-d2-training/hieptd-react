@@ -5,7 +5,6 @@ import { PaginationProps } from './types';
 function Pagination({ info, onChange }: PaginationProps) {
    const { total, page, limit } = info;
    const totalPages: number = Math.ceil(total / limit);
-   console.log(total);
    const handleChange = (newPage: number) => {
       if (onChange) {
          onChange(newPage);

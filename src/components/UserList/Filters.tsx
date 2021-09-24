@@ -77,9 +77,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
-                              dateOfBirth: new Date(
-                                 e.target.value
-                              ).toLocaleDateString('en-GB'),
+                              dateOfBirth: e.target.value,
                            });
                         } else {
                            handleFilter({
