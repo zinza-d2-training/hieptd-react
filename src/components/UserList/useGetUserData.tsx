@@ -26,13 +26,22 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
             if (!filter[eachKey].length) {
                return true;
             }
-            if (eachKey === 'search') {
-               return true;
+            switch (eachKey) {
+               case 'search':
+                  return true;
+               case 'dateOfBirth':
+                  return (
+                     user[eachKey].toString().toLowerCase() ===
+                     filter[eachKey].toString().toLowerCase()
+                  );
+               case 'role':
+                  return user[eachKey]
+                     .toString()
+                     .toLowerCase()
+                     .includes(filter[eachKey].toString().toLowerCase());
+               default:
+                  return false;
             }
-            return user[eachKey]
-               .toString()
-               .toLowerCase()
-               .includes(filter[eachKey].toString().toLowerCase());
          });
       });
    };

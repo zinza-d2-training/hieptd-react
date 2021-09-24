@@ -4,5 +4,5 @@ export type PaginationProps = {
       page: number;
       limit: number;
    };
-   onChange?: Function;
+   onChange?: (page: number) => void;
 };

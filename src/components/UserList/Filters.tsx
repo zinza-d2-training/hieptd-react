@@ -7,15 +7,14 @@ import './styles/Filter.scss';
 
 interface FilterProps {
    filter: FilterType;
-   handleFilter: Function;
+   handleFilter: (filter: FilterType) => void;
 }
 
 function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
-
+   console.log(filter);
    //--------handle filter----------
-
    return (
       <>
          <div className="filter__header">
@@ -61,17 +60,21 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <input
                      type="date"
                      id="date"
-                     name="trip-start"
-                     min="01-01-1970"
-                     max="31-12-2003"
-                     placeholder="/mm/dd/yyyy"
+                     placeholder={filter.dateOfBirth}
                      onChange={(e) => {
-                        handleFilter({
-                           ...filter,
-                           dateOfBirth: new Date(
-                              e.target.value
-                           ).toLocaleDateString('en-GB'),
-                        });
+                        if (e.target.value) {
+                           handleFilter({
+                              ...filter,
+                              dateOfBirth: new Date(
+                                 e.target.value
+                              ).toLocaleDateString('en-GB'),
+                           });
+                        } else {
+                           handleFilter({
+                              ...filter,
+                              dateOfBirth: '',
+                           });
+                        }
                      }}
                   />
                </div>
@@ -79,10 +82,17 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <span>Role</span>
                   <select
                      onChange={(e) => {
-                        handleFilter({
-                           ...filter,
-                           role: Role[e.target.value],
-                        });
+                        if (e.target.value) {
+                           handleFilter({
+                              ...filter,
+                              role: Role[e.target.value],
+                           });
+                        } else {
+                           handleFilter({
+                              ...filter,
+                              role: '',
+                           });
+                        }
                      }}
                   >
                      <option value="">Role</option>
@@ -110,9 +120,10 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   type="button"
                   onClick={() => {
                      handleFilter({
+                        ...filter,
                         dateOfBirth: '',
-                        roles: '',
-                        active: true,
+                        role: '',
+                        active: false,
                         search: '',
                      });
                   }}
