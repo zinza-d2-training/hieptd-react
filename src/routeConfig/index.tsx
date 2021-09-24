@@ -1,45 +1,57 @@
-import { LoginPage } from 'pages';
+import { LoginPage, Permission } from 'pages';
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
+import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
 import { routes } from './routes';
 interface Props extends RouteProps {
    roles?: Role[];
-   isProtect?: boolean;
    layout: React.ComponentType<any>;
-   isAuth: boolean;
 }
 
-function RouterConfig({ isAuth, layout: Layout }: Props) {
-   const login: React.ComponentType<any> = () => <LoginPage />;
-   return routes.map((route, index) => {
-      const { path, exact, component, isProtect, withLayout } = route;
-      const componentRender = !isProtect
-         ? component
-         : isAuth
-         ? component
-         : login;
-      if (withLayout) {
+function RouterConfig({ layout: Layout }: Props) {
+   const currentUser = getUser();
+   if (currentUser && currentUser.email) {
+      return routes.map((route, index) => {
+         const { path, exact, component, roles, withLayout } = route;
+
+         if (roles && roles.includes(currentUser.role)) {
+            if (withLayout) {
+               return (
+                  <Layout>
+                     <Route
+                        key={index}
+                        path={path}
+                        exact={exact}
+                        component={component}
+                     />
+                  </Layout>
+               );
+            }
+            return (
+               <Layout>
+                  <Route
+                     key={index}
+                     path={path}
+                     exact={exact}
+                     component={component}
+                  />
+               </Layout>
+            );
+         }
          return (
             <Layout>
                <Route
                   key={index}
                   path={path}
                   exact={exact}
-                  component={componentRender}
+                  component={Permission}
                />
             </Layout>
          );
-      }
-      return (
-         <Route
-            key={index}
-            path={path}
-            exact={exact}
-            component={componentRender}
-         />
-      );
-   });
+      });
+   }
+   return <Route key="login" path="/" component={LoginPage} />;
 }
 
 export default RouterConfig;

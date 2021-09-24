@@ -1,0 +1,51 @@
+@import 'styles/variables';
+.user__modal {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   z-index: 999;
+
+   .user__modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+   }
+   .user__modal-body {
+      position: fixed;
+      top: 20%;
+      left: 40%;
+      width: 320px;
+      background-color: $background;
+      text-align: center;
+      padding: 20px 10px;
+      border-radius: 5px;
+
+      z-index: 999;
+      h2 {
+         color: $error;
+      }
+      p {
+         color: $text;
+         font-size: 14px;
+         font-weight: bold;
+      }
+      .user__modal-btn {
+         display: flex;
+         align-items: center;
+         justify-content: space-around;
+         button {
+            padding: 5px 10px;
+            width: 100px;
+            text-align: center;
+            cursor: pointer;
+            background: $primary;
+         }
+      }
+   }
+}

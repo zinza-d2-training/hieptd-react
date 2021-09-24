@@ -1,27 +1,26 @@
-import { Dashboard, LoginPage } from 'pages';
+import { Dashboard, UserPage } from 'pages';
 import React from 'react';
+import { Role } from 'utils/types';
 
 interface Router {
    path: string;
-
-   exact: boolean;
-   isProtect: boolean;
+   exact?: boolean;
    component: React.ComponentType<any>;
-   withLayout: boolean;
+   withLayout?: boolean;
+   roles?: Role[];
 }
 export const routes: Router[] = [
    {
-      path: '/',
-      exact: true,
-      isProtect: true,
-      component: () => <Dashboard />,
+      path: '/users',
+      component: () => <UserPage />,
       withLayout: true,
+      roles: [Role.Admin],
    },
    {
-      path: '/login',
       exact: true,
-      isProtect: false,
-      component: () => <LoginPage />,
-      withLayout: false,
+      path: '/',
+      component: () => <Dashboard />,
+      withLayout: true,
+      roles: [Role.Admin, Role.Member, Role.PM],
    },
 ];

@@ -1,0 +1,48 @@
+@import 'styles/variables';
+.filter__header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   .filter__search {
+      margin-left: 20px;
+      input {
+         padding: 5px;
+         margin-left: 5px;
+         border: 1px solid $lightBlue;
+         outline: none;
+         border-radius: 5px;
+      }
+      label {
+         i {
+            color: $primary;
+            font-size: 18px;
+         }
+      }
+   }
+   .filter__button {
+      display: flex;
+      align-items: center;
+      min-width: 300px;
+      justify-content: space-around;
+   }
+}
+.filter__option {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   align-items: center;
+   padding: 10px 15px;
+   .filter__input {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      input,
+      select {
+         padding: 5px;
+         margin-left: 5px;
+         border: 1px solid $lightBlue;
+         outline: none;
+         border-radius: 5px;
+      }
+   }
+}

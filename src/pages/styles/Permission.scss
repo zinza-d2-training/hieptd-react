@@ -1,0 +1,16 @@
+@import 'styles/variables';
+
+.permission {
+   text-align: center;
+   margin-top: 200px;
+   h1 {
+      color: $error;
+   }
+   p {
+      font-size: 18px;
+      color: $text;
+      a {
+         color: $primary;
+      }
+   }
+}
