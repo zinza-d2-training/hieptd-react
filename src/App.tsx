@@ -1,5 +1,5 @@
+import NotFoundPage from 'components/NotFound';
 import Admin from 'layout/Admin';
-import { NotFoundPage } from 'pages';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RouterConfig from 'routeConfig';

@@ -1,7 +1,7 @@
+import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { User } from 'utils/types';
-import './styles/UserTable.scss';
-import { ModalConfirm } from 'components';
+import './styles/Users.scss';
 interface TableUserProps {
    data: User[];
    handleConfirmDelete: Function;

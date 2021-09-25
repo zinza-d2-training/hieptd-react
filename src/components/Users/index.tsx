@@ -1,13 +1,15 @@
-import { Breadcrumb, Pagination } from 'components';
-import { Filter, UserTable } from 'components/UserList';
-import { FilterType } from 'components/UserList/types';
-import { useGetUserData } from 'components/UserList/useGetUserData';
+import Breadcrumb from 'components/Breadcrumb';
+import Pagination from 'components/Pagination';
+import { FilterType } from 'components/Users/types';
+import { useGetUserData } from 'components/Users/useGetUserData';
 import { USERS } from 'fakeData/users';
 import { useTitle } from 'hooks';
 import React, { useState } from 'react';
-import './styles/User.scss';
+import Filter from './Filters';
+import './styles/Users.scss';
+import UserTable from './UserTable';
 
-function UserPage() {
+function Users() {
    useTitle('User list');
 
    const [filter, setFilter] = useState<FilterType>({
@@ -43,4 +45,4 @@ function UserPage() {
       </div>
    );
 }
-export default UserPage;
+export default Users;
