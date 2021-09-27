@@ -49,24 +49,6 @@ function UserForm({ id }: UserFormProps) {
       };
    }, [id]);
 
-   // if (id) {
-   //    const users = USERS.find((user) => user.id === id);
-
-   //    if (users) {
-   //       user = {
-   //          username: users.username,
-   //          email: users.email,
-   //          firstName: users.firstName,
-   //          lastName: users.lastName,
-   //          avatar: users.avatar,
-   //          dateOfBirth: users.dateOfBirth,
-   //          active: users.active.toString(),
-   //          role: users.role,
-   //          password: users.password,
-   //       };
-   //    }
-   // }
-
    const [formData, setFormData] = useState<FormValue | undefined>(user);
 
    // --------toggle show/hide password-------
