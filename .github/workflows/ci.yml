@@ -1,0 +1,25 @@
+name: ci
+on:
+   pull_request:
+   push:
+      branches: [master]
+jobs:
+   lint-and-typecheck:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout code
+           uses: actions/checkout@v2
+         - name: Read .nvmrc
+           run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+           id: nvmProcfile
+         - name: Use Node.js ${{ steps.nvm.outputs.NVMRC }}
+           uses: actions/setup-node@v2
+           with:
+              node-version: '${{ steps.nvm.outputs.NVMRC }}'
+              cache: 'yarn'
+         - name: Install JS dependencies
+           run: yarn install --frozen-lockfile --prefer-offline
+         - name: ESLint & Prettier & Tests
+           run: yarn eslint && yarn prettier && CI=true yarn test
+         - name: Typescript
+           run: yarn tsc --noEmit
