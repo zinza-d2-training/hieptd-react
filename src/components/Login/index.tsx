@@ -13,7 +13,7 @@ function Login() {
       const { username, password } = values;
       if (username && password) {
          const user = USERS.find((user) => {
-            return user.username === username && user.password === password
+            return user.username === username && user.password === password;
          });
 
          if (!user) {
