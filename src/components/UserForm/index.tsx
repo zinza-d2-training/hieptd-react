@@ -1,39 +1,28 @@
 import { USERS } from 'fakeData/users';
-import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Role } from 'utils/types';
 import Breadcrumb from '../Breadcrumb';
 import './UserForm.scss';
 import { useUserForm } from './useUserForm';
 
 interface UserFormProps {
-   isCreate: boolean;
+   id?: number;
 }
 type FormValue = { [x: string]: string };
-function UserForm({ isCreate }: UserFormProps) {
+function UserForm({ id }: UserFormProps) {
    const history = useHistory();
-   const params = useParams();
+
    const [showPass, setShowPass] = useState<boolean>(false);
    const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
    const inputPasswordRef = useRef<HTMLInputElement>(null);
    const inputConfirmPasswordRef = useRef<HTMLInputElement>(null);
 
-   let user: FormValue = {
-      username: '',
-      password: '',
-      email: '',
-      avatar: '',
-      firstName: '',
-      lastName: '',
-      dateOfBirth: '',
-      role: Role.Member,
-      active: 'true',
-   };
+   let user = useMemo<FormValue | undefined>(() => {
+      const users = USERS.find((user) => user.id === id);
 
-   if (!isCreate) {
-      const users = USERS.find((user) => user.id?.toString() === params['id']);
       if (users) {
-         user = {
+         return {
             username: users.username,
             email: users.email,
             firstName: users.firstName,
@@ -45,8 +34,38 @@ function UserForm({ isCreate }: UserFormProps) {
             password: users.password,
          };
       }
-   }
-   const [formData, setFormData] = useState<FormValue>(user);
+      return {
+         username: '',
+         email: '',
+         firstName: '',
+         lastName: '',
+         avatar: '',
+         dateOfBirth: '',
+         active: '',
+         role: '',
+         password: '',
+      };
+   }, [id]);
+
+   // if (id) {
+   //    const users = USERS.find((user) => user.id === id);
+
+   //    if (users) {
+   //       user = {
+   //          username: users.username,
+   //          email: users.email,
+   //          firstName: users.firstName,
+   //          lastName: users.lastName,
+   //          avatar: users.avatar,
+   //          dateOfBirth: users.dateOfBirth,
+   //          active: users.active.toString(),
+   //          role: users.role,
+   //          password: users.password,
+   //       };
+   //    }
+   // }
+
+   const [formData, setFormData] = useState<FormValue | undefined>(user);
 
    // --------toggle show/hide password-------
    const handleToggleShowPass = () => {
@@ -78,7 +97,7 @@ function UserForm({ isCreate }: UserFormProps) {
       const { username, password, email, firstName, lastName, confirmPass } =
          values;
       // if create new user
-      if (isCreate) {
+      if (!id) {
          if (
             username &&
             password &&
@@ -132,15 +151,16 @@ function UserForm({ isCreate }: UserFormProps) {
 
    // fill user data
    useEffect(() => {
-      if (!isCreate) {
+      if (id) {
          setValues({
-            username: user.username,
-            email: user.email,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            username: formData?.username!,
+            email: formData?.email!,
+            password: formData?.password!,
+            firstName: formData?.firstName!,
+            lastName: formData?.lastName!,
          });
       }
+
       // eslint-disable-next-line
    }, []);
 
@@ -151,12 +171,12 @@ function UserForm({ isCreate }: UserFormProps) {
                { name: 'Home', link: '/' },
                { name: 'Users', link: '/users' },
                {
-                  name: `${isCreate ? 'Create' : 'Update'}`,
-                  link: `${isCreate ? '/users/create' : '/users/update'}`,
+                  name: `${!id ? 'Create' : 'Update'}`,
+                  link: `${!id ? '/users/create' : '/users/update'}`,
                },
             ]}
          />
-         <h1>{isCreate ? 'Create user' : 'Update user'}</h1>
+         <h1>{!id ? 'Create user' : 'Update user'}</h1>
          <form onSubmit={handleSubmit}>
             {/*--- Username ---*/}
             <div className="userForm__input">
@@ -209,7 +229,7 @@ function UserForm({ isCreate }: UserFormProps) {
                ></i>
             </div>
             {/*--- Confirm Pass ---*/}
-            {isCreate && (
+            {!id && (
                <div className="userForm__input">
                   <label htmlFor="userForm__input-password">
                      Confirm Password*
@@ -248,7 +268,7 @@ function UserForm({ isCreate }: UserFormProps) {
             </div>
             {/*--- image ---*/}
             <div className="userForm__image">
-               <img src={formData.avatar} alt="avatar" />
+               <img src={formData?.avatar} alt="avatar" />
             </div>
             <div className="userForm__input">
                <label htmlFor="userForm__input-date">Date Of Birth*</label>
@@ -256,7 +276,7 @@ function UserForm({ isCreate }: UserFormProps) {
                   <input
                      id="userForm__input-date"
                      type="date"
-                     value={formData.dateOfBirth}
+                     value={formData?.dateOfBirth}
                      onChange={(e) => {
                         setFormData({
                            ...formData,
@@ -314,7 +334,7 @@ function UserForm({ isCreate }: UserFormProps) {
                   <input
                      type="checkbox"
                      id="userForm__input-active"
-                     defaultChecked={formData.active !== ''}
+                     defaultChecked={formData?.active !== ''}
                      onChange={(e) => {
                         setFormData({
                            ...formData,
@@ -328,7 +348,7 @@ function UserForm({ isCreate }: UserFormProps) {
                <button onClick={() => history.goBack()} type="button">
                   Cancel
                </button>
-               <button type="submit">{isCreate ? 'Create' : 'Save'}</button>
+               <button type="submit">{id ? 'Create' : 'Save'}</button>
             </div>
          </form>
       </div>

@@ -12,11 +12,17 @@ interface BreadcrumbProps {
 function Breadcrumb({ listLink }: BreadcrumbProps) {
    return (
       <div className="breadcrumb">
-         {listLink.map((item, index) => (
-            <span key={index}>
-               <Link to={item.link}>{item.name}</Link> /
-            </span>
-         ))}
+         {listLink.map((item, index) =>
+            index === listLink.length - 1 ? (
+               <span key={index}>
+                  <Link to={item.link}>{item.name}</Link>
+               </span>
+            ) : (
+               <span key={index}>
+                  <Link to={item.link}>{item.name}</Link> /
+               </span>
+            )
+         )}
       </div>
    );
 }

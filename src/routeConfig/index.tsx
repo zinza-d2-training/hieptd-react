@@ -6,6 +6,8 @@ import Users from 'components/Users';
 import UserForm from 'components/UserForm';
 import Route from './Route';
 import { Role } from 'utils/types';
+import { useParams } from 'react-router';
+import NotFoundPage from 'components/NotFound';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -14,7 +16,7 @@ const routes = [
       layout={Admin}
       roles={[Role.Admin]}
       path={`/users/create`}
-      component={() => <UserForm isCreate={true} />}
+      component={() => <UserForm />}
       exact
       key="Userform"
    />,
@@ -23,7 +25,15 @@ const routes = [
       layout={Admin}
       roles={[Role.Admin]}
       path={`/users/update/:id`}
-      component={() => <UserForm isCreate={false} />}
+      component={() => {
+         const params = useParams();
+         if (params['id'] && Number(params['id'])) {
+            const id = Number(params['id']);
+            return <UserForm id={id} />;
+         } else {
+            return <NotFoundPage />;
+         }
+      }}
       key="Userform"
    />,
    <Route
