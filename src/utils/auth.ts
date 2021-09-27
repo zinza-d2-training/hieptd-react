@@ -5,7 +5,7 @@ export function login(user: LoginData) {
 }
 export function logout() {
    window.localStorage.removeItem('user');
-   window.location.reload();
+   window.location.replace('/login');
 }
 export function getUser(): User | undefined {
    const currentUser = JSON.parse(localStorage.getItem('user') || '{}');

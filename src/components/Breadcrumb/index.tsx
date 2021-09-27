@@ -3,17 +3,26 @@ import { Link } from 'react-router-dom';
 import './Breadcrumb.scss';
 
 interface BreadcrumbProps {
-   listLink: string[];
+   listLink: {
+      link: string;
+      name: string;
+   }[];
 }
 
 function Breadcrumb({ listLink }: BreadcrumbProps) {
    return (
       <div className="breadcrumb">
-         {listLink.map((link: string) => (
-            <span>
-               <Link to={link}>{link}</Link> /
-            </span>
-         ))}
+         {listLink.map((item, index) =>
+            index === listLink.length - 1 ? (
+               <span key={index}>
+                  <Link to={item.link}>{item.name}</Link>
+               </span>
+            ) : (
+               <span key={index}>
+                  <Link to={item.link}>{item.name}</Link> /
+               </span>
+            )
+         )}
       </div>
    );
 }

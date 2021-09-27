@@ -1,58 +1,59 @@
-import Login from 'components/Login';
-import Permission from 'components/Permission';
 import React from 'react';
-import { Route, RouteProps } from 'react-router-dom';
-import { getUser } from 'utils/auth';
+import Login from 'components/Login';
+import Dashboard from 'components/Dashboard';
+import Admin from 'layout/Admin';
+import Users from 'components/Users';
+import UserForm from 'components/UserForm';
+import Route from './Route';
 import { Role } from 'utils/types';
-import { routes } from './routes';
-interface Props extends RouteProps {
-   roles?: Role[];
-   layout: React.ComponentType<any>;
-}
+import { useParams } from 'react-router';
+import NotFoundPage from 'components/NotFound';
 
-function RouterConfig({ layout: Layout }: Props) {
-   const currentUser = getUser();
-   if (currentUser && currentUser.email) {
-      return routes.map((route, index) => {
-         const { path, exact, component, roles, withLayout } = route;
-
-         if (roles && roles.includes(currentUser.role)) {
-            if (withLayout) {
-               return (
-                  <Layout>
-                     <Route
-                        key={index}
-                        path={path}
-                        exact={exact}
-                        component={component}
-                     />
-                  </Layout>
-               );
-            }
-            return (
-               <Layout>
-                  <Route
-                     key={index}
-                     path={path}
-                     exact={exact}
-                     component={component}
-                  />
-               </Layout>
-            );
+const routes = [
+   <Route key="login" exact path="/login" component={Login} />,
+   <Route
+      withAuth
+      layout={Admin}
+      roles={[Role.Admin]}
+      path={`/users/create`}
+      component={() => <UserForm />}
+      exact
+      key="Userform"
+   />,
+   <Route
+      withAuth
+      layout={Admin}
+      roles={[Role.Admin]}
+      path={`/users/update/:id`}
+      component={() => {
+         const params = useParams();
+         if (params['id'] && Number(params['id'])) {
+            const id = Number(params['id']);
+            return <UserForm id={id} />;
+         } else {
+            return <NotFoundPage />;
          }
-         return (
-            <Layout>
-               <Route
-                  key={index}
-                  path={path}
-                  exact={exact}
-                  component={Permission}
-               />
-            </Layout>
-         );
-      });
-   }
-   return <Route key="login" path="/" component={Login} />;
-}
+      }}
+      key="Userform"
+   />,
+   <Route
+      key="users"
+      path="/users"
+      exact
+      withAuth
+      component={Users}
+      layout={Admin}
+      roles={[Role.Admin]}
+   />,
+   <Route
+      key="dashboard"
+      exact
+      path="/"
+      withAuth
+      component={Dashboard}
+      layout={Admin}
+      roles={[Role.Admin, Role.PM, Role.Member]}
+   />,
+];
 
-export default RouterConfig;
+export default routes;

@@ -1,28 +1,31 @@
 import { USERS } from 'fakeData/users';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { login } from 'utils/auth';
 import './styles/Login.scss';
 import { useLoginForm } from './useLoginForm';
-import { login } from 'utils/auth';
-import { useHistory } from 'react-router-dom';
 
 function Login() {
    const history = useHistory();
+
    // handle login
    const handleLogin = () => {
       const { username, password } = values;
-      const user = USERS.find((user) => {
-         if (user.username === username && user.password === password)
-            return true;
-         return false;
-      });
+      if (username && password) {
+         const user = USERS.find((user) => {
+            if (user.username === username && user.password === password)
+               return true;
+            return false;
+         });
 
-      if (!user) {
-         alert('Login information is incorrect!');
-      } else {
-         login(user);
-         resetForm();
-         history.push('/');
-         window.location.reload();
+         if (!user) {
+            alert('Login information is incorrect!');
+         } else {
+            login(user);
+            resetForm();
+            history.push('/');
+            window.location.reload();
+         }
       }
    };
    const { values, errors, handleChange, handleSubmit, resetForm } =
