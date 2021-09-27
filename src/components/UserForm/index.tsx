@@ -19,20 +19,22 @@ function UserForm({ id }: UserFormProps) {
    const inputConfirmPasswordRef = useRef<HTMLInputElement>(null);
 
    let user = useMemo<FormValue | undefined>(() => {
-      const users = USERS.find((user) => user.id === id);
-
-      if (users) {
-         return {
-            username: users.username,
-            email: users.email,
-            firstName: users.firstName,
-            lastName: users.lastName,
-            avatar: users.avatar,
-            dateOfBirth: users.dateOfBirth,
-            active: users.active.toString(),
-            role: users.role,
-            password: users.password,
-         };
+      if (id) {
+         const users = USERS.find((user) => user.id === id);
+         if (users) {
+            return {
+               username: users.username,
+               email: users.email,
+               firstName: users.firstName,
+               lastName: users.lastName,
+               avatar: users.avatar,
+               dateOfBirth: users.dateOfBirth,
+               active: users.active.toString(),
+               role: users.role,
+               password: users.password,
+            };
+         }
+         return undefined;
       }
       return {
          username: '',
@@ -123,16 +125,18 @@ function UserForm({ id }: UserFormProps) {
 
    // handle upload image base64
    const handleUploadFile = (e) => {
-      const file = e.target.files[0];
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-         const res = fileReader.result?.toString();
-         if (res) setFormData({ ...formData, avatar: res });
-      };
-      fileReader.onerror = (err) => {
-         console.error(err);
-      };
+      try {
+         const file = e.target.files[0];
+         const fileReader = new FileReader();
+         fileReader.readAsDataURL(file);
+         fileReader.onload = () => {
+            const res = fileReader.result?.toString();
+
+            if (res) setFormData({ ...formData, avatar: res });
+         };
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    // onChange fields
@@ -160,9 +164,11 @@ function UserForm({ id }: UserFormProps) {
             lastName: formData?.lastName!,
          });
       }
-
       // eslint-disable-next-line
    }, []);
+   if (id && !user) {
+      return <h1>User Not Found</h1>;
+   }
 
    return (
       <div className="userForm">
@@ -255,10 +261,12 @@ function UserForm({ id }: UserFormProps) {
                </div>
             )}
             {/*--- Avatar ---*/}
+
             <div className="userForm__input">
                <label htmlFor="userForm__input-avatar">Avatar</label>
                <div className="userForm__wrap">
                   <input
+                     accept="image/png, image/gif, image/jpeg"
                      id="userForm__input-avatar"
                      type="file"
                      placeholder="Confirm Password"
@@ -267,9 +275,13 @@ function UserForm({ id }: UserFormProps) {
                </div>
             </div>
             {/*--- image ---*/}
-            <div className="userForm__image">
-               <img src={formData?.avatar} alt="avatar" />
-            </div>
+            {formData?.avatar && (
+               <div className="userForm__image">
+                  <img src={formData?.avatar} alt="avatar" />
+               </div>
+            )}
+
+            {/* ----dateOfBirth ------*/}
             <div className="userForm__input">
                <label htmlFor="userForm__input-date">Date Of Birth*</label>
                <div className="userForm__wrap">
