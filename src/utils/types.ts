@@ -27,7 +27,7 @@ export enum Priority {
    Medium = 'medium',
 }
 export type User = {
-   id: number;
+   id?: number;
    username: string;
    password: string;
    email: string;

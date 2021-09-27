@@ -1,5 +1,6 @@
 import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { User } from 'utils/types';
 import './styles/Users.scss';
 interface TableUserProps {
@@ -82,7 +83,9 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                            </td>
                            <td className="user__edit">
                               <span className="user__edit-edit">
-                                 <i className="fas fa-edit"></i>
+                                 <Link to={`/users/update/${user.id}`}>
+                                    <i className="fas fa-edit"></i>
+                                 </Link>
                               </span>{' '}
                               <span
                                  onClick={() => setShowModalDelete(true)}

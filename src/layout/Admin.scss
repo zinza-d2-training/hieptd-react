@@ -8,6 +8,8 @@ $dashNavHeight: 60px;
       margin-top: $dashNavHeight + 10px;
       margin-left: $menuWidth + 10px;
       border: none;
+      display: flex;
+      justify-content: center;
    }
 
    .menu {

@@ -57,9 +57,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
                         <i className="fa fa-caret-down"></i>
                      </button>
                      <div className="dropdown-content">
-                        <Link to="/user/create">Create new user</Link>
-                        <Link to="/user/create">Import</Link>
-                        <Link to="/user/create">Export</Link>
+                        <Link to="/users/create">Create new user</Link>
+                        <Link to="/users/create">Import</Link>
+                        <Link to="/users/create">Export</Link>
                      </div>
                   </div>
                )}

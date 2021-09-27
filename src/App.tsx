@@ -1,19 +1,12 @@
-import NotFoundPage from 'components/NotFound';
-import Admin from 'layout/Admin';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import RouterConfig from 'routeConfig';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import routes from 'routeConfig';
 
 function App() {
    return (
       <div className="App">
          <Router>
-            <Switch>
-               {RouterConfig({ layout: Admin })}
-               <Route>
-                  <NotFoundPage />
-               </Route>
-            </Switch>
+            <Switch>{routes}</Switch>
          </Router>
       </div>
    );

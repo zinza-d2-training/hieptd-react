@@ -1,5 +1,10 @@
 @import 'styles/variables';
 .user {
+   width: 98%;
+   background-color: $background;
+   box-shadow: $box-shadow;
+   padding: 10px;
+
    .user__button {
       display: flex;
       justify-content: space-around;

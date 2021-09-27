@@ -31,7 +31,12 @@ function Users() {
    return (
       <div className="user">
          <div className="user__header">
-            <Breadcrumb listLink={['home', 'users']} />
+            <Breadcrumb
+               listLink={[
+                  { name: 'Home', link: '/' },
+                  { name: 'Users', link: '/users' },
+               ]}
+            />
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
          <UserTable
