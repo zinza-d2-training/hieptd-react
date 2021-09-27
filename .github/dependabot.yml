@@ -1,0 +1,23 @@
+version: 2
+updates:
+   # security updates to all npm packages
+   - package-ecosystem: 'npm'
+     directory: '/'
+     schedule:
+        interval: 'daily'
+     reviewers:
+        - 'hungnp'
+     ignore:
+        - dependency-name: '*'
+          update-types:
+             - 'version-update:semver-major'
+             - 'version-update:semver-minor'
+             - 'version-update:semver-patch'
+
+   - package-ecosystem: 'github-actions'
+     directory: '/'
+     schedule:
+        interval: 'weekly'
+        day: 'wednesday'
+     reviewers:
+        - 'tuannd995'
