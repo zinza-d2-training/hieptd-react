@@ -4,7 +4,12 @@
       font-size: 18px;
       text-transform: capitalize;
       a {
-         color: $primary;
+        color: $primary;
+        &.link__disabled {
+     	color: $text;
+			pointer-events: none;
+		}
       }
    }
 }
+

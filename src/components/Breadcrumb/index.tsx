@@ -15,11 +15,13 @@ function Breadcrumb({ listLink }: BreadcrumbProps) {
          {listLink.map((item, index) =>
             index === listLink.length - 1 ? (
                <span key={index}>
-                  <Link to={item.link}>{item.name}</Link>
+                  <Link to={item.link} className="link__disabled">
+                     {item.name}
+                  </Link>
                </span>
             ) : (
                <span key={index}>
-                  <Link to={item.link}>{item.name}</Link> /
+                  <Link to={item.link}>{item.name}</Link> /&nbsp;
                </span>
             )
          )}
