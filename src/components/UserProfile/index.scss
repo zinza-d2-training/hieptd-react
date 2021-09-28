@@ -1,0 +1,138 @@
+@import 'styles/variables';
+.userprofile {
+   background-color: $background;
+   box-shadow: $box-shadow;
+   border-radius: 5px;
+   width: 98%;
+   padding: 10px;
+   .userprofile__header {
+      padding: 10px;
+   }
+   .userprofile__info {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 0 20px;
+      img {
+         width: 250px;
+         object-fit: cover;
+      }
+      .userprofile__card {
+         border: 1px solid $text;
+         padding: 15px;
+         border-radius: 2px;
+         width: 350px;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+
+         .userprofile__card-item {
+            margin: 10px 0 0 20px;
+            display: flex;
+            align-items: center;
+            .userprofile__title,
+            .userprofile__content {
+               color: $text;
+               font-size: 16px;
+            }
+            .userprofile__title {
+               width: 100px;
+            }
+            .userprofile__content {
+               margin-left: 5px;
+               font-weight: bold;
+            }
+         }
+         a {
+            margin-top: 10px;
+            padding: 10px 0;
+            cursor: pointer;
+            outline: none;
+            background-color: $secondary;
+            border: none;
+            border-radius: 5px;
+            color: $white;
+            text-align: center;
+         }
+      }
+   }
+   .profiletable {
+      padding: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+
+      table,
+      td,
+      th {
+         border: 1px solid rgba(0, 0, 0, 0.1);
+         text-align: left;
+         cursor: pointer;
+         font-size: 16px;
+         text-overflow: ellipsis;
+         line-height: 1.1;
+      }
+
+      table {
+         border-collapse: collapse;
+         width: 100%;
+      }
+
+      th,
+      td {
+         padding: 15px;
+         width: 60px;
+         a {
+            color: $text;
+            &:hover {
+               text-decoration: underline;
+            }
+         }
+      }
+      td.td-active {
+         select {
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            text-decoration: underline;
+            cursor: pointer;
+            option {
+               cursor: pointer;
+            }
+         }
+      }
+      td.td-member {
+         a {
+            color: $primary;
+         }
+      }
+      th {
+         background-color: $violet;
+         color: $white;
+         font-size: 1.1rem;
+         font-weight: 400;
+      }
+      tr {
+         transition: 0.2s ease;
+         height: 40px;
+      }
+   }
+}
+@media (max-width: 768px) {
+   .userprofile {
+      .profiletable {
+         border: none;
+         padding: 0;
+         table {
+            margin-right: 5px;
+         }
+         table,
+         td,
+         th {
+            font-size: 14px;
+         }
+         td.td-member {
+         }
+      }
+   }
+}
