@@ -2,18 +2,20 @@ import missing from 'assets/missing.png';
 import Breadcrumb from 'components/Breadcrumb';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getUser } from 'utils/auth';
+import { Role } from 'utils/types';
 import './index.scss';
-import ProfileTable from './ProfileTable';
+import ProjectTable from './ProjectTable';
+import TaskTable from './TaskTable';
 import { useGetUserProfile } from './useGetUserProfile';
 
 interface UserProfileProps {
-   id: number;
+   paramsId: number;
 }
 
-function UserProfile({ id }: UserProfileProps) {
-   const { userProfile, listRender, currentUser } = useGetUserProfile({
-      id: id,
-   });
+function UserProfile({ paramsId }: UserProfileProps) {
+   const currentUser = getUser();
+   const userProfile = useGetUserProfile({ paramsId: paramsId });
 
    return (
       <div className="userprofile">
@@ -69,13 +71,19 @@ function UserProfile({ id }: UserProfileProps) {
                      {userProfile?.active ? 'Active' : 'Inactive'}
                   </span>
                </div>
-               {(userProfile?.role === 'admin' ||
-                  (currentUser && userProfile?.id === currentUser.id)) && (
+               {currentUser?.role === Role.Admin && (
                   <Link to={`/users/${userProfile?.id}/update`}>Edit</Link>
+               )}
+               {currentUser && userProfile?.id === currentUser.id && (
+                  <Link to={`/users/${userProfile?.id}/edit`}>Edit</Link>
                )}
             </div>
          </div>
-         <ProfileTable listRender={listRender} currentUser={currentUser!} />
+
+         {userProfile?.projects && (
+            <ProjectTable projects={userProfile.projects} />
+         )}
+         {userProfile?.tasks && <TaskTable tasks={userProfile.tasks} />}
       </div>
    );
 }

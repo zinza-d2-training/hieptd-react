@@ -1,51 +1,37 @@
-import { USERS } from 'fakeData/users';
+import { ProjectStatus, TaskStatus, User } from 'utils/types';
 //handle comvert status, member
-export const convertTaskStatus = (status: number): string => {
+export const convertTaskStatus = (status: TaskStatus): string => {
    switch (status) {
       case 1:
-         return 'Requesting';
+         return TaskStatus[1];
       case 2:
-         return 'Unscheduled';
+         return TaskStatus[2];
       case 3:
-         return 'Doing';
+         return TaskStatus[3];
       case 4:
-         return 'Reviewing';
+         return TaskStatus[4];
       case 5:
-         return 'Completed';
+         return TaskStatus[5];
       case 6:
-         return 'Cancelled';
-
+         return TaskStatus[6];
       default:
          return '';
    }
 };
-export const convertProjectStatus = (status: number): string => {
+export const convertProjectStatus = (status: ProjectStatus): string => {
    switch (status) {
       case 1:
-         return 'Pending';
+         return ProjectStatus[1];
       case 2:
-         return 'InProgress';
+         return ProjectStatus[2];
       case 3:
-         return 'Completed';
+         return ProjectStatus[3];
       case 4:
-         return 'Cancelled';
+         return ProjectStatus[4];
 
       default:
          return '';
    }
 };
 
-export const convertToUserInfo = (
-   numbers: number[]
-): { id: number; name: string }[] => {
-   const result: { id: number; name: string }[] = [];
-   USERS.forEach((user) => {
-      if (numbers.includes(user.id)) {
-         result.push({
-            name: user.username,
-            id: user.id,
-         });
-      }
-   });
-   return result;
-};
+export const convertToUserInfo = (members: User[]) => {};

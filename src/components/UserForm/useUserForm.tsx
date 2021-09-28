@@ -1,4 +1,5 @@
 import { useForm } from 'hooks/useForm';
+import { nonAccentVietnameses } from 'utils/converString';
 
 export const useUserForm = (onLogin: () => void) => {
    return useForm({
@@ -21,7 +22,9 @@ export const useUserForm = (onLogin: () => void) => {
                if (!value || value.length === 0) {
                   return 'First name is required';
                } else if (
-                  !/^(?=[a-zA-Z0-9\u00C0-\u017F._]{2,20}$)/.test(value)
+                  !/^(?=[a-zA-Z0-9\u00C0-\u017F._]{2,20}$)/.test(
+                     nonAccentVietnameses(value)
+                  )
                ) {
                   return 'Invalid first name, at least 2 characters required';
                }
@@ -34,7 +37,9 @@ export const useUserForm = (onLogin: () => void) => {
                if (!value || value.length === 0) {
                   return 'Last name is required';
                } else if (
-                  !/^(?=[a-zA-Z0-9\u00C0-\u017F._]{2,20}$)/.test(value)
+                  !/^(?=[a-zA-Z0-9\u00C0-\u017F._]{2,20}$)/.test(
+                     nonAccentVietnameses(value)
+                  )
                ) {
                   return 'Invalid last name, at least 2 characters required';
                }

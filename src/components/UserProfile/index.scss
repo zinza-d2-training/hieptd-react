@@ -4,6 +4,7 @@
    box-shadow: $box-shadow;
    border-radius: 5px;
    width: 98%;
+   height: 100vh;
    padding: 10px;
    .userprofile__header {
       padding: 10px;
@@ -58,6 +59,7 @@
    }
    .profiletable {
       padding: 8px;
+      padding-bottom: 20px;
       border: 1px solid rgba(0, 0, 0, 0.5);
       margin-top: 20px;
 
@@ -80,12 +82,16 @@
       th,
       td {
          padding: 15px;
-         width: 60px;
+
          a {
             color: $text;
             &:hover {
                text-decoration: underline;
             }
+         }
+         select {
+            border: none;
+            outline: none;
          }
       }
       td.td-active {

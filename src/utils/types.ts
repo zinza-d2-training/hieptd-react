@@ -46,16 +46,16 @@ export type Project = {
    description?: string;
    startDate?: string;
    endDate?: string;
-   memberId: number[];
-   pmId: number;
+   members?: User[];
+   pm?: User;
 };
 export type Task = {
    id: number;
    title: string;
    notes?: string;
-   userId: number;
+   assign?: User;
    projectId: number;
-   requestByUser: number;
+   requestByUser: User;
    dueDate: string;
    status: TaskStatus;
    priority: Priority;
@@ -63,13 +63,13 @@ export type Task = {
 export type Report = {
    id: number;
    title: string;
-   userId: number;
+   user: User;
    date: string;
    notes: string;
    note?: string;
    link: string;
 };
 export type UserProfileType = User & {
-   listProjects: number[];
-   listTasks: number[];
+   projects: Project[];
+   tasks: Task[];
 };
