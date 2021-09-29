@@ -15,7 +15,7 @@ interface UserProfileProps {
 
 function UserProfile({ paramsId }: UserProfileProps) {
    const currentUser = getUser();
-   const userProfile = useGetUserProfile({ paramsId: paramsId });
+   const userProfile = useGetUserProfile({ id: paramsId });
 
    return (
       <div className="userprofile">

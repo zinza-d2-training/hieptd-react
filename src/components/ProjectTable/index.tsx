@@ -15,7 +15,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
       useState<boolean>(false);
 
    // handleChangeStatus
-   const handleChangeStatus = (e, status: ProjectStatus) => {
+   const handleChangeStatus = (e, status: ProjectStatus, id: number) => {
       const value = e?.target.value;
       const check = value === status;
       if (check === !status) {
@@ -57,7 +57,11 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                  <td>
                                     <select
                                        onChange={(e) =>
-                                          handleChangeStatus(e, project.status)
+                                          handleChangeStatus(
+                                             e,
+                                             project.status,
+                                             project.id
+                                          )
                                        }
                                     >
                                        <option
