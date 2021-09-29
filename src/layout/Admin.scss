@@ -256,6 +256,9 @@ $dashNavHeight: 60px;
       z-index: 1000;
    }
    .admin {
+      .dashboard__children {
+         margin-left: 0;
+      }
       .menu {
          transform: translateX(-100%);
       }

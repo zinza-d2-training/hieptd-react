@@ -8,9 +8,10 @@ import { useUserForm } from './useUserForm';
 
 interface UserFormProps {
    id?: number;
+   showBreadcrumb?: boolean;
 }
 type FormValue = { [x: string]: string };
-function UserForm({ id }: UserFormProps) {
+function UserForm({ id, showBreadcrumb }: UserFormProps) {
    const history = useHistory();
 
    const [showPass, setShowPass] = useState<boolean>(false);
@@ -154,16 +155,18 @@ function UserForm({ id }: UserFormProps) {
 
    return (
       <div className="userForm">
-         <Breadcrumb
-            listLink={[
-               { name: 'Home', link: '/' },
-               { name: 'Users', link: '/users' },
-               {
-                  name: `${!id ? 'Create' : 'Update'}`,
-                  link: `${!id ? '/users/create' : '/users/update'}`,
-               },
-            ]}
-         />
+         {!showBreadcrumb && (
+            <Breadcrumb
+               listLink={[
+                  { name: 'Home', link: '/' },
+                  { name: 'Users', link: '/users' },
+                  {
+                     name: `${!id ? 'Create' : 'Update'}`,
+                     link: `${!id ? '/users/create' : '/users/update'}`,
+                  },
+               ]}
+            />
+         )}
          <h1>{!id ? 'Create user' : 'Update user'}</h1>
          <form onSubmit={handleSubmit}>
             {/*--- Username ---*/}
@@ -285,7 +288,7 @@ function UserForm({ id }: UserFormProps) {
                <label htmlFor="userForm__input-name">Name*</label>
                <div className="userForm__wrap">
                   <input
-                     id="userForm__input-name"
+                     id="userForm__input-firstname"
                      type="text"
                      placeholder="First name"
                      value={values.firstName || ''}
@@ -342,7 +345,7 @@ function UserForm({ id }: UserFormProps) {
                <button onClick={() => history.goBack()} type="button">
                   Cancel
                </button>
-               <button type="submit">{id ? 'Create' : 'Save'}</button>
+               <button type="submit">{id ? 'Save' : 'Create'}</button>
             </div>
          </form>
       </div>

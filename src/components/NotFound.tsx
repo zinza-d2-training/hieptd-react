@@ -5,7 +5,7 @@ function NotFoundPage() {
    return (
       <div className="NotFoundPage">
          <h1>NotFoundPage</h1>
-         <Link to="/login">Login to Dashboard</Link>
+         <Link to="/">Back to Dashboard</Link>
       </div>
    );
 }

@@ -82,6 +82,12 @@
    th,
    td {
       padding: 15px;
+      a {
+         color: $text;
+         &:hover {
+            text-decoration: underline;
+         }
+      }
    }
    td.td-active {
       select {

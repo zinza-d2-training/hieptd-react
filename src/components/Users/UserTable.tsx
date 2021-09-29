@@ -53,7 +53,11 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                   {data.length > 0 ? (
                      data.map((user, index) => (
                         <tr key={index}>
-                           <td>{`${user.firstName} ${user.lastName}`}</td>
+                           <td>
+                              <Link
+                                 to={`/users/${user.id}/details`}
+                              >{`${user.firstName} ${user.lastName}`}</Link>
+                           </td>
                            <td>{user.email}</td>
                            <td>{user.dateOfBirth}</td>
                            <td>{user.role}</td>
@@ -83,7 +87,7 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                            </td>
                            <td className="user__edit">
                               <span className="user__edit-edit">
-                                 <Link to={`/users/update/${user.id}`}>
+                                 <Link to={`/users/${user.id}/update`}>
                                     <i className="fas fa-edit"></i>
                                  </Link>
                               </span>{' '}

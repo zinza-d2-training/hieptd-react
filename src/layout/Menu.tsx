@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Admin.scss';
 import { getUser } from 'utils/auth';
+import { Role } from 'utils/types';
 
 interface PropsMenu {
    classMobile: string;
@@ -41,7 +42,7 @@ export default function Menu(props: PropsMenu) {
                      <i className="fas fa-chalkboard-teacher"></i> Dashboard
                   </div>
                </NavLink>
-               {currentUser && currentUser.role === 'admin' && (
+               {currentUser && currentUser.role === Role.Admin && (
                   <NavLink
                      to="/users"
                      exact
@@ -58,21 +59,23 @@ export default function Menu(props: PropsMenu) {
                      </div>
                   </NavLink>
                )}
-               <NavLink
-                  to="project"
-                  exact
-                  activeStyle={{
-                     color: '#fff',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     display: 'block',
-                     background: 'rgba(255,255,255,0.04)',
-                  }}
-               >
-                  <div className="menu__option-item">
-                     <i className="fas fa-project-diagram"></i> Projects
-                  </div>
-               </NavLink>
+               {currentUser && currentUser.role !== Role.Admin && (
+                  <NavLink
+                     to={`/users/${currentUser.id}/details`}
+                     exact
+                     activeStyle={{
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        display: 'block',
+                        background: 'rgba(255,255,255,0.04)',
+                     }}
+                  >
+                     <div className="menu__option-item">
+                        <i className="fas fa-user"></i> Detail
+                     </div>
+                  </NavLink>
+               )}
             </div>
          </div>
       </div>

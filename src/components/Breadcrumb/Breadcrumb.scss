@@ -4,12 +4,11 @@
       font-size: 18px;
       text-transform: capitalize;
       a {
-        color: $primary;
-        &.link__disabled {
-     	color: $text;
-			pointer-events: none;
-		}
+         color: $primary;
+         &.link__disabled {
+            color: $text;
+            pointer-events: none;
+         }
       }
    }
 }
-
