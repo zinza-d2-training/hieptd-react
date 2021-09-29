@@ -50,7 +50,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                </button>
 
                {/* if role = admin show more options */}
-               {currentUser?.role === 'admin' && (
+               {currentUser?.role === Role.Admin && (
                   <div className="dropdown">
                      <button>
                         More actions

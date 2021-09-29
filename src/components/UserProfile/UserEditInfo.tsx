@@ -11,7 +11,7 @@ function UserEditInfo({ id }: UserEditInfoProps) {
    return (
       <>
          {currentUser?.id === id ? (
-            <UserForm id={id} edit={true} />
+            <UserForm id={id} showBreadcrumb={true} />
          ) : (
             <NotFoundPage />
          )}

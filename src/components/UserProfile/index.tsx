@@ -1,12 +1,12 @@
 import missing from 'assets/missing.png';
 import Breadcrumb from 'components/Breadcrumb';
+import ProjectTable from 'components/ProjectTable';
+import TaskTable from 'components/TaskTable';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
 import './index.scss';
-import ProjectTable from './ProjectTable';
-import TaskTable from './TaskTable';
 import { useGetUserProfile } from './useGetUserProfile';
 
 interface UserProfileProps {
@@ -74,9 +74,11 @@ function UserProfile({ paramsId }: UserProfileProps) {
                {currentUser?.role === Role.Admin && (
                   <Link to={`/users/${userProfile?.id}/update`}>Edit</Link>
                )}
-               {currentUser && userProfile?.id === currentUser.id && (
-                  <Link to={`/users/${userProfile?.id}/edit`}>Edit</Link>
-               )}
+               {currentUser &&
+                  currentUser.role !== Role.Admin &&
+                  userProfile?.id === currentUser.id && (
+                     <Link to={`/users/${userProfile?.id}/edit`}>Edit</Link>
+                  )}
             </div>
          </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Admin.scss';
 import { getUser } from 'utils/auth';
+import { Role } from 'utils/types';
 
 interface PropsMenu {
    classMobile: string;
@@ -41,7 +42,7 @@ export default function Menu(props: PropsMenu) {
                      <i className="fas fa-chalkboard-teacher"></i> Dashboard
                   </div>
                </NavLink>
-               {currentUser && currentUser.role === 'admin' && (
+               {currentUser && currentUser.role === Role.Admin && (
                   <NavLink
                      to="/users"
                      exact
@@ -58,7 +59,7 @@ export default function Menu(props: PropsMenu) {
                      </div>
                   </NavLink>
                )}
-               {currentUser && currentUser.role !== 'admin' && (
+               {currentUser && currentUser.role !== Role.Admin && (
                   <NavLink
                      to={`/users/${currentUser.id}/details`}
                      exact

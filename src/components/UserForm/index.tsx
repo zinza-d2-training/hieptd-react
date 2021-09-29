@@ -8,10 +8,10 @@ import { useUserForm } from './useUserForm';
 
 interface UserFormProps {
    id?: number;
-   edit?: boolean;
+   showBreadcrumb?: boolean;
 }
 type FormValue = { [x: string]: string };
-function UserForm({ id, edit }: UserFormProps) {
+function UserForm({ id, showBreadcrumb }: UserFormProps) {
    const history = useHistory();
 
    const [showPass, setShowPass] = useState<boolean>(false);
@@ -155,7 +155,7 @@ function UserForm({ id, edit }: UserFormProps) {
 
    return (
       <div className="userForm">
-         {!edit && (
+         {!showBreadcrumb && (
             <Breadcrumb
                listLink={[
                   { name: 'Home', link: '/' },

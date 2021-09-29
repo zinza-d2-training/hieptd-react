@@ -35,7 +35,7 @@ const Route = ({
                   !currentUser ||
                   !(roles?.length && roles.includes(currentUser.role as Role))
                ) {
-                  return <Redirect to="/login" />;
+                  return <Redirect to="/" />;
                }
 
                if (Layout) {

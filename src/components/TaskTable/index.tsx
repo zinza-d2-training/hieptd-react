@@ -1,6 +1,6 @@
 import React from 'react';
-import { Task } from 'utils/types';
-import { convertTaskStatus } from './helper';
+import { Task, TaskStatus } from 'utils/types';
+import '../ProjectTable/ProjectTable.scss';
 
 interface TaskTableProp {
    tasks: Task[];
@@ -28,7 +28,7 @@ function TaskTable({ tasks }: TaskTableProp) {
                               <td>{task.title}</td>
                               <td>{task.notes}</td>
                               <td>{task.dueDate}</td>
-                              <td>{convertTaskStatus(task.status)}</td>
+                              <td>{TaskStatus[task.status]}</td>
                            </tr>
                         ))}
                   </tbody>

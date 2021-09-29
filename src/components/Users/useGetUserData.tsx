@@ -1,6 +1,6 @@
 import { USERS } from 'fakeData/users';
 import { useMemo } from 'react';
-import { nonAccentVietnameses } from 'utils/converString';
+import { nonAccentVietnameses } from 'utils/convert';
 import { User } from 'utils/types';
 import { FilterType } from './types';
 
