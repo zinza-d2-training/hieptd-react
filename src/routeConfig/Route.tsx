@@ -22,7 +22,7 @@ const Route = ({
    ...routeProps
 }: Props) => {
    const currentUser = getUser();
-
+   console.log(currentUser);
    if (!Component) {
       return null;
    }
@@ -31,8 +31,11 @@ const Route = ({
          <BaseRoute
             {...routeProps}
             render={(props: RouteComponentProps) => {
+               if (!currentUser?.email) {
+                  return <Redirect to="/login" />;
+               }
                if (
-                  !currentUser ||
+                  currentUser &&
                   !(roles?.length && roles.includes(currentUser.role as Role))
                ) {
                   return <Redirect to="/" />;
