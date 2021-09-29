@@ -65,7 +65,7 @@ const routes = [
          const params = useParams();
          if (params['id'] && Number(params['id'])) {
             const id = Number(params['id']);
-            return <UserProfile paramsId={id} />;
+            return <UserProfile id={id} />;
          } else {
             return <NotFoundPage />;
          }

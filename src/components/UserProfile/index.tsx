@@ -10,12 +10,12 @@ import './index.scss';
 import { useGetUserProfile } from './useGetUserProfile';
 
 interface UserProfileProps {
-   paramsId: number;
+   id: number;
 }
 
-function UserProfile({ paramsId }: UserProfileProps) {
+function UserProfile({ id }: UserProfileProps) {
    const currentUser = getUser();
-   const userProfile = useGetUserProfile({ id: paramsId });
+   const userProfile = useGetUserProfile({ id: id });
 
    return (
       <div className="userprofile">
