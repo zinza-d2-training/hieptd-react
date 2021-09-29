@@ -32,7 +32,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
             title="Confirm Change"
             content="Are you sure you want to change?"
          />
-         {projects.length !== 0 && (
+         {projects.length !== 0 ? (
             <div className="profiletable">
                <h1>Projects</h1>
 
@@ -42,7 +42,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                         <th>Name</th>
                         <th>Description</th>
                         <th>EndDate</th>
-                        <th>Sattus</th>
+                        <th>Status</th>
                         {projects && <th>Member</th>}
                      </tr>
                   </thead>
@@ -103,6 +103,8 @@ function ProjectTable({ projects }: ProjectTableProp) {
                   </tbody>
                </table>
             </div>
+         ) : (
+            <h2>Not Found</h2>
          )}
       </>
    );

@@ -1,0 +1,44 @@
+@import 'styles/variables';
+.projectFilter {
+   button {
+      padding: 10px 18px;
+      min-width: 100px;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      background: $primary;
+      color: $white;
+      cursor: pointer;
+   }
+   input {
+      padding: 8px 10px;
+      color: $text;
+      font-weight: 200;
+      outline: none;
+      border: 1px solid $lightBlue;
+      border-radius: 5px;
+   }
+   select {
+      border: 1px solid $lightBlue;
+      padding: 5px;
+      outline: none;
+   }
+   label {
+      font-size: 16px;
+      color: $text;
+      margin-right: 10px;
+   }
+   .projectFilter__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+   }
+   .projectFilter__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 20px 0;
+      box-shadow: $box-shadow;
+      min-height: 100px;
+   }
+}

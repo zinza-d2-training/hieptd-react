@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 import NotFoundPage from 'components/NotFound';
 import UserProfile from 'components/UserProfile';
 import UserEditInfo from 'components/UserProfile/UserEditInfo';
+import ListProjects from 'components/ListProjects';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -70,6 +71,15 @@ const routes = [
             return <NotFoundPage />;
          }
       }}
+   />,
+   <Route
+      key="users"
+      path="/users/list-projects"
+      exact
+      withAuth
+      component={ListProjects}
+      layout={Admin}
+      roles={[Role.PM, Role.Member]}
    />,
    <Route
       key="users"

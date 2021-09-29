@@ -5,13 +5,7 @@ import { useMemo } from 'react';
 import { getUser } from 'utils/auth';
 import { Role, UserProfileType } from 'utils/types';
 
-interface GetUsersProfileProps {
-   id: number;
-}
-
-export const useGetUserProfile = ({
-   id,
-}: GetUsersProfileProps): UserProfileType | undefined => {
+export const useGetUserProfile = (id: number): UserProfileType | undefined => {
    const currentUser = getUser();
    return useMemo<UserProfileType | undefined>(() => {
       const user = USERS.find((item) => item.id === id);
