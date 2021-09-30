@@ -21,6 +21,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
    //--------handle filter----------
    const handleFilterMultiple = (filter: FilterType, list: User[]) => {
       const filterKeys = Object.keys(filter);
+
       let result: User[] = list.filter((user) => {
          return filterKeys.every((eachKey) => {
             if (!filter[eachKey].length) {
@@ -28,7 +29,19 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
             }
             switch (eachKey) {
                case 'search':
-                  return true;
+                  const searchWord: string = nonAccentVietnameses(
+                     filter[eachKey]
+                  );
+                  return (
+                     nonAccentVietnameses(user.lastName).includes(
+                        nonAccentVietnameses(searchWord)
+                     ) ||
+                     nonAccentVietnameses(user.firstName).includes(
+                        nonAccentVietnameses(searchWord)
+                     ) ||
+                     user.email?.toLowerCase().includes(searchWord) ||
+                     user.role?.toLowerCase().includes(searchWord)
+                  );
                case 'dateOfBirth':
                   return (
                      user[eachKey].toString().toLowerCase() ===
@@ -39,6 +52,7 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
                      .toString()
                      .toLowerCase()
                      .includes(filter[eachKey].toString().toLowerCase());
+
                default:
                   return true;
             }
@@ -50,34 +64,13 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
 
    // ----useMemo()----
    const listUsers: User[] = useMemo(() => {
-      if (filter.search) {
-         const searchWord: string = nonAccentVietnameses(filter.search);
-         let listUserBySearch = USERS.filter(
-            (user) =>
-               nonAccentVietnameses(user.lastName).includes(
-                  nonAccentVietnameses(searchWord)
-               ) ||
-               nonAccentVietnameses(user.firstName).includes(
-                  nonAccentVietnameses(searchWord)
-               ) ||
-               user.email?.toLowerCase().includes(searchWord) ||
-               user.role?.toLowerCase().includes(searchWord)
-         );
-         if (filter.active) {
-            listUserBySearch = listUserBySearch.filter(
-               (user) => user.active === filter.active
-            );
-         }
-         return handleFilterMultiple(filter, listUserBySearch);
-      }
+      //filter.active isboolean
       if (filter.active) {
          const listUserByActive = USERS.filter((user) => user.active);
          return handleFilterMultiple(filter, listUserByActive);
       }
-
       return handleFilterMultiple(filter, USERS);
       // eslint-disable-next-line
-   }, [filter, page, limit]);
-
+   }, [filter]);
    return { listUsers };
 };

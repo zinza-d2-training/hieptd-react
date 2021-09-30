@@ -27,7 +27,18 @@ export const useGetListProject = ({
             }
             switch (eachKey) {
                case 'search':
-                  return true;
+                  return (
+                     nonAccentVietnameses(project.name)
+                        .toLowerCase()
+                        .includes(
+                           nonAccentVietnameses(filter.search).toLowerCase()
+                        ) ||
+                     nonAccentVietnameses(project?.description!)
+                        .toLowerCase()
+                        .includes(
+                           nonAccentVietnameses(filter.search).toLowerCase()
+                        )
+                  );
                case 'endDate':
                   return (
                      project[eachKey]?.toString().toLowerCase() ===
@@ -54,20 +65,6 @@ export const useGetListProject = ({
                project.pm?.id === userId
          );
          if (filter) {
-            listProjects = listProjects.filter((project) => {
-               return (
-                  nonAccentVietnameses(project.name)
-                     .toLowerCase()
-                     .includes(
-                        nonAccentVietnameses(filter.search).toLowerCase()
-                     ) ||
-                  nonAccentVietnameses(project?.description!)
-                     .toLowerCase()
-                     .includes(
-                        nonAccentVietnameses(filter.search).toLowerCase()
-                     )
-               );
-            });
             return handleFilterMultiple(filter, listProjects);
          }
       }
