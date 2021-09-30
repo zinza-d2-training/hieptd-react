@@ -60,40 +60,37 @@ export default function Menu(props: PropsMenu) {
                   </NavLink>
                )}
                {currentUser && currentUser.role !== Role.Admin && (
-                  <>
-                     <NavLink
-                        to={`/users/${currentUser.id}/details`}
-                        exact
-                        activeStyle={{
-                           color: '#fff',
-                           fontWeight: 'bold',
-                           cursor: 'default',
-                           display: 'block',
-                           background: 'rgba(255,255,255,0.04)',
-                        }}
-                     >
-                        <div className="menu__option-item">
-                           <i className="fas fa-user"></i> Detail
-                        </div>
-                     </NavLink>{' '}
-                     <NavLink
-                        to={`/projects`}
-                        exact
-                        activeStyle={{
-                           color: '#fff',
-                           fontWeight: 'bold',
-                           cursor: 'default',
-                           display: 'block',
-                           background: 'rgba(255,255,255,0.04)',
-                        }}
-                     >
-                        <div className="menu__option-item">
-                           <i className="fas fa-clipboard-list"></i> List
-                           Projects
-                        </div>
-                     </NavLink>
-                  </>
+                  <NavLink
+                     to={`/users/${currentUser.id}/details`}
+                     exact
+                     activeStyle={{
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        display: 'block',
+                        background: 'rgba(255,255,255,0.04)',
+                     }}
+                  >
+                     <div className="menu__option-item">
+                        <i className="fas fa-user"></i> Detail
+                     </div>
+                  </NavLink>
                )}
+               <NavLink
+                  to={`/projects`}
+                  exact
+                  activeStyle={{
+                     color: '#fff',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                     display: 'block',
+                     background: 'rgba(255,255,255,0.04)',
+                  }}
+               >
+                  <div className="menu__option-item">
+                     <i className="fas fa-clipboard-list"></i> List Projects
+                  </div>
+               </NavLink>
             </div>
          </div>
       </div>

@@ -89,7 +89,7 @@ const routes = [
       withAuth
       component={ListProjects}
       layout={Admin}
-      roles={[Role.PM, Role.Member]}
+      roles={[Role.PM, Role.Member, Role.Admin]}
    />,
    <Route
       key="dashboard"

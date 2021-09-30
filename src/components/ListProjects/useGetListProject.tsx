@@ -1,7 +1,8 @@
 import { PROJECTS } from 'fakeData/projects';
 import { useMemo } from 'react';
+import { getUser } from 'utils/auth';
 import { nonAccentVietnameses } from 'utils/convert';
-import { Project, ProjectStatus } from 'utils/types';
+import { Project, ProjectStatus, Role } from 'utils/types';
 
 export type ProjectFilter = {
    search: string;
@@ -17,6 +18,7 @@ export const useGetListProject = ({
    filter,
    userId,
 }: UseGetListProject): Project[] | undefined => {
+   const currentUser = getUser();
    //--------handle filter----------
    const handleFilterMultiple = (filter: ProjectFilter, list: Project[]) => {
       const filterKeys = Object.keys(filter);
@@ -59,15 +61,19 @@ export const useGetListProject = ({
    };
    return useMemo(() => {
       if (userId) {
-         let listProjects: Project[] = PROJECTS.filter(
-            (project) =>
-               project.members?.some((member) => member.id === userId) ||
-               project.pm?.id === userId
-         );
+         let listProjects: Project[] =
+            currentUser?.role === Role.Admin
+               ? PROJECTS
+               : PROJECTS.filter(
+                    (project) =>
+                       project.members?.some(
+                          (member) => member.id === userId
+                       ) || project.pm?.id === userId
+                 );
          if (filter) {
             return handleFilterMultiple(filter, listProjects);
          }
       }
       return undefined;
-   }, [userId, filter]);
+   }, [userId, filter, currentUser]);
 };

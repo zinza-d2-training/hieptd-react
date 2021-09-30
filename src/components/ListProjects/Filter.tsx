@@ -40,7 +40,7 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
                <button type="button" onClick={() => setShowFilter(!showFilter)}>
                   {showFilter ? 'Hide Filter' : 'Show Filter'}
                </button>
-               {currentUser?.role === Role.PM && (
+               {currentUser?.role === Role.Admin && (
                   <button type="button">Create new project</button>
                )}
             </div>
