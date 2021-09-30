@@ -26,13 +26,13 @@ function ListProjects() {
             ]}
          />
          <h1>ListProjects</h1>
-         {listProjects ? (
+         {listProjects && (
             <div className="listproject__body">
-               <Filter filter={filter} handleFilter={setFilter} />
+               {listProjects.length !== 0 && (
+                  <Filter filter={filter} handleFilter={setFilter} />
+               )}
                <ProjectTable projects={listProjects} />
             </div>
-         ) : (
-            <div>Not Found Project</div>
          )}
       </div>
    );

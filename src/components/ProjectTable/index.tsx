@@ -104,7 +104,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                </table>
             </div>
          ) : (
-            <h2>Not Found</h2>
+            <h2>Not participating in any projects</h2>
          )}
       </>
    );
