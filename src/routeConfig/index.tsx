@@ -74,7 +74,7 @@ const routes = [
    />,
    <Route
       key="users"
-      path="/users/list-projects"
+      path="/users/projects"
       exact
       withAuth
       component={ListProjects}

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { ProjectStatus } from 'utils/types';
+import { getUser } from 'utils/auth';
+import { ProjectStatus, Role } from 'utils/types';
 import './Filter.scss';
 import { ProjectFilter } from './useGetListProject';
 
@@ -9,6 +10,7 @@ interface ProjectFilterProps {
 }
 
 function Filter({ filter, handleFilter }: ProjectFilterProps) {
+   const currentUser = getUser();
    const [showFilter, setShowFilter] = useState(false);
    const selectRef = useRef<HTMLSelectElement>(null);
    // clear filter
@@ -34,9 +36,14 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
                }}
             />
 
-            <button type="button" onClick={() => setShowFilter(!showFilter)}>
-               {showFilter ? 'Hide Filter' : 'Show Filter'}
-            </button>
+            <div className="projectFilter__btn">
+               <button type="button" onClick={() => setShowFilter(!showFilter)}>
+                  {showFilter ? 'Hide Filter' : 'Show Filter'}
+               </button>
+               {currentUser?.role === Role.PM && (
+                  <button type="button">Create new project</button>
+               )}
+            </div>
          </div>
          {showFilter && (
             <div className="projectFilter__container">

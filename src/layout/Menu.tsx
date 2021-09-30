@@ -77,7 +77,7 @@ export default function Menu(props: PropsMenu) {
                         </div>
                      </NavLink>{' '}
                      <NavLink
-                        to={`/users/list-projects`}
+                        to={`/users/projects`}
                         exact
                         activeStyle={{
                            color: '#fff',
