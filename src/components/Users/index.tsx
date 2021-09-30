@@ -27,7 +27,7 @@ function Users() {
    const handlePagination = (newPage: number) =>
       setPagination({ ...pagination, page: newPage });
    const { listUsers } = useGetUserData({ filter, pagination });
-
+   console.log(listUsers, pagination.page);
    return (
       <div className="user">
          <div className="user__header">
@@ -44,9 +44,7 @@ function Users() {
             handleConfirmDelete={() => alert('Deleted')}
          />
 
-         {listUsers.length >= 10 && (
-            <Pagination info={pagination} onChange={handlePagination} />
-         )}
+         <Pagination info={pagination} onChange={handlePagination} />
       </div>
    );
 }

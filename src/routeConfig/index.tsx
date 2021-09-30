@@ -11,6 +11,7 @@ import NotFoundPage from 'components/NotFound';
 import UserProfile from 'components/UserProfile';
 import UserEditInfo from 'components/UserProfile/UserEditInfo';
 import ListProjects from 'components/ListProjects';
+import CreateProject from 'components/CreateProject';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -79,6 +80,15 @@ const routes = [
       exact
       withAuth
       component={Users}
+      layout={Admin}
+      roles={[Role.Admin]}
+   />,
+   <Route
+      key="users"
+      path="/projects/create"
+      exact
+      withAuth
+      component={CreateProject}
       layout={Admin}
       roles={[Role.Admin]}
    />,

@@ -70,7 +70,9 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
          return handleFilterMultiple(filter, listUserByActive);
       }
       return handleFilterMultiple(filter, USERS);
+
       // eslint-disable-next-line
-   }, [filter]);
+   }, [filter, pagination]);
+
    return { listUsers };
 };

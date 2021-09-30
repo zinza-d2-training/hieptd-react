@@ -1,0 +1,31 @@
+@import 'styles/variables';
+.addmember {
+   display: flex;
+   .listmember {
+      height: 200px;
+      width: 200px;
+      overflow: hidden;
+      overflow-y: scroll;
+      margin-right: 20px;
+      li {
+         padding: 5px;
+         cursor: pointer;
+         text-align: center;
+         transition: 0.2s ease;
+         &:hover {
+            background-color: $primary;
+            color: $white;
+         }
+      }
+   }
+   .addmember__arrow {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      i {
+         font-size: 2rem;
+         width: 100px;
+         color: $primary;
+      }
+   }
+}

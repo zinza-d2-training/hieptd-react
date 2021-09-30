@@ -37,6 +37,16 @@
          button {
             margin-right: 10px;
          }
+         a {
+            padding: 10px 18px;
+            min-width: 100px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background: $primary;
+            color: $white;
+            cursor: pointer;
+         }
       }
    }
    .projectFilter__container {
