@@ -92,8 +92,8 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
                      <option value={ProjectStatus.Cancelled}>
                         {ProjectStatus[ProjectStatus.Cancelled]}
                      </option>
-                     <option value={ProjectStatus.Completed}>
-                        {ProjectStatus[ProjectStatus.Completed]}
+                     <option value={ProjectStatus.Pending}>
+                        {ProjectStatus[ProjectStatus.Pending]}
                      </option>
                      <option value={ProjectStatus.InProgress}>
                         {ProjectStatus[ProjectStatus.InProgress]}
