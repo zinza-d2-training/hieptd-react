@@ -72,15 +72,7 @@ const routes = [
          }
       }}
    />,
-   <Route
-      key="users"
-      path="/users/projects"
-      exact
-      withAuth
-      component={ListProjects}
-      layout={Admin}
-      roles={[Role.PM, Role.Member]}
-   />,
+
    <Route
       key="users"
       path="/users"
@@ -89,6 +81,15 @@ const routes = [
       component={Users}
       layout={Admin}
       roles={[Role.Admin]}
+   />,
+   <Route
+      key="users"
+      path="/projects"
+      exact
+      withAuth
+      component={ListProjects}
+      layout={Admin}
+      roles={[Role.PM, Role.Member]}
    />,
    <Route
       key="dashboard"
