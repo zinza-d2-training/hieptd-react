@@ -28,9 +28,8 @@ function ListProjects() {
          <h1>ListProjects</h1>
          {listProjects && (
             <div className="listproject__body">
-               {listProjects.length !== 0 && (
-                  <Filter filter={filter} handleFilter={setFilter} />
-               )}
+               <Filter filter={filter} handleFilter={setFilter} />
+
                <ProjectTable projects={listProjects} />
             </div>
          )}
