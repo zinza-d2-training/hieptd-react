@@ -22,7 +22,7 @@ const Route = ({
    ...routeProps
 }: Props) => {
    const currentUser = getUser();
-   console.log(currentUser);
+
    if (!Component) {
       return null;
    }

@@ -18,7 +18,7 @@ function TaskTable({ tasks }: TaskTableProp) {
                         <th>Name</th>
                         <th>Description</th>
                         <th>EndDate</th>
-                        <th>Sattus</th>
+                        <th>Status</th>
                      </tr>
                   </thead>
                   <tbody>

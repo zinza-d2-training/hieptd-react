@@ -3,7 +3,7 @@ import { TASKS } from 'fakeData/tasks';
 import { USERS } from 'fakeData/users';
 import { useMemo } from 'react';
 import { getUser } from 'utils/auth';
-import { UserProfileType } from 'utils/types';
+import { Role, UserProfileType } from 'utils/types';
 
 interface GetUsersProfileProps {
    id: number;
@@ -18,16 +18,25 @@ export const useGetUserProfile = ({
       if (user && currentUser) {
          return {
             ...user,
-            projects: PROJECTS.filter(
-               (project) =>
-                  (project.members &&
-                     project.members.some((member) => member.id === id)) ||
-                  (project.pm?.id === currentUser.id &&
-                     project.members &&
-                     project.members.some((member) => member.id === id))
-            ),
+            projects: PROJECTS.filter((project) => {
+               if (currentUser.role === Role.Admin) {
+                  return (
+                     (project.members &&
+                        project.members.some((member) => member.id === id)) ||
+                     project.pm?.id === id
+                  );
+               } else
+                  return (
+                     (project.members &&
+                        project.members.some((member) => member.id === id)) ||
+                     project.pm?.id === currentUser.id
+                  );
+            }),
             tasks: TASKS.filter((task) => {
-               return task.assign?.id === id || task.requestByUser.id === id;
+               return currentUser.role === Role.Member
+                  ? currentUser.id === id &&
+                       (task.assign?.id === id || task.requestByUser.id === id)
+                  : task.assign?.id === id || task.requestByUser.id === id;
             }),
          };
       }

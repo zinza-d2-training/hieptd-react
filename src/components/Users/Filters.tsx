@@ -27,6 +27,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
          selectRef.current.selectedIndex = 0;
       }
    };
+
    return (
       <>
          <div className="filter__header">
