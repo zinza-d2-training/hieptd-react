@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectStatus, Role, User } from 'utils/types';
 import './index.scss';
+import ProjectMembersField from './ProjectMembersField';
 import ProjectMemberSwitcher from './ProjectMemberSwitcher';
 import { useCreateProjectForm } from './useCreateProjectForm';
 
@@ -182,6 +183,19 @@ function CreateProject() {
                <ProjectMemberSwitcher
                   allUsers={allMemberUsers}
                   onChange={handleUpdateMembersInProject}
+               />
+            </div>
+            <div className="createproject__item ">
+               <label>Members</label>
+               <ProjectMembersField
+                  allUsers={allMemberUsers}
+                  value={formData.members || []}
+                  onChange={(members: User[]) => {
+                     setFormData({
+                        ...formData,
+                        members,
+                     });
+                  }}
                />
             </div>
             <div className="createproject__btn">

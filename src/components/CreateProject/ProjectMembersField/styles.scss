@@ -1,0 +1,27 @@
+@import 'styles/variables';
+.memberSwitcher {
+   display: flex;
+   align-items: center;
+   width: 70%;
+   .switcherControl {
+      display: flex;
+      flex-flow: column;
+      width: calc(50% - 50px);
+      label {
+         margin-bottom: 10px;
+      }
+      .switcherMembersSelect {
+         min-height: 200px;
+         option {
+            padding: 5px;
+         }
+      }
+   }
+   .switcherButtonGroup {
+      padding: 0 15px;
+      button {
+         margin: 6px 0;
+         display: block; /* Make the buttons appear below each other */
+      }
+   }
+}
