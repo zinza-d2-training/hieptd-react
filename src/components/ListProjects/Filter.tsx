@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from 'utils/auth';
 import { ProjectStatus, Role } from 'utils/types';
 import './Filter.scss';
@@ -41,7 +42,7 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
                   {showFilter ? 'Hide Filter' : 'Show Filter'}
                </button>
                {currentUser?.role === Role.Admin && (
-                  <button type="button">Create new project</button>
+                  <Link to="/projects/create">Create new project</Link>
                )}
             </div>
          </div>

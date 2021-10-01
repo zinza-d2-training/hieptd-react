@@ -1,3 +1,4 @@
+@import 'styles/variables';
 * {
    box-sizing: border-box;
 }
@@ -597,5 +598,37 @@ ul li {
 
    .wide .l-o-11 {
       margin-left: 91.66667%;
+   }
+}
+
+button {
+   display: block;
+   cursor: pointer;
+   padding: 6px 10px;
+   background-color: $primary;
+   color: $white;
+
+   &:disabled {
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      background-color: #ccc;
+   }
+   .primary {
+      background-color: $primary;
+   }
+   .secondary {
+      background-color: $secondary;
+   }
+   .error {
+      background-color: $error;
+   }
+   .success {
+      background-color: $success;
+   }
+   .info {
+      background-color: $info;
+   }
+   .warning {
+      background-color: $warning;
    }
 }

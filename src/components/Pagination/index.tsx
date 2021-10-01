@@ -4,6 +4,7 @@ import { PaginationProps } from './types';
 
 function Pagination({ info, onChange }: PaginationProps) {
    const { total, page, limit } = info;
+
    const totalPages: number = Math.ceil(total / limit);
    const handleChange = (newPage: number) => {
       if (onChange) {
@@ -26,12 +27,12 @@ function Pagination({ info, onChange }: PaginationProps) {
                   <span onClick={() => handleChange(page - 1)}>{page - 1}</span>
                )}
                <span className="active">{page}</span>
-               {page <= totalPages - 2 && (
+               {page < totalPages && (
                   <span onClick={() => handleChange(page + 1)}>{page + 1}</span>
                )}
                <button
                   type="button"
-                  disabled={page >= totalPages - 1}
+                  disabled={page >= totalPages}
                   onClick={() => handleChange(page + 1)}
                >
                   Next

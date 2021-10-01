@@ -44,9 +44,7 @@ function Users() {
             handleConfirmDelete={() => alert('Deleted')}
          />
 
-         {listUsers.length >= 10 && (
-            <Pagination info={pagination} onChange={handlePagination} />
-         )}
+         <Pagination info={pagination} onChange={handlePagination} />
       </div>
    );
 }

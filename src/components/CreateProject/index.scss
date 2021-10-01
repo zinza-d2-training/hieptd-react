@@ -1,0 +1,67 @@
+@import 'styles/variables';
+.createproject {
+   background: $background;
+   box-shadow: $box-shadow;
+   width: 98%;
+   padding: 15px;
+   form {
+      .createproject__item {
+         display: flex;
+         align-items: center;
+         margin: 20px 0;
+         input,
+         textarea,
+         select {
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid $lightBlue;
+            font-size: 16px;
+            color: $text;
+         }
+
+         label {
+            min-width: 120px;
+            position: relative;
+            &.required::after {
+               content: '*';
+               position: absolute;
+               top: 0;
+               color: red;
+               padding-left: 5px;
+            }
+         }
+         .createproject__item-wrap {
+            .createproject__errr {
+               color: $error;
+               padding: 5px;
+            }
+         }
+      }
+      .createproject__item-date {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding-right: 100px;
+      }
+      .createproject__btn {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         button {
+            padding: 8px 15px;
+            width: 100px;
+            border: none;
+            outline: none;
+            background-color: $primary;
+            color: $white;
+            border-radius: 5px;
+            cursor: pointer;
+            &[type='submit']:disabled {
+               cursor: default;
+               background-color: $error;
+            }
+         }
+      }
+   }
+}
