@@ -88,7 +88,7 @@ export default function Menu(props: PropsMenu) {
                   }}
                >
                   <div className="menu__option-item">
-                     <i className="fas fa-clipboard-list"></i> List Projects
+                     <i className="fas fa-clipboard-list"></i> Projects
                   </div>
                </NavLink>
             </div>

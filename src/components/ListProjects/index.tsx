@@ -21,7 +21,7 @@ function ListProjects() {
          <Breadcrumb
             listLink={[
                { name: 'Home', link: '/' },
-               { name: 'List Projects', link: '/projects' },
+               { name: 'Projects', link: '/projects' },
             ]}
          />
          <h1>ListProjects</h1>
