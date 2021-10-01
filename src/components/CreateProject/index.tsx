@@ -54,7 +54,6 @@ function CreateProject() {
    //handle update members in project
    const handleUpdateMembersInProject = (listMember) => {
       setFormData({ ...formData, members: listMember });
-      console.log(listMember);
    };
    // onChange fields
    useEffect(() => {
@@ -79,7 +78,7 @@ function CreateProject() {
          <h1>Create Project</h1>
          <form onSubmit={handleSubmit}>
             <div className="createproject__item">
-               <label>Name*</label>
+               <label className="required">Name</label>
                <div className="createproject__item-wrap">
                   <input
                      type="text"
@@ -92,7 +91,7 @@ function CreateProject() {
                </div>
             </div>
             <div className="createproject__item">
-               <label>Status</label>
+               <label className="required">Status</label>
                <select
                   onChange={(e) =>
                      setFormData({
@@ -101,7 +100,6 @@ function CreateProject() {
                      })
                   }
                >
-                  <option value="">Status</option>
                   <option value={ProjectStatus.Pending}>
                      {ProjectStatus[ProjectStatus.Pending]}
                   </option>
@@ -111,7 +109,7 @@ function CreateProject() {
                </select>
             </div>
             <div className="createproject__item">
-               <label>Client*</label>
+               <label className="required">Client</label>
                <div className="createproject__item-wrap">
                   <input
                      type="text"
@@ -140,7 +138,7 @@ function CreateProject() {
             </div>
             <div className="createproject__item-date ">
                <div className="createproject__item">
-                  <label>StartDate*</label>
+                  <label>StartDate</label>
                   <input
                      type="date"
                      name="startDate"
@@ -151,7 +149,7 @@ function CreateProject() {
                   />
                </div>
                <div className="createproject__item">
-                  <label>EndDate*</label>
+                  <label>EndDate</label>
                   <input
                      type="date"
                      name="endDate"
@@ -163,7 +161,7 @@ function CreateProject() {
                </div>
             </div>
             <div className="createproject__item">
-               <label>PM</label>
+               <label className="required">PM</label>
                <select onChange={(e) => handleSelectPm(e)}>
                   <option value="">PM</option>
                   {USERS.map(
@@ -188,7 +186,15 @@ function CreateProject() {
                <button type="button" onClick={() => history.goBack()}>
                   Cancel
                </button>
-               <button disabled={!values.name || !values.client} type="submit">
+               <button
+                  disabled={
+                     !values.name ||
+                     !values.client ||
+                     !formData.status ||
+                     !formData.pm
+                  }
+                  type="submit"
+               >
                   Create
                </button>
             </div>

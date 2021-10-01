@@ -27,7 +27,7 @@ function Users() {
    const handlePagination = (newPage: number) =>
       setPagination({ ...pagination, page: newPage });
    const { listUsers } = useGetUserData({ filter, pagination });
-   console.log(listUsers, pagination.page);
+
    return (
       <div className="user">
          <div className="user__header">
