@@ -61,7 +61,6 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
 
       return result.splice(startIndex, endIndex);
    };
-
    // ----useMemo()----
    const listUsers: User[] = useMemo(() => {
       //filter.active isboolean
@@ -70,13 +69,8 @@ export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
          return handleFilterMultiple(filter, listUserByActive);
       }
       return handleFilterMultiple(filter, USERS);
-
-
       // eslint-disable-next-line
    }, [filter, pagination]);
-
-
- 
 
    return { listUsers };
 };
