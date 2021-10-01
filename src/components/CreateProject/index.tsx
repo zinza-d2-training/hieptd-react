@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from 'react';
 import Breadcrumb from 'components/Breadcrumb';
-import { Project, ProjectStatus, Role, User } from 'utils/types';
 import { USERS } from 'fakeData/users';
-import './index.scss';
-import { useCreateProjectForm } from './useCreateProjectForm';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import AddMember from './AddMember';
+import { ProjectStatus, Role, User } from 'utils/types';
+import './index.scss';
+import ProjectMemberSwitcher from './ProjectMemberSwitcher';
+import { useCreateProjectForm } from './useCreateProjectForm';
+
+type ProjectFormData = {
+   id: number;
+   name: string;
+   description?: string;
+   client: string;
+   status: ProjectStatus.Pending;
+   members?: User[];
+   pm?: User;
+   startDate?: string;
+   endDate?: string;
+};
 
 function CreateProject() {
    const history = useHistory();
-   const [listUsers, setListUsers] = useState<User[]>([...USERS]);
-   const [listUsersInProject, setListUsersInProject] = useState<User[]>([]);
+   const allMemberUsers = useMemo(() => {
+      return USERS.filter((user) => user.role === Role.Member);
+   }, []);
 
-   const [formData, setFormData] = useState<Project>({
+   const [formData, setFormData] = useState<ProjectFormData>({
       id: 1,
       name: '',
       description: '',
@@ -22,11 +35,11 @@ function CreateProject() {
 
    //------------ handleSubmit --------------
    const handleSubmitNewProject = () => {
-      const { name, description, client } = values;
-      if (name && description && client) {
+      const { name, client } = values;
+      if (name && client) {
          alert(JSON.stringify(formData));
          resetForm();
-      } else alert('All fields required!');
+      }
    };
 
    const { values, errors, handleChange, handleSubmit, resetForm } =
@@ -35,28 +48,25 @@ function CreateProject() {
    const handleSelectPm = (e) => {
       const id = Number(e.target.value);
       const user = USERS.find((user) => user.id === id);
-      setFormData({ ...formData, pm: user });
+      setFormData({ ...formData, pm: user! });
+   };
+
+   //handle update members in project
+   const handleUpdateMembersInProject = (listMember) => {
+      setFormData({ ...formData, members: listMember });
+      console.log(listMember);
    };
    // onChange fields
    useEffect(() => {
-      if (listUsersInProject.length !== 0) {
-         setFormData({
-            ...formData,
-            name: values.name,
-            description: values.description,
-            client: values.client,
-            members: [...listUsersInProject],
-         });
-      } else
-         setFormData({
-            ...formData,
-            name: values.name,
-            description: values.description,
-            client: values.client,
-         });
+      setFormData({
+         ...formData,
+         name: values.name,
+         description: values.description,
+         client: values.client,
+      });
 
       // eslint-disable-next-line
-   }, [values, listUsersInProject]);
+   }, [values]);
    return (
       <div className="createproject">
          <Breadcrumb
@@ -114,7 +124,7 @@ function CreateProject() {
                </div>
             </div>
             <div className="createproject__item">
-               <label>Description*</label>
+               <label>Description</label>
                <div className="createproject__item-wrap">
                   <textarea
                      name="description"
@@ -169,18 +179,18 @@ function CreateProject() {
             </div>
             <div className="createproject__item ">
                <label>Member</label>
-               <AddMember
-                  listUsers={listUsers}
-                  setListUsers={setListUsers}
-                  listUsersInProject={listUsersInProject}
-                  setListUsersInProject={setListUsersInProject}
+               <ProjectMemberSwitcher
+                  allUsers={allMemberUsers}
+                  onChange={handleUpdateMembersInProject}
                />
             </div>
             <div className="createproject__btn">
                <button type="button" onClick={() => history.goBack()}>
                   Cancel
                </button>
-               <button type="submit">Create</button>
+               <button disabled={!values.name || !values.client} type="submit">
+                  Create
+               </button>
             </div>
          </form>
       </div>

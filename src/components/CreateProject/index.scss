@@ -49,6 +49,10 @@
             color: $white;
             border-radius: 5px;
             cursor: pointer;
+            &[type='submit']:disabled {
+               cursor: default;
+               background-color: $error;
+            }
          }
       }
    }

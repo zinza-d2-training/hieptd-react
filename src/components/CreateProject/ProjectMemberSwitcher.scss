@@ -1,0 +1,44 @@
+@import 'styles/variables';
+.memberSwitcher {
+   display: flex;
+   align-items: center;
+   .memberSwitcher__left,
+   .memberSwitcher__right {
+      .memberSwitcher__list {
+         height: 180px;
+         width: 200px;
+         overflow: hidden;
+         overflow-y: scroll;
+         border: 1px solid $lightBlue;
+         display: flex;
+         flex-direction: column;
+         align-items: left;
+         text-align: start;
+         .memberSwitcher__item {
+            text-align: left;
+            cursor: pointer;
+            padding: 5px;
+            width: 100%;
+            &.inactive {
+               background-color: $background;
+               color: $text;
+            }
+            &.active {
+               background-color: $primary;
+               color: $white;
+            }
+         }
+      }
+   }
+   .memberSwitcher__center {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      i {
+         font-size: 2rem;
+         font-weight: 600;
+         cursor: pointer;
+         margin: 10px 0;
+      }
+   }
+}
