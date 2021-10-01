@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { ProjectStatus, Role, User } from 'utils/types';
 import './index.scss';
 import ProjectMembersField from './ProjectMembersField';
-import ProjectMemberSwitcher from './ProjectMemberSwitcher';
 import { useCreateProjectForm } from './useCreateProjectForm';
 
 type ProjectFormData = {
@@ -52,10 +51,6 @@ function CreateProject() {
       setFormData({ ...formData, pm: user! });
    };
 
-   //handle update members in project
-   const handleUpdateMembersInProject = (listMember) => {
-      setFormData({ ...formData, members: listMember });
-   };
    // onChange fields
    useEffect(() => {
       setFormData({
@@ -176,13 +171,7 @@ function CreateProject() {
                   )}
                </select>
             </div>
-            <div className="createproject__item ">
-               <label>Member</label>
-               <ProjectMemberSwitcher
-                  allUsers={allMemberUsers}
-                  onChange={handleUpdateMembersInProject}
-               />
-            </div>
+
             <div className="createproject__item ">
                <label>Members</label>
                <ProjectMembersField
