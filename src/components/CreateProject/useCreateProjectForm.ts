@@ -34,7 +34,11 @@ export const useCreateProjectForm = (onLogin: () => void) => {
          {
             name: 'description',
             validate: (value: string) => {
-               if (!/^[A-Za-z\s]{10,200}$/.test(nonAccentVietnameses(value))) {
+               if (value.length === 0) {
+                  return null;
+               } else if (
+                  !/^[A-Za-z\s]{10,200}$/.test(nonAccentVietnameses(value))
+               ) {
                   return 'Invalid description, at least 10,  max 200 characters required';
                }
                return null;

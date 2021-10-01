@@ -93,12 +93,23 @@ function ProjectMembersField({
          </div>
          <div className="switcherButtonGroup">
             <button
+               onClick={() => {
+                  setSelectedAvailableMemberIds([]);
+                  setSelectedPickedMemberIds([]);
+               }}
+               disabled={
+                  !selectedAvailableMemberIds.length &&
+                  !selectedPickedMemberIds.length
+               }
+            >
+               <i className="fas fa-circle-notch"></i>
+            </button>
+            <button
                onClick={addMembers}
                disabled={!selectedAvailableMemberIds.length}
             >
                <i className="fas fa-arrow-right"></i>
             </button>
-
             <button
                onClick={removeMembers}
                disabled={!selectedPickedMemberIds.length}
