@@ -7,7 +7,7 @@ interface TasksProps {
 }
 
 function ProjectTask({ tasks }: TasksProps) {
-   return <div className="projectdetail__task">Task</div>;
+   return <div className="projectdetail__task">ProjectTask</div>;
 }
 
 export default ProjectTask;

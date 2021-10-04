@@ -43,7 +43,7 @@ function ProjectDashboard({ tasks, projectId }: DashboardProps) {
          </div>
          <TaskTable tasks={tasks} />
          {currentUser && currentUser.id && (
-            <ReportTable projectId={projectId} />
+            <ReportTable recordLimit={true} projectId={projectId} />
          )}
       </div>
    );

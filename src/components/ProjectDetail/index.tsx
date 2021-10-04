@@ -9,6 +9,7 @@ import { Project, Role, Task } from 'utils/types';
 import { getUser } from 'utils/auth';
 import { useHistory } from 'react-router-dom';
 import { TASKS } from 'fakeData/tasks';
+import Breadcrumb from 'components/Breadcrumb';
 
 interface ProjectDetailProps {
    id: number;
@@ -29,6 +30,13 @@ function ProjectDetail({ id }: ProjectDetailProps) {
    );
    return (
       <div className="projectdetail">
+         <Breadcrumb
+            listLink={[
+               { name: 'Home', link: '/' },
+               { name: `Projects`, link: `/projects` },
+               { name: `${project?.name}`, link: '' },
+            ]}
+         />
          <div className="projectdetail__header">
             <span> {project?.name}</span>
             {/*--------- select projects  of user ---------*/}
@@ -53,67 +61,66 @@ function ProjectDetail({ id }: ProjectDetailProps) {
                })}
             </select>
          </div>
-         <div className="projectdetail__tab">
-            <NavLink
-               to={`/projects/${id}/dashboard`}
-               exact
-               activeStyle={{
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  cursor: 'default',
-                  fontSize: '1.1rem',
-                  background: '#42a5f5',
-               }}
-            >
-               Dashboard
-            </NavLink>
-            <NavLink
-               to={`/projects/${id}/task`}
-               exact
-               activeStyle={{
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  cursor: 'default',
-                  fontSize: '1.1rem',
-                  background: '#42a5f5',
-               }}
-            >
-               Tasks
-            </NavLink>
-            <NavLink
-               to={`/projects/${id}/report`}
-               exact
-               activeStyle={{
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  cursor: 'default',
-                  fontSize: '1.1rem',
-                  background: '#42a5f5',
-               }}
-            >
-               Reports
-            </NavLink>
+         <div className="projectdetail__body">
+            <div className="projectdetail__tab">
+               <NavLink
+                  to={`/projects/${id}/dashboard`}
+                  exact
+                  activeStyle={{
+                     color: '#333',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                     background: '#e7e9eb',
+                  }}
+               >
+                  Dashboard
+               </NavLink>
+               <NavLink
+                  to={`/projects/${id}/tasks`}
+                  exact
+                  activeStyle={{
+                     color: '#333',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                     background: '#e7e9eb',
+                  }}
+               >
+                  Tasks
+               </NavLink>
+               <NavLink
+                  to={`/projects/${id}/reports`}
+                  exact
+                  activeStyle={{
+                     color: '#333',
+                     fontWeight: 'bold',
+                     cursor: 'default',
+                     background: '#e7e9eb',
+                  }}
+               >
+                  Reports
+               </NavLink>
+            </div>
+            {/*----- nested router-------- */}
+            <Switch>
+               <Route
+                  component={() => (
+                     <ProjectDashboard tasks={tasks} projectId={id} />
+                  )}
+                  path={`/projects/${id}/dashboard`}
+                  exact
+               />
+               <Route
+                  component={() => <ProjectTasks tasks={tasks} />}
+                  path={`/projects/${id}/tasks`}
+                  exact
+               />
+               <Route
+                  component={() => <ProjectReport projectId={id} />}
+                  path={`/projects/${id}/reports`}
+                  exact
+               />
+            </Switch>
          </div>
-         {/*----- nested router-------- */}
-         <Switch>
-            <Route
-               component={() => (
-                  <ProjectDashboard tasks={tasks} projectId={id} />
-               )}
-               path={`/projects/${id}/dashboard`}
-               exact
-            />
-            <Route
-               component={() => <ProjectTasks tasks={tasks} />}
-               path={`/projects/${id}/task`}
-               exact
-            />
-            <Route
-               component={() => <ProjectReport projectId={id} />}
-               path={`/projects/${id}/report`}
-               exact
-            />
-         </Switch>
       </div>
    );
 }

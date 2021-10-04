@@ -1,11 +1,15 @@
 @import 'styles/variables';
 .projectdetail {
    width: 100%;
+   border: 1px solid rgba(0, 0, 0, 0.7);
+   padding: 10px;
+
    .projectdetail__header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 5px 20px;
+      padding: 20px;
+
       span {
          font-size: 25px;
          font-weight: bold;
@@ -17,14 +21,16 @@
          border-radius: 5px;
       }
    }
-   .projectdetail__tab {
-      margin-top: 10px;
+   .projectdetail__body {
+      border: 1px solid rgba(0, 0, 0, 0.7);
       padding: 10px 0;
 
-      a {
-         padding: 8px;
-         transition: 0.2s linear;
-         border-radius: 5px;
+      .projectdetail__tab {
+         a {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            color: $text;
+         }
       }
    }
 }

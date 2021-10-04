@@ -64,10 +64,10 @@ export type Report = {
    id: number;
    title: string;
    user: User;
-   project: number;
+   projectId: number;
    date: string;
    note?: string;
-   link: string;
+   link?: string;
 };
 export type UserProfileType = User & {
    projects: Project[];
