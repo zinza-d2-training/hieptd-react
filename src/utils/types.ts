@@ -64,8 +64,8 @@ export type Report = {
    id: number;
    title: string;
    user: User;
+   project: number;
    date: string;
-   notes: string;
    note?: string;
    link: string;
 };

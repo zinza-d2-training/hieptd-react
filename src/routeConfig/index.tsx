@@ -12,6 +12,7 @@ import UserProfile from 'components/UserProfile';
 import UserEditInfo from 'components/UserProfile/UserEditInfo';
 import ListProjects from 'components/ListProjects';
 import CreateProject from 'components/CreateProject';
+import ProjectDetail from 'components/ProjectDetail';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -91,6 +92,23 @@ const routes = [
       component={CreateProject}
       layout={Admin}
       roles={[Role.Admin]}
+   />,
+
+   <Route
+      key="users"
+      path="/projects/:id"
+      withAuth
+      component={() => {
+         const params = useParams();
+         if (params['id'] && Number(params['id'])) {
+            const id = Number(params['id']);
+            return <ProjectDetail id={id} />;
+         } else {
+            return <NotFoundPage />;
+         }
+      }}
+      layout={Admin}
+      roles={[Role.Admin, Role.Member, Role.PM]}
    />,
    <Route
       key="users"

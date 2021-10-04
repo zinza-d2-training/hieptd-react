@@ -1,0 +1,43 @@
+@import 'styles/variables';
+
+.reporttable {
+   table,
+   td,
+   th {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+      text-overflow: ellipsis;
+      line-height: 1.1;
+   }
+
+   table {
+      border-collapse: collapse;
+      width: 100%;
+      th,
+      td {
+         padding: 5px;
+         text-align: center;
+      }
+
+      th {
+         background-color: $violet;
+         color: $white;
+         font-size: 1.1rem;
+         font-weight: 400;
+      }
+      td.reporttable__options {
+         display: flex;
+         align-items: center;
+         flex-wrap: wrap;
+
+         button {
+            outline: none;
+            margin: 5px 10px;
+            border: none;
+            border-radius: 5px;
+         }
+      }
+   }
+}

@@ -1,29 +1,49 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Task, TaskStatus } from 'utils/types';
 import '../ProjectTable/ProjectTable.scss';
+import './index.scss';
 
 interface TaskTableProp {
    tasks: Task[];
 }
 
 function TaskTable({ tasks }: TaskTableProp) {
+   const [isCompleted, setIsCompleted] = useState<boolean>(false);
+
+   let listTasks = useMemo<Task[]>(
+      () =>
+         isCompleted
+            ? tasks.filter((task) => task.status === TaskStatus.Completed)
+            : tasks,
+      [isCompleted, tasks]
+   );
    return (
       <>
-         {tasks.length !== 0 && (
-            <div className="profiletable">
+         <div className="profiletable">
+            <div className="tasktable__header">
                <h1>Task</h1>
-               <table>
-                  <thead>
-                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>EndDate</th>
-                        <th>Status</th>
-                     </tr>
-                  </thead>
+               <div>
+                  <input
+                     type="checkbox"
+                     checked={isCompleted}
+                     onChange={(e) => setIsCompleted(e.target.checked)}
+                  />{' '}
+                  Show completed
+               </div>
+            </div>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Description</th>
+                     <th>EndDate</th>
+                     <th>Status</th>
+                  </tr>
+               </thead>
+               {listTasks.length !== 0 && (
                   <tbody>
-                     {tasks &&
-                        tasks.map((task, index) => (
+                     {listTasks &&
+                        listTasks.map((task, index) => (
                            <tr key={index}>
                               <td>{task.title}</td>
                               <td>{task.notes}</td>
@@ -32,9 +52,14 @@ function TaskTable({ tasks }: TaskTableProp) {
                            </tr>
                         ))}
                   </tbody>
-               </table>
-            </div>
-         )}
+               )}
+            </table>
+            {listTasks.length === 0 && (
+               <div className="projecttable__notfound">
+                  There are no task found!
+               </div>
+            )}
+         </div>
       </>
    );
 }

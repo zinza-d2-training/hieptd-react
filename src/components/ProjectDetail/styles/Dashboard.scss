@@ -1,0 +1,19 @@
+@import 'styles/variables';
+.projectdetail__dashboard {
+   padding: 5px 10px;
+   .projectdetail__dashboard-info {
+      border: 1px solid rgba(0, 0, 0, 0.7);
+      width: 200px;
+      padding: 10px 20px;
+      border-radius: 2px;
+      margin: 10px 0;
+      background-color: $background;
+      span {
+         font-size: 2rem;
+         font-weight: bold;
+      }
+      p {
+         color: $text;
+      }
+   }
+}
