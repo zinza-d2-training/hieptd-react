@@ -1,50 +1,54 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './index.scss';
 import TaskTable from 'components/TaskTable';
-import { Task, TaskStatus } from 'utils/types';
+import { Report, Task, TaskStatus } from 'utils/types';
 import ReportTable from 'components/ReportTable';
 import { getUser } from 'utils/auth';
 import './styles/Dashboard.scss';
+import { REPORTS } from 'fakeData/reports';
+import { TASKS } from 'fakeData/tasks';
 
 interface DashboardProps {
-   tasks: Task[];
    projectId: number;
 }
 
-function ProjectDashboard({ tasks, projectId }: DashboardProps) {
+function ProjectDashboard({ projectId }: DashboardProps) {
    const currentUser = getUser();
+   let tasks = useMemo<Task[]>(
+      () => TASKS.filter((task) => task.projectId === projectId),
+      [projectId]
+   );
 
-   const progressCalculation = (): Number => {
-      if (tasks.length !== 0) {
-         let count = 0;
-         tasks.forEach(
-            (task) => task.status === TaskStatus.Completed && count++
-         );
-         if (count === 0) {
-            return 0;
-         } else return Math.floor((count / tasks.length) * 100);
-      }
-      return 0;
-   };
+   // number of tasks were completed
+   let numberOfTasksCompleted = useMemo(
+      () => tasks.filter((task) => task.status === TaskStatus.Completed).length,
+      [tasks]
+   );
+   //list  reports
+   let reports = useMemo<Report[]>(
+      () =>
+         REPORTS.filter((report) => report.projectId === projectId).slice(
+            0,
+            10
+         ), // max 10 records in dashboard
+      [projectId]
+   );
 
    return (
       <div className="projectdetail__dashboard">
          <div className="projectdetail__dashboard-info">
             <h2>Tasks</h2>
             <div className="projectdetail__dashboard-progress">
-               <span>{progressCalculation()}%</span>
+               <span>
+                  {Math.floor((numberOfTasksCompleted / tasks.length) * 100)}%
+               </span>
                <p>
-                  {`${Math.ceil(
-                     (tasks.length * Number(progressCalculation())) / 100
-                  )}/${tasks.length}`}{' '}
-                  Tasks Completed
+                  {`${numberOfTasksCompleted}/${tasks.length}`} Tasks Completed
                </p>
             </div>
          </div>
          <TaskTable tasks={tasks} />
-         {currentUser && currentUser.id && (
-            <ReportTable recordLimit={true} projectId={projectId} />
-         )}
+         {currentUser && currentUser.id && <ReportTable reports={reports} />}
       </div>
    );
 }

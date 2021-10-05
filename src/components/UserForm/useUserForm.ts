@@ -1,9 +1,9 @@
 import { useForm } from 'hooks/useForm';
 import { nonAccentVietnameses } from 'utils/convert';
 
-export const useUserForm = (onLogin: () => void) => {
+export const useUserForm = (handleSubmitUser: () => void) => {
    return useForm({
-      onSubmit: onLogin,
+      onSubmit: handleSubmitUser,
       fields: [
          {
             name: 'username',

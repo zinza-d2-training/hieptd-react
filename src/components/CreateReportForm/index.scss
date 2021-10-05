@@ -7,6 +7,9 @@
    bottom: 0;
    width: 100%;
    z-index: 999;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
    .createreport__overlay {
       position: fixed;
@@ -18,8 +21,6 @@
    }
    form {
       position: fixed;
-      top: 20%;
-      left: 40%;
       width: 420px;
       background-color: $background;
       text-align: center;
@@ -40,6 +41,10 @@
                top: 0;
                color: $error;
             }
+         }
+         input[type='file'] {
+            width: 200px;
+            margin-left: 100px;
          }
 
          .createreport__item-wrap {

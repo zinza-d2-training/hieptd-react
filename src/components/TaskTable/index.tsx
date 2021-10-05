@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Task, TaskStatus } from 'utils/types';
 import '../ProjectTable/ProjectTable.scss';
 import './index.scss';
@@ -56,11 +55,6 @@ function TaskTable({ tasks }: TaskTableProp) {
                            ))}
                      </tbody>
                   </table>
-                  <div className="showmore">
-                     <Link to={`/projects/${tasks[0].projectId}/tasks`}>
-                        Show more...
-                     </Link>
-                  </div>
                </>
             )}
 

@@ -1,19 +1,24 @@
-import React, { useMemo } from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import Breadcrumb from 'components/Breadcrumb';
+import { PROJECTS } from 'fakeData/projects';
+import React, { CSSProperties, useMemo } from 'react';
+import { NavLink, Route, Switch, useHistory } from 'react-router-dom';
+import { getUser } from 'utils/auth';
+import { Project, Role } from 'utils/types';
 import './index.scss';
 import ProjectDashboard from './ProjectDashboard';
-import ProjectReport from './ProjectReport';
-import ProjectTasks from './ProjectTask';
-import { PROJECTS } from 'fakeData/projects';
-import { Project, Role, Task } from 'utils/types';
-import { getUser } from 'utils/auth';
-import { useHistory } from 'react-router-dom';
-import { TASKS } from 'fakeData/tasks';
-import Breadcrumb from 'components/Breadcrumb';
+import ProjectReports from './ProjectReports';
+import ProjectTasks from './ProjectTasks';
 
 interface ProjectDetailProps {
    id: number;
 }
+
+const linkActiveStyle: CSSProperties = {
+   color: '#333',
+   fontWeight: 'bold',
+   cursor: 'default',
+   background: '#e7e9eb',
+};
 
 function ProjectDetail({ id }: ProjectDetailProps) {
    const history = useHistory();
@@ -24,10 +29,6 @@ function ProjectDetail({ id }: ProjectDetailProps) {
       [id]
    );
 
-   let tasks = useMemo<Task[]>(
-      () => TASKS.filter((task) => task.projectId === id),
-      [id]
-   );
    return (
       <div className="projectdetail">
          <Breadcrumb
@@ -66,36 +67,21 @@ function ProjectDetail({ id }: ProjectDetailProps) {
                <NavLink
                   to={`/projects/${id}/dashboard`}
                   exact
-                  activeStyle={{
-                     color: '#333',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     background: '#e7e9eb',
-                  }}
+                  activeStyle={linkActiveStyle}
                >
                   Dashboard
                </NavLink>
                <NavLink
                   to={`/projects/${id}/tasks`}
                   exact
-                  activeStyle={{
-                     color: '#333',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     background: '#e7e9eb',
-                  }}
+                  activeStyle={linkActiveStyle}
                >
                   Tasks
                </NavLink>
                <NavLink
                   to={`/projects/${id}/reports`}
                   exact
-                  activeStyle={{
-                     color: '#333',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     background: '#e7e9eb',
-                  }}
+                  activeStyle={linkActiveStyle}
                >
                   Reports
                </NavLink>
@@ -103,19 +89,17 @@ function ProjectDetail({ id }: ProjectDetailProps) {
             {/*----- nested router-------- */}
             <Switch>
                <Route
-                  component={() => (
-                     <ProjectDashboard tasks={tasks} projectId={id} />
-                  )}
+                  component={() => <ProjectDashboard projectId={id} />}
                   path={`/projects/${id}/dashboard`}
                   exact
                />
                <Route
-                  component={() => <ProjectTasks tasks={tasks} />}
+                  component={() => <ProjectTasks projectId={id} />}
                   path={`/projects/${id}/tasks`}
                   exact
                />
                <Route
-                  component={() => <ProjectReport projectId={id} />}
+                  component={() => <ProjectReports projectId={id} />}
                   path={`/projects/${id}/reports`}
                   exact
                />

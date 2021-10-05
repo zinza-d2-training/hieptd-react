@@ -74,6 +74,13 @@ function CreateReportForm({ projectId, setShow, show }: CreateReportProp) {
                         </div>
                      </div>
                   </div>
+                  <div className="createreport__item">
+                     <input
+                        type="file"
+                        id="docpicker"
+                        accept=".doc,.docx,.pdf,.excel"
+                     />
+                  </div>
                   <div className="createreport__btn">
                      <button type="button" onClick={() => setShow(false)}>
                         Cancel
