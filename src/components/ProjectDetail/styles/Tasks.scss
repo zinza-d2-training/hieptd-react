@@ -1,4 +1,7 @@
 @import 'styles/variables';
 .projectdetail__task {
-   margin-top: 10px;
+   margin-top: 20px;
+   .projectdetail__task-body {
+      display: flex;
+   }
 }

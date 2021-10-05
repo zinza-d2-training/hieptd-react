@@ -1,0 +1,56 @@
+@import 'styles/variables';
+.statuscolumn {
+   flex: 0 20%;
+   height: 100vh;
+
+   .statuscolumn__header {
+      font-size: 20px;
+      font-weight: bold;
+      color: $text;
+      text-align: center;
+      padding: 10px 0;
+   }
+   .statuscolumn__header-1 {
+      background-color: rgba(0, 0, 0, 0.1);
+   }
+   .statuscolumn__header-2 {
+      background-color: #a29bfe;
+   }
+   .statuscolumn__header-3 {
+      background-color: #fd79a8;
+   }
+   .statuscolumn__header-4 {
+      background-color: #6c5ce7;
+   }
+   .statuscolumn__header-5 {
+      background-color: #55efc4;
+   }
+   .statuscolumn {
+      margin-left: 5px;
+   }
+   .statuscolumn-1 {
+      border: 2px solid rgba(0, 0, 0, 0.7);
+      height: 100%;
+   }
+   .statuscolumn-2 {
+      border: 2px solid #a29bfe;
+      height: 100%;
+      border-left: none;
+   }
+   .statuscolumn-3 {
+      border: 2px solid #fd79a8;
+      border-left: none;
+      height: 100%;
+   }
+   .statuscolumn-4 {
+      border: 2px solid #6c5ce7;
+      height: 100%;
+      border-left: none;
+   }
+   .statuscolumn-5 {
+      border: 2px solid #55efc4;
+      height: 100%;
+      border-left: none;
+      border-right: none;
+   }
+}

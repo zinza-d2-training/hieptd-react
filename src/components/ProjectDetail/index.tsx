@@ -54,11 +54,17 @@ function ProjectDetail({ id }: ProjectDetailProps) {
                            project.members.findIndex(
                               (member) => member.id === currentUser?.id
                            ) !== -1 && (
-                              <option value={project.id}>{project.name}</option>
+                              <option key={project.id} value={project.id}>
+                                 {project.name}
+                              </option>
                            ))
                      );
                   }
-                  return <option value={project.id}>{project.name}</option>;
+                  return (
+                     <option key={project.id} value={project.id}>
+                        {project.name}
+                     </option>
+                  );
                })}
             </select>
          </div>
