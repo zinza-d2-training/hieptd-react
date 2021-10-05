@@ -24,7 +24,10 @@ function ReportTable({ reports }: ReportTableProps) {
          />
          {reports.length !== 0 && (
             <div className="reporttable">
-               <h2>Report</h2>
+               <div className="reporttable__header">
+                  {' '}
+                  <h2>Report</h2>
+               </div>
                <table>
                   <thead>
                      <tr>

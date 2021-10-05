@@ -46,12 +46,14 @@ function ProjectReports({ projectId }: ReportProps) {
          />
          <div className="projectdetail__report">
             {currentUser?.role === Role.Member && (
-               <button
-                  type="button"
-                  onClick={() => setShowCreateReportForm(true)}
-               >
-                  Upload
-               </button>
+               <div className="projectdetail__report-btn">
+                  <button
+                     type="button"
+                     onClick={() => setShowCreateReportForm(true)}
+                  >
+                     Upload
+                  </button>
+               </div>
             )}
             <ReportTable reports={reports} />
             <Pagination info={pagination} onChange={handlePagination} />

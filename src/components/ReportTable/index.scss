@@ -1,6 +1,13 @@
 @import 'styles/variables';
 
 .reporttable {
+   border: 1px solid rgba(0, 0, 0, 0.7);
+   margin-top: 20px;
+   .reporttable__header {
+      padding: 10px;
+      font-size: 20px;
+   }
+
    table,
    td,
    th {
