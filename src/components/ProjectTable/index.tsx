@@ -51,7 +51,13 @@ function ProjectTable({ projects }: ProjectTableProp) {
                         {projects &&
                            projects.map((project) => (
                               <tr key={project.id}>
-                                 <td>{project.name}</td>
+                                 <td>
+                                    <Link
+                                       to={`projects/${project.id}/dashboard`}
+                                    >
+                                       {project.name}
+                                    </Link>
+                                 </td>
                                  <td>{project.description}</td>
                                  <td>{project.endDate}</td>
                                  {currentUser?.role === Role.Admin ? (

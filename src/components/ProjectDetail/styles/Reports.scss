@@ -1,0 +1,12 @@
+@import 'styles/variables';
+.projectdetail__report {
+   button {
+      outline: none;
+      border: none;
+      display: block;
+      padding: 10px 25px;
+      border-radius: 4px;
+      float: right;
+      margin-right: 10px;
+   }
+}
