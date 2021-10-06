@@ -9,7 +9,7 @@ interface TasksMap {
 interface TaskListBoardProp {
    tasks: Task[];
 }
-const categories = [
+export const categories = [
    TaskStatus.Requesting,
    TaskStatus.Unscheduled,
    TaskStatus.Doing,
