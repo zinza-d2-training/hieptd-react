@@ -1,19 +1,27 @@
 import { getUser } from 'utils/auth';
 import { nonAccentVietnameses } from 'utils/convert';
 import { Task } from 'utils/types';
-import { TaskFilterType } from '../ProjectTasks';
+import { TasksFilter } from '../ProjectTasks';
 
-export const useGetTaskListByFilter = (
-   filter: TaskFilterType,
-   tasks: Task[]
-) => {
+export const useGetTaskListByFilter = (filter: TasksFilter, tasks: Task[]) => {
    const currentUser = getUser();
    const filterKeys = Object.keys(filter);
    let tasksFilter = tasks.filter((task) => {
       return filterKeys.every((eachKey) => {
-         if (!filter[eachKey].length && typeof filter[eachKey] !== 'boolean') {
+         if (filter[eachKey] === null) {
             return true;
          }
+         if (
+            filter[eachKey] &&
+            !filter[eachKey].length &&
+            typeof filter[eachKey] !== 'boolean'
+         ) {
+            return true;
+         }
+         // if (filter[eachKey].length === 0 && Array.isArray(filter[eachKey])) {
+         //    return true;
+         // }
+
          switch (eachKey) {
             case 'search':
                const searchWord: string = nonAccentVietnameses(filter[eachKey]);
@@ -26,23 +34,17 @@ export const useGetTaskListByFilter = (
                   )
                );
             case 'createBy':
-               console.log('ss', task.requestByUser.id === currentUser?.id);
                return (
                   (task.requestByUser.id === currentUser?.id) ===
                   filter[eachKey]
                );
             case 'assignTo':
                return (task.assign?.id === currentUser?.id) === filter[eachKey];
-            case 'status':
-               return task[eachKey]
-                  .toString()
-                  .toLowerCase()
-                  .includes(filter[eachKey]);
+            case 'statuses':
+               return filter['statuses'].includes(task.status);
             case 'priority':
-               return task[eachKey]
-                  .toString()
-                  .toLowerCase()
-                  .includes(filter[eachKey]);
+               console.log(filter[eachKey], task[eachKey]);
+               return filter[eachKey] === task[eachKey];
             default:
                return true;
          }

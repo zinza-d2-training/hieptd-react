@@ -15,6 +15,7 @@ export const categories = [
    TaskStatus.Doing,
    TaskStatus.Reviewing,
    TaskStatus.Completed,
+   TaskStatus.Cancelled,
 ];
 
 function TaskListBoard({ tasks }: TaskListBoardProp) {
@@ -36,6 +37,9 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       );
       lists[TaskStatus.Completed] = tasks.filter(
          (task) => task.status === TaskStatus.Completed
+      );
+      lists[TaskStatus.Cancelled] = tasks.filter(
+         (task) => task.status === TaskStatus.Cancelled
       );
       setTasksMap(lists);
    }, [tasks]);
@@ -72,7 +76,7 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       e.preventDefault();
    };
    return (
-      <div className="projectdetail__task-body">
+      <div className="projectdetail__task-dropAndDrag">
          <DragDropContext onDragEnd={onDragEnd} onDropEnter={onDropEnter}>
             {categories.map((item, index) => (
                <StatusColumn

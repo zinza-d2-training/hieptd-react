@@ -1,7 +1,9 @@
 @import 'styles/variables';
 .projectdetail__task {
    margin-top: 20px;
-   .projectdetail__task-body {
+   .projectdetail__task-dropAndDrag {
       display: flex;
+      overflow-x: scroll;
+      transform: rotateX(180deg);
    }
 }

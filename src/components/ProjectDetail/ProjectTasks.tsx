@@ -1,5 +1,6 @@
 import { TASKS } from 'fakeData/tasks';
 import React, { useMemo, useState } from 'react';
+import { Priority, TaskStatus } from 'utils/types';
 import './styles/Tasks.scss';
 import TaskFilter from './TaskFilter';
 import { useGetTaskListByFilter } from './TaskFilter/useGetTaskListFilter';
@@ -7,28 +8,28 @@ import TaskListBoard from './TaskListBoard';
 interface TasksProps {
    projectId: number;
 }
-export type TaskFilterType = {
+export type TasksFilter = {
    search: string;
    assignTo: boolean;
    createBy: boolean;
-   status: any;
-   priority: any;
+   statuses: TaskStatus[];
+   priority: Priority | null;
 };
 
 function ProjectTasks({ projectId }: TasksProps) {
-   let tasks = useMemo(
+   const allTasks = useMemo(
       () => TASKS.filter((task) => task.projectId === projectId),
       [projectId]
    );
 
-   const [filter, setFilter] = useState<TaskFilterType>({
+   const [filter, setFilter] = useState<TasksFilter>({
       search: '',
       assignTo: true,
       createBy: false,
-      status: '',
-      priority: '',
+      statuses: [],
+      priority: null,
    });
-   const { tasksFilter } = useGetTaskListByFilter(filter, tasks);
+   const { tasksFilter } = useGetTaskListByFilter(filter, allTasks);
 
    return (
       <div className="projectdetail__task">

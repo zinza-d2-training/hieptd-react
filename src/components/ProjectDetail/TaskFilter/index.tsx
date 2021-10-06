@@ -1,15 +1,34 @@
+import MultipleSelect from 'components/MultipleSelect';
 import React from 'react';
-import { Priority, TaskStatus } from 'utils/types';
-import { TaskFilterType } from '../ProjectTasks';
+import { getUser } from 'utils/auth';
+import { Priority, Role, TaskStatus } from 'utils/types';
+import { TasksFilter } from '../ProjectTasks';
 import '../styles/TaskFilter.scss';
 import { categories } from '../TaskListBoard/index';
+import { textFromTaskStatus } from './functions';
 
 interface TaskFilterProps {
-   filter: TaskFilterType;
-   handleFilter: (filter: TaskFilterType) => void;
+   filter: TasksFilter;
+   handleFilter: (filter: TasksFilter) => void;
 }
+export type TaskStatusOption = {
+   text: string;
+   value: TaskStatus;
+};
 
 function TaskFilter({ filter, handleFilter }: TaskFilterProps) {
+   const currentUser = getUser();
+
+   const options = React.useMemo<TaskStatusOption[]>(() => {
+      return categories.map((status) => ({
+         text: textFromTaskStatus(status),
+         value: status,
+      }));
+   }, []);
+
+   const handleMultipleStatus = (listSelected: TaskStatus[]) => {
+      handleFilter({ ...filter, statuses: listSelected });
+   };
    return (
       <div className="taskFilter">
          <div className="taskFilter__item">
@@ -42,34 +61,17 @@ function TaskFilter({ filter, handleFilter }: TaskFilterProps) {
                checked={filter.createBy}
                onChange={(e) => {
                   handleFilter({ ...filter, createBy: e.target.checked });
-                  console.log(filter.createBy);
                }}
             />
             <label htmlFor="taskFilter-checkbox-2">Create by me</label>
          </div>{' '}
          <div className="taskFilter__item">
-            <select
-               onChange={(e) => {
-                  if (e.target.value) {
-                     handleFilter({
-                        ...filter,
-                        status: e.target.value,
-                     });
-                  } else {
-                     handleFilter({
-                        ...filter,
-                        status: '',
-                     });
-                  }
-               }}
-            >
-               <option value="">Status(multiple)</option>
-               {categories.map((item, index) => (
-                  <option key={index} value={item}>
-                     {TaskStatus[item]}
-                  </option>
-               ))}
-            </select>
+            <MultipleSelect
+               title={'Statues'}
+               value={filter.statuses}
+               options={options}
+               onChange={handleMultipleStatus}
+            />
          </div>
          <div className="taskFilter__item">
             <select
@@ -77,23 +79,28 @@ function TaskFilter({ filter, handleFilter }: TaskFilterProps) {
                   if (e.target.value) {
                      handleFilter({
                         ...filter,
-                        priority: e.target.value,
+                        priority: Priority[e.target.value],
                      });
                   } else {
                      handleFilter({
                         ...filter,
-                        priority: '',
+                        priority: null,
                      });
                   }
                }}
             >
-               <option value="">Sequence</option>
-               <option value={Priority.High}>{Priority.High}</option>
-               <option value={Priority.Medium}>{Priority.Medium}</option>
+               <option value="">Priority</option>
+               <option value={Priority[Priority.High]}>High</option>
+               <option value={Priority[Priority.Medium]}>Medium</option>
             </select>
          </div>
          <div className="taskFilter__item">
-            <button type="button">Add/Request</button>
+            {currentUser?.role === Role.PM && (
+               <button type="button">Add a Task</button>
+            )}
+            {currentUser?.role === Role.Member && (
+               <button type="button">Request a Task</button>
+            )}
          </div>
       </div>
    );
