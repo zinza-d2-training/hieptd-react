@@ -3,7 +3,7 @@ import { Task, TaskStatus, Priority, Role } from 'utils/types';
 export const TASKS: Task[] = [
    {
       id: 1,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -14,7 +14,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -34,7 +34,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 2,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -45,7 +45,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -65,7 +65,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 3,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -76,7 +76,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -96,7 +96,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 4,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -107,7 +107,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -127,7 +127,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 5,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -138,7 +138,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -158,7 +158,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 6,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -169,7 +169,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -189,7 +189,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 7,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -200,7 +200,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -220,7 +220,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 1,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -231,7 +231,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -251,7 +251,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 2,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -262,7 +262,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -282,7 +282,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 3,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -293,7 +293,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -313,7 +313,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 4,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -324,7 +324,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -344,7 +344,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 5,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -355,7 +355,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -375,7 +375,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 6,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -386,7 +386,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -406,7 +406,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 7,
-      requestByUser: {
+      assign: {
          id: 8,
          username: 'member8',
          password: '123456',
@@ -417,7 +417,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -437,7 +437,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 1,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -448,7 +448,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -468,7 +468,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 2,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -479,7 +479,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -499,7 +499,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 3,
-      requestByUser: {
+      assign: {
          id: 8,
          username: 'member8',
          password: '123456',
@@ -510,7 +510,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -530,7 +530,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 4,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -541,7 +541,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -561,7 +561,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 5,
-      requestByUser: {
+      assign: {
          id: 8,
          username: 'member8',
          password: '123456',
@@ -572,7 +572,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -592,7 +592,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 6,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -603,7 +603,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -623,7 +623,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 7,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -634,7 +634,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 3,
          username: 'projectmanager2',
          password: '123456',
@@ -654,7 +654,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 1,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -665,7 +665,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -685,7 +685,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 2,
-      requestByUser: {
+      assign: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -696,7 +696,7 @@ export const TASKS: Task[] = [
          role: Role.PM,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -716,7 +716,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 3,
-      requestByUser: {
+      assign: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -727,7 +727,7 @@ export const TASKS: Task[] = [
          role: Role.PM,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -747,7 +747,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 4,
-      requestByUser: {
+      assign: {
          id: 7,
          username: 'member3',
          password: '123456',
@@ -758,7 +758,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -778,7 +778,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 5,
-      requestByUser: {
+      assign: {
          id: 6,
          username: 'member2',
          password: '123456',
@@ -789,7 +789,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -809,7 +809,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 6,
-      requestByUser: {
+      assign: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -820,7 +820,7 @@ export const TASKS: Task[] = [
          role: Role.PM,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -840,7 +840,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 7,
-      requestByUser: {
+      assign: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -851,7 +851,7 @@ export const TASKS: Task[] = [
          role: Role.PM,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 2,
          username: 'projectmanager',
          password: '123456',
@@ -871,7 +871,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 1,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -882,7 +882,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -902,7 +902,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 2,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -913,7 +913,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -933,7 +933,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 3,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -944,7 +944,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -964,7 +964,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 4,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -975,7 +975,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -995,7 +995,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 5,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -1006,7 +1006,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -1026,7 +1026,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 6,
-      requestByUser: {
+      assign: {
          id: 5,
          username: 'member1',
          password: '123456',
@@ -1037,7 +1037,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: false,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',
@@ -1057,7 +1057,7 @@ export const TASKS: Task[] = [
    },
    {
       id: 7,
-      requestByUser: {
+      assign: {
          id: 9,
          username: 'member9',
          password: '123456',
@@ -1068,7 +1068,7 @@ export const TASKS: Task[] = [
          role: Role.Member,
          active: true,
       },
-      assign: {
+      requestByUser: {
          id: 4,
          username: 'projectmanager3',
          password: '123456',

@@ -1,8 +1,8 @@
 @import 'styles/variables';
 .statuscolumn {
-   flex: 0 20%;
    height: 100vh;
-
+   flex: 0 0 20%;
+   transform: rotateX(180deg);
    .statuscolumn__header {
       font-size: 20px;
       font-weight: bold;
@@ -24,6 +24,9 @@
    }
    .statuscolumn__header-5 {
       background-color: #55efc4;
+   }
+   .statuscolumn__header-6 {
+      background-color: $error;
    }
    .statuscolumn {
       margin-left: 5px;
@@ -49,6 +52,11 @@
    }
    .statuscolumn-5 {
       border: 2px solid #55efc4;
+      height: 100%;
+      border-left: none;
+   }
+   .statuscolumn-6 {
+      border: 2px solid $error;
       height: 100%;
       border-left: none;
       border-right: none;
