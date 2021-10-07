@@ -79,7 +79,7 @@ function TaskFilter({ filter, handleFilter }: TaskFilterProps) {
                   if (e.target.value) {
                      handleFilter({
                         ...filter,
-                        priority: Priority[e.target.value],
+                        priority: e.target.value as Priority,
                      });
                   } else {
                      handleFilter({
@@ -90,8 +90,8 @@ function TaskFilter({ filter, handleFilter }: TaskFilterProps) {
                }}
             >
                <option value="">Priority</option>
-               <option value={Priority[Priority.High]}>High</option>
-               <option value={Priority[Priority.Medium]}>Medium</option>
+               <option value={Priority.High}>High</option>
+               <option value={Priority.Medium}>Medium</option>
             </select>
          </div>
          <div className="taskFilter__item">

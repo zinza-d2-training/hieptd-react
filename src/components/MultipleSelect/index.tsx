@@ -26,17 +26,10 @@ function MultipleSelect<T>({
    }, [options, value]);
 
    const handleSelectItem = (item: { text: string; value: T }) => {
-      const selected: T[] = [];
       if (selectedOptions.includes(item)) {
-         selectedOptions
-            .filter((value) => value !== item)
-            .map((option) => selected.push(option.value));
-
-         onChange(selected);
+         onChange(value.filter((_value) => _value !== item.value));
       } else {
-         selectedOptions.push(item);
-         selectedOptions.map((option) => selected.push(option.value));
-         onChange(selected);
+         onChange([...value, item.value]);
       }
    };
 

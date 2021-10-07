@@ -43,7 +43,6 @@ export const useGetTaskListByFilter = (filter: TasksFilter, tasks: Task[]) => {
             case 'statuses':
                return filter['statuses'].includes(task.status);
             case 'priority':
-               console.log(filter[eachKey], task[eachKey]);
                return filter[eachKey] === task[eachKey];
             default:
                return true;
