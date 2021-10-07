@@ -80,6 +80,12 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       }
    };
 
+   // function checkIfValidDrag(result) {
+   //    if (result.destination === null) {
+   //       console.log('sss');
+   //    }
+   // }
+
    return (
       <div className="projectdetail__task-dropAndDrag">
          <DragDropContext onDragEnd={onDragEnd}>

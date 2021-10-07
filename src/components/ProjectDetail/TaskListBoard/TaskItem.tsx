@@ -1,12 +1,12 @@
 import React from 'react';
-import { Task } from 'utils/types';
-import '../styles/TaskItem.scss';
 import {
    Draggable,
    DroppableProvided,
    DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
+import { Task } from 'utils/types';
+import '../styles/TaskItem.scss';
 
 interface TaskItemProp {
    task: Task;

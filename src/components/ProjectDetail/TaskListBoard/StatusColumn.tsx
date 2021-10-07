@@ -30,33 +30,33 @@ function StatusColumn({ tasks, category }: StatusColumnProp) {
       [tasks]
    );
    return (
-      <Droppable droppableId={TaskStatus[category]}>
-         {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-            <div
-               className="statuscolumn"
-               ref={provided.innerRef}
-               {...provided.droppableProps}
-               style={{
-                  backgroundColor: snapshot.isDraggingOver
-                     ? '#42a5f5'
-                     : '#f6f8fa',
-               }}
-            >
-               <div className="statuscolumn__container">
-                  <div className="statuscolumn__header">
-                     {TaskStatus[category]}
-                  </div>
-                  <div className="statuscolumn__body">
-                     {tasksSorted &&
-                        tasksSorted.map((task, index) => (
-                           <TaskItem index={index} task={task} />
-                        ))}
-                  </div>
+      <div className="statuscolumn">
+         <div className="statuscolumn__header">{TaskStatus[category]}</div>
+         <Droppable droppableId={TaskStatus[category]}>
+            {(
+               provided: DroppableProvided,
+               snapshot: DroppableStateSnapshot
+            ) => (
+               <div
+                  className="statuscolumn__body"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  style={{
+                     backgroundColor: snapshot.isDraggingOver
+                        ? '#e1e1e1'
+                        : '#efeff0',
+                  }}
+               >
+                  {tasksSorted &&
+                     tasksSorted.map((task, index) => (
+                        <TaskItem index={index} task={task} />
+                     ))}
+
+                  {provided.placeholder}
                </div>
-               {provided.placeholder}
-            </div>
-         )}
-      </Droppable>
+            )}
+         </Droppable>
+      </div>
    );
 }
 
