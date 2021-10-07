@@ -3,7 +3,7 @@
    margin-top: 20px;
    .projectdetail__task-dropAndDrag {
       display: flex;
+      overflow: hidden;
       overflow-x: scroll;
-      transform: rotateX(180deg);
    }
 }
