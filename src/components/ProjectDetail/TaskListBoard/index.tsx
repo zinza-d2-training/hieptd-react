@@ -28,10 +28,8 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
 
    useEffect(() => {
       let lists: TasksMap = {};
-      Object.keys(categories).forEach((column) => {
-         lists[column] = tasks.filter(
-            (task) => task.status === (Number(column) as TaskStatus)
-         );
+      categories.forEach((column) => {
+         lists[column] = tasks.filter((task) => task.status === column);
       });
 
       setTasksMap(lists);
@@ -79,12 +77,6 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
          setTasksMap(newListTasks);
       }
    };
-
-   // function checkIfValidDrag(result) {
-   //    if (result.destination === null) {
-   //       console.log('sss');
-   //    }
-   // }
 
    return (
       <div className="projectdetail__task-dropAndDrag">
