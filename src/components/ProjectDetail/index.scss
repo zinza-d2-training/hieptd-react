@@ -2,22 +2,28 @@
 .projectdetail {
    width: 100%;
    padding: 10px;
+   overflow: auto;
 
    .projectdetail__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       padding: 20px;
+      height: 90px;
+      max-height: 90px;
 
-      span {
-         font-size: 25px;
-         font-weight: bold;
-      }
-      select {
-         cursor: pointer;
-         padding: 5px;
-         outline: none;
-         border-radius: 5px;
+      .projectdetail__header-item {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         margin: 5px 0;
+         span {
+            font-size: 25px;
+            font-weight: bold;
+         }
+         select {
+            cursor: pointer;
+            padding: 5px;
+            outline: none;
+            border-radius: 5px;
+         }
       }
    }
    .projectdetail__body {

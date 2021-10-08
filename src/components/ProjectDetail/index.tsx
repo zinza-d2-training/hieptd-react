@@ -31,36 +31,45 @@ function ProjectDetail({ id }: ProjectDetailProps) {
 
    return (
       <div className="projectdetail">
-         <Breadcrumb
-            listLink={[
-               { name: 'Home', link: '/' },
-               { name: `Projects`, link: `/projects` },
-               { name: `${project?.name}`, link: '' },
-            ]}
-         />
          <div className="projectdetail__header">
-            <span> {project?.name}</span>
-            {/*--------- select projects  of user ---------*/}
-            <select
-               onChange={(e) => {
-                  history.push(`/projects/${e.target.value}/dashboard`);
-               }}
-            >
-               {PROJECTS.map((project) => {
-                  if (currentUser?.role !== Role.Admin) {
+            <Breadcrumb
+               listLink={[
+                  { name: 'Home', link: '/' },
+                  { name: `Projects`, link: `/projects` },
+                  { name: `${project?.name}`, link: '' },
+               ]}
+            />
+            <div className="projectdetail__header-item">
+               {' '}
+               <span> {project?.name}</span>
+               {/*--------- select projects  of user ---------*/}
+               <select
+                  onChange={(e) => {
+                     history.push(`/projects/${e.target.value}/dashboard`);
+                  }}
+               >
+                  {PROJECTS.map((project) => {
+                     if (currentUser?.role !== Role.Admin) {
+                        return (
+                           project.pm?.id === currentUser?.id ||
+                           (project.members &&
+                              project.members.findIndex(
+                                 (member) => member.id === currentUser?.id
+                              ) !== -1 && (
+                                 <option key={project.id} value={project.id}>
+                                    {project.name}
+                                 </option>
+                              ))
+                        );
+                     }
                      return (
-                        project.pm?.id === currentUser?.id ||
-                        (project.members &&
-                           project.members.findIndex(
-                              (member) => member.id === currentUser?.id
-                           ) !== -1 && (
-                              <option value={project.id}>{project.name}</option>
-                           ))
+                        <option key={project.id} value={project.id}>
+                           {project.name}
+                        </option>
                      );
-                  }
-                  return <option value={project.id}>{project.name}</option>;
-               })}
-            </select>
+                  })}
+               </select>
+            </div>
          </div>
          <div className="projectdetail__body">
             <div className="projectdetail__tab">

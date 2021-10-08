@@ -1,0 +1,48 @@
+@import 'styles/variables';
+.multipleSelect {
+   position: relative;
+   width: 180px;
+   .multipleSelect__header {
+      display: flex;
+      align-items: center;
+      .multipleSelected__btn {
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 5px;
+         width: 150px;
+         border: 1px solid $border;
+         margin-left: 10px;
+         color: $text;
+         font-size: 16px;
+
+         i {
+            padding: 0 5px;
+         }
+      }
+   }
+
+   .multipleSelect__list {
+      position: absolute;
+      top: 35px;
+      width: 200px;
+      background-color: $background;
+      box-shadow: $box-shadow;
+      z-index: 99;
+      padding: 10px;
+
+      .multipleSelect__item {
+         padding: 5px;
+         cursor: pointer;
+         transition: all 0.2s linear;
+         color: $text;
+         margin: 5px 0;
+
+         &.selected {
+            color: red;
+            background-color: rgba(158, 141, 141, 0.5);
+         }
+      }
+   }
+}

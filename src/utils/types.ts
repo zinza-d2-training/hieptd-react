@@ -59,6 +59,7 @@ export type Task = {
    dueDate: string;
    status: TaskStatus;
    priority: Priority;
+   sequence?: number;
 };
 export type Report = {
    id: number;
