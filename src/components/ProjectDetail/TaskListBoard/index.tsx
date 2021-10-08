@@ -22,8 +22,8 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
    const [tasksMap, setTasksMap] = useState<TasksMap>({});
 
    // add sequence of tasks
-   function addSequence(task: Task[]) {
-      task.forEach((task, index) => (task.sequence = index));
+   function addSequence(listTasks: Task[]) {
+      listTasks.forEach((task, index) => (task.sequence = index));
    }
 
    useEffect(() => {
@@ -53,7 +53,7 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
 
       let newListTasks = { ...tasksMap };
       // find the task dragging
-      const task = newListTasks[startDes].find(
+      let task = newListTasks[startDes].find(
          (item) => item.id === Number(draggableId)
       );
       if (task) {
@@ -67,6 +67,7 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
 
          //to another column
          else {
+            task.status = Number(endDes) as TaskStatus;
             newListTasks[endDes].splice(destination.index, 0, task);
             newListTasks[startDes] = newListTasks[startDes].filter(
                (item) => item !== task
