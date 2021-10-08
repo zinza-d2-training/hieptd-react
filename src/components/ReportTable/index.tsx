@@ -23,7 +23,7 @@ function ReportTable({ reports }: ReportTableProps) {
             content="Are you sure you want to delete?"
          />
          {reports.length !== 0 && (
-            <div className="reporttable">
+            <div className="table">
                <div className="reporttable__header">
                   {' '}
                   <h2>Report</h2>
@@ -46,15 +46,23 @@ function ReportTable({ reports }: ReportTableProps) {
                            <td>{report.date}</td>
                            <td>{`${report.user.firstName} ${report.user.lastName}`}</td>
                            <td className="reporttable__options">
-                              <button>View</button>
-                              <button>Download</button>
+                              <div className="reporttable__btn ">View</div>
+                              <div
+                                 className={`reporttable__btn ${
+                                    currentUser?.id === report.user.id
+                                       ? ''
+                                       : 'reporttable__btn-last'
+                                 }`}
+                              >
+                                 Download
+                              </div>
                               {currentUser?.id === report.user.id && (
-                                 <button
-                                    type="button"
+                                 <div
+                                    className="reporttable__btn reporttable__btn-last"
                                     onClick={() => setShowModalDelete(true)}
                                  >
                                     Delete
-                                 </button>
+                                 </div>
                               )}
                            </td>
                         </tr>

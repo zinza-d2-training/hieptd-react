@@ -37,7 +37,7 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
             title="Confirm Change"
             content="Are you sure you want to change?"
          />
-         <div className="user__table">
+         <div className="table">
             <table>
                <thead>
                   <tr>
@@ -101,7 +101,9 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                         </tr>
                      ))
                   ) : (
-                     <h1>No result</h1>
+                     <div className="table__notfound">
+                        There are no user found!
+                     </div>
                   )}
                </tbody>
             </table>

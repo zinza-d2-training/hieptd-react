@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from 'utils/auth';
 import { Project, ProjectStatus, Role } from 'utils/types';
-import './ProjectTable.scss';
+import '../Components.scss';
 
 interface ProjectTableProp {
    projects: Project[];
@@ -33,7 +33,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
             content="Are you sure you want to change?"
          />
          {projects && (
-            <div className="profiletable">
+            <div className="table">
                <h1>Projects</h1>
 
                <table>
@@ -116,7 +116,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                   )}
                </table>
                {projects.length === 0 && (
-                  <div className="projecttable__notfound">
+                  <div className="table__notfound">
                      There are no project found!
                   </div>
                )}

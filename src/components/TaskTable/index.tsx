@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Task, TaskStatus } from 'utils/types';
-import '../ProjectTable/ProjectTable.scss';
+import '../Components.scss';
 import './index.scss';
 
 interface TaskTableProp {
@@ -19,7 +19,7 @@ function TaskTable({ tasks }: TaskTableProp) {
    );
    return (
       <>
-         <div className="profiletable">
+         <div className="table">
             <div className="tasktable__header">
                <h1>Task</h1>
                <div>
@@ -59,9 +59,7 @@ function TaskTable({ tasks }: TaskTableProp) {
             )}
 
             {listTasks.length === 0 && (
-               <div className="projecttable__notfound">
-                  There are no task found!
-               </div>
+               <div className="table__notfound">There are no task found!</div>
             )}
          </div>
       </>
