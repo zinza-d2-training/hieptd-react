@@ -1,9 +1,15 @@
 @import 'styles/variables';
+
 .projectdetail__task {
    margin-top: 20px;
+   display: flex;
+   flex-direction: column;
+   height: calc(100vh - 240px);
+
    .projectdetail__task-dropAndDrag {
       display: flex;
+      overflow: hidden;
       overflow-x: scroll;
-      transform: rotateX(180deg);
+      flex-grow: 1;
    }
 }

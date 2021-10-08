@@ -1,7 +1,12 @@
 import React from 'react';
+import {
+   Draggable,
+   DroppableProvided,
+   DroppableStateSnapshot,
+} from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom';
 import { Task } from 'utils/types';
 import '../styles/TaskItem.scss';
-import { Draggable } from 'react-beautiful-dnd';
 
 interface TaskItemProp {
    task: Task;
@@ -10,14 +15,9 @@ interface TaskItemProp {
 
 function TaskItem({ task, index }: TaskItemProp) {
    return (
-      <Draggable
-         draggableId={task.id.toString()}
-         key={task.id}
-         index={index}
-         type="Task"
-      >
-         {(provided) => (
-            <>
+      <Draggable draggableId={task.id.toString()} key={task.id} index={index}>
+         {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => {
+            return (
                <div
                   ref={provided.innerRef}
                   {...provided.draggableProps}
@@ -25,10 +25,22 @@ function TaskItem({ task, index }: TaskItemProp) {
                   className="taskItem"
                   key={task.id}
                >
-                  <div>{task.notes}</div>
+                  <div className="taskItem__title">
+                     <i className="fas fa-sticky-note"></i>{' '}
+                     <strong>{task.title}</strong>
+                  </div>
+                  <div className="taskItem__note">{task.notes}</div>
+                  <div className="taskItem__member">
+                     <small>
+                        <i className="far fa-address-card"></i> Create by
+                     </small>
+                     <Link
+                        to={`/users/${task.assign?.id}/details`}
+                     >{` ${task.assign?.firstName} ${task.assign?.lastName}`}</Link>
+                  </div>
                </div>
-            </>
-         )}
+            );
+         }}
       </Draggable>
    );
 }

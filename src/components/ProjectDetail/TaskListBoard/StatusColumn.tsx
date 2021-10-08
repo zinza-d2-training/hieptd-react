@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Task, TaskStatus } from 'utils/types';
 import TaskItem from './TaskItem';
 import '../styles/StatusColumn.scss';
-import { Droppable } from 'react-beautiful-dnd';
+import {
+   Droppable,
+   DroppableProvided,
+   DroppableStateSnapshot,
+} from 'react-beautiful-dnd';
 
 interface StatusColumnProp {
    tasks: Task[];
@@ -10,29 +14,48 @@ interface StatusColumnProp {
 }
 
 function StatusColumn({ tasks, category }: StatusColumnProp) {
+   function sortBySequence(a: Task, b: Task) {
+      if (a.sequence && b.sequence) {
+         if (a.sequence < b.sequence) {
+            return -1;
+         }
+         if (a.sequence > b.sequence) {
+            return 1;
+         }
+      }
+      return 0;
+   }
+   const tasksSorted = useMemo<Task[]>(
+      () => tasks && tasks.sort(sortBySequence),
+      [tasks]
+   );
    return (
       <div className="statuscolumn">
-         <div className={`statuscolumn__container statuscolumn-${category}`}>
-            <div
-               className={`statuscolumn__header statuscolumn__header-${category}`}
-            >
-               {TaskStatus[category]}
-            </div>
+         <div className="statuscolumn__header">{TaskStatus[category]}</div>
+         <Droppable droppableId={TaskStatus[category]}>
+            {(
+               provided: DroppableProvided,
+               snapshot: DroppableStateSnapshot
+            ) => (
+               <div
+                  className="statuscolumn__body"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  style={{
+                     backgroundColor: snapshot.isDraggingOver
+                        ? '#e1e1e1'
+                        : '#efeff0',
+                  }}
+               >
+                  {tasksSorted &&
+                     tasksSorted.map((task, index) => (
+                        <TaskItem index={index} task={task} />
+                     ))}
 
-            <Droppable droppableId={TaskStatus[category]}>
-               {(provided) => (
-                  <>
-                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                        {tasks &&
-                           tasks.map((task, index) => (
-                              <TaskItem index={index} task={task} />
-                           ))}
-                     </div>
-                     {provided.placeholder}
-                  </>
-               )}
-            </Droppable>
-         </div>
+                  {provided.placeholder}
+               </div>
+            )}
+         </Droppable>
       </div>
    );
 }

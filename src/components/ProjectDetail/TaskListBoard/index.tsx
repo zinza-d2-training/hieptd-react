@@ -20,27 +20,18 @@ export const categories = [
 
 function TaskListBoard({ tasks }: TaskListBoardProp) {
    const [tasksMap, setTasksMap] = useState<TasksMap>({});
+
+   // add sequence of tasks
+   function addSequence(listTasks: Task[]) {
+      listTasks.forEach((task, index) => (task.sequence = index));
+   }
+
    useEffect(() => {
       let lists: TasksMap = {};
+      categories.forEach((column) => {
+         lists[column] = tasks.filter((task) => task.status === column);
+      });
 
-      lists[TaskStatus.Requesting] = tasks.filter(
-         (task) => task.status === TaskStatus.Requesting
-      );
-      lists[TaskStatus.Unscheduled] = tasks.filter(
-         (task) => task.status === TaskStatus.Unscheduled
-      );
-      lists[TaskStatus.Doing] = tasks.filter(
-         (task) => task.status === TaskStatus.Doing
-      );
-      lists[TaskStatus.Reviewing] = tasks.filter(
-         (task) => task.status === TaskStatus.Reviewing
-      );
-      lists[TaskStatus.Completed] = tasks.filter(
-         (task) => task.status === TaskStatus.Completed
-      );
-      lists[TaskStatus.Cancelled] = tasks.filter(
-         (task) => task.status === TaskStatus.Cancelled
-      );
       setTasksMap(lists);
    }, [tasks]);
 
@@ -55,29 +46,42 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       ) {
          return;
       }
-      let newListTasks = { ...tasksMap };
 
-      const task = newListTasks[TaskStatus[source.droppableId]].find(
+      //name of column when dragStart and dragEnd
+      const startDes = TaskStatus[source.droppableId];
+      const endDes = TaskStatus[destination.droppableId];
+
+      let newListTasks = { ...tasksMap };
+      // find the task dragging
+      let task = newListTasks[startDes].find(
          (item) => item.id === Number(draggableId)
       );
-
       if (task) {
-         newListTasks[TaskStatus[source.droppableId]].splice(
-            newListTasks[TaskStatus[source.droppableId]].indexOf(task),
-            1
-         );
+         // in column
+         if (startDes === endDes) {
+            newListTasks[startDes].splice(source.index, 1);
+            newListTasks[startDes].splice(destination.index, 0, task);
+            addSequence(newListTasks[startDes]);
+            addSequence(newListTasks[endDes]);
+         }
 
-         newListTasks[TaskStatus[destination.droppableId]].push(task);
+         //to another column
+         else {
+            task.status = Number(endDes) as TaskStatus;
+            newListTasks[endDes].splice(destination.index, 0, task);
+            newListTasks[startDes] = newListTasks[startDes].filter(
+               (item) => item !== task
+            );
+            addSequence(newListTasks[startDes]);
+            addSequence(newListTasks[endDes]);
+         }
+         setTasksMap(newListTasks);
       }
-      setTasksMap(newListTasks);
    };
 
-   const onDropEnter = (e) => {
-      e.preventDefault();
-   };
    return (
       <div className="projectdetail__task-dropAndDrag">
-         <DragDropContext onDragEnd={onDragEnd} onDropEnter={onDropEnter}>
+         <DragDropContext onDragEnd={onDragEnd}>
             {categories.map((item, index) => (
                <StatusColumn
                   key={index}
