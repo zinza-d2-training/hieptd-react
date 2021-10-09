@@ -18,12 +18,38 @@
       @content;
    }
 }
-@mixin flex($direction: row, $content: null, $items: null, $wrap: null) {
-   display: flex;
-   flex-direction: $direction;
-   justify-content: $content;
-   align-items: $items;
-   flex-wrap: $wrap;
+
+@mixin button {
+   display: inline-block;
+   margin-bottom: 0;
+   font-weight: 400;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: middle;
+   touch-action: manipulation;
+   cursor: pointer;
+   background-image: none;
+   border: 1px solid transparent;
+   padding: 15px 20px;
+   font-size: 14px;
+   line-height: 1.42857143;
+   border-radius: 4px;
+   user-select: none;
+   min-width: 80px;
+}
+@mixin input {
+   display: block;
+   height: 34px;
+   min-width: 200px;
+   padding: 6px 12px;
+   font-size: 14px;
+   line-height: 1.4;
+   color: $text;
+   background-color: #fff;
+   background-image: none;
+   border: 1px solid rgb(51, 49, 49);
+   border-radius: 4px;
+   outline: $lightBlue;
 }
 
 @mixin table {

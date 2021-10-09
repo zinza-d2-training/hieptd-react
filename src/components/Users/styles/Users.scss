@@ -11,17 +11,7 @@
       justify-content: space-around;
       margin-bottom: 5px;
    }
-   button {
-      padding: 10px 15px;
-      border: 1px solid rgba(0, 0, 0, 0.02);
-      outline: none;
-      border-radius: 5px;
-      background: $violet;
-      color: $white;
-      opacity: 1;
-      cursor: pointer;
-      margin: 10px 0;
-   }
+
    .dropdown {
       position: relative;
       button {

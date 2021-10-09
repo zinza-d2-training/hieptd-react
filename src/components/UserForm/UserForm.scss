@@ -15,20 +15,13 @@
             flex: 0 15%;
             color: $text;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
          }
          .userForm__wrap {
             text-align: left;
             margin-left: 30px;
             input,
             select {
-               padding: 8px 10px;
-               border: 1px solid $lightBlue;
-               border-radius: 5px;
-               outline: none;
-               opacity: 0.7;
-               color: $text;
-
                &[type='file'] {
                   border: none;
                }
@@ -58,16 +51,8 @@
          display: flex;
          align-items: center;
          justify-content: space-between;
+         margin-top: 20px;
          button {
-            padding: 10px 25px;
-            margin: 20px;
-            outline: none;
-            border: 1px solid $lightBlue;
-            border-radius: 5px;
-            background-color: $primary;
-            color: $white;
-            font-size: 1rem;
-            font-weight: bold;
             &:hover {
                cursor: pointer;
             }

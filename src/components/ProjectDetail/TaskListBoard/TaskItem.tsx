@@ -6,7 +6,7 @@ import {
 } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
 import { Task } from 'utils/types';
-import '../styles/TaskItem.scss';
+import '../index.scss';
 
 interface TaskItemProp {
    task: Task;
