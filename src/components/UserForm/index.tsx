@@ -263,6 +263,12 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             {formData?.avatar && (
                <div className="userForm__image">
                   <img src={formData?.avatar} alt="avatar" />
+                  <i
+                     className="fas fa-times"
+                     onClick={() => {
+                        setFormData({ ...formData, avatar: '' });
+                     }}
+                  ></i>
                </div>
             )}
 

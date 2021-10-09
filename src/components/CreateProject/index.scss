@@ -9,15 +9,11 @@
          display: flex;
          align-items: center;
          margin: 20px 0;
-         input,
-         textarea,
-         select {
-            padding: 5px;
-            border-radius: 5px;
+
+         textarea {
             outline: none;
-            border: 1px solid $lightBlue;
-            font-size: 16px;
-            color: $text;
+            border-radius: 5px;
+            border: 1px solid #333;
          }
 
          label {
@@ -49,14 +45,6 @@
          align-items: center;
          justify-content: space-between;
          button {
-            padding: 8px 15px;
-            width: 100px;
-            border: none;
-            outline: none;
-            background-color: $primary;
-            color: $white;
-            border-radius: 5px;
-            cursor: pointer;
             &[type='submit']:disabled {
                cursor: default;
                background-color: $error;

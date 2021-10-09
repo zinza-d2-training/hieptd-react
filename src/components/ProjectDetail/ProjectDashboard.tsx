@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
-import './index.scss';
 import TaskTable from 'components/TaskTable';
 import { Report, Task, TaskStatus } from 'utils/types';
 import ReportTable from 'components/ReportTable';
 import { getUser } from 'utils/auth';
-import './styles/Dashboard.scss';
+import './index.scss';
 import { REPORTS } from 'fakeData/reports';
 import { TASKS } from 'fakeData/tasks';
 
@@ -37,11 +36,17 @@ function ProjectDashboard({ projectId }: DashboardProps) {
    return (
       <div className="projectdetail__dashboard">
          <div className="projectdetail__dashboard-info">
-            <h2>Tasks</h2>
+            <h2>Tasks Progress</h2>
             <div className="projectdetail__dashboard-progress">
                <span>
                   {Math.floor((numberOfTasksCompleted / tasks.length) * 100)}%
                </span>
+               <progress
+                  value={Math.floor(
+                     (numberOfTasksCompleted / tasks.length) * 100
+                  )}
+                  max={100}
+               />
                <p>
                   {`${numberOfTasksCompleted}/${tasks.length}`} Tasks Completed
                </p>

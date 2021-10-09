@@ -3,15 +3,10 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
+   margin-top: 20px;
    .filter__search {
       margin-left: 20px;
-      input {
-         padding: 5px;
-         margin-left: 5px;
-         border: 1px solid $lightBlue;
-         outline: none;
-         border-radius: 5px;
-      }
+
       label {
          i {
             color: $primary;
@@ -29,20 +24,13 @@
 .filter__option {
    display: flex;
    flex-wrap: wrap;
-   justify-content: space-around;
+   margin-top: 20px;
+   justify-content: space-between;
    align-items: center;
    padding: 10px 15px;
    .filter__input {
       padding: 10px;
       display: flex;
       align-items: center;
-      input,
-      select {
-         padding: 5px;
-         margin-left: 5px;
-         border: 1px solid $lightBlue;
-         outline: none;
-         border-radius: 5px;
-      }
    }
 }

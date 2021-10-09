@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Task, TaskStatus } from 'utils/types';
 import '../Components.scss';
-import './index.scss';
 
 interface TaskTableProp {
    tasks: Task[];

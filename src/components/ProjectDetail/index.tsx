@@ -14,10 +14,10 @@ interface ProjectDetailProps {
 }
 
 const linkActiveStyle: CSSProperties = {
-   color: '#333',
-   fontWeight: 'bold',
    cursor: 'default',
-   background: '#e7e9eb',
+   borderTopColor: '#007bff',
+   borderLeftColor: '#ddd',
+   borderRightColor: '#EBE4E4',
 };
 
 function ProjectDetail({ id }: ProjectDetailProps) {
@@ -41,7 +41,7 @@ function ProjectDetail({ id }: ProjectDetailProps) {
             />
             <div className="projectdetail__header-item">
                {' '}
-               <span> {project?.name}</span>
+               <h1> {project?.name}</h1>
                {/*--------- select projects  of user ---------*/}
                <select
                   onChange={(e) => {

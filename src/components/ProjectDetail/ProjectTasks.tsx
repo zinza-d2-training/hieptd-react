@@ -1,7 +1,7 @@
 import { TASKS } from 'fakeData/tasks';
 import React, { useMemo, useState } from 'react';
 import { Priority, TaskStatus } from 'utils/types';
-import './styles/Tasks.scss';
+import './index.scss';
 import TaskFilter from './TaskFilter';
 import { useGetTaskListByFilter } from './TaskFilter/useGetTaskListFilter';
 import TaskListBoard from './TaskListBoard';
