@@ -110,7 +110,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                ) : (
                   <div className="taskDrawer__title-text">{formData.title}</div>
                )}
-               {canEdit && (
+               {canEdit && !showTitleInput && (
                   <i
                      className="fas fa-edit"
                      onClick={() => {
@@ -139,7 +139,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                      <strong> Notes:</strong> <br /> {formData.notes}
                   </div>
                )}
-               {canEdit && (
+               {canEdit && !showTextArea && (
                   <i
                      className="fas fa-edit"
                      onClick={() => {
@@ -156,6 +156,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                      <div className="taskDrawer__option-item">
                         <label>Assignee</label>
                         <select
+                           disabled={currentUser?.role === Role.Member}
                            onChange={(e) => {
                               if (e.target.value) {
                                  setFormData({
@@ -191,7 +192,6 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                      <div className="taskDrawer__option-item">
                         <label>Due date</label>
                         <input
-                           disabled={!canEdit}
                            value={formData.dueDate}
                            onChange={(e) =>
                               setFormData({
@@ -227,7 +227,14 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                         </select>
                      </div>
                      <div className="taskDrawer__option-btn">
-                        <button type="submit">Update</button>
+                        <button
+                           disabled={Object.keys(formData).every(
+                              (key) => task[key] === formData[key]
+                           )}
+                           type="submit"
+                        >
+                           Update
+                        </button>
                         <button type="button" onClick={() => onClose()}>
                            Cancel
                         </button>
