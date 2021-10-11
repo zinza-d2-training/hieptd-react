@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Task, TaskStatus } from 'utils/types';
 import TaskItem from './TaskItem';
-import '../styles/StatusColumn.scss';
+import '../index.scss';
 import {
    Droppable,
    DroppableProvided,

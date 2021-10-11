@@ -53,7 +53,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                               <tr key={project.id}>
                                  <td>
                                     <Link
-                                       to={`projects/${project.id}/dashboard`}
+                                       to={`/projects/${project.id}/dashboard`}
                                     >
                                        {project.name}
                                     </Link>

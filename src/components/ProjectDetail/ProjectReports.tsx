@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import ReportTable from 'components/ReportTable';
-import './styles/Reports.scss';
+import './index.scss';
 import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
 import CreateReportForm from 'components/CreateReportForm';

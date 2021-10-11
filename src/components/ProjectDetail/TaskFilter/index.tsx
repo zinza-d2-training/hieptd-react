@@ -3,7 +3,7 @@ import React from 'react';
 import { getUser } from 'utils/auth';
 import { Priority, Role, TaskStatus } from 'utils/types';
 import { TasksFilter } from '../ProjectTasks';
-import '../styles/TaskFilter.scss';
+import '../index.scss';
 import { categories } from '../TaskListBoard/index';
 import { textFromTaskStatus } from './functions';
 

@@ -32,9 +32,6 @@ function Filter({ filter, handleFilter }: FilterProps) {
       <>
          <div className="filter__header">
             <div className="filter__search">
-               <label htmlFor="search">
-                  <i className="fa fa-search"></i>
-               </label>
                <input
                   type="text"
                   placeholder="Search"
@@ -90,7 +87,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   />
                </div>
                <div className="filter__input">
-                  <span>Role</span>
+                  <label>Role</label>
                   <select
                      ref={selectRef}
                      onChange={(e) => {
