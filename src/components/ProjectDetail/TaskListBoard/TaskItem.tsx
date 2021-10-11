@@ -19,7 +19,7 @@ function TaskItem({ task, index }: TaskItemProp) {
    return (
       <>
          {showTaskDrawer && (
-            <TaskDrawer task={task} onClose={setShowTaskDrawer} />
+            <TaskDrawer task={task} onClose={() => setShowTaskDrawer(false)} />
          )}
          <Draggable
             draggableId={task.id.toString()}

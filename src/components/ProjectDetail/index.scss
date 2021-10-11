@@ -273,6 +273,21 @@
             margin-top: 10px;
          }
       }
+      .taskDrawer__option-item-info {
+         display: flex;
+         align-items: center;
+         margin-top: 10px;
+         strong {
+            min-width: 80px;
+         }
+         span {
+            font-size: 16px;
+            color: $text;
+         }
+         a {
+            text-decoration: underline;
+         }
+      }
    }
    .taskDrawer__option-btn {
       display: flex;

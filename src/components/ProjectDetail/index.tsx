@@ -48,26 +48,28 @@ function ProjectDetail({ id }: ProjectDetailProps) {
                      history.push(`/projects/${e.target.value}/dashboard`);
                   }}
                >
-                  {PROJECTS.map((project) => {
-                     if (currentUser?.role !== Role.Admin) {
-                        return (
-                           project.pm?.id === currentUser?.id ||
-                           (project.members &&
-                              project.members.findIndex(
-                                 (member) => member.id === currentUser?.id
-                              ) !== -1 && (
-                                 <option key={project.id} value={project.id}>
-                                    {project.name}
-                                 </option>
-                              ))
-                        );
-                     }
-                     return (
-                        <option key={project.id} value={project.id}>
-                           {project.name}
-                        </option>
-                     );
-                  })}
+                  {currentUser?.role !== Role.Admin
+                     ? PROJECTS.filter((project) => {
+                          if (
+                             project.pm?.id === currentUser?.id ||
+                             (project.members &&
+                                project.members.findIndex(
+                                   (member) => member.id === currentUser?.id
+                                ) !== -1)
+                          ) {
+                             return true;
+                          }
+                          return false;
+                       }).map((project) => (
+                          <option key={project.id} value={project.id}>
+                             {project.name}
+                          </option>
+                       ))
+                     : PROJECTS.map((project) => (
+                          <option key={project.id} value={project.id}>
+                             {project.name}
+                          </option>
+                       ))}
                </select>
             </div>
          </div>

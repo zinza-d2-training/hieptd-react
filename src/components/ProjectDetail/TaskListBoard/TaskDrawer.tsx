@@ -4,10 +4,12 @@ import { Role, Task, TaskStatus, User } from 'utils/types';
 import { USERS } from 'fakeData/users';
 import { categories } from './index';
 import { useTaskDrawerForm } from './useTaskDrawerForm';
+import { textFromTaskStatus } from '../TaskFilter/functions';
+import { Link } from 'react-router-dom';
 
-interface TaskDrawerProp {
+interface TaskDrawerProps {
    task: Task;
-   onClose: (arg: boolean) => void;
+   onClose: () => void;
 }
 
 type FormValue = {
@@ -17,14 +19,14 @@ type FormValue = {
    status?: TaskStatus;
    dueDate?: string;
 };
-function TaskDrawer({ task, onClose }: TaskDrawerProp) {
+function TaskDrawer({ task, onClose }: TaskDrawerProps) {
    const currentUser = getUser();
    const [showTitleInput, setShowTitleInput] = useState<boolean>(false);
    const titleInputRef = useRef<HTMLInputElement>(null);
    const [showTextArea, setShowTextArea] = useState<boolean>(false);
    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-   const roleCheck = useMemo<boolean | undefined>(
+   const canEdit = useMemo<boolean | undefined>(
       () =>
          currentUser &&
          (task.assign?.id === currentUser.id ||
@@ -40,7 +42,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProp) {
 
    //handle update
    const handleUpdateTask = () => {
-      roleCheck && alert(JSON.stringify(formData));
+      canEdit && alert(JSON.stringify(formData));
    };
    const { values, errors, handleChange, handleSubmit, setValues } =
       useTaskDrawerForm(handleUpdateTask);
@@ -93,7 +95,6 @@ function TaskDrawer({ task, onClose }: TaskDrawerProp) {
 
       // eslint-disable-next-line
    }, [values]);
-   console.log(errors.length);
 
    return (
       <div className="taskDrawer">
@@ -109,13 +110,15 @@ function TaskDrawer({ task, onClose }: TaskDrawerProp) {
                ) : (
                   <div className="taskDrawer__title-text">{formData.title}</div>
                )}
-               <i
-                  className={`fas fa-edit ${!roleCheck ? 'disabled' : ''}`}
-                  onClick={() => {
-                     roleCheck && setShowTitleInput(true);
-                  }}
-               ></i>
-               <i onClick={() => onClose(false)} className="fas fa-times"></i>
+               {canEdit && (
+                  <i
+                     className="fas fa-edit"
+                     onClick={() => {
+                        setShowTitleInput(true);
+                     }}
+                  ></i>
+               )}
+               <i onClick={() => onClose()} className="fas fa-times"></i>
             </div>
             <div className="taskDrawer__err">{errors.title}</div>
 
@@ -136,88 +139,120 @@ function TaskDrawer({ task, onClose }: TaskDrawerProp) {
                      <strong> Notes:</strong> <br /> {formData.notes}
                   </div>
                )}
-               <i
-                  className={`fas fa-edit ${!roleCheck ? 'disabled' : ''}`}
-                  onClick={() => {
-                     roleCheck && setShowTextArea(true);
-                  }}
-               ></i>
+               {canEdit && (
+                  <i
+                     className="fas fa-edit"
+                     onClick={() => {
+                        setShowTextArea(true);
+                     }}
+                  ></i>
+               )}
             </div>
             <div className="taskDrawer__err">{errors.notes}</div>
             <div className="taskDrawer__option">
-               <div className="taskDrawer__option-item">
-                  <label>Assignee</label>
-                  <select
-                     disabled={!roleCheck}
-                     onChange={(e) => {
-                        if (e.target.value) {
-                           setFormData({
-                              ...formData,
-                              assign: USERS.find(
-                                 (user) => user.id === Number(e.target.value)
-                              ),
-                           });
-                        }
-                     }}
-                  >
-                     {currentUser?.role === Role.Member &&
-                        USERS.filter((user) => user.role === Role.Member).map(
-                           (user) => (
-                              <option
-                                 key={user.id}
-                                 value={user.id}
-                              >{`${user.lastName} ${user.email}`}</option>
-                           )
-                        )}
-                     {currentUser?.role === Role.PM &&
-                        USERS.filter((user) => user.role === Role.PM).map(
-                           (user) => (
-                              <option
-                                 key={user.id}
-                                 value={user.id}
-                              >{`${user.lastName} ${user.email}`}</option>
-                           )
-                        )}
-                  </select>
-               </div>
-               <div className="taskDrawer__option-item">
-                  <label>Due date</label>
-                  <input
-                     disabled={!roleCheck}
-                     value={formData.dueDate}
-                     onChange={(e) =>
-                        setFormData({ ...formData, dueDate: e.target.value })
-                     }
-                     type="date"
-                  />
-               </div>
-               <div className="taskDrawer__option-item">
-                  <label>Status</label>
-                  <select
-                     disabled={
-                        task.status === TaskStatus.Requesting || !roleCheck
-                     }
-                     onChange={(e) => {
-                        if (e.target.value) {
-                           setFormData({
-                              ...formData,
-                              status: Number(e.target.value) as TaskStatus,
-                           });
-                        }
-                     }}
-                  >
-                     {categories.map((category) => (
-                        <option value={category}>{TaskStatus[category]}</option>
-                     ))}
-                  </select>
-               </div>
-               {roleCheck && (
-                  <div className="taskDrawer__option-btn">
-                     <button type="submit">Update</button>
-                     <button type="button" onClick={() => onClose(false)}>
-                        Cancel
-                     </button>
-                  </div>
+               {canEdit ? (
+                  <>
+                     {' '}
+                     <div className="taskDrawer__option-item">
+                        <label>Assignee</label>
+                        <select
+                           onChange={(e) => {
+                              if (e.target.value) {
+                                 setFormData({
+                                    ...formData,
+                                    assign: USERS.find(
+                                       (user) =>
+                                          user.id === Number(e.target.value)
+                                    ),
+                                 });
+                              }
+                           }}
+                        >
+                           {currentUser?.role === Role.Member &&
+                              USERS.filter(
+                                 (user) => user.role === Role.Member
+                              ).map((user) => (
+                                 <option
+                                    key={user.id}
+                                    value={user.id}
+                                 >{`${user.lastName} ${user.email}`}</option>
+                              ))}
+                           {currentUser?.role === Role.PM &&
+                              USERS.filter((user) => user.role === Role.PM).map(
+                                 (user) => (
+                                    <option
+                                       key={user.id}
+                                       value={user.id}
+                                    >{`${user.lastName} ${user.email}`}</option>
+                                 )
+                              )}
+                        </select>
+                     </div>
+                     <div className="taskDrawer__option-item">
+                        <label>Due date</label>
+                        <input
+                           disabled={!canEdit}
+                           value={formData.dueDate}
+                           onChange={(e) =>
+                              setFormData({
+                                 ...formData,
+                                 dueDate: e.target.value,
+                              })
+                           }
+                           type="date"
+                        />
+                     </div>
+                     <div className="taskDrawer__option-item">
+                        <label>Status</label>
+                        <select
+                           disabled={
+                              task.status === TaskStatus.Requesting || !canEdit
+                           }
+                           onChange={(e) => {
+                              if (e.target.value) {
+                                 setFormData({
+                                    ...formData,
+                                    status: Number(
+                                       e.target.value
+                                    ) as TaskStatus,
+                                 });
+                              }
+                           }}
+                        >
+                           {categories.map((category) => (
+                              <option value={category}>
+                                 {textFromTaskStatus(category)}
+                              </option>
+                           ))}
+                        </select>
+                     </div>
+                     <div className="taskDrawer__option-btn">
+                        <button type="submit">Update</button>
+                        <button type="button" onClick={() => onClose()}>
+                           Cancel
+                        </button>
+                     </div>
+                  </>
+               ) : (
+                  <>
+                     <div className="taskDrawer__option-item-info">
+                        <strong>Assign to</strong>
+
+                        <Link
+                           to={`/users/${task.assign?.id}/details`}
+                        >{` ${task.assign?.firstName} ${task.assign?.lastName}`}</Link>
+                     </div>
+                     <div className="taskDrawer__option-item-info">
+                        <strong>Due Date</strong>
+
+                        <span>{task.dueDate}</span>
+                     </div>
+                     <div className="taskDrawer__option-item-info">
+                        <strong>Status</strong>
+
+                        <span>{textFromTaskStatus(task.status)}</span>
+                     </div>
+                  </>
                )}
             </div>
          </form>
