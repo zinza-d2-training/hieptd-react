@@ -32,7 +32,8 @@
          z-index: 1;
          min-width: 160px;
          padding-top: 10px;
-         a {
+         a,
+         div {
             float: none;
             color: $text;
             padding: 10px 16px;
@@ -43,6 +44,7 @@
             &:hover {
                background-color: $primary;
                color: $white;
+               cursor: pointer;
             }
          }
       }
