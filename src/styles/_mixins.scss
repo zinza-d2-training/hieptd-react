@@ -21,7 +21,7 @@
 
 @mixin button {
    display: inline-block;
-   margin-bottom: 0;
+   margin: 0 10px;
    font-weight: 400;
    text-align: center;
    white-space: nowrap;
@@ -91,14 +91,24 @@
                background-color: $light;
                cursor: pointer;
             }
+            &.err {
+               background-color: $warning;
+            }
             td {
                border-bottom-width: 0;
                border: 1px solid #dee2e6;
                padding: 10px;
                word-wrap: break-word;
                min-width: 100px;
+               position: relative;
                a {
                   text-decoration: underline;
+               }
+               i.fa-exclamation-circle {
+                  color: red;
+                  position: absolute;
+                  right: 10px;
+                  bottom: 10px;
                }
             }
          }

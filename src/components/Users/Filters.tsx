@@ -56,7 +56,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                      </button>
                      <div className="dropdown-content">
                         <Link to="/users/create">Create new user</Link>
-                        <Link to="/users/create">Import</Link>
+                        <Link to="/users/import">Import</Link>
                         <Link to="/users/create">Export</Link>
                      </div>
                   </div>

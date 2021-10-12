@@ -13,6 +13,7 @@ import UserEditInfo from 'components/UserProfile/UserEditInfo';
 import ListProjects from 'components/ListProjects';
 import CreateProject from 'components/CreateProject';
 import ProjectDetail from 'components/ProjectDetail';
+import UserImport from 'components/UserImport';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -23,7 +24,7 @@ const routes = [
       path={`/users/create`}
       component={() => <UserForm />}
       exact
-      key="Userform"
+      key="UserForm"
    />,
    <Route
       withAuth
@@ -39,7 +40,7 @@ const routes = [
             return <NotFoundPage />;
          }
       }}
-      key="Userform"
+      key="UserUpdate"
    />,
    <Route
       withAuth
@@ -55,7 +56,7 @@ const routes = [
             return <NotFoundPage />;
          }
       }}
-      key="Userform"
+      key="UserEdit"
    />,
    <Route
       key="userprofile"
@@ -74,6 +75,15 @@ const routes = [
          }
       }}
    />,
+   <Route
+      key="userImport"
+      path="/users/import"
+      exact
+      withAuth
+      component={UserImport}
+      layout={Admin}
+      roles={[Role.Admin]}
+   />,
 
    <Route
       key="users"
@@ -85,7 +95,7 @@ const routes = [
       roles={[Role.Admin]}
    />,
    <Route
-      key="users"
+      key="projects"
       path="/projects/create"
       exact
       withAuth
@@ -95,7 +105,7 @@ const routes = [
    />,
 
    <Route
-      key="users"
+      key="projectDetail"
       path="/projects/:id"
       withAuth
       component={() => {
@@ -111,7 +121,7 @@ const routes = [
       roles={[Role.Admin, Role.Member, Role.PM]}
    />,
    <Route
-      key="users"
+      key="project"
       path="/projects"
       exact
       withAuth
