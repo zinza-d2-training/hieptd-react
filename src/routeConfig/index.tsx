@@ -1,18 +1,18 @@
-import React from 'react';
-import Login from 'components/Login';
+import CreateProject from 'components/CreateProject';
 import Dashboard from 'components/Dashboard';
-import Admin from 'layout/Admin';
-import Users from 'components/Users';
-import UserForm from 'components/UserForm';
-import Route from './Route';
-import { Role } from 'utils/types';
-import { useParams } from 'react-router';
+import ListProjects from 'components/ListProjects';
+import Login from 'components/Login';
 import NotFoundPage from 'components/NotFound';
+import ProjectDetail from 'components/ProjectDetail';
+import UserForm from 'components/UserForm';
 import UserProfile from 'components/UserProfile';
 import UserEditInfo from 'components/UserProfile/UserEditInfo';
-import ListProjects from 'components/ListProjects';
-import CreateProject from 'components/CreateProject';
-import ProjectDetail from 'components/ProjectDetail';
+import Users from 'components/Users';
+import Admin from 'layout/Admin';
+import React from 'react';
+import { useParams } from 'react-router';
+import { Role } from 'utils/types';
+import Route from './Route';
 
 const routes = [
    <Route key="login" exact path="/login" component={Login} />,
@@ -23,7 +23,7 @@ const routes = [
       path={`/users/create`}
       component={() => <UserForm />}
       exact
-      key="Userform"
+      key="UserForm"
    />,
    <Route
       withAuth
@@ -39,7 +39,7 @@ const routes = [
             return <NotFoundPage />;
          }
       }}
-      key="Userform"
+      key="UserUpdate"
    />,
    <Route
       withAuth
@@ -55,7 +55,7 @@ const routes = [
             return <NotFoundPage />;
          }
       }}
-      key="Userform"
+      key="UserEdit"
    />,
    <Route
       key="userprofile"
@@ -85,7 +85,7 @@ const routes = [
       roles={[Role.Admin]}
    />,
    <Route
-      key="users"
+      key="projects"
       path="/projects/create"
       exact
       withAuth
@@ -95,7 +95,7 @@ const routes = [
    />,
 
    <Route
-      key="users"
+      key="projectDetail"
       path="/projects/:id"
       withAuth
       component={() => {
@@ -111,7 +111,7 @@ const routes = [
       roles={[Role.Admin, Role.Member, Role.PM]}
    />,
    <Route
-      key="users"
+      key="project"
       path="/projects"
       exact
       withAuth

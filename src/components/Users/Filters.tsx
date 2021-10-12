@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Role } from 'utils/types';
 import { FilterType } from './types';
 import './styles/Filter.scss';
+import UserImportModal from 'components/UserImportModal';
 
 interface FilterProps {
    filter: FilterType;
@@ -13,6 +14,7 @@ interface FilterProps {
 function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
+   const [showImportModal, setShowImportModal] = useState<boolean>(false);
    const selectRef = useRef<HTMLSelectElement>(null);
    //--------handle filter----------
 
@@ -30,6 +32,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
 
    return (
       <>
+         {showImportModal && (
+            <UserImportModal onClose={() => setShowImportModal(false)} />
+         )}
          <div className="filter__header">
             <div className="filter__search">
                <input
@@ -56,8 +61,10 @@ function Filter({ filter, handleFilter }: FilterProps) {
                      </button>
                      <div className="dropdown-content">
                         <Link to="/users/create">Create new user</Link>
-                        <Link to="/users/create">Import</Link>
-                        <Link to="/users/create">Export</Link>
+                        <div onClick={() => setShowImportModal(true)}>
+                           Import
+                        </div>
+                        <div>Export</div>
                      </div>
                   </div>
                )}
