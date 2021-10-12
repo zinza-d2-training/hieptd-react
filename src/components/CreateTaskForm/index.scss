@@ -1,0 +1,74 @@
+@import 'styles/variables';
+.createTaskForm {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   z-index: 999;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   .createTaskForm__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+   }
+   .createTaskForm__container {
+      margin: 0 auto;
+      position: absolute;
+      width: 420px;
+      background-color: $background;
+      padding: 20px 10px;
+      border-radius: 5px;
+      .createTaskForm__header {
+         font-size: 28px;
+      }
+      .createTaskForm__item {
+         display: flex;
+         align-items: center;
+         margin: 20px 0;
+         padding-left: 10px;
+         justify-content: center;
+         label {
+            flex: 0 0 30%;
+            position: relative;
+            font-weight: 600;
+
+            &.required::after {
+               content: '*';
+            }
+         }
+
+         .createTaskForm__wrap {
+            flex: 0 0 70%;
+            select,
+            input {
+               width: 90%;
+               outline: none;
+               border-radius: 5px;
+            }
+            textarea {
+               outline: none;
+            }
+
+            .createTaskForm__err {
+               font-size: 12px;
+               color: $error;
+               margin-top: 10px;
+            }
+         }
+      }
+      .createTaskForm__btn {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         margin-top: 20px;
+         padding: 0 20px;
+      }
+   }
+}

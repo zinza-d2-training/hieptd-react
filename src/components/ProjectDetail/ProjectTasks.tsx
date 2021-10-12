@@ -33,7 +33,11 @@ function ProjectTasks({ projectId }: TasksProps) {
 
    return (
       <div className="projectdetail__task">
-         <TaskFilter filter={filter} handleFilter={setFilter} />
+         <TaskFilter
+            projectId={projectId}
+            filter={filter}
+            handleFilter={setFilter}
+         />
          <TaskListBoard tasks={tasksFilter} />
       </div>
    );
