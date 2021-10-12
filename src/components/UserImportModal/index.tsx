@@ -7,28 +7,39 @@ import './index.scss';
 interface UserImportModalProps {
    onClose: () => void;
 }
+type UserImport = Pick<
+   User,
+   'username' | 'email' | 'dateOfBirth' | 'lastName' | 'firstName' | 'role'
+>;
 
 function UserImportModal({ onClose }: UserImportModalProps) {
    const inputRef = useRef<HTMLInputElement>(null);
    const [dataFile, setDataFile] = useState<File>();
-   const [listUsers, setListUsers] = useState<User[]>();
+   const [listUsers, setListUsers] = useState<UserImport[]>();
 
    const handleChange = (e) => {
       setDataFile(e.target.files[0]);
    };
    const handleDownLoadTemplate = () => {
-      if (listUsers) {
-         const list = Object.keys(listUsers[0]);
-         let csvContent = 'data:text/csv;charset=utf-8,';
-         csvContent += list + '\r\n';
-         const encodedUri = encodeURI(csvContent);
-         const link = document.createElement('a');
-         link.setAttribute('href', encodedUri);
-         link.setAttribute('download', 'userTemplate.csv');
-         document.body.appendChild(link);
-         link.click();
-         document.body.removeChild(link);
-      }
+      var csv = Papa.unparse({
+         fields: [
+            'username',
+            'email',
+            'firstName',
+            'lastName',
+            'role',
+            'password',
+            'dateOfBirth',
+         ],
+      });
+
+      const blob = new Blob([csv]);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'users.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
    };
 
    useEffect(() => {
@@ -45,7 +56,7 @@ function UserImportModal({ onClose }: UserImportModalProps) {
       setListUsers(result.data.splice(0, result.data.length - 1));
    };
 
-   const handleValidateRow = (user: User) => {
+   const handleValidateRow = (user: UserImport) => {
       let errKeys: string[] = [];
       const isError = Object.keys(user).some((key) => {
          switch (key) {
@@ -118,14 +129,16 @@ function UserImportModal({ onClose }: UserImportModalProps) {
                   name="file"
                   onChange={handleChange}
                />
-               {dataFile && (
-                  <button onClick={handleDownLoadTemplate}>
-                     Download Template
-                  </button>
-               )}
+
+               <button onClick={handleDownLoadTemplate}>
+                  Download Template
+               </button>
+               {!listUsers && <button onClick={() => onClose()}>Cancel</button>}
             </div>
+
             {listUsers && (
                <div className="userImport__table">
+                  <div>Preview</div>
                   <table>
                      <thead>
                         <tr>
@@ -201,9 +214,11 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             )}
             <div className="userImport__btn">
                {listUsers && (
-                  <button onClick={() => alert('Imported')}>Import</button>
-               )}{' '}
-               <button onClick={() => onClose()}>Cancel</button>
+                  <>
+                     <button onClick={() => alert('Imported')}>Import</button>
+                     <button onClick={() => onClose()}>Cancel</button>
+                  </>
+               )}
             </div>
          </div>
       </div>
