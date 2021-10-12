@@ -1,16 +1,23 @@
 import Papa from 'papaparse';
-import React, { useRef, useState, useEffect } from 'react';
-import { nonAccentVietnameses, textFromRole } from 'utils/convert';
-import { Role, User } from 'utils/types';
+import React, { useEffect, useRef, useState } from 'react';
+import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
-
 interface UserImportModalProps {
    onClose: () => void;
 }
-type UserImport = Pick<
-   User,
-   'username' | 'email' | 'dateOfBirth' | 'lastName' | 'firstName' | 'role'
->;
+
+function renderIconWarning(data: UserImport, key: string) {
+   if (Object.keys(handleValidateRow(data).dataErr).includes(key)) {
+      return (
+         <i className="fas fa-exclamation-circle tooltip">
+            <span className="tooltipText">
+               {handleValidateRow(data).dataErr[key]}
+            </span>
+         </i>
+      );
+   }
+   return null;
+}
 
 function UserImportModal({ onClose }: UserImportModalProps) {
    const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +35,6 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             'firstName',
             'lastName',
             'role',
-            'password',
             'dateOfBirth',
          ],
       });
@@ -56,66 +62,6 @@ function UserImportModal({ onClose }: UserImportModalProps) {
       setListUsers(result.data.splice(0, result.data.length - 1));
    };
 
-   const handleValidateRow = (user: UserImport) => {
-      let errKeys: string[] = [];
-      const isError = Object.keys(user).some((key) => {
-         switch (key) {
-            case 'username':
-               const checkUsername: boolean = !/^(?=[a-zA-Z0-9._]{5,20}$)/.test(
-                  user[key]
-               );
-               if (checkUsername) {
-                  errKeys.push(key);
-               }
-
-               return checkUsername;
-            case 'email':
-               const checkEmail: boolean =
-                  !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-                     user[key]
-                  );
-               if (checkEmail) {
-                  errKeys.push(key);
-               }
-               return checkEmail;
-            case 'password':
-               const checkPass: boolean = user[key].length < 6;
-               if (checkPass) {
-                  errKeys.push(key);
-               }
-               return checkPass;
-            case 'firstName' || 'lastName':
-               const checkName: boolean =
-                  !/^(?=[a-zA-Z0-9\u00C0-\u017F._]{2,20}$)/.test(
-                     nonAccentVietnameses(user[key])
-                  );
-               if (checkName) {
-                  errKeys.push(key);
-               }
-               return checkName;
-
-            case 'role':
-               const checkRole: boolean = ![
-                  textFromRole(Role.PM),
-                  textFromRole(Role.Member),
-                  textFromRole(Role.Admin),
-               ].includes(user[key]);
-               if (checkRole) {
-                  errKeys.push(key);
-               }
-               return checkRole;
-            case 'dateOfBirth':
-               if (user[key].length < 0) {
-                  errKeys.push(key);
-               }
-               return user[key].length < 0;
-            default:
-               return false;
-         }
-      });
-      return { isError, errKeys };
-   };
-
    return (
       <div className="userImport">
          <div className="userImport__overlay" onClick={() => onClose()}></div>
@@ -138,7 +84,6 @@ function UserImportModal({ onClose }: UserImportModalProps) {
 
             {listUsers && (
                <div className="userImport__table">
-                  <div>Preview</div>
                   <table>
                      <thead>
                         <tr>
@@ -151,63 +96,27 @@ function UserImportModal({ onClose }: UserImportModalProps) {
                         </tr>
                      </thead>
                      <tbody>
-                        {listUsers.map((data, index) => (
-                           <tr
-                              key={index}
-                              className={`${
-                                 handleValidateRow(data).isError ? 'err' : ''
-                              }`}
-                           >
-                              <td>
-                                 {data.username}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'username'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
+                        {listUsers.map((data, index) => {
+                           const listKeys = Object.keys(data);
+                           return (
+                              <tr
+                                 key={index}
+                                 className={`${
+                                    handleValidateRow(data).isError ? 'err' : ''
+                                 }`}
+                              >
+                                 {listKeys.map(
+                                    (key) =>
+                                       key !== 'password' && (
+                                          <td>
+                                             {data[key]}
+                                             {renderIconWarning(data, key)}
+                                          </td>
+                                       )
                                  )}
-                              </td>
-                              <td>
-                                 {data.email}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'email'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
-                                 )}
-                              </td>
-                              <td>
-                                 {data.firstName}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'firstName'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
-                                 )}
-                              </td>
-                              <td>
-                                 {data.lastName}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'lastName'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
-                                 )}
-                              </td>
-                              <td>
-                                 {data.dateOfBirth}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'dateOfBirth'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
-                                 )}
-                              </td>
-                              <td>
-                                 {data.role}{' '}
-                                 {handleValidateRow(data).errKeys.includes(
-                                    'role'
-                                 ) && (
-                                    <i className="fas fa-exclamation-circle"></i>
-                                 )}
-                              </td>
-                           </tr>
-                        ))}
+                              </tr>
+                           );
+                        })}
                      </tbody>
                   </table>
                </div>
