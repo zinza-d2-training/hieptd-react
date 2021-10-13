@@ -27,38 +27,41 @@
       padding: 20px 10px;
       border-radius: 5px;
       .createreport__item {
-         display: flex;
-         align-items: center;
-         justify-content: space-around;
          margin-top: 20px;
-         label {
-            font-size: 16px;
-            color: $text;
-            position: relative;
-            &.required::after {
-               content: '*';
-               position: absolute;
-               top: 0;
-               color: $error;
-            }
-         }
+         display: flex;
+         flex-direction: column;
+         align-items: center;
          input[type='file'] {
             width: 200px;
             margin-left: 120px;
             border: none;
          }
-
          .createreport__item-wrap {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
 
-            .createreport__item-err {
-               color: $error;
-               font-size: 12px;
-               padding-top: 5px;
-               width: 200px;
+            label {
+               font-size: 16px;
+               color: $text;
+               position: relative;
+               flex: 0 0 15%;
+               &.required::after {
+                  content: '*';
+                  position: absolute;
+                  top: 0;
+                  color: $error;
+               }
             }
+         }
+         .createreport__item-err {
+            color: $error;
+            font-size: 12px;
+            padding-top: 5px;
+            width: 200px;
+            margin-left: 50px;
+            word-wrap: break-word;
+            text-align: start;
          }
       }
       .createreport__btn {

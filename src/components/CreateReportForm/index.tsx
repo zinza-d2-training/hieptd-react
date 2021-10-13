@@ -10,6 +10,7 @@ interface ReportFormData {
    date: string;
    user: User | undefined;
    projectId: number;
+   file?: null;
 }
 interface CreateReportProp {
    projectId: number;
@@ -25,6 +26,12 @@ function CreateReportForm({ projectId, setShow, show }: CreateReportProp) {
       projectId: projectId,
       user: currentUser,
    });
+
+   const handleUploadFile = (e) => {
+      if (e.target.files[0]) {
+         //handle upload file
+      }
+   };
 
    const handleSubmitForm = () => {
       if (formData.title && formData.user) {
@@ -47,45 +54,49 @@ function CreateReportForm({ projectId, setShow, show }: CreateReportProp) {
                <div className="createreport__overlay"></div>
                <form onSubmit={handleSubmit}>
                   <div className="createreport__item">
-                     <label className="required">Title</label>
                      <div className="createreport__item-wrap">
+                        <label className="required">Title</label>
                         <input
                            onChange={handleChange}
                            type="text"
                            name="title"
                            value={values.title || ''}
                         />
-                        <div className="createreport__item-err">
-                           {errors.title}
-                        </div>
+                     </div>
+                     <div className="createreport__item-err">
+                        {errors.title}
                      </div>
                   </div>
                   <div className="createreport__item">
-                     <label>Note</label>
                      <div className="createreport__item-wrap">
+                        <label>Note</label>
                         <input
                            onChange={handleChange}
                            type="text"
                            name="note"
                            value={values.note || ''}
                         />
-                        <div className="createreport__item-err">
-                           {errors.note}
-                        </div>
                      </div>
+                     <div className="createreport__item-err">{errors.note}</div>
                   </div>
                   <div className="createreport__item">
                      <input
                         type="file"
                         id="docpicker"
                         accept=".doc,.docx,.pdf,.excel"
+                        onChange={handleUploadFile}
                      />
                   </div>
                   <div className="createreport__btn">
                      <button type="button" onClick={() => setShow(false)}>
                         Cancel
                      </button>
-                     <button type="submit">Upload</button>
+                     <button
+                        disabled={values.title === undefined}
+                        type="submit"
+                     >
+                        Upload
+                     </button>
                   </div>
                </form>
             </div>
