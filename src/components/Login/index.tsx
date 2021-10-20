@@ -1,7 +1,6 @@
-import { USERS } from 'fakeData/users';
+import userApi from 'api/userApi';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { login } from 'utils/auth';
 import './Login.scss';
 import { useLoginForm } from './useLoginForm';
 
@@ -9,23 +8,20 @@ function Login() {
    const history = useHistory();
 
    // handle login
-   const handleLogin = () => {
+   const handleLogin = async () => {
       const { username, password } = values;
-      if (username && password) {
-         const user = USERS.find((user) => {
-            return user.username === username && user.password === password;
-         });
+      const response = await userApi.postLogin(username, password);
+      if (response) {
+         window.localStorage.setItem(
+            'accessToken',
+            JSON.stringify(Object.values(response['accessToken'])[0])
+         );
 
-         if (!user) {
-            alert('Login information is incorrect!');
-         } else {
-            login(user);
-            resetForm();
-            history.push('/');
-            window.location.reload();
-         }
+         history.push('/');
+         resetForm();
       }
    };
+
    const { values, errors, handleChange, handleSubmit, resetForm } =
       useLoginForm(handleLogin);
 

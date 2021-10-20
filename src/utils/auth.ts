@@ -1,10 +1,17 @@
-import { LoginData, Role, User } from './types';
+import userApi from 'api/userApi';
+import { Role, User } from './types';
 
-export function login(user: LoginData) {
-   window.localStorage.setItem('user', JSON.stringify(user));
+export async function login(username: string, password: string) {
+   const response = await userApi.postLogin(username, password);
+   if (response) {
+      window.localStorage.setItem(
+         'accessToken',
+         JSON.stringify(Object.values(response['accessToken'])[0])
+      );
+   }
 }
 export function logout() {
-   window.localStorage.removeItem('user');
+   window.localStorage.removeItem('accessToken');
    window.location.replace('/login');
 }
 export function getUser(): User | undefined {
