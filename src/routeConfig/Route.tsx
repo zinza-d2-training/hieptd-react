@@ -1,5 +1,3 @@
-import { useAppSelector } from 'app/hooks';
-import { selectUser } from 'features/user/userSlice';
 import React from 'react';
 import {
    Redirect,
@@ -7,6 +5,7 @@ import {
    RouteComponentProps,
    RouteProps,
 } from 'react-router-dom';
+import { getUser } from 'utils/auth';
 import { Role } from '../utils/types';
 
 interface Props extends RouteProps {
@@ -22,7 +21,7 @@ const Route = ({
    component: Component,
    ...routeProps
 }: Props) => {
-   const { currentUser } = useAppSelector(selectUser);
+   const currentUser = getUser();
 
    if (!Component) {
       return null;
@@ -32,7 +31,7 @@ const Route = ({
          <BaseRoute
             {...routeProps}
             render={(props: RouteComponentProps) => {
-               if (currentUser.email) {
+               if (!currentUser?.email) {
                   return <Redirect to="/login" />;
                }
                if (

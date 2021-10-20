@@ -27,6 +27,7 @@ export const userSlice = createSlice({
          (state, action: PayloadAction<any>) => {
             if (action.payload && action.payload['user']) {
                state.currentUser = action.payload['user'];
+               localStorage.setItem('user', JSON.stringify(state.currentUser));
             }
          }
       );

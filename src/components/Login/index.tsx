@@ -1,11 +1,13 @@
 import userApi from 'api/userApi';
+import { useAppDispatch } from 'app/hooks';
+import { getUserInfo } from 'features/user/userSlice';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Login.scss';
 import { useLoginForm } from './useLoginForm';
-
 function Login() {
    const history = useHistory();
+   const dispatch = useAppDispatch();
 
    // handle login
    const handleLogin = async () => {
@@ -16,8 +18,9 @@ function Login() {
             'accessToken',
             JSON.stringify(Object.values(response['accessToken'])[0])
          );
-
+         await dispatch(getUserInfo());
          history.push('/');
+         window.location.reload();
          resetForm();
       }
    };

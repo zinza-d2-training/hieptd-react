@@ -1,8 +1,9 @@
+import { useAppSelector } from 'app/hooks';
+import { selectUser } from 'features/user/userSlice';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Admin.scss';
-import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
+import './Admin.scss';
 
 interface PropsMenu {
    classMobile: string;
@@ -10,7 +11,7 @@ interface PropsMenu {
 
 export default function Menu(props: PropsMenu) {
    const { classMobile } = props;
-   const currentUser = getUser();
+   const { currentUser } = useAppSelector(selectUser);
    return (
       <div className={`menu ${classMobile}`}>
          <h1>Welcome to ZinZa</h1>
