@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Field = {
    name: string; //field name;
@@ -52,6 +52,11 @@ const validateValue = (values: FormValue, fields: Field[]): FormErr => {
 export const useForm = ({ fields = [], onSubmit }: Dependencies) => {
    const [values, setValues] = useState<FormValue>({});
    const [errors, setErrors] = useState<FormErr>({});
+
+   useEffect(() => {
+      setErrors(validateValue(values, fields));
+      // eslint-disable-next-line
+   }, [values]);
 
    const handleSubmit = (event) => {
       event.preventDefault();
