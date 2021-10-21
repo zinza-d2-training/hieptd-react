@@ -1,17 +1,27 @@
-import { useAppDispatch } from 'app/hooks';
 import NotFoundPage from 'components/NotFound';
-import { getUserInfo } from 'features/user/userSlice';
+import { useApi } from 'hooks/useApi';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from 'routeConfig';
+import { getToken, setUser } from 'utils/auth';
 
 function App() {
-   const dispatch = useAppDispatch();
+   const { response, callApi } = useApi({
+      url: '/auth/profile',
+      body: null,
+      method: 'get',
+   });
+   const token = getToken();
 
    useEffect(() => {
-      dispatch(getUserInfo());
+      if (token) {
+         callApi();
+      }
+      if (response && response['user']) {
+         setUser(response['user']);
+      }
       // eslint-disable-next-line
-   }, []);
+   }, [response, token]);
    return (
       <div className="App">
          <Router>

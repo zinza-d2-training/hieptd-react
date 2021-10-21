@@ -74,6 +74,7 @@ export const useUserForm = (handleSubmitUser: () => void) => {
          },
          {
             name: 'confirmPass',
+            fieldNameToCompare: 'password',
             compareValidate: (value: string, secondValue: string) => {
                if (!value) {
                   return 'Confirm password is required';

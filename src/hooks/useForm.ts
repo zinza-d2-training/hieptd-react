@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Field = {
    name: string; //field name;
    validate?: (value: any) => string | null;
+   fieldNameToCompare?: string;
    compareValidate?: (value: any, secondValue: string) => string | null;
 };
-
+type CallbackFunc = () => void;
+type PromiseFunc = () => Promise<void>;
 interface Dependencies {
-   onSubmit: () => void;
+   onSubmit: CallbackFunc | PromiseFunc;
    fields: Field[];
 }
 
@@ -21,19 +23,20 @@ const validateValue = (values: FormValue, fields: Field[]): FormErr => {
       const fieldConfig = fields.find((fieldConfig) => {
          return fieldConfig.name === field;
       });
-
       if (fieldConfig && fieldConfig.validate && values[field] !== null) {
          errors[field] = fieldConfig.validate(values[field])!;
       }
+
       if (
          fieldConfig &&
          fieldConfig.compareValidate &&
-         values[field] !== null
+         values[field] !== null &&
+         fieldConfig.fieldNameToCompare
       ) {
          // compare password vs confirm password
          errors[field] = fieldConfig.compareValidate(
             values[field],
-            values['password']
+            values[fieldConfig.fieldNameToCompare]
          )!;
       }
    });
@@ -51,18 +54,21 @@ export const useForm = ({ fields = [], onSubmit }: Dependencies) => {
    const [errors, setErrors] = useState<FormErr>({});
    const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-   // check if no errr , confirm to Submit
-   useEffect(() => {
-      if (isSubmit && Object.keys(errors).length === 0) {
-         onSubmit();
-      }
+   // // check if no error , confirm to Submit
+   // useEffect(() => {
+   //    if (isSubmit && Object.keys(errors).length === 0) {
+   //       onSubmit();
+   //    }
 
-      // eslint-disable-next-line
-   }, [errors, isSubmit, values]);
+   //    // eslint-disable-next-line
+   // }, [errors, isSubmit, values]);
 
    // handleSubmit
    const handleSubmit = (event) => {
       event.preventDefault();
+      if (isSubmit && Object.keys(errors).length === 0) {
+         onSubmit();
+      }
       setIsSubmit(true);
       setErrors(validateValue(values, fields));
    };

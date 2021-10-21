@@ -1,22 +1,23 @@
-// useAxios hook
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+
+import _ from 'lodash';
 import qs from 'qs';
+import { STORAGE_KEYS } from 'utils/constants';
 
 const axiosClient = axios.create({
-   baseURL: 'http://localhost:5000/',
-   headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${JSON.parse(
-         localStorage.getItem('accessToken')!
-      )}`,
-   },
+   baseURL: process.env.REACT_APP_BASEURL,
 });
-
 // Add a request interceptor
 axiosClient.interceptors.request.use(
    function (config: AxiosRequestConfig) {
+      const token = localStorage.getItem(STORAGE_KEYS.accessToken);
+      if (token) {
+         config.headers = {
+            Authorization: `Bearer ` + JSON.parse(token),
+         };
+      }
+
       if (config.method === 'POST' || config.method === 'PUT') {
          config.data = qs.stringify(config.data);
          config.params = qs.stringify(config.params);
@@ -39,40 +40,45 @@ axiosClient.interceptors.response.use(
       return Promise.reject(error);
    }
 );
-
 interface UseApiProps {
    url: string;
    method: string;
    body?: any;
-   callable: boolean;
 }
+export const useApi = ({ url, method, body }: UseApiProps) => {
+   const [response, setResponse] = useState({});
+   const [loading, setLoading] = useState<boolean>(false);
+   const [error, setError] = useState<string>();
+   const [initBody, setInitBody] = useState(body);
 
-const useApi = ({ url, method, body, callable }: UseApiProps) => {
-   const [response, setResponse] = useState(null);
-   const [error, setError] = useState('');
-   const [loading, setLoading] = useState(true);
-
-   const fetchData = () => {
-      axiosClient[method](url, body)
-         .then((res) => {
-            setResponse(res);
-         })
-         .catch((err) => {
-            setError(err);
-         })
-         .finally(() => {
-            setLoading(false);
-         });
-   };
+   const callApi = useCallback(
+      async (newBody = {}) => {
+         if (!_.isEqual(newBody, initBody)) {
+            setInitBody(newBody);
+            setLoading(true);
+         }
+      },
+      [initBody]
+   );
 
    useEffect(() => {
-      if (callable) {
-         fetchData();
-      }
+      const fetchData = () => {
+         axiosClient[method](url, initBody)
+            .then((res) => {
+               setResponse(res);
+            })
+            .catch((err) => {
+               setError(err);
+            })
+            .finally(() => {
+               setTimeout(() => setLoading(false), 2000);
+            });
+      };
+      if (!loading) {
+         return;
+      } else fetchData();
       // eslint-disable-next-line
-   }, [callable]);
+   }, [loading, initBody, url, method]);
 
-   return { response, error, loading };
+   return { response, error, loading, callApi };
 };
-
-export default useApi;

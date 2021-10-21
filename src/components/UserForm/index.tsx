@@ -351,7 +351,19 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                <button onClick={() => history.goBack()} type="button">
                   Cancel
                </button>
-               <button type="submit">{id ? 'Save' : 'Create'}</button>
+               <button
+                  disabled={
+                     !formData?.username ||
+                     !formData.password ||
+                     !formData.firstName ||
+                     !formData.lastName ||
+                     !formData.email ||
+                     !values.confirmPass
+                  }
+                  type="submit"
+               >
+                  {id ? 'Save' : 'Create'}
+               </button>
             </div>
          </form>
       </div>

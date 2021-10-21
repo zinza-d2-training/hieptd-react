@@ -1,32 +1,55 @@
-import userApi from 'api/userApi';
-import { useAppDispatch } from 'app/hooks';
-import { getUserInfo } from 'features/user/userSlice';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import CircleLoading from 'components/Loading/CircleLoading';
+import { useApi } from 'hooks/useApi';
+import React, { useEffect } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
+import { getUser, setToken } from 'utils/auth';
 import './Login.scss';
 import { useLoginForm } from './useLoginForm';
+
 function Login() {
    const history = useHistory();
-   const dispatch = useAppDispatch();
+   const currentUser = getUser();
+   const { response, error, loading, callApi } = useApi({
+      url: '/auth/login',
+      body: {},
+      method: 'post',
+   });
 
    // handle login
    const handleLogin = async () => {
       const { username, password } = values;
-      const response = await userApi.postLogin(username, password);
-      if (response) {
-         window.localStorage.setItem(
-            'accessToken',
-            JSON.stringify(Object.values(response['accessToken'])[0])
-         );
-         await dispatch(getUserInfo());
-         history.push('/');
-         window.location.reload();
-         resetForm();
-      }
+      await callApi({ username, password });
+      resetForm();
    };
 
    const { values, errors, handleChange, handleSubmit, resetForm } =
       useLoginForm(handleLogin);
+
+   useEffect(() => {
+      if (Object.keys(response).length !== 0) {
+         setToken(response['accessToken']);
+         window.location.reload();
+      }
+      if (currentUser) {
+         history.push('/');
+      }
+   }, [currentUser, response, history]);
+
+   if (error) {
+      return (
+         <Redirect
+            push
+            to={{
+               pathname: '/error',
+               state: { error: error },
+            }}
+         />
+      );
+   }
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <div className="loginForm">

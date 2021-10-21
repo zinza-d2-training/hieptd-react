@@ -1,11 +1,10 @@
-import { useAppSelector } from 'app/hooks';
 import missing from 'assets/missing.png';
 import Breadcrumb from 'components/Breadcrumb';
 import ProjectTable from 'components/ProjectTable';
 import TaskTable from 'components/TaskTable';
-import { selectUser } from 'features/user/userSlice';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
 import './index.scss';
 import { useGetUserProfile } from './useGetUserProfile';
@@ -15,7 +14,7 @@ interface UserProfileProps {
 }
 
 function UserProfile({ id }: UserProfileProps) {
-   const { currentUser } = useAppSelector(selectUser);
+   const currentUser = getUser();
 
    const userProfile = useGetUserProfile({ id: id });
 
