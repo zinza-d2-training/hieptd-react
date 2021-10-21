@@ -16,7 +16,13 @@ import Route from './Route';
 import ErrorPage from 'components/ErrorPage';
 
 const routes = [
-   <Route key="login" exact path="/login" component={Login} />,
+   <Route
+      key="login"
+      exact
+      path="/login"
+      component={Login}
+      redirectIfLogged="/"
+   />,
    <Route
       withAuth
       layout={Admin}

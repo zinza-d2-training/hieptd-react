@@ -1,39 +1,23 @@
 import CircleLoading from 'components/Loading/CircleLoading';
-import { useApi } from 'hooks/useApi';
-import React, { useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import { getUser, setToken } from 'utils/auth';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import './Login.scss';
+import { useLogin } from './useLogin';
 import { useLoginForm } from './useLoginForm';
 
 function Login() {
-   const history = useHistory();
-   const currentUser = getUser();
-   const { response, error, loading, callApi } = useApi({
-      url: '/auth/login',
-      body: {},
-      method: 'post',
-   });
-
+   const { login, loading, error } = useLogin();
    // handle login
    const handleLogin = async () => {
       const { username, password } = values;
-      await callApi({ username, password });
-      resetForm();
+      if (username && password) {
+         await login(username, password);
+         resetForm();
+      }
    };
 
    const { values, errors, handleChange, handleSubmit, resetForm } =
       useLoginForm(handleLogin);
-
-   useEffect(() => {
-      if (Object.keys(response).length !== 0) {
-         setToken(response['accessToken']);
-         window.location.reload();
-      }
-      if (currentUser) {
-         history.push('/');
-      }
-   }, [currentUser, response, history]);
 
    if (error) {
       return (
