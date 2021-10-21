@@ -1,6 +1,5 @@
 import CircleLoading from 'components/Loading/CircleLoading';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import './Login.scss';
 import { useLogin } from './useLogin';
 import { useLoginForm } from './useLoginForm';
@@ -19,18 +18,6 @@ function Login() {
    const { values, errors, handleChange, handleSubmit, resetForm } =
       useLoginForm(handleLogin);
 
-   if (error) {
-      return (
-         <Redirect
-            push
-            to={{
-               pathname: '/error',
-               state: { error: error },
-            }}
-         />
-      );
-   }
-
    if (loading) {
       return <CircleLoading />;
    }
@@ -39,6 +26,11 @@ function Login() {
       <div className="loginForm">
          <form onSubmit={handleSubmit}>
             <h1>Login to Dashboard</h1>
+            {error && (
+               <div className="login__message">
+                  Login failed because invalid username or password
+               </div>
+            )}
             <div className="login__item">
                <div className="login__item-input">
                   <label>Username</label>
