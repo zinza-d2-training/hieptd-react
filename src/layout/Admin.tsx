@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Admin.scss';
 import './Admin.scss';
 import Menu from './Menu';
-import { useVisiable } from 'hooks';
+import { useVisible } from 'hooks';
 import { getUser, logout } from 'utils/auth';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const Admin = ({ children }: Props) => {
    const currentUser = getUser();
    const [showMenuMobile, setShowMenuMobile] = useState(false);
-   const { ref, isVisible, setIsVisible } = useVisiable(false);
+   const { ref, isVisible, setIsVisible } = useVisible(false);
    return (
       <>
          {showMenuMobile && (

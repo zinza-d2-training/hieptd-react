@@ -1,38 +1,35 @@
-import { USERS } from 'fakeData/users';
+import CircleLoading from 'components/Loading/CircleLoading';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { login } from 'utils/auth';
 import './Login.scss';
+import { useLogin } from './useLogin';
 import { useLoginForm } from './useLoginForm';
 
 function Login() {
-   const history = useHistory();
-
+   const { login, loading, error } = useLogin();
    // handle login
-   const handleLogin = () => {
+   const handleLogin = async () => {
       const { username, password } = values;
       if (username && password) {
-         const user = USERS.find((user) => {
-            return user.username === username && user.password === password;
-         });
-
-         if (!user) {
-            alert('Login information is incorrect!');
-         } else {
-            login(user);
-            resetForm();
-            history.push('/');
-            window.location.reload();
-         }
+         await login(username, password);
       }
    };
+
    const { values, errors, handleChange, handleSubmit, resetForm } =
       useLoginForm(handleLogin);
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <div className="loginForm">
          <form onSubmit={handleSubmit}>
             <h1>Login to Dashboard</h1>
+            {error && (
+               <div className="login__message">
+                  Login failed because invalid username or password
+               </div>
+            )}
             <div className="login__item">
                <div className="login__item-input">
                   <label>Username</label>

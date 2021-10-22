@@ -36,6 +36,10 @@
    border-radius: 4px;
    user-select: none;
    min-width: 80px;
+   &[type='submit']:disabled {
+      cursor: default;
+      background-color: $error;
+   }
 }
 @mixin input {
    display: block;

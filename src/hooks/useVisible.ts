@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-export const useVisiable = (initialIsVisible: boolean) => {
+export const useVisible = (initialIsVisible: boolean) => {
    const [isVisible, setIsVisible] = useState(initialIsVisible);
    const ref = useRef<HTMLHeadingElement>(null);
 

@@ -1,6 +1,6 @@
 import NotFoundPage from 'components/NotFound';
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from 'routeConfig';
 
 function App() {

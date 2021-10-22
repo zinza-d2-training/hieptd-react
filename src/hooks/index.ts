@@ -1,3 +1,3 @@
 export * from './useForm';
-export * from './useVisiable';
+export * from './useVisible';
 export * from './useTitle';

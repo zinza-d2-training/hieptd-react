@@ -15,6 +15,7 @@ interface UserProfileProps {
 
 function UserProfile({ id }: UserProfileProps) {
    const currentUser = getUser();
+
    const userProfile = useGetUserProfile({ id: id });
 
    return (

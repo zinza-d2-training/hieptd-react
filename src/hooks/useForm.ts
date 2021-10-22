@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Field = {
    name: string; //field name;
    validate?: (value: any) => string | null;
+   fieldNameToCompare?: string;
    compareValidate?: (value: any, secondValue: string) => string | null;
 };
-
+type CallbackFunc = () => void;
+type PromiseFunc = () => Promise<void>;
 interface Dependencies {
-   onSubmit: () => void;
+   onSubmit: CallbackFunc | PromiseFunc;
    fields: Field[];
 }
 
@@ -21,19 +23,20 @@ const validateValue = (values: FormValue, fields: Field[]): FormErr => {
       const fieldConfig = fields.find((fieldConfig) => {
          return fieldConfig.name === field;
       });
-
       if (fieldConfig && fieldConfig.validate && values[field] !== null) {
          errors[field] = fieldConfig.validate(values[field])!;
       }
+
       if (
          fieldConfig &&
          fieldConfig.compareValidate &&
-         values[field] !== null
+         values[field] !== null &&
+         fieldConfig.fieldNameToCompare
       ) {
          // compare password vs confirm password
          errors[field] = fieldConfig.compareValidate(
             values[field],
-            values['password']
+            values[fieldConfig.fieldNameToCompare]
          )!;
       }
    });
@@ -49,26 +52,21 @@ const validateValue = (values: FormValue, fields: Field[]): FormErr => {
 export const useForm = ({ fields = [], onSubmit }: Dependencies) => {
    const [values, setValues] = useState<FormValue>({});
    const [errors, setErrors] = useState<FormErr>({});
-   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-   // check if no errr , confirm to Submit
    useEffect(() => {
-      if (isSubmit && Object.keys(errors).length === 0) {
-         onSubmit();
-      }
-
+      setErrors(validateValue(values, fields));
       // eslint-disable-next-line
-   }, [errors, isSubmit, values]);
+   }, [values]);
 
-   // handleSubmit
    const handleSubmit = (event) => {
       event.preventDefault();
-      setIsSubmit(true);
       setErrors(validateValue(values, fields));
+      if (Object.keys(errors).length === 0) {
+         onSubmit();
+      }
    };
    const handleChange = (event) => {
       event.persist();
-      setIsSubmit(false);
       setValues((values) => ({
          ...values,
          [event.target.name]: event.target.value,
@@ -83,6 +81,5 @@ export const useForm = ({ fields = [], onSubmit }: Dependencies) => {
       setValues,
       errors,
       resetForm,
-      isSubmit,
    };
 };

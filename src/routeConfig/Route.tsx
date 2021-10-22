@@ -1,16 +1,18 @@
+import CircleLoading from 'components/Loading/CircleLoading';
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React from 'react';
-import { Role } from '../utils/types';
-import { getUser } from '../utils/auth';
 import {
    Redirect,
    Route as BaseRoute,
    RouteComponentProps,
    RouteProps,
 } from 'react-router-dom';
+import { Role } from '../utils/types';
 
 interface Props extends RouteProps {
    roles?: Role[];
    withAuth?: boolean;
+   redirectIfLogged?: string;
    layout?: React.ComponentType<any>;
 }
 
@@ -19,12 +21,16 @@ const Route = ({
    withAuth,
    layout: Layout,
    component: Component,
+   redirectIfLogged,
    ...routeProps
 }: Props) => {
-   const currentUser = getUser();
+   const { user: currentUser, loading } = useCurrentUser();
 
    if (!Component) {
       return null;
+   }
+   if (loading) {
+      return <CircleLoading />;
    }
    if (withAuth) {
       return (
@@ -52,6 +58,9 @@ const Route = ({
             }}
          />
       );
+   }
+   if (redirectIfLogged && currentUser) {
+      return <Redirect to="/" />;
    }
    return (
       <BaseRoute
