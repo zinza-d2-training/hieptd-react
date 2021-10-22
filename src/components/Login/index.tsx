@@ -11,7 +11,6 @@ function Login() {
       const { username, password } = values;
       if (username && password) {
          await login(username, password);
-         resetForm();
       }
    };
 
