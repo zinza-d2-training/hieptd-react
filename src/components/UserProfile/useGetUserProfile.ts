@@ -1,20 +1,35 @@
 import { PROJECTS } from 'fakeData/projects';
 import { TASKS } from 'fakeData/tasks';
-import { USERS } from 'fakeData/users';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import userService from 'services/user';
 import { getUser } from 'utils/auth';
-import { Role, UserProfileType } from 'utils/types';
-
+import { Role, User, UserProfileType } from 'utils/types';
 interface GetUsersProfileProps {
    id: number;
 }
 
-export const useGetUserProfile = ({
-   id,
-}: GetUsersProfileProps): UserProfileType | undefined => {
+export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
    const currentUser = getUser();
-   return useMemo<UserProfileType | undefined>(() => {
-      const user = USERS.find((item) => item.id === id);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState<string>();
+   const [user, setUser] = useState<User>();
+
+   useEffect(() => {
+      async function fetchData(id: number) {
+         setLoading(true);
+         try {
+            const res = await userService.getUser(id);
+            setUser(res['data'] as User);
+         } catch (error) {
+            setError(error as string);
+         } finally {
+            setTimeout(() => setLoading(false), 500);
+         }
+      }
+      fetchData(id);
+   }, [id]);
+
+   let userProfile = useMemo<UserProfileType | undefined>(() => {
       if (user && currentUser) {
          return {
             ...user,
@@ -41,5 +56,6 @@ export const useGetUserProfile = ({
          };
       }
       return undefined;
-   }, [id, currentUser]);
+   }, [id, currentUser, user]);
+   return { userProfile, error, loading };
 };

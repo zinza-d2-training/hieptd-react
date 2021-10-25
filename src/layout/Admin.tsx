@@ -1,16 +1,17 @@
+import { useVisible } from 'hooks';
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useState } from 'react';
-import './Admin.scss';
+import { logout } from 'utils/auth';
 import './Admin.scss';
 import Menu from './Menu';
-import { useVisible } from 'hooks';
-import { getUser, logout } from 'utils/auth';
 
 interface Props {
    children: React.ReactNode;
 }
 
 const Admin = ({ children }: Props) => {
-   const currentUser = getUser();
+   const { user: currentUser } = useCurrentUser();
+
    const [showMenuMobile, setShowMenuMobile] = useState(false);
    const { ref, isVisible, setIsVisible } = useVisible(false);
    return (
@@ -62,10 +63,17 @@ const Admin = ({ children }: Props) => {
                         {isVisible && (
                            <div ref={ref} className="dashboard__user">
                               <div className="dashboard__user-header">
-                                 <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
-                                    alt="user-avt"
-                                 />
+                                 {currentUser?.avatar ? (
+                                    <img
+                                       src={`${process.env.REACT_APP_BASEURL}${currentUser.avatar}`}
+                                       alt="user-avt"
+                                    />
+                                 ) : (
+                                    <img
+                                       src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
+                                       alt="user-avt"
+                                    />
+                                 )}
                                  <div className="dashboard__user-name">
                                     {currentUser &&
                                        ` ${currentUser?.firstName} ${currentUser?.lastName}`}

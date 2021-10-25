@@ -5,6 +5,7 @@ $dashNavHeight: 60px;
 
 .admin {
    .dashboard__children {
+      position: relative;
       margin-top: $dashNavHeight + 10px;
       margin-left: $menuWidth + 10px;
       border: none;
@@ -44,8 +45,8 @@ $dashNavHeight: 60px;
          height: 9.53rem;
 
          img {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
          }
@@ -60,6 +61,7 @@ $dashNavHeight: 60px;
             text-shadow: $textShadow;
             p {
                font-size: 13px;
+               text-transform: none;
             }
          }
       }
@@ -245,7 +247,7 @@ $dashNavHeight: 60px;
 
 /*-----------responsive-------------*/
 
-@media (max-width: 768px) {
+@media (max-width: 959px) {
    .menu__mobile-overlay {
       position: fixed;
       top: 0;
@@ -258,6 +260,9 @@ $dashNavHeight: 60px;
    .admin {
       .dashboard__children {
          margin-left: 0;
+         position: relative;
+         overflow: hidden;
+         overflow-x: scroll;
       }
       .menu {
          transform: translateX(-100%);

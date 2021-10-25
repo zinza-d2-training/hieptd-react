@@ -5,6 +5,7 @@ import { Role } from 'utils/types';
 import { FilterType } from './types';
 import './styles/Filter.scss';
 import UserImportModal from 'components/UserImportModal';
+import ExportUserModal from 'components/ExportUserModal';
 
 interface FilterProps {
    filter: FilterType;
@@ -15,6 +16,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
    const [showImportModal, setShowImportModal] = useState<boolean>(false);
+   const [showExportModal, setShowExportModal] = useState<boolean>(false);
    const selectRef = useRef<HTMLSelectElement>(null);
    //--------handle filter----------
 
@@ -34,6 +36,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
       <>
          {showImportModal && (
             <UserImportModal onClose={() => setShowImportModal(false)} />
+         )}
+         {showExportModal && (
+            <ExportUserModal onClose={() => setShowExportModal(false)} />
          )}
          <div className="filter__header">
             <div className="filter__search">
@@ -64,7 +69,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
                         <div onClick={() => setShowImportModal(true)}>
                            Import
                         </div>
-                        <div>Export</div>
+                        <div onClick={() => setShowExportModal(true)}>
+                           Export
+                        </div>
                      </div>
                   </div>
                )}

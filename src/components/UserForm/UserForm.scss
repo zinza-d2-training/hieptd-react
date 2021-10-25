@@ -25,11 +25,17 @@
                &[type='file'] {
                   border: none;
                }
+               padding: 5px;
+               width: 250px;
             }
             .userForm__err {
                color: $error;
                line-height: 1.1;
                margin: 5px;
+            }
+            .userForm__wrap-eye {
+               display: flex;
+               align-items: center;
             }
          }
          i {

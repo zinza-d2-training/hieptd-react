@@ -35,9 +35,10 @@ export type User = {
    firstName: string;
    lastName: string;
    role: Role;
-   active: boolean;
+   status: boolean;
    dateOfBirth: string;
 };
+
 export type Project = {
    id: number;
    name: string;

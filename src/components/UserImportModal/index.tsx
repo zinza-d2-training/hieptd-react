@@ -1,7 +1,9 @@
+import CircleLoading from 'components/Loading/CircleLoading';
 import Papa from 'papaparse';
 import React, { useEffect, useRef, useState } from 'react';
 import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
+import { useApi } from './useApi';
 interface UserImportModalProps {
    onClose: () => void;
 }
@@ -20,6 +22,8 @@ function renderIconWarning(data: UserImport, key: string) {
 }
 
 function UserImportModal({ onClose }: UserImportModalProps) {
+   const { importUser, loading } = useApi();
+
    const inputRef = useRef<HTMLInputElement>(null);
    const [dataFile, setDataFile] = useState<File>();
    const [listUsers, setListUsers] = useState<UserImport[]>();
@@ -37,6 +41,7 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             'role',
             'dateOfBirth',
          ],
+         data: [],
       });
 
       const blob = new Blob([csv]);
@@ -61,6 +66,22 @@ function UserImportModal({ onClose }: UserImportModalProps) {
    const updateData = (result) => {
       setListUsers(result.data.splice(0, result.data.length - 1));
    };
+
+   //handle import
+   const handleImport = async () => {
+      const _list = listUsers?.filter((user) =>
+         !handleValidateRow(user).isError ? user : null
+      );
+      if (_list) {
+         importUser(_list);
+      } else {
+         alert('All data is invalid');
+      }
+   };
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <div className="userImport">
@@ -124,7 +145,7 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             <div className="userImport__btn">
                {listUsers && (
                   <>
-                     <button onClick={() => alert('Imported')}>Import</button>
+                     <button onClick={() => handleImport()}>Import</button>
                      <button onClick={() => onClose()}>Cancel</button>
                   </>
                )}

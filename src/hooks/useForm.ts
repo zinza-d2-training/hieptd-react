@@ -13,7 +13,7 @@ interface Dependencies {
    fields: Field[];
 }
 
-type FormValue = { [x: string]: string };
+export type FormValue = { [x: string]: string };
 type FormErr = { [x: string]: string };
 
 const validateValue = (values: FormValue, fields: Field[]): FormErr => {

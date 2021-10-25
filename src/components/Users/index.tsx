@@ -1,4 +1,5 @@
 import Breadcrumb from 'components/Breadcrumb';
+import CircleLoading from 'components/Loading/CircleLoading';
 import Pagination from 'components/Pagination';
 import { FilterType } from 'components/Users/types';
 import { useGetUserData } from 'components/Users/useGetUserData';
@@ -26,8 +27,10 @@ function Users() {
    });
    const handlePagination = (newPage: number) =>
       setPagination({ ...pagination, page: newPage });
-   const { listUsers } = useGetUserData({ filter, pagination });
-
+   const { listUsers, loading } = useGetUserData({ filter, pagination });
+   if (loading) {
+      return <CircleLoading />;
+   }
    return (
       <div className="user">
          <div className="user__header">
@@ -39,10 +42,7 @@ function Users() {
             />
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
-         <UserTable
-            data={listUsers}
-            handleConfirmDelete={() => alert('Deleted')}
-         />
+         <UserTable data={listUsers} />
 
          <Pagination info={pagination} onChange={handlePagination} />
       </div>

@@ -1,56 +1,36 @@
-import { USERS } from 'fakeData/users';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import CircleLoading from 'components/Loading/CircleLoading';
+import { useCurrentUser } from 'hooks/useCurrentUser';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Role } from 'utils/types';
 import Breadcrumb from '../Breadcrumb';
+import { useHandleData } from './useHandleData';
 import './UserForm.scss';
-import { useUserForm } from './useUserForm';
 
 interface UserFormProps {
    id?: number;
    showBreadcrumb?: boolean;
 }
-type FormValue = { [x: string]: string };
+
 function UserForm({ id, showBreadcrumb }: UserFormProps) {
    const history = useHistory();
+   const { user: currentUser } = useCurrentUser();
+   const {
+      loading,
+      errors,
+      formData,
+      values,
+      user,
+      handleUploadFile,
+      handleChange,
+      handleSubmit,
+      setFormData,
+   } = useHandleData({ id });
 
    const [showPass, setShowPass] = useState<boolean>(false);
    const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
    const inputPasswordRef = useRef<HTMLInputElement>(null);
    const inputConfirmPasswordRef = useRef<HTMLInputElement>(null);
-
-   let user = useMemo<FormValue | undefined>(() => {
-      if (id) {
-         const users = USERS.find((user) => user.id === id);
-         if (users) {
-            return {
-               username: users.username,
-               email: users.email,
-               firstName: users.firstName,
-               lastName: users.lastName,
-               avatar: users.avatar,
-               dateOfBirth: users.dateOfBirth,
-               active: users.active.toString(),
-               role: users.role,
-               password: users.password,
-            };
-         }
-         return undefined;
-      }
-      return {
-         username: '',
-         email: '',
-         firstName: '',
-         lastName: '',
-         avatar: '',
-         dateOfBirth: '',
-         active: '',
-         role: '',
-         password: '',
-      };
-   }, [id]);
-
-   const [formData, setFormData] = useState<FormValue | undefined>(user);
 
    // --------toggle show/hide password-------
    const handleToggleShowPass = () => {
@@ -65,6 +45,7 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
       }
    };
 
+   // ---- handle toggle confirm pass
    const handleToggleShowConfirmPass = () => {
       if (inputConfirmPasswordRef.current !== null) {
          if (inputConfirmPasswordRef.current.type === 'password') {
@@ -76,81 +57,13 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
          }
       }
    };
+   // -----render -------
 
-   //------------ handleSubmit --------------
-   const handleSubmitUser = () => {
-      const { username, password, email, firstName, lastName, confirmPass } =
-         values;
-      // if create new user
-      if (!id) {
-         if (
-            username &&
-            password &&
-            email &&
-            firstName &&
-            lastName &&
-            confirmPass
-         ) {
-            alert(JSON.stringify(formData));
-            resetForm();
-         } else alert('Some fields are required!');
-      } else {
-         if (username && password && email && firstName && lastName) {
-            alert(JSON.stringify(formData));
-            resetForm();
-         } else alert('Some fields are required!');
-      }
-   };
-
-   //---------use Form-------
-   const { values, errors, handleChange, handleSubmit, resetForm, setValues } =
-      useUserForm(handleSubmitUser);
-
-   // handle upload image base64
-   const handleUploadFile = (e) => {
-      try {
-         const file = e.target.files[0];
-         const fileReader = new FileReader();
-         fileReader.readAsDataURL(file);
-         fileReader.onload = () => {
-            const res = fileReader.result?.toString();
-
-            if (res) setFormData({ ...formData, avatar: res });
-         };
-      } catch (error) {
-         console.error(error);
-      }
-   };
-
-   // onChange fields
-   useEffect(() => {
-      setFormData({
-         ...formData,
-         username: values.username,
-         password: values.password,
-         email: values.email,
-         firstName: values.firstName,
-         lastName: values.lastName,
-      });
-
-      // eslint-disable-next-line
-   }, [values]);
-
-   // fill user data
-   useEffect(() => {
-      if (id) {
-         setValues({
-            username: formData?.username!,
-            email: formData?.email!,
-            password: formData?.password!,
-            firstName: formData?.firstName!,
-            lastName: formData?.lastName!,
-         });
-      }
-      // eslint-disable-next-line
-   }, []);
-   if (id && !user) {
+   if (id && !formData) {
       return <h1>User Not Found</h1>;
+   }
+   if (loading) {
+      return <CircleLoading />;
    }
 
    return (
@@ -203,29 +116,34 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             <div className="userForm__input">
                <label htmlFor="userForm__input-password">Password*</label>
                <div className="userForm__wrap">
-                  <input
-                     ref={inputPasswordRef}
-                     id="userForm__input-password"
-                     type="password"
-                     placeholder="Password"
-                     value={values.password || ''}
-                     name="password"
-                     onChange={handleChange}
-                  />
+                  <div className="userForm__wrap-eye">
+                     <input
+                        ref={inputPasswordRef}
+                        id="userForm__input-password"
+                        type="password"
+                        placeholder="Password"
+                        value={values.password || ''}
+                        name="password"
+                        onChange={handleChange}
+                     />{' '}
+                     <i
+                        onClick={handleToggleShowPass}
+                        className={`${
+                           showPass ? 'fas fa-eye' : 'fas fa-eye-slash'
+                        }`}
+                     ></i>
+                  </div>
                   <div className="userForm__err">{errors.password}</div>
                </div>
-               <i
-                  onClick={handleToggleShowPass}
-                  className={`${showPass ? 'fas fa-eye' : 'fas fa-eye-slash'}`}
-               ></i>
             </div>
             {/*--- Confirm Pass ---*/}
-            {!id && (
-               <div className="userForm__input">
-                  <label htmlFor="userForm__input-password">
-                     Confirm Password*
-                  </label>
-                  <div className="userForm__wrap">
+
+            <div className="userForm__input">
+               <label htmlFor="userForm__input-password">
+                  Confirm Password*
+               </label>
+               <div className="userForm__wrap">
+                  <div className="userForm__wrap-eye">
                      <input
                         ref={inputConfirmPasswordRef}
                         id="userForm__input-confirmPass"
@@ -234,17 +152,18 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                         value={values.confirmPass || ''}
                         name="confirmPass"
                         onChange={handleChange}
-                     />
-                     <div className="userForm__err">{errors.confirmPass}</div>
+                     />{' '}
+                     <i
+                        onClick={handleToggleShowConfirmPass}
+                        className={`${
+                           showConfirmPass ? 'fas fa-eye' : 'fas fa-eye-slash'
+                        }`}
+                     ></i>
                   </div>
-                  <i
-                     onClick={handleToggleShowConfirmPass}
-                     className={`${
-                        showConfirmPass ? 'fas fa-eye' : 'fas fa-eye-slash'
-                     }`}
-                  ></i>
+                  <div className="userForm__err">{errors.confirmPass}</div>
                </div>
-            )}
+            </div>
+
             {/*--- Avatar ---*/}
 
             <div className="userForm__input">
@@ -262,11 +181,18 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             {/*--- image ---*/}
             {formData?.avatar && (
                <div className="userForm__image">
-                  <img src={formData?.avatar} alt="avatar" />
+                  {formData?.avatar.includes('/uploads') ? (
+                     <img
+                        src={`${process.env.REACT_APP_BASEURL}${formData?.avatar}`}
+                        alt="avatar"
+                     />
+                  ) : (
+                     <img src={formData?.avatar} alt="avatar" />
+                  )}
                   <i
                      className="fas fa-times"
                      onClick={() => {
-                        setFormData({ ...formData, avatar: '' });
+                        setFormData({ ...formData, avatar: null });
                      }}
                   ></i>
                </div>
@@ -315,38 +241,46 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   <div className="userForm__err">{errors.lastName}</div>
                </div>
             </div>
-            <div className="userForm__input">
-               <label htmlFor="userForm__input-role">Role*</label>
-               <div className="userForm__wrap">
-                  <select
-                     onChange={(e) => {
-                        setFormData({
-                           ...formData,
-                           role: Role[e.target.value],
-                        });
-                     }}
-                  >
-                     <option value="Member">Member</option>
-                     <option value="PM">Project Manager</option>
-                  </select>
-               </div>
-            </div>
-            <div className="userForm__input">
-               <label htmlFor="userForm__input-active">Active*</label>
-               <div className="userForm__wrap">
-                  <input
-                     type="checkbox"
-                     id="userForm__input-active"
-                     defaultChecked={formData?.active !== ''}
-                     onChange={(e) => {
-                        setFormData({
-                           ...formData,
-                           active: e.target.checked.toString(),
-                        });
-                     }}
-                  />
-               </div>
-            </div>
+            {currentUser?.role === Role.Admin &&
+               currentUser.username !== user.username && (
+                  <>
+                     {' '}
+                     <div className="userForm__input">
+                        <label htmlFor="userForm__input-role">Role*</label>
+                        <div className="userForm__wrap">
+                           <select
+                              onChange={(e) => {
+                                 setFormData({
+                                    ...formData,
+                                    role: Role[e.target.value],
+                                 });
+                              }}
+                           >
+                              <option value="">{formData?.role}</option>
+                              <option value="member">member</option>
+                              <option value="pm">pm</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div className="userForm__input">
+                        <label htmlFor="userForm__input-active">Status*</label>
+                        <div className="userForm__wrap">
+                           <input
+                              type="checkbox"
+                              id="userForm__input-active"
+                              defaultChecked={formData?.status}
+                              onChange={(e) => {
+                                 setFormData({
+                                    ...formData,
+                                    status: e.target.checked,
+                                 });
+                              }}
+                           />
+                        </div>
+                     </div>
+                  </>
+               )}
+
             <div className="userForm__btn">
                <button onClick={() => history.goBack()} type="button">
                   Cancel
@@ -358,7 +292,8 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                      !formData.firstName ||
                      !formData.lastName ||
                      !formData.email ||
-                     !values.confirmPass
+                     !values.confirmPass ||
+                     !formData.dateOfBirth
                   }
                   type="submit"
                >

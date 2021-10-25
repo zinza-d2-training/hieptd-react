@@ -14,7 +14,7 @@ function Login() {
       }
    };
 
-   const { values, errors, handleChange, handleSubmit, resetForm } =
+   const { values, errors, handleChange, handleSubmit } =
       useLoginForm(handleLogin);
 
    if (loading) {

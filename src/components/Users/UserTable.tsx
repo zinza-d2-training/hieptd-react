@@ -1,41 +1,69 @@
+import CircleLoading from 'components/Loading/CircleLoading';
 import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from 'utils/types';
 import './styles/Users.scss';
+import { useApi } from './useApi';
+
 interface TableUserProps {
    data: User[];
-   handleConfirmDelete: Function;
 }
 
-function UserTable({ data, handleConfirmDelete }: TableUserProps) {
+function UserTable({ data }: TableUserProps) {
    const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
    const [showModalChangeActive, setShowModalChangeActive] =
       useState<boolean>(false);
 
-   const handleChangeActive = (e, status: boolean) => {
+   const [editData, setEditData] = useState<Partial<User>>();
+
+   const { loading, editUser, deleteUser, response } = useApi();
+
+   const handleChangeActive = (e, status: boolean, id: number) => {
       const value = e?.target.value;
       const check = value === 'active';
       if (check === !status) {
          setShowModalChangeActive(true);
+         setEditData({ status: !status, id: id });
       } else return;
    };
+   const handleEditUser = async () => {
+      if (editData && editData.id) {
+         await editUser(editData.id, editData);
+         if (response) {
+            alert('Updated');
+         }
+      }
+   };
+
+   const handleConfirmDelete = async () => {
+      if (editData && editData.id) {
+         await deleteUser(editData.id);
+         if (response) {
+            alert('Updated');
+         }
+      }
+   };
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <>
          <ModalConfirm
-            show={showModalDelete}
-            setShow={setShowModalDelete}
-            handleConfirm={handleConfirmDelete}
-            title="Confirm Delete"
-            content="Are you sure you want to delete?"
-         />
-         <ModalConfirm
             show={showModalChangeActive}
             setShow={setShowModalChangeActive}
-            handleConfirm={handleChangeActive}
+            handleConfirm={() => handleEditUser()}
             title="Confirm Change"
-            content="Are you sure you want to change?"
+            content={`Are you sure you want to change ?`}
+         />
+         <ModalConfirm
+            show={showModalDelete}
+            setShow={setShowModalDelete}
+            handleConfirm={() => handleConfirmDelete()}
+            title="Confirm Delete"
+            content={`Are you sure you want to delete ?`}
          />
          <div className="table">
             <table>
@@ -51,24 +79,26 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                </thead>
                <tbody>
                   {data.length > 0 ? (
-                     data.map((user, index) => (
-                        <tr key={index}>
+                     data.map((user) => (
+                        <tr key={user.id}>
                            <td>
                               <Link
                                  to={`/users/${user.id}/details`}
                               >{`${user.firstName} ${user.lastName}`}</Link>
                            </td>
                            <td>{user.email}</td>
-                           <td>{user.dateOfBirth}</td>
+                           <td>
+                              {user.dateOfBirth ? user.dateOfBirth : '....'}
+                           </td>
                            <td>{user.role}</td>
 
                            <td className="td-active">
                               <select
                                  onChange={(e) =>
-                                    handleChangeActive(e, user.active)
+                                    handleChangeActive(e, user.status, user.id)
                                  }
                               >
-                                 {user.active ? (
+                                 {user.status ? (
                                     <>
                                        <option value="active">Active</option>
                                        <option value="inactive">
@@ -85,6 +115,7 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                                  )}
                               </select>
                            </td>
+
                            <td className="user__edit">
                               <span className="user__edit-edit">
                                  <Link to={`/users/${user.id}/update`}>
@@ -92,7 +123,10 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                                  </Link>
                               </span>{' '}
                               <span
-                                 onClick={() => setShowModalDelete(true)}
+                                 onClick={() => {
+                                    setShowModalDelete(true);
+                                    setEditData({ id: user.id });
+                                 }}
                                  className="user__edit-delete"
                               >
                                  <i className="fas fa-trash-alt"></i>

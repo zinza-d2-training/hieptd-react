@@ -16,7 +16,8 @@ interface UserProfileProps {
 function UserProfile({ id }: UserProfileProps) {
    const currentUser = getUser();
 
-   const userProfile = useGetUserProfile({ id: id });
+   const { userProfile } = useGetUserProfile({ id: id });
+   console.log({ userProfile });
 
    return (
       <div className="userprofile">
@@ -31,7 +32,10 @@ function UserProfile({ id }: UserProfileProps) {
          </div>
          <div className="userprofile__info">
             {userProfile?.avatar ? (
-               <img src={userProfile?.avatar} alt="user avatar" />
+               <img
+                  src={`${process.env.REACT_APP_BASEURL}${userProfile?.avatar}`}
+                  alt="user avatar"
+               />
             ) : (
                <img src={missing} alt="user avatar" />
             )}
@@ -69,7 +73,7 @@ function UserProfile({ id }: UserProfileProps) {
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Status:</span>
                   <span className="userprofile__content">
-                     {userProfile?.active ? 'Active' : 'Inactive'}
+                     {userProfile?.status ? 'Active' : 'Inactive'}
                   </span>
                </div>
                {currentUser?.role === Role.Admin && (

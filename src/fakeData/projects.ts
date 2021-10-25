@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza5@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: false,
+            status: false,
          },
          {
             id: 6,
@@ -30,7 +30,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza6@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 7,
@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza7@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
       ],
       pm: {
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
          email: 'hellozinza@gmail.com',
          dateOfBirth: '1992-02-21',
          role: Role.PM,
-         active: true,
+         status: true,
       },
    },
    {
@@ -74,7 +74,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza6@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 7,
@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza7@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 8,
@@ -96,7 +96,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza8@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
       ],
       pm: {
@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
          email: 'hellozinza4@gmail.com',
          dateOfBirth: '1999-01-25',
          role: Role.PM,
-         active: true,
+         status: true,
       },
    },
    {
@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza8@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 9,
@@ -140,7 +140,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza9@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 5,
@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza5@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: false,
+            status: false,
          },
       ],
       pm: {
@@ -163,7 +163,7 @@ export const PROJECTS: Project[] = [
          email: 'hellozinza@gmail.com',
          dateOfBirth: '2000-04-19',
          role: Role.Member,
-         active: true,
+         status: true,
       },
    },
    {
@@ -184,7 +184,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza4@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.PM,
-            active: true,
+            status: true,
          },
          {
             id: 5,
@@ -195,7 +195,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza5@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: false,
+            status: false,
          },
          {
             id: 6,
@@ -206,7 +206,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza6@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 7,
@@ -217,7 +217,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza7@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
       ],
       pm: {
@@ -229,7 +229,7 @@ export const PROJECTS: Project[] = [
          email: 'hellozinza@gmail.com',
          dateOfBirth: '1992-02-21',
          role: Role.PM,
-         active: true,
+         status: true,
       },
    },
    {
@@ -250,7 +250,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza7@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 9,
@@ -261,7 +261,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza9@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: true,
+            status: true,
          },
          {
             id: 5,
@@ -272,7 +272,7 @@ export const PROJECTS: Project[] = [
             email: 'hellozinza5@gmail.com',
             dateOfBirth: '1999-01-25',
             role: Role.Member,
-            active: false,
+            status: false,
          },
       ],
       pm: {
@@ -284,7 +284,7 @@ export const PROJECTS: Project[] = [
          email: 'hellozinza4@gmail.com',
          dateOfBirth: '1999-01-25',
          role: Role.PM,
-         active: true,
+         status: true,
       },
    },
 ];
