@@ -19,6 +19,7 @@ function UserTable({ data }: TableUserProps) {
 
    const { loading, editUser, deleteUser, response } = useApiUser();
 
+   // show modal
    const handleChangeActive = (e, status: UserStatus, id: number) => {
       const value = e?.target.value;
 
@@ -27,7 +28,8 @@ function UserTable({ data }: TableUserProps) {
          setEditData({ status: value, id: id });
       } else return;
    };
-   const handleEditUser = async () => {
+   // confirm change
+   const handleConfirmEditUser = async () => {
       if (editData && editData.id) {
          await editUser(editData.id, editData);
          if (response) {
@@ -54,7 +56,7 @@ function UserTable({ data }: TableUserProps) {
          <ModalConfirm
             show={showModalChangeActive}
             setShow={setShowModalChangeActive}
-            handleConfirm={() => handleEditUser()}
+            handleConfirm={() => handleConfirmEditUser()}
             title="Confirm Change"
             content={`Are you sure you want to change ?`}
          />

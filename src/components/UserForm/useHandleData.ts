@@ -96,8 +96,7 @@ export const useHandleData = ({ id }: UseHandleData) => {
 
    useEffect(() => {
       getUser(id!);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   }, [id, getUser]);
 
    useEffect(() => {
       if (id) {

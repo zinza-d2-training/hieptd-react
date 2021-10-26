@@ -262,7 +262,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                                  });
                               }}
                            >
-                              <option value="">{formData?.role}</option>
                               <option value="member">member</option>
                               <option value="pm">pm</option>
                            </select>

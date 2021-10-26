@@ -10,8 +10,16 @@ interface GetUsersProps {
 export const useGetUserData = ({ filter }: GetUsersProps) => {
    const { response, loading, getUsers } = useApiUser();
 
+   // remove undefined in filter
+   let _filter = useMemo(() => {
+      Object.keys(filter).forEach(
+         (key) => filter[key] === undefined && delete filter[key]
+      );
+      return filter;
+   }, [filter]);
+
    let _pagination = useMemo(
-      () => (response ? response['paginationObj'] : { page: 1, limit: 10 }),
+      () => (response ? response['pagination'] : { page: 1, limit: 10 }),
       [response]
    );
 
@@ -20,11 +28,10 @@ export const useGetUserData = ({ filter }: GetUsersProps) => {
    const handlePagination = (newPage: number) =>
       setPagination({ ...pagination, page: newPage });
 
+   // get users
    useEffect(() => {
-      getUsers(pagination.page, pagination.limit, filter);
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [pagination, filter]);
+      getUsers(pagination.page, pagination.limit, _filter);
+   }, [pagination, _filter, getUsers]);
 
    let listUsers = useMemo<User[]>(() => {
       if (response) {

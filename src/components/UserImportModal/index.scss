@@ -63,6 +63,7 @@
 .tooltip {
    position: relative;
    padding-left: 5px;
+
    &:hover .tooltipText {
       visibility: visible;
    }

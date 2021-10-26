@@ -15,7 +15,7 @@ function Users() {
    const [filter, setFilter] = useState<FilterType>({
       dob: '',
       role: '',
-      status: 1,
+      status: undefined,
       keyword: '',
    });
 
@@ -40,9 +40,6 @@ function Users() {
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
 
-         {/* <div className="user__info">
-            Total {_pagination.total} records - {_pagination.limit} records/page
-         </div> */}
          <UserTable data={listUsers} />
 
          <Pagination info={_pagination} onChange={handlePagination} />

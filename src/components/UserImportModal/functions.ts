@@ -82,12 +82,10 @@ export const handleValidateRow = (user: UserImport) => {
 
             break;
          case 'dateOfBirth':
-            const checkDate =
-               !/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(
-                  user[key]
-               );
-            if (checkDate) {
-               dataErr[key] = 'Invalid date, required format yyyy-mm-dd';
+            const date = new Date(user[key]);
+            const checkDate = date instanceof Date && !isNaN(date.getTime());
+            if (!checkDate) {
+               dataErr[key] = 'Invalid date';
                isError = true;
             }
 

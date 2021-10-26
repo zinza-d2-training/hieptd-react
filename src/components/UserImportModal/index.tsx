@@ -27,7 +27,6 @@ function UserImportModal({ onClose }: UserImportModalProps) {
    const inputRef = useRef<HTMLInputElement>(null);
    const [dataFile, setDataFile] = useState<File>();
    const [listUsers, setListUsers] = useState<UserImport[]>();
-   console.log({ listUsers });
 
    const handleChange = (e) => {
       setDataFile(e.target.files[0]);
@@ -64,12 +63,20 @@ function UserImportModal({ onClose }: UserImportModalProps) {
    }, [dataFile]);
 
    const updateData = (result) => {
-      setListUsers(result.data.splice(0, result.data.length - 2));
+      setListUsers(result.data.splice(0, result.data.length - 1));
    };
 
    //handle import
    const handleImport = async () => {
       if (listUsers) {
+         //convert to yyyy-mm-dd
+         listUsers.forEach(
+            (user) =>
+               (user.dateOfBirth = new Date(user.dateOfBirth)
+                  .toISOString()
+                  .slice(0, 10))
+         );
+
          importUser(listUsers);
       } else {
          alert('All data is invalid');

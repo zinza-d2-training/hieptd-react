@@ -24,7 +24,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
       handleFilter({
          dob: '',
          role: '',
-         status: 1,
+         status: undefined,
          keyword: '',
       });
       if (selectRef.current) {
@@ -129,11 +129,15 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <select
                      ref={selectRef}
                      onChange={(e) =>
-                        handleFilter({ ...filter, status: +e.target.value })
+                        handleFilter({
+                           ...filter,
+                           status: UserStatus[e.target.value],
+                        })
                      }
                   >
-                     <option value={UserStatus.active}>Active</option>
-                     <option value={UserStatus.inactive}>Inactive</option>
+                     <option value="">Status</option>
+                     <option value="active">Active</option>
+                     <option value="inactive">Inactive</option>
                   </select>
                </div>
                {/* clear filter */}
