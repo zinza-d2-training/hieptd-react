@@ -26,6 +26,10 @@ export enum Priority {
    High = 'high',
    Medium = 'medium',
 }
+export enum UserStatus {
+   inactive = 0,
+   active = 1,
+}
 export type User = {
    id: number;
    username: string;
@@ -35,7 +39,7 @@ export type User = {
    firstName: string;
    lastName: string;
    role: Role;
-   status: boolean;
+   status: UserStatus;
    dateOfBirth: string;
 };
 
@@ -74,4 +78,11 @@ export type Report = {
 export type UserProfileType = User & {
    projects: Project[];
    tasks: Task[];
+};
+
+export type PaginationType = {
+   total?: number;
+   page: number;
+   lastPage?: number;
+   limit: number;
 };

@@ -1,6 +1,6 @@
 import CircleLoading from 'components/Loading/CircleLoading';
-import React, { useMemo } from 'react';
-import { useApi } from './useApi';
+import React, { useMemo, useEffect } from 'react';
+import { useApiExportUser } from './useApiExportUser';
 import './index.scss';
 import papa from 'papaparse';
 
@@ -8,7 +8,15 @@ interface UserExportModalProps {
    onClose: () => void;
 }
 export default function ExportUserModal({ onClose }: UserExportModalProps) {
-   const { response, loading } = useApi();
+   const { response, loading, fetchData } = useApiExportUser();
+
+   useEffect(() => {
+      if (!response) {
+         fetchData();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [response]);
+
    const listUsers = useMemo(() => {
       if (response) {
          const res = response?.map((user) => {

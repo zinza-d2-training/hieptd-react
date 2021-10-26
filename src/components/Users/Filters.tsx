@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { getUser } from 'utils/auth';
 import { Link } from 'react-router-dom';
-import { Role } from 'utils/types';
+import { Role, UserStatus } from 'utils/types';
 import { FilterType } from './types';
 import './styles/Filter.scss';
 import UserImportModal from 'components/UserImportModal';
@@ -22,10 +22,10 @@ function Filter({ filter, handleFilter }: FilterProps) {
 
    const handleClearFilter = () => {
       handleFilter({
-         dateOfBirth: '',
+         dob: '',
          role: '',
-         active: false,
-         search: '',
+         status: 1,
+         keyword: '',
       });
       if (selectRef.current) {
          selectRef.current.selectedIndex = 0;
@@ -46,9 +46,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   type="text"
                   placeholder="Search"
                   id="search"
-                  value={filter.search}
+                  value={filter.keyword}
                   onChange={(e) => {
-                     handleFilter({ ...filter, search: e.target.value });
+                     handleFilter({ ...filter, keyword: e.target.value });
                   }}
                />
             </div>
@@ -84,17 +84,17 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <input
                      type="date"
                      id="date"
-                     value={filter.dateOfBirth}
+                     value={filter.dob}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
-                              dateOfBirth: e.target.value,
+                              dob: e.target.value,
                            });
                         } else {
                            handleFilter({
                               ...filter,
-                              dateOfBirth: '',
+                              dob: '',
                            });
                         }
                      }}
@@ -125,19 +125,16 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   </select>
                </div>
                <div className="filter__input">
-                  <input
-                     defaultChecked={filter.active}
-                     checked={filter.active}
-                     onChange={() => {
-                        handleFilter({
-                           ...filter,
-                           active: !filter.active,
-                        });
-                     }}
-                     id="check"
-                     type="checkbox"
-                  />{' '}
-                  <label htmlFor="check">Active</label>
+                  <label htmlFor="check">Status</label>
+                  <select
+                     ref={selectRef}
+                     onChange={(e) =>
+                        handleFilter({ ...filter, status: +e.target.value })
+                     }
+                  >
+                     <option value={UserStatus.active}>Active</option>
+                     <option value={UserStatus.inactive}>Inactive</option>
+                  </select>
                </div>
                {/* clear filter */}
                <button type="button" onClick={handleClearFilter}>

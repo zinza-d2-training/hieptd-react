@@ -2,7 +2,7 @@ import CircleLoading from 'components/Loading/CircleLoading';
 import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Role } from 'utils/types';
+import { Role, UserStatus } from 'utils/types';
 import Breadcrumb from '../Breadcrumb';
 import { useHandleData } from './useHandleData';
 import './UserForm.scss';
@@ -15,6 +15,7 @@ interface UserFormProps {
 function UserForm({ id, showBreadcrumb }: UserFormProps) {
    const history = useHistory();
    const { user: currentUser } = useCurrentUser();
+
    const {
       loading,
       errors,
@@ -112,58 +113,64 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   <div className="userForm__err">{errors.email}</div>
                </div>
             </div>
-            {/*--- Password ---*/}
-            <div className="userForm__input">
-               <label htmlFor="userForm__input-password">Password*</label>
-               <div className="userForm__wrap">
-                  <div className="userForm__wrap-eye">
-                     <input
-                        ref={inputPasswordRef}
-                        id="userForm__input-password"
-                        type="password"
-                        placeholder="Password"
-                        value={values.password || ''}
-                        name="password"
-                        onChange={handleChange}
-                     />{' '}
-                     <i
-                        onClick={handleToggleShowPass}
-                        className={`${
-                           showPass ? 'fas fa-eye' : 'fas fa-eye-slash'
-                        }`}
-                     ></i>
+            {currentUser?.id === id?.toString() && (
+               <>
+                  {/*--- Password ---*/}
+                  <div className="userForm__input">
+                     <label htmlFor="userForm__input-password">Password*</label>
+                     <div className="userForm__wrap">
+                        <div className="userForm__wrap-eye">
+                           <input
+                              ref={inputPasswordRef}
+                              id="userForm__input-password"
+                              type="password"
+                              placeholder="Password"
+                              value={values.password || ''}
+                              name="password"
+                              onChange={handleChange}
+                           />{' '}
+                           <i
+                              onClick={handleToggleShowPass}
+                              className={`${
+                                 showPass ? 'fas fa-eye' : 'fas fa-eye-slash'
+                              }`}
+                           ></i>
+                        </div>
+                        <div className="userForm__err">{errors.password}</div>
+                     </div>
                   </div>
-                  <div className="userForm__err">{errors.password}</div>
-               </div>
-            </div>
-            {/*--- Confirm Pass ---*/}
-
-            <div className="userForm__input">
-               <label htmlFor="userForm__input-password">
-                  Confirm Password*
-               </label>
-               <div className="userForm__wrap">
-                  <div className="userForm__wrap-eye">
-                     <input
-                        ref={inputConfirmPasswordRef}
-                        id="userForm__input-confirmPass"
-                        type="password"
-                        placeholder="Password"
-                        value={values.confirmPass || ''}
-                        name="confirmPass"
-                        onChange={handleChange}
-                     />{' '}
-                     <i
-                        onClick={handleToggleShowConfirmPass}
-                        className={`${
-                           showConfirmPass ? 'fas fa-eye' : 'fas fa-eye-slash'
-                        }`}
-                     ></i>
+                  {/*--- Confirm Pass ---*/}
+                  <div className="userForm__input">
+                     <label htmlFor="userForm__input-password">
+                        Confirm Password*
+                     </label>
+                     <div className="userForm__wrap">
+                        <div className="userForm__wrap-eye">
+                           <input
+                              ref={inputConfirmPasswordRef}
+                              id="userForm__input-confirmPass"
+                              type="password"
+                              placeholder="Password"
+                              value={values.confirmPass || ''}
+                              name="confirmPass"
+                              onChange={handleChange}
+                           />{' '}
+                           <i
+                              onClick={handleToggleShowConfirmPass}
+                              className={`${
+                                 showConfirmPass
+                                    ? 'fas fa-eye'
+                                    : 'fas fa-eye-slash'
+                              }`}
+                           ></i>
+                        </div>
+                        <div className="userForm__err">
+                           {errors.confirmPass}
+                        </div>
+                     </div>
                   </div>
-                  <div className="userForm__err">{errors.confirmPass}</div>
-               </div>
-            </div>
-
+               </>
+            )}
             {/*--- Avatar ---*/}
 
             <div className="userForm__input">
@@ -200,7 +207,7 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
 
             {/* ----dateOfBirth ------*/}
             <div className="userForm__input">
-               <label htmlFor="userForm__input-date">Date Of Birth*</label>
+               <label htmlFor="userForm__input-date">Date Of Birth</label>
                <div className="userForm__wrap">
                   <input
                      id="userForm__input-date"
@@ -244,7 +251,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             {currentUser?.role === Role.Admin &&
                currentUser.username !== user.username && (
                   <>
-                     {' '}
                      <div className="userForm__input">
                         <label htmlFor="userForm__input-role">Role*</label>
                         <div className="userForm__wrap">
@@ -265,17 +271,22 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                      <div className="userForm__input">
                         <label htmlFor="userForm__input-active">Status*</label>
                         <div className="userForm__wrap">
-                           <input
-                              type="checkbox"
-                              id="userForm__input-active"
-                              defaultChecked={formData?.status}
+                           <select
                               onChange={(e) => {
                                  setFormData({
                                     ...formData,
-                                    status: e.target.checked,
+                                    status: UserStatus[e.target.value],
                                  });
                               }}
-                           />
+                           >
+                              <option value="">
+                                 {formData?.status === 1
+                                    ? 'Active'
+                                    : 'Inactive'}
+                              </option>
+                              <option value="active">Active</option>
+                              <option value="inactive">Inactive</option>
+                           </select>
                         </div>
                      </div>
                   </>
@@ -288,12 +299,9 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                <button
                   disabled={
                      !formData?.username ||
-                     !formData.password ||
                      !formData.firstName ||
                      !formData.lastName ||
-                     !formData.email ||
-                     !values.confirmPass ||
-                     !formData.dateOfBirth
+                     !formData.email
                   }
                   type="submit"
                >

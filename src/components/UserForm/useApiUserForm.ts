@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import userService from 'services/user';
 import { User } from 'utils/types';
 
-export function useApi() {
+export function useApiUserForm() {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string>();
    const [response, setResponse] = useState<any>();
@@ -14,13 +14,14 @@ export function useApi() {
          .createUser(user)
          .then((res) => {
             setResponse(res['data']);
+            window.location.replace('/users');
          })
          .catch((err) => {
             setError(err.response.data.message);
             alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => setLoading(false), 300);
+            setLoading(false);
          });
    }, []);
    const editUser = useCallback(async (id: number, user: Partial<User>) => {
@@ -31,13 +32,14 @@ export function useApi() {
          .editUser(id, user)
          .then((res) => {
             setResponse(res['data']);
+            window.location.replace('/users');
          })
          .catch((err) => {
             setError(err.response.data.message);
             alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => setLoading(false), 300);
+            setLoading(false);
          });
    }, []);
    const getUser = useCallback(async (id: number) => {
@@ -54,7 +56,7 @@ export function useApi() {
             // alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => setLoading(false), 300);
+            setLoading(false);
          });
    }, []);
 

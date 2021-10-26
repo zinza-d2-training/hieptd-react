@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { User } from 'utils/types';
-import { useApi } from './useApi';
+import { User, UserStatus } from 'utils/types';
+import { useApiUserForm } from './useApiUserForm';
 import { useUserForm } from './useUserForm';
 
 interface UseHandleData {
@@ -8,11 +8,13 @@ interface UseHandleData {
 }
 
 export const useHandleData = ({ id }: UseHandleData) => {
-   const { createUser, getUser, editUser, response, loading } = useApi();
+   const { createUser, getUser, editUser, response, loading } =
+      useApiUserForm();
 
    let user = useMemo<Partial<User>>(() => {
       if (id) {
          const users = response;
+
          if (users) {
             return {
                username: users.username,
@@ -32,8 +34,8 @@ export const useHandleData = ({ id }: UseHandleData) => {
          email: '',
          firstName: '',
          lastName: '',
-         status: false,
-         dateOfBirth: '',
+         status: UserStatus.inactive,
+         dateOfBirth: undefined,
          avatar: null,
          role: 'member',
          password: '',
@@ -42,36 +44,15 @@ export const useHandleData = ({ id }: UseHandleData) => {
    const [formData, setFormData] = useState<Partial<User> | undefined>(user);
    //------------ handleSubmit --------------
    const handleSubmitUser = async () => {
-      const { username, password, email, firstName, lastName, confirmPass } =
-         values;
+      const { username, email, firstName, lastName } = values;
       // if create new user
       if (!id) {
-         if (
-            username &&
-            password &&
-            email &&
-            firstName &&
-            lastName &&
-            confirmPass
-         ) {
-            await createUser(formData as unknown as Partial<User>);
-            if (response) {
-               alert('Create user successfully');
-            }
+         if (username && email && firstName && lastName) {
+            createUser(formData as unknown as Partial<User>);
          } else alert('Some fields are required!');
       } else {
-         if (
-            username &&
-            password &&
-            email &&
-            firstName &&
-            lastName &&
-            confirmPass
-         ) {
+         if (username && email && firstName && lastName) {
             await editUser(id, formData as unknown as Partial<User>);
-            if (response) {
-               alert('Updated!');
-            }
          } else alert('Some fields are required!');
       }
    };

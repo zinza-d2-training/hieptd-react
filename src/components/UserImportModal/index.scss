@@ -31,6 +31,7 @@
       text-align: center;
       padding: 20px;
       border-radius: 5px;
+
       .userImport__options {
          margin: 20px 0;
          display: flex;
@@ -45,6 +46,7 @@
       .userImport__table {
          overflow: hidden;
          overflow-y: auto;
+         overflow-x: auto;
          max-height: 300px;
          padding: 0 10px;
 

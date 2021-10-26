@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 import React, { useEffect, useRef, useState } from 'react';
 import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
-import { useApi } from './useApi';
+import { useApiImportUser } from './useApiImportUser';
 interface UserImportModalProps {
    onClose: () => void;
 }
@@ -22,11 +22,12 @@ function renderIconWarning(data: UserImport, key: string) {
 }
 
 function UserImportModal({ onClose }: UserImportModalProps) {
-   const { importUser, loading } = useApi();
+   const { importUser, loading } = useApiImportUser();
 
    const inputRef = useRef<HTMLInputElement>(null);
    const [dataFile, setDataFile] = useState<File>();
    const [listUsers, setListUsers] = useState<UserImport[]>();
+   console.log({ listUsers });
 
    const handleChange = (e) => {
       setDataFile(e.target.files[0]);
@@ -47,7 +48,7 @@ function UserImportModal({ onClose }: UserImportModalProps) {
       const blob = new Blob([csv]);
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'users.csv';
+      a.download = 'template.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -58,22 +59,18 @@ function UserImportModal({ onClose }: UserImportModalProps) {
          Papa.parse(dataFile, {
             complete: updateData,
             header: true,
-            encoding: 'utf-8',
          });
       }
    }, [dataFile]);
 
    const updateData = (result) => {
-      setListUsers(result.data.splice(0, result.data.length - 1));
+      setListUsers(result.data.splice(0, result.data.length - 2));
    };
 
    //handle import
    const handleImport = async () => {
-      const _list = listUsers?.filter((user) =>
-         !handleValidateRow(user).isError ? user : null
-      );
-      if (_list) {
-         importUser(_list);
+      if (listUsers) {
+         importUser(listUsers);
       } else {
          alert('All data is invalid');
       }
@@ -108,12 +105,9 @@ function UserImportModal({ onClose }: UserImportModalProps) {
                   <table>
                      <thead>
                         <tr>
-                           <th>Username</th>
-                           <th>Email</th>
-                           <th>First Name</th>
-                           <th>Last Name</th>
-                           <th>DOB</th>
-                           <th>Role</th>
+                           {Object.keys(listUsers[0]).map(
+                              (item) => item !== 'password' && <th>{item}</th>
+                           )}
                         </tr>
                      </thead>
                      <tbody>
@@ -145,7 +139,14 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             <div className="userImport__btn">
                {listUsers && (
                   <>
-                     <button onClick={() => handleImport()}>Import</button>
+                     <button
+                        disabled={listUsers.some(
+                           (user) => handleValidateRow(user).isError
+                        )}
+                        onClick={() => handleImport()}
+                     >
+                        Import
+                     </button>
                      <button onClick={() => onClose()}>Cancel</button>
                   </>
                )}

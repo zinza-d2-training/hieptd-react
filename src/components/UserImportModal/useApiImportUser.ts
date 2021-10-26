@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import userService from 'services/user';
 import { UserImport } from './functions';
 
-export const useApi = () => {
+export const useApiImportUser = () => {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string>();
    const importUser = useCallback(async (users: UserImport[]) => {
@@ -17,9 +17,7 @@ export const useApi = () => {
             alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => {
-               setLoading(false);
-            }, 300);
+            setLoading(false);
          });
    }, []);
 

@@ -2,9 +2,9 @@ import CircleLoading from 'components/Loading/CircleLoading';
 import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from 'utils/types';
+import { User, UserStatus } from 'utils/types';
 import './styles/Users.scss';
-import { useApi } from './useApi';
+import { useApiUser } from './useApiUser';
 
 interface TableUserProps {
    data: User[];
@@ -17,14 +17,14 @@ function UserTable({ data }: TableUserProps) {
 
    const [editData, setEditData] = useState<Partial<User>>();
 
-   const { loading, editUser, deleteUser, response } = useApi();
+   const { loading, editUser, deleteUser, response } = useApiUser();
 
-   const handleChangeActive = (e, status: boolean, id: number) => {
+   const handleChangeActive = (e, status: UserStatus, id: number) => {
       const value = e?.target.value;
-      const check = value === 'active';
-      if (check === !status) {
+
+      if (+value !== status) {
          setShowModalChangeActive(true);
-         setEditData({ status: !status, id: id });
+         setEditData({ status: value, id: id });
       } else return;
    };
    const handleEditUser = async () => {
@@ -87,9 +87,7 @@ function UserTable({ data }: TableUserProps) {
                               >{`${user.firstName} ${user.lastName}`}</Link>
                            </td>
                            <td>{user.email}</td>
-                           <td>
-                              {user.dateOfBirth ? user.dateOfBirth : '....'}
-                           </td>
+                           <td>{user.dateOfBirth}</td>
                            <td>{user.role}</td>
 
                            <td className="td-active">
@@ -97,20 +95,25 @@ function UserTable({ data }: TableUserProps) {
                                  onChange={(e) =>
                                     handleChangeActive(e, user.status, user.id)
                                  }
+                                 value={user.status}
                               >
                                  {user.status ? (
                                     <>
-                                       <option value="active">Active</option>
-                                       <option value="inactive">
+                                       <option value={UserStatus.active}>
+                                          Active
+                                       </option>
+                                       <option value={UserStatus.inactive}>
                                           Inactive
                                        </option>
                                     </>
                                  ) : (
                                     <>
-                                       <option value="inactive">
+                                       <option value={UserStatus.inactive}>
                                           Inactive
                                        </option>
-                                       <option value="active">Active</option>
+                                       <option value={UserStatus.active}>
+                                          Active
+                                       </option>
                                     </>
                                  )}
                               </select>

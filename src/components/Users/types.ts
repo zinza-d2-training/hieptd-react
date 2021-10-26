@@ -1,8 +1,7 @@
 export type FilterType = {
-   role: any;
-   dateOfBirth: string;
-   firstName?: string;
+   role?: string;
+   dob?: string;
+   keyword?: string;
    lastName?: string;
-   active: boolean;
-   search: string;
+   status?: number;
 };

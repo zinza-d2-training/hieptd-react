@@ -1,11 +1,30 @@
 import { useCallback, useState } from 'react';
 import userService from 'services/user';
 import { User } from 'utils/types';
+import { FilterType } from './types';
 
-export const useApi = () => {
+export const useApiUser = () => {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string>();
    const [response, setResponse] = useState<any>();
+
+   const getUsers = useCallback(
+      async (page: number, limit: number, filterData: FilterType) => {
+         setLoading(false);
+         setResponse(null);
+         setError(undefined);
+         userService
+            .getUsers(page, limit, filterData)
+            .then((res) => {
+               setResponse(res);
+            })
+            .catch((err) => {
+               setError(err.response.data.message);
+               alert(err.response.data.message);
+            });
+      },
+      []
+   );
 
    const editUser = useCallback(async (id: number, editData: Partial<User>) => {
       setLoading(true);
@@ -21,10 +40,8 @@ export const useApi = () => {
             alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => {
-               setLoading(false);
-               window.location.reload();
-            }, 300);
+            setLoading(false);
+            window.location.reload();
          });
    }, []);
    const deleteUser = useCallback(async (id: number) => {
@@ -41,10 +58,8 @@ export const useApi = () => {
             alert(err.response.data.message);
          })
          .finally(() => {
-            setTimeout(() => {
-               setLoading(false);
-               window.location.reload();
-            }, 300);
+            setLoading(false);
+            window.location.reload();
          });
    }, []);
 
@@ -54,5 +69,6 @@ export const useApi = () => {
       loading,
       editUser,
       deleteUser,
+      getUsers,
    };
 };

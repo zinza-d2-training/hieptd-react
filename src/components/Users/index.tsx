@@ -2,32 +2,29 @@ import Breadcrumb from 'components/Breadcrumb';
 import CircleLoading from 'components/Loading/CircleLoading';
 import Pagination from 'components/Pagination';
 import { FilterType } from 'components/Users/types';
-import { useGetUserData } from 'components/Users/useGetUserData';
-import { USERS } from 'fakeData/users';
 import { useTitle } from 'hooks';
 import React, { useState } from 'react';
 import Filter from './Filters';
 import './styles/Users.scss';
+import { useGetUserData } from './useGetUserData';
 import UserTable from './UserTable';
 
 function Users() {
    useTitle('User list');
 
    const [filter, setFilter] = useState<FilterType>({
-      dateOfBirth: '',
+      dob: '',
       role: '',
-      active: false,
-      search: '',
+      status: 1,
+      keyword: '',
    });
 
-   const [pagination, setPagination] = useState({
-      total: USERS.length,
-      page: 1,
-      limit: 10,
-   });
-   const handlePagination = (newPage: number) =>
-      setPagination({ ...pagination, page: newPage });
-   const { listUsers, loading } = useGetUserData({ filter, pagination });
+   const { listUsers, loading, _pagination, handlePagination } = useGetUserData(
+      {
+         filter: filter,
+      }
+   );
+
    if (loading) {
       return <CircleLoading />;
    }
@@ -42,9 +39,13 @@ function Users() {
             />
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
+
+         {/* <div className="user__info">
+            Total {_pagination.total} records - {_pagination.limit} records/page
+         </div> */}
          <UserTable data={listUsers} />
 
-         <Pagination info={pagination} onChange={handlePagination} />
+         <Pagination info={_pagination} onChange={handlePagination} />
       </div>
    );
 }

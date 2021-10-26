@@ -5,7 +5,7 @@ import TaskTable from 'components/TaskTable';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from 'utils/auth';
-import { Role } from 'utils/types';
+import { Role, UserStatus } from 'utils/types';
 import './index.scss';
 import { useGetUserProfile } from './useGetUserProfile';
 
@@ -17,7 +17,6 @@ function UserProfile({ id }: UserProfileProps) {
    const currentUser = getUser();
 
    const { userProfile } = useGetUserProfile({ id: id });
-   console.log({ userProfile });
 
    return (
       <div className="userprofile">
@@ -73,7 +72,9 @@ function UserProfile({ id }: UserProfileProps) {
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Status:</span>
                   <span className="userprofile__content">
-                     {userProfile?.status ? 'Active' : 'Inactive'}
+                     {userProfile?.status === UserStatus.active
+                        ? 'Active'
+                        : 'Inactive'}
                   </span>
                </div>
                {currentUser?.role === Role.Admin && (
@@ -87,10 +88,12 @@ function UserProfile({ id }: UserProfileProps) {
             </div>
          </div>
 
-         {userProfile?.projects && (
+         {userProfile?.projects && userProfile?.role !== Role.Admin && (
             <ProjectTable projects={userProfile.projects} />
          )}
-         {userProfile?.tasks && <TaskTable tasks={userProfile.tasks} />}
+         {userProfile?.tasks && userProfile?.role !== Role.Admin && (
+            <TaskTable tasks={userProfile.tasks} />
+         )}
       </div>
    );
 }

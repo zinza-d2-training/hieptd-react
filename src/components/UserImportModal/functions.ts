@@ -87,7 +87,7 @@ export const handleValidateRow = (user: UserImport) => {
                   user[key]
                );
             if (checkDate) {
-               dataErr[key] = 'Invalid date';
+               dataErr[key] = 'Invalid date, required format yyyy-mm-dd';
                isError = true;
             }
 
