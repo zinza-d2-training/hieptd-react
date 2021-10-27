@@ -4,66 +4,44 @@ import { User } from 'utils/types';
 
 export function useApiUserForm() {
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState<string>();
-   const [response, setResponse] = useState<any>();
-   const createUser = useCallback((user: Partial<User>) => {
+
+   const createUser = useCallback(async (user: Partial<User>) => {
       setLoading(true);
-      setResponse(null);
-      setError(undefined);
-      userService
-         .createUser(user)
-         .then((res) => {
-            setResponse(res['data']);
-            window.location.replace('/users');
-         })
-         .catch((err) => {
-            setError(err.response.data.message);
-            alert(err.response.data.message);
-         })
-         .finally(() => {
-            setLoading(false);
-         });
+
+      try {
+         setLoading(false);
+
+         return await userService.createUser(user);
+      } catch (e: any) {
+         setLoading(false);
+         throw e.response.data.message;
+      }
    }, []);
    const editUser = useCallback(async (id: number, user: Partial<User>) => {
       setLoading(true);
-      setResponse(null);
-      setError(undefined);
-      userService
-         .editUser(id, user)
-         .then((res) => {
-            setResponse(res['data']);
-            window.location.replace('/users');
-         })
-         .catch((err) => {
-            setError(err.response.data.message);
-            alert(err.response.data.message);
-         })
-         .finally(() => {
-            setLoading(false);
-         });
+
+      try {
+         setLoading(false);
+         return await userService.editUser(id, user);
+      } catch (e: any) {
+         setLoading(false);
+         throw e.response.data.message;
+      }
    }, []);
    const getUser = useCallback(async (id: number) => {
       setLoading(true);
-      setResponse(null);
-      setError(undefined);
-      userService
-         .getUser(id)
-         .then((res) => {
-            setResponse(res['data']);
-         })
-         .catch((err) => {
-            setError(err.response.data.message);
-            // alert(err.response.data.message);
-         })
-         .finally(() => {
-            setLoading(false);
-         });
+
+      try {
+         setLoading(false);
+         return await userService.getUser(id);
+      } catch (e: any) {
+         setLoading(false);
+         throw e.response.data.message;
+      }
    }, []);
 
    return {
       loading,
-      error,
-      response,
       createUser,
       getUser,
       editUser,

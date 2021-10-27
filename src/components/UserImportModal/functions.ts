@@ -84,7 +84,7 @@ export const handleValidateRow = (user: UserImport) => {
 
             break;
          case 'dateOfBirth':
-            const checkDate = isDate(new Date(user[key]));
+            const checkDate = isDate(new Date(user[key]!));
             if (!checkDate) {
                dataErr[key] = 'Invalid date';
                isError = true;

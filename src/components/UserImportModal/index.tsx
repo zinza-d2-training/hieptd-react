@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
 import { useApiImportUser } from './useApiImportUser';
+import { toast } from 'react-toastify';
 interface UserImportModalProps {
    onClose: () => void;
 }
@@ -74,14 +75,27 @@ function UserImportModal({ onClose }: UserImportModalProps) {
          listUsers.forEach(
             (user) =>
                (user.dateOfBirth = format(
-                  new Date(user.dateOfBirth),
+                  new Date(user.dateOfBirth!),
                   'yyyy-MM-dd'
                ))
          );
-
-         importUser(listUsers);
-      } else {
-         alert('All data is invalid');
+         try {
+            const { message } = await importUser(listUsers);
+            console.log({ message });
+            toast.success(message, {
+               position: 'top-right',
+               autoClose: 1000,
+               hideProgressBar: false,
+               closeOnClick: true,
+            });
+         } catch (e) {
+            toast.error(e as string, {
+               position: 'top-right',
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: true,
+            });
+         }
       }
    };
 

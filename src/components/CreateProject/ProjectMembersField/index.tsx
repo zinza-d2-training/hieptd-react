@@ -46,7 +46,7 @@ function ProjectMembersField({
 
    const selectedAvailableMembers = useMemo(() => {
       return allUsers.filter((user) =>
-         selectedAvailableMemberIds.includes(user.id)
+         selectedAvailableMemberIds.includes(user.id!)
       );
    }, [allUsers, selectedAvailableMemberIds]);
 
@@ -57,7 +57,7 @@ function ProjectMembersField({
 
    const removeMembers = () => {
       onChange(
-         value.filter((user) => !selectedPickedMemberIds.includes(user.id))
+         value.filter((user) => !selectedPickedMemberIds.includes(user.id!))
       );
       setSelectedPickedMemberIds([]);
    };

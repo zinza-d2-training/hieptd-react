@@ -1,6 +1,6 @@
 import CircleLoading from 'components/Loading/CircleLoading';
 import { useCurrentUser } from 'hooks/useCurrentUser';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Role, UserStatus } from 'utils/types';
 import Breadcrumb from '../Breadcrumb';
@@ -28,36 +28,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
       setFormData,
    } = useHandleData({ id });
 
-   const [showPass, setShowPass] = useState<boolean>(false);
-   const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
-   const inputPasswordRef = useRef<HTMLInputElement>(null);
-   const inputConfirmPasswordRef = useRef<HTMLInputElement>(null);
-
-   // --------toggle show/hide password-------
-   const handleToggleShowPass = () => {
-      if (inputPasswordRef.current !== null) {
-         if (inputPasswordRef.current.type === 'password') {
-            inputPasswordRef.current.type = 'text';
-            setShowPass(true);
-         } else if (inputPasswordRef.current.type === 'text') {
-            inputPasswordRef.current.type = 'password';
-            setShowPass(false);
-         }
-      }
-   };
-
-   // ---- handle toggle confirm pass
-   const handleToggleShowConfirmPass = () => {
-      if (inputConfirmPasswordRef.current !== null) {
-         if (inputConfirmPasswordRef.current.type === 'password') {
-            inputConfirmPasswordRef.current.type = 'text';
-            setShowConfirmPass(true);
-         } else if (inputConfirmPasswordRef.current.type === 'text') {
-            inputConfirmPasswordRef.current.type = 'password';
-            setShowConfirmPass(false);
-         }
-      }
-   };
    // -----render -------
 
    if (id && !formData) {
@@ -113,64 +83,7 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   <div className="userForm__err">{errors.email}</div>
                </div>
             </div>
-            {currentUser?.id === id?.toString() && (
-               <>
-                  {/*--- Password ---*/}
-                  <div className="userForm__input">
-                     <label htmlFor="userForm__input-password">Password*</label>
-                     <div className="userForm__wrap">
-                        <div className="userForm__wrap-eye">
-                           <input
-                              ref={inputPasswordRef}
-                              id="userForm__input-password"
-                              type="password"
-                              placeholder="Password"
-                              value={values.password || ''}
-                              name="password"
-                              onChange={handleChange}
-                           />{' '}
-                           <i
-                              onClick={handleToggleShowPass}
-                              className={`${
-                                 showPass ? 'fas fa-eye' : 'fas fa-eye-slash'
-                              }`}
-                           ></i>
-                        </div>
-                        <div className="userForm__err">{errors.password}</div>
-                     </div>
-                  </div>
-                  {/*--- Confirm Pass ---*/}
-                  <div className="userForm__input">
-                     <label htmlFor="userForm__input-password">
-                        Confirm Password*
-                     </label>
-                     <div className="userForm__wrap">
-                        <div className="userForm__wrap-eye">
-                           <input
-                              ref={inputConfirmPasswordRef}
-                              id="userForm__input-confirmPass"
-                              type="password"
-                              placeholder="Password"
-                              value={values.confirmPass || ''}
-                              name="confirmPass"
-                              onChange={handleChange}
-                           />{' '}
-                           <i
-                              onClick={handleToggleShowConfirmPass}
-                              className={`${
-                                 showConfirmPass
-                                    ? 'fas fa-eye'
-                                    : 'fas fa-eye-slash'
-                              }`}
-                           ></i>
-                        </div>
-                        <div className="userForm__err">
-                           {errors.confirmPass}
-                        </div>
-                     </div>
-                  </div>
-               </>
-            )}
+
             {/*--- Avatar ---*/}
 
             <div className="userForm__input">
@@ -180,7 +93,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                      accept="image/png, image/gif, image/jpeg"
                      id="userForm__input-avatar"
                      type="file"
-                     placeholder="Confirm Password"
                      onChange={(e) => handleUploadFile(e)}
                   />
                </div>
@@ -255,15 +167,16 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                         <label htmlFor="userForm__input-role">Role*</label>
                         <div className="userForm__wrap">
                            <select
+                              value={formData?.role!}
                               onChange={(e) => {
                                  setFormData({
                                     ...formData,
-                                    role: Role[e.target.value],
+                                    role: e.target.value as Role,
                                  });
                               }}
                            >
-                              <option value="member">member</option>
-                              <option value="pm">pm</option>
+                              <option value={Role.Member}>member</option>
+                              <option value={Role.PM}>pm</option>
                            </select>
                         </div>
                      </div>
@@ -271,6 +184,7 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                         <label htmlFor="userForm__input-active">Status*</label>
                         <div className="userForm__wrap">
                            <select
+                              value={UserStatus[formData?.status!]}
                               onChange={(e) => {
                                  setFormData({
                                     ...formData,
@@ -278,11 +192,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                                  });
                               }}
                            >
-                              <option value="">
-                                 {formData?.status === 1
-                                    ? 'Active'
-                                    : 'Inactive'}
-                              </option>
                               <option value="active">Active</option>
                               <option value="inactive">Inactive</option>
                            </select>

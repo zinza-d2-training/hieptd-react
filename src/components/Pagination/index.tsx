@@ -4,6 +4,7 @@ import { PaginationProps } from './types';
 
 function Pagination({ info, onChange }: PaginationProps) {
    const { page, lastPage, total } = info;
+   console.log({ info });
 
    const handleChange = (newPage: number) => {
       if (onChange) {

@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface LoginData {
    username: string;
    password: string;
@@ -31,16 +33,15 @@ export enum UserStatus {
    active = 1,
 }
 export type User = {
-   id: number;
+   id?: number;
    username: string;
-   password: string;
    email: string;
    avatar?: any;
    firstName: string;
    lastName: string;
    role: Role;
    status: UserStatus;
-   dateOfBirth: string;
+   dateOfBirth?: string;
 };
 
 export type Project = {
@@ -86,3 +87,12 @@ export type PaginationType = {
    lastPage?: number;
    limit: number;
 };
+
+export interface Response<T = any> extends AxiosResponse<T> {
+   message: string;
+   data: T;
+   error?: boolean;
+   pagination?: PaginationType;
+   accessToken?: string;
+}
+export type UserExport = User & { createdAt: string; updatedAt: string };

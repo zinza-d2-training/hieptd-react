@@ -6,7 +6,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -17,7 +17,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -37,7 +37,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -48,7 +48,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -68,7 +68,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -79,7 +79,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -99,7 +99,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -110,7 +110,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -130,7 +130,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -141,7 +141,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -161,7 +161,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -172,7 +172,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -192,7 +192,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -203,7 +203,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -223,7 +223,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -234,7 +234,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -254,7 +254,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -265,7 +265,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -285,7 +285,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -296,7 +296,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -316,7 +316,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -327,7 +327,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -347,7 +347,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -358,7 +358,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -378,7 +378,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -389,7 +389,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -409,7 +409,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 8,
          username: 'member8',
-         password: '123456',
+
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -420,7 +420,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -440,7 +440,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -451,7 +451,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -471,7 +471,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -482,7 +482,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -502,7 +502,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 8,
          username: 'member8',
-         password: '123456',
+
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -513,7 +513,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -533,7 +533,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -544,7 +544,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -564,7 +564,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 8,
          username: 'member8',
-         password: '123456',
+
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -575,7 +575,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -595,7 +595,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -606,7 +606,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -626,7 +626,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -637,7 +637,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 3,
          username: 'projectmanager2',
-         password: '123456',
+
          firstName: 'Duy',
          lastName: 'Hà',
          email: 'hellozinza@gmail.com',
@@ -657,7 +657,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -668,7 +668,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -688,7 +688,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -699,7 +699,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -719,7 +719,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -730,7 +730,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -750,7 +750,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 7,
          username: 'member3',
-         password: '123456',
+
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -761,7 +761,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -781,7 +781,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 6,
          username: 'member2',
-         password: '123456',
+
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -792,7 +792,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -812,7 +812,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -823,7 +823,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -843,7 +843,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -854,7 +854,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 2,
          username: 'projectmanager',
-         password: '123456',
+
          firstName: 'Văn',
          lastName: 'Hiệp',
          email: 'hellozinza@gmail.com',
@@ -874,7 +874,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -885,7 +885,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -905,7 +905,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -916,7 +916,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -936,7 +936,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -947,7 +947,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -967,7 +967,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -978,7 +978,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -998,7 +998,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1009,7 +1009,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -1029,7 +1029,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 5,
          username: 'member1',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1040,7 +1040,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',
@@ -1060,7 +1060,7 @@ export const TASKS: Task[] = [
       assign: {
          id: 9,
          username: 'member9',
-         password: '123456',
+
          firstName: 'Bùi',
          lastName: 'Duy',
          email: 'hellozinza9@gmail.com',
@@ -1071,7 +1071,7 @@ export const TASKS: Task[] = [
       requestByUser: {
          id: 4,
          username: 'projectmanager3',
-         password: '123456',
+
          firstName: 'Lại',
          lastName: 'Lan',
          email: 'hellozinza4@gmail.com',

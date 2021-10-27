@@ -4,7 +4,7 @@ export const USERS: User[] = [
    {
       id: 1,
       username: 'admin',
-      password: '123456',
+
       firstName: 'Duy',
       lastName: 'Hiệp',
       email: 'hellozinza@gmail.com',
@@ -15,7 +15,7 @@ export const USERS: User[] = [
    {
       id: 2,
       username: 'projectmanager',
-      password: '123456',
+
       firstName: 'Văn',
       lastName: 'Hiệp',
       email: 'hellozinza@gmail.com',
@@ -27,7 +27,7 @@ export const USERS: User[] = [
    {
       id: 3,
       username: 'projectmanager2',
-      password: '123456',
+
       firstName: 'Duy',
       lastName: 'Hà',
       email: 'hellozinza@gmail.com',
@@ -38,7 +38,7 @@ export const USERS: User[] = [
    {
       id: 4,
       username: 'projectmanager3',
-      password: '123456',
+
       firstName: 'Lại',
       lastName: 'Lan',
       email: 'hellozinza4@gmail.com',
@@ -49,7 +49,7 @@ export const USERS: User[] = [
    {
       id: 5,
       username: 'member1',
-      password: '123456',
+
       firstName: 'Bùi',
       lastName: 'Hoàng',
       email: 'hellozinza5@gmail.com',
@@ -60,7 +60,7 @@ export const USERS: User[] = [
    {
       id: 6,
       username: 'member2',
-      password: '123456',
+
       firstName: 'Nguyễn',
       lastName: 'Hà',
       email: 'hellozinza6@gmail.com',
@@ -71,7 +71,7 @@ export const USERS: User[] = [
    {
       id: 7,
       username: 'member3',
-      password: '123456',
+
       firstName: 'Đinh',
       lastName: 'Nam',
       email: 'hellozinza7@gmail.com',
@@ -82,7 +82,7 @@ export const USERS: User[] = [
    {
       id: 8,
       username: 'member8',
-      password: '123456',
+
       firstName: 'Trần',
       lastName: 'Hiếu',
       email: 'hellozinza8@gmail.com',
@@ -93,7 +93,7 @@ export const USERS: User[] = [
    {
       id: 9,
       username: 'member9',
-      password: '123456',
+
       firstName: 'Bùi',
       lastName: 'Duy',
       email: 'hellozinza9@gmail.com',
@@ -104,7 +104,7 @@ export const USERS: User[] = [
    {
       id: 10,
       username: 'member10',
-      password: '123456',
+
       firstName: 'Nguyễn',
       lastName: 'Mai',
       email: 'hellozinza10@gmail.com',
@@ -115,7 +115,7 @@ export const USERS: User[] = [
    {
       id: 11,
       username: 'member11',
-      password: '123456',
+
       firstName: 'Đỗ',
       lastName: 'Nam',
       email: 'hellozinza11@gmail.com',
@@ -126,7 +126,7 @@ export const USERS: User[] = [
    {
       id: 12,
       username: 'member12',
-      password: '123456',
+
       firstName: 'Bùi',
       lastName: 'Lan',
       email: 'hellozinza12@gmail.com',
@@ -137,7 +137,7 @@ export const USERS: User[] = [
    {
       id: 13,
       username: 'member13',
-      password: '123456',
+
       firstName: 'Trần',
       lastName: 'Hằng',
       email: 'hellozinza13@gmail.com',
@@ -148,7 +148,7 @@ export const USERS: User[] = [
    {
       id: 14,
       username: 'member14',
-      password: '123456',
+
       firstName: 'Đinh',
       lastName: 'Hưng',
       email: 'hellozinza14@gmail.com',
@@ -159,7 +159,7 @@ export const USERS: User[] = [
    {
       id: 15,
       username: 'member15',
-      password: '123456',
+
       firstName: 'Lại',
       lastName: 'Hiếu',
       email: 'hellozinza15@gmail.com',
@@ -170,7 +170,7 @@ export const USERS: User[] = [
    {
       id: 16,
       username: 'member16',
-      password: '123456',
+
       firstName: 'Bùi',
       lastName: 'Nam',
       email: 'hellozinza16@gmail.com',

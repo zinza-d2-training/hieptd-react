@@ -2,13 +2,26 @@ import { useEffect, useMemo, useState } from 'react';
 import { PaginationType, User } from 'utils/types';
 import { FilterType } from './types';
 import { useApiUser } from './useApiUser';
+import { toast } from 'react-toastify';
 
 interface GetUsersProps {
    filter: FilterType;
 }
+interface Result {
+   users: User[];
+   loading: boolean;
+   pagination: PaginationType;
+   handlePagination: (page: number) => void;
+   fetchData: () => Promise<void>;
+}
 
-export const useGetUserData = ({ filter }: GetUsersProps) => {
-   const { response, loading, getUsers } = useApiUser();
+export const useGetUserData = ({ filter }: GetUsersProps): Result => {
+   const { loading, getUsers } = useApiUser();
+   const [users, setUsers] = useState<User[]>([]);
+   const [pagination, setPagination] = useState<PaginationType>({
+      page: 1,
+      limit: 10,
+   });
 
    // remove undefined in filter
    let _filter = useMemo(() => {
@@ -18,27 +31,34 @@ export const useGetUserData = ({ filter }: GetUsersProps) => {
       return filter;
    }, [filter]);
 
-   let _pagination = useMemo(
-      () => (response ? response['pagination'] : { page: 1, limit: 10 }),
-      [response]
-   );
-
-   const [pagination, setPagination] = useState<PaginationType>(_pagination);
-
    const handlePagination = (newPage: number) =>
       setPagination({ ...pagination, page: newPage });
 
+   const fetchData = async () => {
+      try {
+         const {
+            data,
+            message,
+            pagination: paginationRes,
+         } = await getUsers(pagination.page, pagination.limit, _filter);
+         toast.success(message, {
+            position: 'top-right',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+         });
+         setUsers(data || []);
+         setPagination(paginationRes || { page: 1, limit: 10 });
+      } catch (e) {
+         console.log(e);
+         setUsers([]);
+      }
+   };
    // get users
    useEffect(() => {
-      getUsers(pagination.page, pagination.limit, _filter);
-   }, [pagination, _filter, getUsers]);
+      fetchData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [pagination.page, pagination.limit, _filter]);
 
-   let listUsers = useMemo<User[]>(() => {
-      if (response) {
-         return response['data'] as User[];
-      }
-      return [];
-   }, [response]);
-
-   return { listUsers, loading, _pagination, handlePagination };
+   return { users, loading, pagination, handlePagination, fetchData };
 };

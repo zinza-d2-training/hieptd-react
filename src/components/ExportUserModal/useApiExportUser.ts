@@ -1,26 +1,25 @@
 import { useCallback, useState } from 'react';
 import userService from 'services/user';
-import { User } from '../../utils/types';
-
-type ListUser = User & { createdAt: string; updatedAt: string };
+import { UserExport, Response } from 'utils/types';
 
 export const useApiExportUser = () => {
    const [loading, setLoading] = useState(false);
 
-   const [response, setResponse] = useState<ListUser[]>();
-
-   const fetchData = useCallback(async () => {
+   const getUsers = useCallback(async (): Promise<Response<UserExport[]>> => {
       setLoading(true);
-      userService
-         .getAllUser()
-         .then((res) => setResponse(res['data'] as ListUser[]))
-         .catch((err) => alert(err.response.data.message))
-         .finally(() => setLoading(false));
+      try {
+         setLoading(false);
+         const res = await userService.getAllUserToExport();
+         return res;
+      } catch (e: any) {
+         setLoading(false);
+         throw e.response.data.message;
+      }
    }, []);
 
    return {
       loading,
-      response,
-      fetchData,
+
+      getUsers,
    };
 };

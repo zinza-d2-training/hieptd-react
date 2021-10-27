@@ -19,11 +19,16 @@ function Users() {
       keyword: '',
    });
 
-   const { listUsers, loading, _pagination, handlePagination } = useGetUserData(
-      {
+   const { users, loading, pagination, handlePagination, fetchData } =
+      useGetUserData({
          filter: filter,
+      });
+   const refetch = async (page?: number) => {
+      if (page) {
+         handlePagination(page);
       }
-   );
+      await fetchData();
+   };
 
    if (loading) {
       return <CircleLoading />;
@@ -40,9 +45,9 @@ function Users() {
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
 
-         <UserTable data={listUsers} />
+         <UserTable data={users} refetch={refetch} />
 
-         <Pagination info={_pagination} onChange={handlePagination} />
+         <Pagination info={pagination} onChange={handlePagination} />
       </div>
    );
 }

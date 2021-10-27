@@ -3,7 +3,7 @@ import './ModalConfirm.scss';
 
 interface ModalConfirmProps {
    show: boolean;
-   setShow: Function;
+   onClose: Function;
    title: string;
    content: string;
    handleConfirm: Function;
@@ -11,7 +11,7 @@ interface ModalConfirmProps {
 
 function ModalConfirm({
    show,
-   setShow,
+   onClose,
    title,
    content,
    handleConfirm,
@@ -25,13 +25,13 @@ function ModalConfirm({
                   <h2>{title}</h2>
                   <p>{content}</p>
                   <div className="user__modal-btn">
-                     <button type="button" onClick={() => setShow(false)}>
+                     <button type="button" onClick={() => onClose(false)}>
                         No
                      </button>
                      <button
                         onClick={() => {
                            handleConfirm();
-                           setShow(false);
+                           onClose(false);
                         }}
                         type="button"
                      >

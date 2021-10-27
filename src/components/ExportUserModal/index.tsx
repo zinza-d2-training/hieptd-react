@@ -1,25 +1,33 @@
 import CircleLoading from 'components/Loading/CircleLoading';
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useApiExportUser } from './useApiExportUser';
 import './index.scss';
 import papa from 'papaparse';
+import { UserExport } from 'utils/types';
 
 interface UserExportModalProps {
    onClose: () => void;
 }
 export default function ExportUserModal({ onClose }: UserExportModalProps) {
-   const { response, loading, fetchData } = useApiExportUser();
+   const { loading, getUsers } = useApiExportUser();
+   const [users, setUsers] = useState<UserExport[]>();
 
-   useEffect(() => {
-      if (!response) {
-         fetchData();
+   const fetchData = async () => {
+      try {
+         const { data } = await getUsers();
+         setUsers(data);
+      } catch (error) {
+         console.error(error);
       }
+   };
+   useEffect(() => {
+      fetchData();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [response]);
+   }, []);
 
    const listUsers = useMemo(() => {
-      if (response) {
-         const res = response?.map((user) => {
+      if (users) {
+         const res = users?.map((user) => {
             delete user.avatar;
             user.createdAt = user.createdAt.split('T')[0];
             user.updatedAt = user.updatedAt.split('T')[0];
@@ -28,7 +36,7 @@ export default function ExportUserModal({ onClose }: UserExportModalProps) {
          });
          return res;
       }
-   }, [response]);
+   }, [users]);
 
    // handle export user
    const handleExportUser = () => {

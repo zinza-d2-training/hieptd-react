@@ -27,7 +27,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
       <>
          <ModalConfirm
             show={showModalChangeStatus}
-            setShow={setShowModalChangeStatus}
+            onClose={setShowModalChangeStatus}
             handleConfirm={handleChangeStatus}
             title="Confirm Change"
             content="Are you sure you want to change?"

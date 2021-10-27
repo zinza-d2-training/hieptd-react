@@ -7,7 +7,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -26,7 +25,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -45,7 +43,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -64,7 +61,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -83,7 +79,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -102,7 +97,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -121,7 +115,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -140,7 +133,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -159,7 +151,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -178,7 +169,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -197,7 +187,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -216,7 +205,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -235,7 +223,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -254,7 +241,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -273,7 +259,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -292,7 +277,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -311,7 +295,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -330,7 +313,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -349,7 +331,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -368,7 +349,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -387,7 +367,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -406,7 +385,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -425,7 +403,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -444,7 +421,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -463,7 +439,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -482,7 +457,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -501,7 +475,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -520,7 +493,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -539,7 +511,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -558,7 +529,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -577,7 +547,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -596,7 +565,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -615,7 +583,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -634,7 +601,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -653,7 +619,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -672,7 +637,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -691,7 +655,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -710,7 +673,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -729,7 +691,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -748,7 +709,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -767,7 +727,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -786,7 +745,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -805,7 +763,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -824,7 +781,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -843,7 +799,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -862,7 +817,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -881,7 +835,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -900,7 +853,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -919,7 +871,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -938,7 +889,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -957,7 +907,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -976,7 +925,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -995,7 +943,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1014,7 +961,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1033,7 +979,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1052,7 +997,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1071,7 +1015,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1090,7 +1033,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1109,7 +1051,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1128,7 +1069,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1147,7 +1087,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1166,7 +1105,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1185,7 +1123,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1204,7 +1141,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1223,7 +1159,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1242,7 +1177,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1261,7 +1195,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1280,7 +1213,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1299,7 +1231,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1318,7 +1249,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1337,7 +1267,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1356,7 +1285,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1375,7 +1303,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1394,7 +1321,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1413,7 +1339,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1432,7 +1357,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1451,7 +1375,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1470,7 +1393,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1489,7 +1411,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1508,7 +1429,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1527,7 +1447,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1546,7 +1465,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1565,7 +1483,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1584,7 +1501,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1603,7 +1519,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1622,7 +1537,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1641,7 +1555,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1660,7 +1573,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1679,7 +1591,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1698,7 +1609,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1717,7 +1627,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1736,7 +1645,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1755,7 +1663,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1774,7 +1681,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1793,7 +1699,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1812,7 +1717,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1831,7 +1735,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1850,7 +1753,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1869,7 +1771,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -1888,7 +1789,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -1907,7 +1807,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1926,7 +1825,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1945,7 +1843,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -1964,7 +1861,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -1983,7 +1879,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2002,7 +1897,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2021,7 +1915,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2040,7 +1933,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2059,7 +1951,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2078,7 +1969,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2097,7 +1987,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2116,7 +2005,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2135,7 +2023,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2154,7 +2041,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2173,7 +2059,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2192,7 +2077,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2211,7 +2095,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2230,7 +2113,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2249,7 +2131,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2268,7 +2149,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2287,7 +2167,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2306,7 +2185,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2325,7 +2203,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2344,7 +2221,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2363,7 +2239,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2382,7 +2257,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2401,7 +2275,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2420,7 +2293,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2439,7 +2311,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2458,7 +2329,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2477,7 +2347,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2496,7 +2365,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2515,7 +2383,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2534,7 +2401,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2553,7 +2419,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2572,7 +2437,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2591,7 +2455,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2610,7 +2473,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2629,7 +2491,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2648,7 +2509,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2667,7 +2527,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2686,7 +2545,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2705,7 +2563,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2724,7 +2581,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 7,
          username: 'member3',
-         password: '123456',
          firstName: 'Đinh',
          lastName: 'Nam',
          email: 'hellozinza7@gmail.com',
@@ -2743,7 +2599,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2762,7 +2617,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2781,7 +2635,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 6,
          username: 'member2',
-         password: '123456',
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -2800,7 +2653,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',
@@ -2819,7 +2671,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 5,
          username: 'member1',
-         password: '123456',
          firstName: 'Bùi',
          lastName: 'Hoàng',
          email: 'hellozinza5@gmail.com',
@@ -2838,7 +2689,6 @@ export const REPORTS: Report[] = [
       user: {
          id: 8,
          username: 'member8',
-         password: '123456',
          firstName: 'Trần',
          lastName: 'Hiếu',
          email: 'hellozinza8@gmail.com',

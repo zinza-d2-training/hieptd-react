@@ -1,46 +1,43 @@
-import { useEffect, useMemo, useState } from 'react';
-import { User, UserStatus } from 'utils/types';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Role, User, UserStatus } from 'utils/types';
 import { useApiUserForm } from './useApiUserForm';
 import { useUserForm } from './useUserForm';
-
 interface UseHandleData {
    id?: number;
 }
 
 export const useHandleData = ({ id }: UseHandleData) => {
-   const { createUser, getUser, editUser, response, loading } =
-      useApiUserForm();
+   const { createUser, getUser, editUser, loading } = useApiUserForm();
 
-   let user = useMemo<Partial<User>>(() => {
-      if (id) {
-         const users = response;
+   const [user, setUser] = useState<User>({
+      username: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      status: UserStatus.active,
+      role: Role.Member,
+   });
 
-         if (users) {
-            return {
-               username: users.username,
-               email: users.email,
-               firstName: users.firstName,
-               lastName: users.lastName,
-               avatar: users.avatar,
-               dateOfBirth: users.dateOfBirth,
-               status: users.status,
-               role: users.role,
-               password: users.password,
-            };
-         }
+   const fetchUser = async (id: number) => {
+      try {
+         const { data } = await getUser(id);
+         setUser(data);
+      } catch (error) {
+         toast.error(error as string, {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+         });
       }
-      return {
-         username: '',
-         email: '',
-         firstName: '',
-         lastName: '',
-         status: UserStatus.inactive,
-         dateOfBirth: undefined,
-         avatar: null,
-         role: 'member',
-         password: '',
-      };
-   }, [id, response]);
+   };
+
+   useEffect(() => {
+      fetchUser(id!);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [id]);
+
    const [formData, setFormData] = useState<Partial<User> | undefined>(user);
    //------------ handleSubmit --------------
    const handleSubmitUser = async () => {
@@ -48,17 +45,55 @@ export const useHandleData = ({ id }: UseHandleData) => {
       // if create new user
       if (!id) {
          if (username && email && firstName && lastName) {
-            createUser(formData as unknown as Partial<User>);
+            try {
+               const { message } = await createUser(
+                  formData as unknown as Partial<User>
+               );
+
+               toast.success(message, {
+                  position: 'top-right',
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+               });
+               resetForm();
+            } catch (error) {
+               toast.error(error as string, {
+                  position: 'top-right',
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+               });
+            }
          } else alert('Some fields are required!');
       } else {
          if (username && email && firstName && lastName) {
-            await editUser(id, formData as unknown as Partial<User>);
+            try {
+               const { message } = await editUser(
+                  id,
+                  formData as unknown as Partial<User>
+               );
+
+               toast.success(message, {
+                  position: 'top-right',
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+               });
+            } catch (error) {
+               toast.error(error as string, {
+                  position: 'top-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+               });
+            }
          } else alert('Some fields are required!');
       }
    };
 
    //---------use Form-------
-   const { values, errors, handleChange, handleSubmit, setValues } =
+   const { values, errors, handleChange, handleSubmit, setValues, resetForm } =
       useUserForm(handleSubmitUser);
 
    //   ----------- handle upload image base64 ---------
@@ -83,7 +118,6 @@ export const useHandleData = ({ id }: UseHandleData) => {
       setFormData({
          ...formData,
          username: values.username,
-         password: values.password,
          email: values.email,
          firstName: values.firstName,
          lastName: values.lastName,
@@ -103,7 +137,6 @@ export const useHandleData = ({ id }: UseHandleData) => {
          setValues({
             username: user?.username!,
             email: user?.email!,
-            password: user?.password!,
             firstName: user?.firstName!,
             lastName: user?.lastName!,
          });

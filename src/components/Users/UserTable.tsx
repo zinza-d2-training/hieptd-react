@@ -5,44 +5,80 @@ import { Link } from 'react-router-dom';
 import { User, UserStatus } from 'utils/types';
 import './styles/Users.scss';
 import { useApiUser } from './useApiUser';
-
+import { toast } from 'react-toastify';
 interface TableUserProps {
    data: User[];
+   refetch: (page?: number) => void;
 }
 
-function UserTable({ data }: TableUserProps) {
-   const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
-   const [showModalChangeActive, setShowModalChangeActive] =
-      useState<boolean>(false);
-
-   const [editData, setEditData] = useState<Partial<User>>();
-
-   const { loading, editUser, deleteUser, response } = useApiUser();
+function UserTable({ data, refetch }: TableUserProps) {
+   const [deletingUser, setDeletingUser] = useState<User | undefined>();
+   const [updateUser, setUpdateUser] = useState<User | undefined>();
+   const [newStatus, setNewStatus] = useState<UserStatus | undefined>();
+   const { loading, editUser, deleteUser } = useApiUser();
 
    // show modal
-   const handleChangeActive = (e, status: UserStatus, id: number) => {
+   const handleChangeActive = (e, user: User) => {
       const value = e?.target.value;
-
-      if (+value !== status) {
-         setShowModalChangeActive(true);
-         setEditData({ status: value, id: id });
+      if (+value !== user.status) {
+         setNewStatus(value as UserStatus);
+         setUpdateUser({ ...user, status: value as UserStatus });
       } else return;
    };
    // confirm change
    const handleConfirmEditUser = async () => {
-      if (editData && editData.id) {
-         await editUser(editData.id, editData);
-         if (response) {
-            alert('Updated');
+      if (updateUser?.id && newStatus) {
+         try {
+            const response = await editUser(updateUser.id, updateUser);
+            if (response) {
+               setUpdateUser(undefined);
+               refetch(1);
+               toast.success('Updated!', {
+                  position: 'top-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  progress: undefined,
+               });
+            }
+         } catch (e) {
+            toast.error(e as string, {
+               position: 'top-right',
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               progress: undefined,
+            });
+            console.log(e);
          }
       }
    };
 
    const handleConfirmDelete = async () => {
-      if (editData && editData.id) {
-         await deleteUser(editData.id);
-         if (response) {
-            alert('Updated');
+      if (deletingUser?.id) {
+         try {
+            const response = await deleteUser(deletingUser.id);
+            if (response) {
+               // use Toast here
+               toast.success('Deleted!', {
+                  position: 'top-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  progress: undefined,
+               });
+               setDeletingUser(undefined);
+               refetch(1);
+            }
+         } catch (e) {
+            toast.error(e as string, {
+               position: 'top-right',
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               progress: undefined,
+            });
+            console.log(e);
          }
       }
    };
@@ -54,15 +90,15 @@ function UserTable({ data }: TableUserProps) {
    return (
       <>
          <ModalConfirm
-            show={showModalChangeActive}
-            setShow={setShowModalChangeActive}
+            show={!!updateUser}
+            onClose={() => setUpdateUser(undefined)}
             handleConfirm={() => handleConfirmEditUser()}
             title="Confirm Change"
             content={`Are you sure you want to change ?`}
          />
          <ModalConfirm
-            show={showModalDelete}
-            setShow={setShowModalDelete}
+            show={!!deletingUser}
+            onClose={() => setDeletingUser(undefined)}
             handleConfirm={() => handleConfirmDelete()}
             title="Confirm Delete"
             content={`Are you sure you want to delete ?`}
@@ -94,9 +130,7 @@ function UserTable({ data }: TableUserProps) {
 
                            <td className="td-active">
                               <select
-                                 onChange={(e) =>
-                                    handleChangeActive(e, user.status, user.id)
-                                 }
+                                 onChange={(e) => handleChangeActive(e, user)}
                                  value={user.status}
                               >
                                  {user.status ? (
@@ -129,8 +163,7 @@ function UserTable({ data }: TableUserProps) {
                               </span>{' '}
                               <span
                                  onClick={() => {
-                                    setShowModalDelete(true);
-                                    setEditData({ id: user.id });
+                                    setDeletingUser(user);
                                  }}
                                  className="user__edit-delete"
                               >
