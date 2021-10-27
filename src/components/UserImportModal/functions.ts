@@ -1,5 +1,7 @@
 import { nonAccentVietnameses, textFromRole } from 'utils/convert';
 import { Role, User } from 'utils/types';
+import isDate from 'date-fns/isDate';
+
 export type DataErr = {
    [x: string]: string;
 };
@@ -82,8 +84,7 @@ export const handleValidateRow = (user: UserImport) => {
 
             break;
          case 'dateOfBirth':
-            const date = new Date(user[key]);
-            const checkDate = date instanceof Date && !isNaN(date.getTime());
+            const checkDate = isDate(new Date(user[key]));
             if (!checkDate) {
                dataErr[key] = 'Invalid date';
                isError = true;

@@ -1,4 +1,5 @@
 import CircleLoading from 'components/Loading/CircleLoading';
+import format from 'date-fns/format';
 import Papa from 'papaparse';
 import React, { useEffect, useRef, useState } from 'react';
 import { handleValidateRow, UserImport } from './functions';
@@ -72,9 +73,10 @@ function UserImportModal({ onClose }: UserImportModalProps) {
          //convert to yyyy-mm-dd
          listUsers.forEach(
             (user) =>
-               (user.dateOfBirth = new Date(user.dateOfBirth)
-                  .toISOString()
-                  .slice(0, 10))
+               (user.dateOfBirth = format(
+                  new Date(user.dateOfBirth),
+                  'yyyy-MM-dd'
+               ))
          );
 
          importUser(listUsers);
