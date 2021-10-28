@@ -9,16 +9,7 @@ function App() {
    return (
       <div className="App">
          <Router>
-            <ToastContainer
-               position="top-right"
-               autoClose={4000}
-               hideProgressBar={false}
-               newestOnTop={false}
-               closeOnClick
-               rtl={false}
-               pauseOnFocusLoss
-               draggable
-            ></ToastContainer>
+            <ToastContainer autoClose={4000} hideProgressBar />
             <Switch>
                {routes}
                <Route>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { Role, User, UserStatus } from 'utils/types';
 import { useApiUserForm } from './useApiUserForm';
@@ -8,6 +9,7 @@ interface UseHandleData {
 }
 
 export const useHandleData = ({ id }: UseHandleData) => {
+   const history = useHistory();
    const { createUser, getUser, editUser, loading } = useApiUserForm();
 
    const [user, setUser] = useState<User>({
@@ -27,20 +29,18 @@ export const useHandleData = ({ id }: UseHandleData) => {
       role: Role.Member,
    });
 
-   const fetchUser = async (id: number) => {
-      try {
-         const { data } = await getUser(id);
-         setUser(data);
-         setFormData(data);
-      } catch (error) {
-         toast.error(error as string);
-      }
-   };
-
    useEffect(() => {
+      const fetchUser = async (id: number) => {
+         try {
+            const { data } = await getUser(id);
+            setUser(data);
+            setFormData(data);
+         } catch (error) {
+            toast.error(error as string);
+         }
+      };
       fetchUser(id!);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [id]);
+   }, [getUser, id]);
 
    //------------ handleSubmit --------------
    const handleSubmitUser = async () => {
@@ -54,7 +54,7 @@ export const useHandleData = ({ id }: UseHandleData) => {
                );
 
                toast.success(message);
-               resetForm();
+               history.push('/users');
             } catch (error) {
                toast.error(error as string);
             }
@@ -68,6 +68,7 @@ export const useHandleData = ({ id }: UseHandleData) => {
                );
 
                toast.success(message);
+               history.push('/users');
             } catch (error) {
                toast.error(error as string);
             }
@@ -76,7 +77,7 @@ export const useHandleData = ({ id }: UseHandleData) => {
    };
 
    //---------use Form-------
-   const { values, errors, handleChange, handleSubmit, setValues, resetForm } =
+   const { values, errors, handleChange, handleSubmit, setValues } =
       useUserForm(handleSubmitUser);
 
    //   ----------- handle upload image base64 ---------
