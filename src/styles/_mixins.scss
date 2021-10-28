@@ -45,15 +45,36 @@
    display: block;
    height: 34px;
    min-width: 200px;
-   padding: 6px 12px;
+   padding: 20px 15px;
    font-size: 14px;
    line-height: 1.4;
    color: $text;
-   background-color: #fff;
+   background-color: #f2f2f2;
    background-image: none;
-   border: 1px solid rgb(51, 49, 49);
+   border: none;
    border-radius: 4px;
-   outline: $lightBlue;
+   outline: none;
+   &:focus::placeholder {
+      color: transparent;
+   }
+   &::placeholder {
+      color: $text;
+      transition: color 0.3s ease;
+   }
+}
+@mixin select {
+   padding: 6px 10px;
+   border: 1px solid #dddd;
+   color: #333;
+   background-color: #f2f2f2;
+   font-size: 16px;
+   cursor: pointer;
+   border-radius: 5px;
+   outline: none;
+   text-transform: capitalize;
+   & option {
+      background-color: #ffff;
+   }
 }
 
 @mixin table {
@@ -114,8 +135,20 @@
                   right: 10px;
                   bottom: 10px;
                }
+               i.fa-trash-alt {
+                  color: red;
+                  margin: 0 10px;
+               }
+               i.fa-edit {
+                  color: $primary;
+               }
             }
          }
       }
+   }
+}
+@media (max-width: 768px) {
+   table {
+      font-size: 14px;
    }
 }

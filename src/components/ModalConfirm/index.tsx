@@ -1,17 +1,18 @@
 import React from 'react';
+import { CallbackFunc, PromiseFunc } from 'utils/types';
 import './ModalConfirm.scss';
 
 interface ModalConfirmProps {
    show: boolean;
-   setShow: Function;
+   onClose: () => void;
    title: string;
    content: string;
-   handleConfirm: Function;
+   handleConfirm: CallbackFunc | PromiseFunc;
 }
 
 function ModalConfirm({
    show,
-   setShow,
+   onClose,
    title,
    content,
    handleConfirm,
@@ -25,13 +26,13 @@ function ModalConfirm({
                   <h2>{title}</h2>
                   <p>{content}</p>
                   <div className="user__modal-btn">
-                     <button type="button" onClick={() => setShow(false)}>
+                     <button type="button" onClick={() => onClose()}>
                         No
                      </button>
                      <button
                         onClick={() => {
                            handleConfirm();
-                           setShow(false);
+                           onClose();
                         }}
                         type="button"
                      >

@@ -1,41 +1,83 @@
+import CircleLoading from 'components/Loading/CircleLoading';
 import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from 'utils/types';
+import { User, UserStatus } from 'utils/types';
 import './styles/Users.scss';
+import { useApiUser } from './useApiUser';
+import { toast } from 'react-toastify';
 interface TableUserProps {
    data: User[];
-   handleConfirmDelete: Function;
+   refetch: (page?: number) => void;
 }
 
-function UserTable({ data, handleConfirmDelete }: TableUserProps) {
-   const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
-   const [showModalChangeActive, setShowModalChangeActive] =
-      useState<boolean>(false);
+function UserTable({ data, refetch }: TableUserProps) {
+   const [deletingUser, setDeletingUser] = useState<User | undefined>();
+   const [updateUser, setUpdateUser] = useState<User | undefined>();
+   const [newStatus, setNewStatus] = useState<UserStatus | undefined>();
+   const { loading, editUser, deleteUser } = useApiUser();
 
-   const handleChangeActive = (e, status: boolean) => {
+   // show modal
+   const handleChangeActive = (e, user: User) => {
       const value = e?.target.value;
-      const check = value === 'active';
-      if (check === !status) {
-         setShowModalChangeActive(true);
+      if (+value !== user.status) {
+         setNewStatus(value as UserStatus);
+         setUpdateUser({ ...user, status: value as UserStatus });
       } else return;
    };
+   // confirm change
+   const handleConfirmEditUser = async () => {
+      if (updateUser?.id && newStatus) {
+         try {
+            const response = await editUser(updateUser.id, updateUser);
+            if (response) {
+               setUpdateUser(undefined);
+               toast.success('Update user status successfully!');
+               refetch(1);
+            }
+         } catch (e) {
+            toast.error(e as string);
+            console.log(e);
+         }
+      }
+   };
+
+   const handleConfirmDelete = async () => {
+      if (deletingUser?.id) {
+         try {
+            const response = await deleteUser(deletingUser.id);
+            if (response) {
+               // use Toast here
+               toast.success('Delete User successfully!');
+               setDeletingUser(undefined);
+               refetch(1);
+            }
+         } catch (e) {
+            toast.error(e as string);
+            console.log(e);
+         }
+      }
+   };
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <>
          <ModalConfirm
-            show={showModalDelete}
-            setShow={setShowModalDelete}
-            handleConfirm={handleConfirmDelete}
-            title="Confirm Delete"
-            content="Are you sure you want to delete?"
+            show={!!updateUser}
+            onClose={() => setUpdateUser(undefined)}
+            handleConfirm={() => handleConfirmEditUser()}
+            title="Confirm Change"
+            content={`Are you sure you want to change ?`}
          />
          <ModalConfirm
-            show={showModalChangeActive}
-            setShow={setShowModalChangeActive}
-            handleConfirm={handleChangeActive}
-            title="Confirm Change"
-            content="Are you sure you want to change?"
+            show={!!deletingUser}
+            onClose={() => setDeletingUser(undefined)}
+            handleConfirm={() => handleConfirmDelete()}
+            title="Confirm Delete"
+            content={`Are you sure you want to delete ?`}
          />
          <div className="table">
             <table>
@@ -51,8 +93,8 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                </thead>
                <tbody>
                   {data.length > 0 ? (
-                     data.map((user, index) => (
-                        <tr key={index}>
+                     data.map((user) => (
+                        <tr key={user.id}>
                            <td>
                               <Link
                                  to={`/users/${user.id}/details`}
@@ -64,27 +106,31 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
 
                            <td className="td-active">
                               <select
-                                 onChange={(e) =>
-                                    handleChangeActive(e, user.active)
-                                 }
+                                 onChange={(e) => handleChangeActive(e, user)}
+                                 value={user.status}
                               >
-                                 {user.active ? (
+                                 {user.status ? (
                                     <>
-                                       <option value="active">Active</option>
-                                       <option value="inactive">
+                                       <option value={UserStatus.active}>
+                                          Active
+                                       </option>
+                                       <option value={UserStatus.inactive}>
                                           Inactive
                                        </option>
                                     </>
                                  ) : (
                                     <>
-                                       <option value="inactive">
+                                       <option value={UserStatus.inactive}>
                                           Inactive
                                        </option>
-                                       <option value="active">Active</option>
+                                       <option value={UserStatus.active}>
+                                          Active
+                                       </option>
                                     </>
                                  )}
                               </select>
                            </td>
+
                            <td className="user__edit">
                               <span className="user__edit-edit">
                                  <Link to={`/users/${user.id}/update`}>
@@ -92,7 +138,9 @@ function UserTable({ data, handleConfirmDelete }: TableUserProps) {
                                  </Link>
                               </span>{' '}
                               <span
-                                 onClick={() => setShowModalDelete(true)}
+                                 onClick={() => {
+                                    setDeletingUser(user);
+                                 }}
                                  className="user__edit-delete"
                               >
                                  <i className="fas fa-trash-alt"></i>

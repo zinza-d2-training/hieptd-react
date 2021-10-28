@@ -1,77 +1,58 @@
-import { USERS } from 'fakeData/users';
-import { useMemo } from 'react';
-import { nonAccentVietnameses } from 'utils/convert';
-import { User } from 'utils/types';
+import { useEffect, useMemo, useState } from 'react';
+import { PaginationType, User } from 'utils/types';
 import { FilterType } from './types';
+import { useApiUser } from './useApiUser';
 
 interface GetUsersProps {
    filter: FilterType;
-   pagination: {
-      total: number;
-      page: number;
-      limit: number;
-   };
+}
+interface Result {
+   users: User[];
+   loading: boolean;
+   pagination: PaginationType;
+   handlePagination: (page: number) => void;
+   fetchData: () => Promise<void>;
 }
 
-export const useGetUserData = ({ filter, pagination }: GetUsersProps) => {
-   const { page, limit } = pagination;
-   const startIndex = (page - 1) * limit;
-   const endIndex = page * limit;
+export const useGetUserData = ({ filter }: GetUsersProps): Result => {
+   const { loading, getUsers } = useApiUser();
+   const [users, setUsers] = useState<User[]>([]);
+   const [pagination, setPagination] = useState<PaginationType>({
+      page: 1,
+      limit: 10,
+   });
 
-   //--------handle filter----------
-   const handleFilterMultiple = (filter: FilterType, list: User[]) => {
-      const filterKeys = Object.keys(filter);
+   // remove undefined in filter
+   let _filter = useMemo(() => {
+      Object.keys(filter).forEach(
+         (key) => filter[key] === undefined && delete filter[key]
+      );
+      return filter;
+   }, [filter]);
 
-      let result: User[] = list.filter((user) => {
-         return filterKeys.every((eachKey) => {
-            if (!filter[eachKey].length) {
-               return true;
-            }
-            switch (eachKey) {
-               case 'search':
-                  const searchWord: string = nonAccentVietnameses(
-                     filter[eachKey]
-                  );
-                  return (
-                     nonAccentVietnameses(user.lastName).includes(
-                        nonAccentVietnameses(searchWord)
-                     ) ||
-                     nonAccentVietnameses(user.firstName).includes(
-                        nonAccentVietnameses(searchWord)
-                     ) ||
-                     user.email?.toLowerCase().includes(searchWord) ||
-                     user.role?.toLowerCase().includes(searchWord)
-                  );
-               case 'dateOfBirth':
-                  return (
-                     user[eachKey].toString().toLowerCase() ===
-                     filter[eachKey].toString().toLowerCase()
-                  );
-               case 'role':
-                  return user[eachKey]
-                     .toString()
-                     .toLowerCase()
-                     .includes(filter[eachKey].toString().toLowerCase());
+   const handlePagination = (newPage: number) =>
+      setPagination({ ...pagination, page: newPage });
 
-               default:
-                  return true;
-            }
-         });
-      });
+   const fetchData = async () => {
+      try {
+         const { data, pagination: paginationRes } = await getUsers(
+            pagination.page,
+            pagination.limit,
+            _filter
+         );
 
-      return result.splice(startIndex, endIndex);
-   };
-   // ----useMemo()----
-   const listUsers: User[] = useMemo(() => {
-      //filter.active isboolean
-      if (filter.active) {
-         const listUserByActive = USERS.filter((user) => user.active);
-         return handleFilterMultiple(filter, listUserByActive);
+         setUsers(data || []);
+         setPagination(paginationRes || { page: 1, limit: 10 });
+      } catch (e) {
+         console.log(e);
+         setUsers([]);
       }
-      return handleFilterMultiple(filter, USERS);
+   };
+   // get users
+   useEffect(() => {
+      fetchData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [pagination.page, pagination.limit, _filter]);
 
-      // eslint-disable-next-line
-   }, [filter, pagination]);
-
-   return { listUsers };
+   return { users, loading, pagination, handlePagination, fetchData };
 };

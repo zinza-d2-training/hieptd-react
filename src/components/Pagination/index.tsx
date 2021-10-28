@@ -3,9 +3,8 @@ import './Pagination.scss';
 import { PaginationProps } from './types';
 
 function Pagination({ info, onChange }: PaginationProps) {
-   const { total, page, limit } = info;
+   const { page, lastPage, total, limit } = info;
 
-   const totalPages: number = Math.ceil(total / limit);
    const handleChange = (newPage: number) => {
       if (onChange) {
          onChange(newPage);
@@ -14,7 +13,7 @@ function Pagination({ info, onChange }: PaginationProps) {
 
    return (
       <>
-         {total > 10 && (
+         {total && total > limit && (
             <div className="pagination">
                <button
                   type="button"
@@ -27,12 +26,12 @@ function Pagination({ info, onChange }: PaginationProps) {
                   <span onClick={() => handleChange(page - 1)}>{page - 1}</span>
                )}
                <span className="active">{page}</span>
-               {page < totalPages && (
+               {page + 1 <= lastPage! && (
                   <span onClick={() => handleChange(page + 1)}>{page + 1}</span>
                )}
                <button
                   type="button"
-                  disabled={page >= totalPages}
+                  disabled={page >= lastPage!}
                   onClick={() => handleChange(page + 1)}
                >
                   Next

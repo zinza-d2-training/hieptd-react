@@ -13,7 +13,6 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { Role } from 'utils/types';
 import Route from './Route';
-import ErrorPage from 'components/ErrorPage';
 
 const routes = [
    <Route
@@ -126,7 +125,7 @@ const routes = [
       layout={Admin}
       roles={[Role.PM, Role.Member, Role.Admin]}
    />,
-   <Route key="error" exact path="/error" component={ErrorPage} />,
+
    <Route
       key="dashboard"
       exact

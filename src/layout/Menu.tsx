@@ -1,8 +1,8 @@
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Admin.scss';
-import { getUser } from 'utils/auth';
 import { Role } from 'utils/types';
+import './Admin.scss';
 
 interface PropsMenu {
    classMobile: string;
@@ -10,15 +10,22 @@ interface PropsMenu {
 
 export default function Menu(props: PropsMenu) {
    const { classMobile } = props;
-   const currentUser = getUser();
+   const { user: currentUser } = useCurrentUser();
    return (
       <div className={`menu ${classMobile}`}>
          <h1>Welcome to ZinZa</h1>
          <div className="menu__user">
-            <img
-               src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
-               alt="user-avt"
-            />
+            {currentUser?.avatar ? (
+               <img
+                  src={`${process.env.REACT_APP_BASEURL}${currentUser.avatar}`}
+                  alt="user-avt"
+               />
+            ) : (
+               <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
+                  alt="user-avt"
+               />
+            )}
             <div className="menu__user-name">
                {currentUser &&
                   ` ${currentUser?.firstName} ${currentUser?.lastName}`}

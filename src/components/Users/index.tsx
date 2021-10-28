@@ -1,33 +1,38 @@
 import Breadcrumb from 'components/Breadcrumb';
+import CircleLoading from 'components/Loading/CircleLoading';
 import Pagination from 'components/Pagination';
 import { FilterType } from 'components/Users/types';
-import { useGetUserData } from 'components/Users/useGetUserData';
-import { USERS } from 'fakeData/users';
 import { useTitle } from 'hooks';
 import React, { useState } from 'react';
 import Filter from './Filters';
 import './styles/Users.scss';
+import { useGetUserData } from './useGetUserData';
 import UserTable from './UserTable';
 
 function Users() {
    useTitle('User list');
 
    const [filter, setFilter] = useState<FilterType>({
-      dateOfBirth: '',
+      dob: '',
       role: '',
-      active: false,
-      search: '',
+      status: undefined,
+      keyword: '',
    });
 
-   const [pagination, setPagination] = useState({
-      total: USERS.length,
-      page: 1,
-      limit: 10,
-   });
-   const handlePagination = (newPage: number) =>
-      setPagination({ ...pagination, page: newPage });
-   const { listUsers } = useGetUserData({ filter, pagination });
+   const { users, loading, pagination, handlePagination, fetchData } =
+      useGetUserData({
+         filter: filter,
+      });
+   const refetch = async (page?: number) => {
+      if (page) {
+         handlePagination(page);
+      }
+      await fetchData();
+   };
 
+   if (loading) {
+      return <CircleLoading />;
+   }
    return (
       <div className="user">
          <div className="user__header">
@@ -39,10 +44,8 @@ function Users() {
             />
          </div>
          <Filter filter={filter} handleFilter={setFilter} />
-         <UserTable
-            data={listUsers}
-            handleConfirmDelete={() => alert('Deleted')}
-         />
+
+         <UserTable data={users} refetch={refetch} />
 
          <Pagination info={pagination} onChange={handlePagination} />
       </div>

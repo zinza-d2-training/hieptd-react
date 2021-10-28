@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
-
+import { CallbackFunc, PromiseFunc } from 'utils/types';
 type Field = {
    name: string; //field name;
    validate?: (value: any) => string | null;
    fieldNameToCompare?: string;
    compareValidate?: (value: any, secondValue: string) => string | null;
 };
-type CallbackFunc = () => void;
-type PromiseFunc = () => Promise<void>;
+
 interface Dependencies {
    onSubmit: CallbackFunc | PromiseFunc;
    fields: Field[];
 }
 
-type FormValue = { [x: string]: string };
+export type FormValue = { [x: string]: string };
 type FormErr = { [x: string]: string };
 
 const validateValue = (values: FormValue, fields: Field[]): FormErr => {

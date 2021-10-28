@@ -1,7 +1,11 @@
+import CircleLoading from 'components/Loading/CircleLoading';
+import format from 'date-fns/format';
 import Papa from 'papaparse';
 import React, { useEffect, useRef, useState } from 'react';
 import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
+import { useApiImportUser } from './useApiImportUser';
+import { toast } from 'react-toastify';
 interface UserImportModalProps {
    onClose: () => void;
 }
@@ -20,6 +24,8 @@ function renderIconWarning(data: UserImport, key: string) {
 }
 
 function UserImportModal({ onClose }: UserImportModalProps) {
+   const { importUser, loading } = useApiImportUser();
+
    const inputRef = useRef<HTMLInputElement>(null);
    const [dataFile, setDataFile] = useState<File>();
    const [listUsers, setListUsers] = useState<UserImport[]>();
@@ -37,12 +43,13 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             'role',
             'dateOfBirth',
          ],
+         data: [],
       });
 
       const blob = new Blob([csv]);
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'users.csv';
+      a.download = 'template.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -53,7 +60,6 @@ function UserImportModal({ onClose }: UserImportModalProps) {
          Papa.parse(dataFile, {
             complete: updateData,
             header: true,
-            encoding: 'utf-8',
          });
       }
    }, [dataFile]);
@@ -61,6 +67,41 @@ function UserImportModal({ onClose }: UserImportModalProps) {
    const updateData = (result) => {
       setListUsers(result.data.splice(0, result.data.length - 1));
    };
+
+   //handle import
+   const handleImport = async () => {
+      if (listUsers) {
+         //convert to yyyy-mm-dd
+         listUsers.forEach(
+            (user) =>
+               (user.dateOfBirth = format(
+                  new Date(user.dateOfBirth!),
+                  'yyyy-MM-dd'
+               ))
+         );
+         try {
+            const { message } = await importUser(listUsers);
+            console.log({ message });
+            toast.success(message, {
+               position: 'top-right',
+               autoClose: 1000,
+               hideProgressBar: false,
+               closeOnClick: true,
+            });
+         } catch (e) {
+            toast.error(e as string, {
+               position: 'top-right',
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: true,
+            });
+         }
+      }
+   };
+
+   if (loading) {
+      return <CircleLoading />;
+   }
 
    return (
       <div className="userImport">
@@ -87,12 +128,9 @@ function UserImportModal({ onClose }: UserImportModalProps) {
                   <table>
                      <thead>
                         <tr>
-                           <th>Username</th>
-                           <th>Email</th>
-                           <th>First Name</th>
-                           <th>Last Name</th>
-                           <th>DOB</th>
-                           <th>Role</th>
+                           {Object.keys(listUsers[0]).map(
+                              (item) => item !== 'password' && <th>{item}</th>
+                           )}
                         </tr>
                      </thead>
                      <tbody>
@@ -124,7 +162,14 @@ function UserImportModal({ onClose }: UserImportModalProps) {
             <div className="userImport__btn">
                {listUsers && (
                   <>
-                     <button onClick={() => alert('Imported')}>Import</button>
+                     <button
+                        disabled={listUsers.some(
+                           (user) => handleValidateRow(user).isError
+                        )}
+                        onClick={() => handleImport()}
+                     >
+                        Import
+                     </button>
                      <button onClick={() => onClose()}>Cancel</button>
                   </>
                )}

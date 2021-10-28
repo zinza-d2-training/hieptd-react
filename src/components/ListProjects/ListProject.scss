@@ -6,3 +6,8 @@
    box-shadow: $box-shadow;
    padding: 10px;
 }
+@media (max-width: 768px) {
+   .listproject {
+      box-shadow: none;
+   }
+}

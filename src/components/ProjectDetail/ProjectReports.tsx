@@ -24,6 +24,7 @@ function ProjectReports({ projectId }: ReportProps) {
       total: reports.length,
       page: 1,
       limit: 10,
+      lastPage: 100,
    });
 
    // pagination

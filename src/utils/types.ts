@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface LoginData {
    username: string;
    password: string;
@@ -26,18 +28,22 @@ export enum Priority {
    High = 'high',
    Medium = 'medium',
 }
+export enum UserStatus {
+   inactive = 0,
+   active = 1,
+}
 export type User = {
-   id: number;
+   id?: number;
    username: string;
-   password: string;
    email: string;
    avatar?: any;
    firstName: string;
    lastName: string;
    role: Role;
-   active: boolean;
-   dateOfBirth: string;
+   status: UserStatus;
+   dateOfBirth?: string;
 };
+
 export type Project = {
    id: number;
    name: string;
@@ -74,3 +80,21 @@ export type UserProfileType = User & {
    projects: Project[];
    tasks: Task[];
 };
+
+export type PaginationType = {
+   total?: number;
+   page: number;
+   lastPage?: number;
+   limit: number;
+};
+
+export interface Response<T = any> extends AxiosResponse<T> {
+   message: string;
+   data: T;
+   error?: boolean;
+   pagination?: PaginationType;
+   accessToken?: string;
+}
+export type UserExport = User & { createdAt: string; updatedAt: string };
+export type CallbackFunc = () => void;
+export type PromiseFunc = () => Promise<void>;

@@ -13,7 +13,7 @@ export function useLogin() {
          try {
             const res = await authService.login(username, password);
 
-            setToken(res['accessToken']);
+            setToken(res['accessToken']!);
             history.push('/');
          } catch (e) {
             setError(e as string);

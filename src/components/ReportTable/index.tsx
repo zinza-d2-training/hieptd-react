@@ -17,7 +17,7 @@ function ReportTable({ reports }: ReportTableProps) {
       <>
          <ModalConfirm
             show={showModalDelete}
-            setShow={setShowModalDelete}
+            onClose={() => setShowModalDelete(false)}
             handleConfirm={handleConfirmDelete}
             title="Confirm Delete"
             content="Are you sure you want to delete?"

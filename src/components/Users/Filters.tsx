@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { getUser } from 'utils/auth';
 import { Link } from 'react-router-dom';
-import { Role } from 'utils/types';
+import { Role, UserStatus } from 'utils/types';
 import { FilterType } from './types';
 import './styles/Filter.scss';
 import UserImportModal from 'components/UserImportModal';
+import ExportUserModal from 'components/ExportUserModal';
 
 interface FilterProps {
    filter: FilterType;
@@ -15,15 +16,16 @@ function Filter({ filter, handleFilter }: FilterProps) {
    const currentUser = getUser();
    const [showOption, setShowOption] = useState<boolean>(false);
    const [showImportModal, setShowImportModal] = useState<boolean>(false);
+   const [showExportModal, setShowExportModal] = useState<boolean>(false);
    const selectRef = useRef<HTMLSelectElement>(null);
    //--------handle filter----------
 
    const handleClearFilter = () => {
       handleFilter({
-         dateOfBirth: '',
+         dob: '',
          role: '',
-         active: false,
-         search: '',
+         status: undefined,
+         keyword: '',
       });
       if (selectRef.current) {
          selectRef.current.selectedIndex = 0;
@@ -35,15 +37,18 @@ function Filter({ filter, handleFilter }: FilterProps) {
          {showImportModal && (
             <UserImportModal onClose={() => setShowImportModal(false)} />
          )}
+         {showExportModal && (
+            <ExportUserModal onClose={() => setShowExportModal(false)} />
+         )}
          <div className="filter__header">
             <div className="filter__search">
                <input
                   type="text"
                   placeholder="Search"
                   id="search"
-                  value={filter.search}
+                  value={filter.keyword}
                   onChange={(e) => {
-                     handleFilter({ ...filter, search: e.target.value });
+                     handleFilter({ ...filter, keyword: e.target.value });
                   }}
                />
             </div>
@@ -64,7 +69,9 @@ function Filter({ filter, handleFilter }: FilterProps) {
                         <div onClick={() => setShowImportModal(true)}>
                            Import
                         </div>
-                        <div>Export</div>
+                        <div onClick={() => setShowExportModal(true)}>
+                           Export
+                        </div>
                      </div>
                   </div>
                )}
@@ -77,17 +84,17 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   <input
                      type="date"
                      id="date"
-                     value={filter.dateOfBirth}
+                     value={filter.dob}
                      onChange={(e) => {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
-                              dateOfBirth: e.target.value,
+                              dob: e.target.value,
                            });
                         } else {
                            handleFilter({
                               ...filter,
-                              dateOfBirth: '',
+                              dob: '',
                            });
                         }
                      }}
@@ -118,19 +125,20 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   </select>
                </div>
                <div className="filter__input">
-                  <input
-                     defaultChecked={filter.active}
-                     checked={filter.active}
-                     onChange={() => {
+                  <label htmlFor="check">Status</label>
+                  <select
+                     ref={selectRef}
+                     onChange={(e) =>
                         handleFilter({
                            ...filter,
-                           active: !filter.active,
-                        });
-                     }}
-                     id="check"
-                     type="checkbox"
-                  />{' '}
-                  <label htmlFor="check">Active</label>
+                           status: UserStatus[e.target.value],
+                        })
+                     }
+                  >
+                     <option value="">Status</option>
+                     <option value="active">Active</option>
+                     <option value="inactive">Inactive</option>
+                  </select>
                </div>
                {/* clear filter */}
                <button type="button" onClick={handleClearFilter}>
