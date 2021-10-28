@@ -27,20 +27,18 @@ export const useHandleData = ({ id }: UseHandleData) => {
       role: Role.Member,
    });
 
-   const fetchUser = async (id: number) => {
-      try {
-         const { data } = await getUser(id);
-         setUser(data);
-         setFormData(data);
-      } catch (error) {
-         toast.error(error as string);
-      }
-   };
-
    useEffect(() => {
+      const fetchUser = async (id: number) => {
+         try {
+            const { data } = await getUser(id);
+            setUser(data);
+            setFormData(data);
+         } catch (error) {
+            toast.error(error as string);
+         }
+      };
       fetchUser(id!);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [id]);
+   }, [getUser, id]);
 
    //------------ handleSubmit --------------
    const handleSubmitUser = async () => {
