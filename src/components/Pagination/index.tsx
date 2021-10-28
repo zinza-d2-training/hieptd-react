@@ -3,8 +3,7 @@ import './Pagination.scss';
 import { PaginationProps } from './types';
 
 function Pagination({ info, onChange }: PaginationProps) {
-   const { page, lastPage, total } = info;
-   console.log({ info });
+   const { page, lastPage, total, limit } = info;
 
    const handleChange = (newPage: number) => {
       if (onChange) {
@@ -14,7 +13,7 @@ function Pagination({ info, onChange }: PaginationProps) {
 
    return (
       <>
-         {total && total > 10 && (
+         {total && total > limit && (
             <div className="pagination">
                <button
                   type="button"

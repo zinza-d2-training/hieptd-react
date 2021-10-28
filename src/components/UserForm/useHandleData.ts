@@ -18,18 +18,22 @@ export const useHandleData = ({ id }: UseHandleData) => {
       status: UserStatus.active,
       role: Role.Member,
    });
+   const [formData, setFormData] = useState<Partial<User>>({
+      username: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      status: UserStatus.active,
+      role: Role.Member,
+   });
 
    const fetchUser = async (id: number) => {
       try {
          const { data } = await getUser(id);
          setUser(data);
+         setFormData(data);
       } catch (error) {
-         toast.error(error as string, {
-            position: 'top-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-         });
+         toast.error(error as string);
       }
    };
 
@@ -38,7 +42,6 @@ export const useHandleData = ({ id }: UseHandleData) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [id]);
 
-   const [formData, setFormData] = useState<Partial<User> | undefined>(user);
    //------------ handleSubmit --------------
    const handleSubmitUser = async () => {
       const { username, email, firstName, lastName } = values;
@@ -50,20 +53,10 @@ export const useHandleData = ({ id }: UseHandleData) => {
                   formData as unknown as Partial<User>
                );
 
-               toast.success(message, {
-                  position: 'top-right',
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-               });
+               toast.success(message);
                resetForm();
             } catch (error) {
-               toast.error(error as string, {
-                  position: 'top-right',
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-               });
+               toast.error(error as string);
             }
          } else alert('Some fields are required!');
       } else {
@@ -74,19 +67,9 @@ export const useHandleData = ({ id }: UseHandleData) => {
                   formData as unknown as Partial<User>
                );
 
-               toast.success(message, {
-                  position: 'top-right',
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-               });
+               toast.success(message);
             } catch (error) {
-               toast.error(error as string, {
-                  position: 'top-right',
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-               });
+               toast.error(error as string);
             }
          } else alert('Some fields are required!');
       }
@@ -115,13 +98,15 @@ export const useHandleData = ({ id }: UseHandleData) => {
 
    // onChange fields
    useEffect(() => {
-      setFormData({
-         ...formData,
-         username: values.username,
-         email: values.email,
-         firstName: values.firstName,
-         lastName: values.lastName,
-      });
+      if (values) {
+         setFormData({
+            ...formData,
+            username: values.username,
+            email: values.email,
+            firstName: values.firstName,
+            lastName: values.lastName,
+         });
+      }
 
       // eslint-disable-next-line
    }, [values]);
@@ -140,16 +125,8 @@ export const useHandleData = ({ id }: UseHandleData) => {
             firstName: user?.firstName!,
             lastName: user?.lastName!,
          });
-         setFormData({
-            ...formData,
-            avatar: user.avatar,
-            dateOfBirth: user.dateOfBirth,
-            status: user?.status,
-            role: user?.role,
-         });
       }
-      // eslint-disable-next-line
-   }, [user]);
+   }, [user, id, setValues]);
    return {
       loading,
       handleUploadFile,

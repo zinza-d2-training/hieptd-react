@@ -3,6 +3,7 @@
    width: 98%;
    padding: 10px;
    box-shadow: $box-shadow;
+
    .projectdetail__header {
       padding: 20 0px;
       height: 90px;
@@ -45,10 +46,11 @@
       padding: 10px 20px;
       border-radius: 5px;
       margin: 20px 10px;
-      background-color: $background;
-      border: 1px solid rgb(167, 163, 163);
+      background-color: #f2f2f2;
+      border: 1px solid #dddd;
+      color: $info;
 
-      h1 {
+      h2 {
          font-weight: 500;
       }
       span {
@@ -60,7 +62,6 @@
          height: 20px;
       }
       p {
-         color: $text;
          font-size: 16px;
       }
    }
@@ -130,13 +131,6 @@
 
       label {
          margin-left: 8px;
-      }
-      input {
-         border: 1px solid $border;
-         outline: none;
-         padding: 5px 10px;
-         border-radius: 20px;
-         cursor: pointer;
       }
    }
 }
@@ -311,5 +305,10 @@
    to {
       transform: translateX(0);
       opacity: 1;
+   }
+}
+@media (max-width: 768px) {
+   .projectdetail {
+      box-shadow: none;
    }
 }

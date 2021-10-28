@@ -19,6 +19,7 @@
          label {
             min-width: 120px;
             position: relative;
+            font-weight: 600;
             &.required::after {
                content: '*';
                position: absolute;
@@ -34,11 +35,10 @@
             }
          }
       }
-      .createproject__item-date {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding-right: 100px;
+      .createproject__item {
+         input {
+            width: 300px;
+         }
       }
       .createproject__btn {
          display: flex;

@@ -21,7 +21,7 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
       errors,
       formData,
       values,
-      user,
+
       handleUploadFile,
       handleChange,
       handleSubmit,
@@ -137,31 +137,33 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             {/*--- firstName and lastName---- */}
             <div className="userForm__input">
                <label htmlFor="userForm__input-name">Name*</label>
-               <div className="userForm__wrap">
-                  <input
-                     id="userForm__input-firstname"
-                     type="text"
-                     placeholder="First name"
-                     value={values.firstName || ''}
-                     name="firstName"
-                     onChange={handleChange}
-                  />
-                  <div className="userForm__err">{errors.firstName}</div>
-               </div>
-               <div className="userForm__wrap">
-                  <input
-                     id="userForm__input-lastname"
-                     type="text"
-                     placeholder="Last name"
-                     value={values.lastName || ''}
-                     name="lastName"
-                     onChange={handleChange}
-                  />
-                  <div className="userForm__err">{errors.lastName}</div>
+               <div className="userForm__input-name">
+                  <div className="userForm__wrap">
+                     <input
+                        id="userForm__input-firstname"
+                        type="text"
+                        placeholder="First name"
+                        value={values.firstName || ''}
+                        name="firstName"
+                        onChange={handleChange}
+                     />
+                     <div className="userForm__err">{errors.firstName}</div>
+                  </div>
+                  <div className="userForm__wrap">
+                     <input
+                        id="userForm__input-lastname"
+                        type="text"
+                        placeholder="Last name"
+                        value={values.lastName || ''}
+                        name="lastName"
+                        onChange={handleChange}
+                     />
+                     <div className="userForm__err">{errors.lastName}</div>
+                  </div>
                </div>
             </div>
             {currentUser?.role === Role.Admin &&
-               currentUser.username !== user.username && (
+               currentUser.username !== formData.username && (
                   <>
                      <div className="userForm__input">
                         <label htmlFor="userForm__input-role">Role*</label>

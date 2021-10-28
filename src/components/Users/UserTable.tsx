@@ -32,23 +32,11 @@ function UserTable({ data, refetch }: TableUserProps) {
             const response = await editUser(updateUser.id, updateUser);
             if (response) {
                setUpdateUser(undefined);
+               toast.success('Update user status successfully!');
                refetch(1);
-               toast.success('Updated!', {
-                  position: 'top-right',
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  progress: undefined,
-               });
             }
          } catch (e) {
-            toast.error(e as string, {
-               position: 'top-right',
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: true,
-               progress: undefined,
-            });
+            toast.error(e as string);
             console.log(e);
          }
       }
@@ -60,24 +48,12 @@ function UserTable({ data, refetch }: TableUserProps) {
             const response = await deleteUser(deletingUser.id);
             if (response) {
                // use Toast here
-               toast.success('Deleted!', {
-                  position: 'top-right',
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  progress: undefined,
-               });
+               toast.success('Delete User successfully!');
                setDeletingUser(undefined);
                refetch(1);
             }
          } catch (e) {
-            toast.error(e as string, {
-               position: 'top-right',
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: true,
-               progress: undefined,
-            });
+            toast.error(e as string);
             console.log(e);
          }
       }
