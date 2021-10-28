@@ -96,3 +96,5 @@ export interface Response<T = any> extends AxiosResponse<T> {
    accessToken?: string;
 }
 export type UserExport = User & { createdAt: string; updatedAt: string };
+export type CallbackFunc = () => void;
+export type PromiseFunc = () => Promise<void>;

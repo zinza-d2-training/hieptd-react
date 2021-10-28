@@ -86,24 +86,7 @@ function CreateProject() {
                   <div className="createproject__errr">{errors.name}</div>
                </div>
             </div>
-            <div className="createproject__item">
-               <label className="required">Status</label>
-               <select
-                  onChange={(e) =>
-                     setFormData({
-                        ...formData,
-                        status: Number(e.target.value),
-                     })
-                  }
-               >
-                  <option value={ProjectStatus.Pending}>
-                     {ProjectStatus[ProjectStatus.Pending]}
-                  </option>
-                  <option value={ProjectStatus.InProgress}>
-                     {ProjectStatus[ProjectStatus.InProgress]}
-                  </option>
-               </select>
-            </div>
+
             <div className="createproject__item">
                <label className="required">Client</label>
                <div className="createproject__item-wrap">
@@ -123,7 +106,7 @@ function CreateProject() {
                   <textarea
                      name="description"
                      rows={5}
-                     cols={50}
+                     cols={40}
                      value={values.description || ''}
                      onChange={handleChange}
                   />
@@ -132,30 +115,30 @@ function CreateProject() {
                   </div>
                </div>
             </div>
-            <div className="createproject__item-date ">
-               <div className="createproject__item">
-                  <label>StartDate</label>
-                  <input
-                     type="date"
-                     name="startDate"
-                     value={values.startDate || ''}
-                     onChange={(e) =>
-                        setFormData({ ...formData, startDate: e.target.value })
-                     }
-                  />
-               </div>
-               <div className="createproject__item">
-                  <label>EndDate</label>
-                  <input
-                     type="date"
-                     name="endDate"
-                     value={values.endDate || ''}
-                     onChange={(e) =>
-                        setFormData({ ...formData, endDate: e.target.value })
-                     }
-                  />
-               </div>
+
+            <div className="createproject__item">
+               <label>StartDate</label>
+               <input
+                  type="date"
+                  name="startDate"
+                  value={values.startDate || ''}
+                  onChange={(e) =>
+                     setFormData({ ...formData, startDate: e.target.value })
+                  }
+               />
             </div>
+            <div className="createproject__item">
+               <label>EndDate</label>
+               <input
+                  type="date"
+                  name="endDate"
+                  value={values.endDate || ''}
+                  onChange={(e) =>
+                     setFormData({ ...formData, endDate: e.target.value })
+                  }
+               />
+            </div>
+
             <div className="createproject__item">
                <label className="required">PM</label>
                <select onChange={(e) => handleSelectPm(e)}>
@@ -169,6 +152,24 @@ function CreateProject() {
                            >{`${user.lastName} <${user.email}>`}</option>
                         )
                   )}
+               </select>
+            </div>
+            <div className="createproject__item">
+               <label className="required">Status</label>
+               <select
+                  onChange={(e) =>
+                     setFormData({
+                        ...formData,
+                        status: Number(e.target.value),
+                     })
+                  }
+               >
+                  <option value={ProjectStatus.Pending}>
+                     {ProjectStatus[ProjectStatus.Pending]}
+                  </option>
+                  <option value={ProjectStatus.InProgress}>
+                     {ProjectStatus[ProjectStatus.InProgress]}
+                  </option>
                </select>
             </div>
 

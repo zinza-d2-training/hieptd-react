@@ -21,8 +21,25 @@
    .switcherButtonGroup {
       padding: 0 15px;
       button {
+         cursor: pointer;
          margin: 6px 0;
          display: block; /* Make the buttons appear below each other */
+      }
+   }
+}
+@media (max-width: 798px) {
+   .memberSwitcher {
+      .switcherMembersSelect {
+         font-size: 12px;
+      }
+      .switcherButtonGroup {
+         padding: 0 5px;
+         button {
+            margin: 6px 0;
+            padding: 0px;
+            width: 50px;
+            display: block; /* Make the buttons appear below each other */
+         }
       }
    }
 }

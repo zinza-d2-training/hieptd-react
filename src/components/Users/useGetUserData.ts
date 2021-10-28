@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { PaginationType, User } from 'utils/types';
 import { FilterType } from './types';
 import { useApiUser } from './useApiUser';
-import { toast } from 'react-toastify';
 
 interface GetUsersProps {
    filter: FilterType;
@@ -36,17 +35,12 @@ export const useGetUserData = ({ filter }: GetUsersProps): Result => {
 
    const fetchData = async () => {
       try {
-         const {
-            data,
-            message,
-            pagination: paginationRes,
-         } = await getUsers(pagination.page, pagination.limit, _filter);
-         toast.success(message, {
-            position: 'top-right',
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-         });
+         const { data, pagination: paginationRes } = await getUsers(
+            pagination.page,
+            pagination.limit,
+            _filter
+         );
+
          setUsers(data || []);
          setPagination(paginationRes || { page: 1, limit: 10 });
       } catch (e) {
