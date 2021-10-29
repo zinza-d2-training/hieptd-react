@@ -10,11 +10,11 @@ function ListProjects() {
    const currentUser = getUser();
    const userId = currentUser?.id;
    const [filter, setFilter] = useState<ProjectFilter>({
-      search: '',
+      keyword: '',
+      status: undefined,
       endDate: '',
-      status: '',
    });
-   const listProjects = useGetListProject({ filter, userId });
+   const { projects } = useGetListProject({ filter, userId });
 
    return (
       <div className="listproject">
@@ -25,11 +25,11 @@ function ListProjects() {
             ]}
          />
          <h1>ListProjects</h1>
-         {listProjects && (
+         {projects && (
             <div className="listproject__body">
                <Filter filter={filter} handleFilter={setFilter} />
 
-               <ProjectTable projects={listProjects} />
+               <ProjectTable projects={projects} />
             </div>
          )}
       </div>

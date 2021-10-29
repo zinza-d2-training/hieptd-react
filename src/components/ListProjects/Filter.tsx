@@ -16,11 +16,7 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
    const selectRef = useRef<HTMLSelectElement>(null);
    // clear filter
    const handleClearFilter = () => {
-      handleFilter({
-         status: '',
-         search: '',
-         endDate: '',
-      });
+      handleFilter({});
       if (selectRef.current) {
          selectRef.current.selectedIndex = 0;
       }
@@ -31,9 +27,9 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
             <input
                type="text"
                placeholder="Search"
-               value={filter.search}
+               value={filter.keyword}
                onChange={(e) => {
-                  handleFilter({ ...filter, search: e.target.value });
+                  handleFilter({ ...filter, keyword: e.target.value });
                }}
             />
 
@@ -76,12 +72,13 @@ function Filter({ filter, handleFilter }: ProjectFilterProps) {
                         if (e.target.value) {
                            handleFilter({
                               ...filter,
-                              status: ProjectStatus[e.target.value],
+                              status: e.target
+                                 .value as unknown as ProjectStatus,
                            });
                         } else {
                            handleFilter({
                               ...filter,
-                              status: '',
+                              status: undefined,
                            });
                         }
                      }}
