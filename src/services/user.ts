@@ -3,6 +3,10 @@ import axiosClient from 'utils/axios';
 import { User, UserExport } from 'utils/types';
 import { UserImport } from 'components/UserImportModal/functions';
 import { Response } from 'utils/types';
+export type UserInProject = {
+   userId: number;
+   projectId: number;
+};
 
 const userService = {
    getAllUserToExport: async (): Promise<Response<UserExport[]>> =>
@@ -36,5 +40,9 @@ const userService = {
       await axiosClient.post('/users', user),
    importUser: async (users: UserImport[]): Promise<Response<User[]>> =>
       await axiosClient.post(`/users/import`, users),
+   getUserInProject: async (
+      listUserInProject: UserInProject[]
+   ): Promise<Response<User[]>> =>
+      await axiosClient.post('/users/in-project', listUserInProject),
 };
 export default userService;
