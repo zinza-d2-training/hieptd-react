@@ -15,9 +15,13 @@ function ProjectTable({ projects }: ProjectTableProp) {
       useState<boolean>(false);
 
    // handleChangeStatus
-   const handleChangeStatus = (e, status: ProjectStatus, id: number) => {
+   const handleChangeStatus = (
+      e: React.ChangeEvent<HTMLSelectElement>,
+      status: ProjectStatus,
+      id: number
+   ) => {
       const value = e?.target.value;
-      const check = value === status;
+      const check = (value as unknown as ProjectStatus) === status;
       if (check === !status) {
          setShowModalChangeStatus(true);
       } else return;

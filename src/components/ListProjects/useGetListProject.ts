@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getUser } from 'utils/auth';
-import { PaginationType, Project, ProjectStatus } from 'utils/types';
+import { PaginationType, Project, ProjectStatus, Role } from 'utils/types';
 import { useApiListProject } from './useApiListProject';
 
 export type ProjectFilter = {
@@ -11,16 +10,22 @@ export type ProjectFilter = {
 interface UseGetListProject {
    filter: ProjectFilter;
    userId: number | undefined;
+   role: Role;
 }
 
-export const useGetListProject = ({ filter, userId }: UseGetListProject) => {
-   const { loading, getProjects } = useApiListProject();
+export const useGetListProject = ({
+   filter,
+   userId,
+   role,
+}: UseGetListProject) => {
+   const { loading, getAllProjects, getProjectsWithMember } =
+      useApiListProject();
    const [projects, setProjects] = useState<Project[]>([]);
    const [pagination, setPagination] = useState<PaginationType>({
       page: 1,
       limit: 10,
    });
-   const currentUser = getUser();
+
    // remove undefined in filter
    let _filter = useMemo(() => {
       Object.keys(filter).forEach(
@@ -33,14 +38,25 @@ export const useGetListProject = ({ filter, userId }: UseGetListProject) => {
 
    const fetchData = async () => {
       try {
-         const { data, pagination: paginationRes } = await getProjects(
-            pagination.page,
-            pagination.limit,
-            _filter
-         );
-
-         setProjects(data || []);
-         setPagination(paginationRes || { page: 1, limit: 10 });
+         if (role === Role.Admin) {
+            const { data, pagination: paginationRes } = await getAllProjects(
+               pagination.page,
+               pagination.limit,
+               _filter
+            );
+            setProjects(data);
+            setPagination(paginationRes || { page: 1, limit: 10 });
+         } else {
+            const { data, pagination: paginationRes } =
+               await getProjectsWithMember(
+                  userId!,
+                  pagination.page,
+                  pagination.limit,
+                  _filter
+               );
+            setProjects(data);
+            setPagination(paginationRes || { page: 1, limit: 10 });
+         }
       } catch (e) {
          console.log(e);
          setProjects([]);
@@ -52,5 +68,5 @@ export const useGetListProject = ({ filter, userId }: UseGetListProject) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [pagination.page, pagination.limit, _filter]);
 
-   return { loading, projects };
+   return { loading, projects, pagination, handlePagination };
 };

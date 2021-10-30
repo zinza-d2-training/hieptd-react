@@ -5,16 +5,21 @@ import Filter from './Filter';
 import './ListProject.scss';
 import { ProjectFilter, useGetListProject } from './useGetListProject';
 import Breadcrumb from 'components/Breadcrumb';
+import Pagination from 'components/Pagination';
 
 function ListProjects() {
    const currentUser = getUser();
-   const userId = currentUser?.id;
+   const { id, role } = currentUser!;
    const [filter, setFilter] = useState<ProjectFilter>({
       keyword: '',
       status: undefined,
       endDate: '',
    });
-   const { projects } = useGetListProject({ filter, userId });
+   const { projects, pagination, handlePagination } = useGetListProject({
+      filter,
+      userId: id,
+      role,
+   });
 
    return (
       <div className="listproject">
@@ -30,6 +35,7 @@ function ListProjects() {
                <Filter filter={filter} handleFilter={setFilter} />
 
                <ProjectTable projects={projects} />
+               <Pagination info={pagination} onChange={handlePagination} />
             </div>
          )}
       </div>

@@ -6,4 +6,5 @@ export type FilterType = {
    keyword?: string;
    lastName?: string;
    status?: UserStatus;
+   endDate?: string;
 };

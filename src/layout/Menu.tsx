@@ -83,21 +83,39 @@ export default function Menu(props: PropsMenu) {
                      </div>
                   </NavLink>
                )}
-               <NavLink
-                  to={`/projects`}
-                  exact
-                  activeStyle={{
-                     color: '#fff',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     display: 'block',
-                     background: 'rgba(255,255,255,0.04)',
-                  }}
-               >
-                  <div className="menu__option-item">
-                     <i className="fas fa-clipboard-list"></i> Projects
-                  </div>
-               </NavLink>
+               {currentUser && currentUser.role === Role.Admin ? (
+                  <NavLink
+                     to={`/projects`}
+                     exact
+                     activeStyle={{
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        display: 'block',
+                        background: 'rgba(255,255,255,0.04)',
+                     }}
+                  >
+                     <div className="menu__option-item">
+                        <i className="fas fa-clipboard-list"></i> Projects
+                     </div>
+                  </NavLink>
+               ) : (
+                  <NavLink
+                     to={`/users/${currentUser?.id}/projects`}
+                     exact
+                     activeStyle={{
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        display: 'block',
+                        background: 'rgba(255,255,255,0.04)',
+                     }}
+                  >
+                     <div className="menu__option-item">
+                        <i className="fas fa-clipboard-list"></i> Projects
+                     </div>
+                  </NavLink>
+               )}
             </div>
          </div>
       </div>
