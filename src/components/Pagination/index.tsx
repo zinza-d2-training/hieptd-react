@@ -4,7 +4,6 @@ import { PaginationProps } from './types';
 
 function Pagination({ info, onChange }: PaginationProps) {
    const { page, lastPage, total, limit } = info;
-   console.log({ info });
 
    const handleChange = (newPage: number) => {
       if (onChange) {
@@ -21,7 +20,28 @@ function Pagination({ info, onChange }: PaginationProps) {
                   disabled={page <= 1}
                   onClick={() => handleChange(page - 1)}
                >
-                  Prev
+                  <svg
+                     width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <path
+                        d="M19 12H5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                     />
+                     <path
+                        d="M12 19L5 12L12 5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                     />
+                  </svg>
                </button>
                {page > 1 && (
                   <span onClick={() => handleChange(page - 1)}>{page - 1}</span>
@@ -35,7 +55,28 @@ function Pagination({ info, onChange }: PaginationProps) {
                   disabled={page >= lastPage!}
                   onClick={() => handleChange(page + 1)}
                >
-                  Next
+                  <svg
+                     width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <path
+                        d="M5 12H19"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                     />
+                     <path
+                        d="M12 5L19 12L12 19"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                     />
+                  </svg>
                </button>
             </div>
          )}

@@ -36,40 +36,6 @@ h1 {
    color: inherit;
 }
 
-button {
-   display: block;
-   cursor: pointer;
-   padding: 6px 10px;
-   background-color: $primary;
-   color: $white;
-   &:hover {
-      cursor: pointer;
-   }
-   &:disabled {
-      cursor: not-allowed !important;
-      pointer-events: none !important;
-      background-color: $error;
-      opacity: 0.6;
-   }
-   .primary {
-      background-color: $primary;
-   }
-   .secondary {
-      background-color: $secondary;
-   }
-   .error {
-      background-color: $error;
-   }
-   .success {
-      background-color: $success;
-   }
-   .info {
-      background-color: $info;
-   }
-   .warning {
-      background-color: $warning;
-   }
-}
 @media (max-width: 798px) {
    select {
       font-size: 14px;

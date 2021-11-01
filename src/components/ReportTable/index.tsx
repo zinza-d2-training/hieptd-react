@@ -2,7 +2,6 @@ import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { getUser } from 'utils/auth';
 import { Report } from 'utils/types';
-import './index.scss';
 
 interface ReportTableProps {
    reports: Report[];

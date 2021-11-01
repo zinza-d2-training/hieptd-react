@@ -54,5 +54,10 @@ const userService = {
       }
       return await axiosClient.get(`/users/${id}/projects?${queries}`);
    },
+
+   deleteUsers: async (ids: number[]): Promise<Response<User[]>> =>
+      await axiosClient.delete(`/users/deleteMany`, {
+         data: ids,
+      }),
 };
 export default userService;

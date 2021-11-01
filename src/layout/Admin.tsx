@@ -56,29 +56,29 @@ const Admin = ({ children }: Props) => {
                               </div>
                            </div>
                         </i>
-                        <i
+
+                        <div
                            onClick={() => setIsVisible(!isVisible)}
-                           className="fas fa-user"
-                        ></i>
+                           className="dashboard__user-header"
+                        >
+                           {currentUser?.avatar ? (
+                              <img
+                                 src={`${process.env.REACT_APP_BASEURL}${currentUser.avatar}`}
+                                 alt="user-avt"
+                              />
+                           ) : (
+                              <img
+                                 src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
+                                 alt="user-avt"
+                              />
+                           )}
+                           <div className="dashboard__user-name">
+                              {currentUser &&
+                                 ` ${currentUser?.firstName} ${currentUser?.lastName}`}
+                           </div>
+                        </div>
                         {isVisible && (
                            <div ref={ref} className="dashboard__user">
-                              <div className="dashboard__user-header">
-                                 {currentUser?.avatar ? (
-                                    <img
-                                       src={`${process.env.REACT_APP_BASEURL}${currentUser.avatar}`}
-                                       alt="user-avt"
-                                    />
-                                 ) : (
-                                    <img
-                                       src="https://upload.wikimedia.org/wikipedia/commons/6/6b/G-Dragon_Infinite_Challenge_2015.jpg"
-                                       alt="user-avt"
-                                    />
-                                 )}
-                                 <div className="dashboard__user-name">
-                                    {currentUser &&
-                                       ` ${currentUser?.firstName} ${currentUser?.lastName}`}
-                                 </div>
-                              </div>
                               <div className="dashboard__user-list">
                                  {' '}
                                  <div className="dashboard__user-item">

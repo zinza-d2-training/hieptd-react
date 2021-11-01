@@ -5,32 +5,89 @@
    justify-content: space-between;
    margin-top: 20px;
    flex-wrap: wrap;
-   .filter__search {
-      margin-left: 20px;
+   width: 100%;
+   height: 86px;
+   background-color: $white;
+   a,
+   button {
+      margin: 0;
+      background-color: #46546c;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+   }
+   .filter__header-left {
+      display: flex;
+      flex: 0 60%;
+      align-items: center;
+      height: 44px;
+      padding: 11px;
 
-      label {
-         i {
-            color: $primary;
-            font-size: 18px;
-         }
+      .filter__header-options {
+         display: flex;
+         margin-left: 10px;
+         align-items: center;
+         justify-content: space-between;
+         flex: 0 60%;
+      }
+
+      input {
+         width: 150px;
+      }
+
+      select {
+         width: 60px;
+         font-size: 14px;
+         padding: 8px 0;
+      }
+      input,
+      select,
+      button {
+         margin-left: 10px;
       }
    }
-   .filter__button {
+   .filter__header-right {
       display: flex;
       align-items: center;
-      min-width: 300px;
-      margin: 10px 0;
+      justify-content: space-evenly;
+      flex: 0 30%;
+
+      a {
+         min-width: 80px;
+         padding: 6px 10px;
+         font-weight: 400;
+         border: 1px solid transparent;
+         font-size: 14px;
+         line-height: 1.42857143;
+         border-radius: 4px;
+         vertical-align: middle;
+      }
    }
 }
-.filter__option {
-   display: flex;
-   flex-wrap: wrap;
-   margin-top: 20px;
-   align-items: center;
-   padding: 10px 15px;
-   .filter__input {
-      padding: 10px;
-      display: flex;
-      align-items: center;
+@media screen and (max-width: 950px) {
+   .filter__header {
+      flex-wrap: wrap;
+      height: 186px;
+      .filter__header-left {
+         flex: 0 100%;
+         flex-wrap: wrap;
+         justify-content: flex-start;
+         .filter__header-options {
+            flex: 0 100%;
+            justify-content: flex-start;
+            margin-left: 0;
+            margin-top: 10px;
+         }
+      }
+      .filter__header-right {
+         flex: 0 100%;
+         justify-content: flex-end;
+         margin-top: 30px;
+         button,
+         a {
+            margin-right: 10px;
+         }
+      }
    }
 }

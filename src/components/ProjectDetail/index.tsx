@@ -8,6 +8,9 @@ import './index.scss';
 import ProjectDashboard from './ProjectDashboard';
 import ProjectReports from './ProjectReports';
 import ProjectTasks from './ProjectTasks';
+import dashboard2 from 'assets/dashboard2.png';
+import task from 'assets/task.png';
+import report from 'assets/report.png';
 
 interface ProjectDetailProps {
    id: number;
@@ -15,9 +18,8 @@ interface ProjectDetailProps {
 
 const linkActiveStyle: CSSProperties = {
    cursor: 'default',
-   borderTopColor: '#007bff',
-   borderLeftColor: '#ddd',
-   borderRightColor: '#EBE4E4',
+   borderBottomColor: '#007bff',
+   backgroundColor: '#ffff',
 };
 
 function ProjectDetail({ id }: ProjectDetailProps) {
@@ -40,8 +42,6 @@ function ProjectDetail({ id }: ProjectDetailProps) {
                ]}
             />
             <div className="projectdetail__header-item">
-               {' '}
-               <h1> {project?.name}</h1>
                {/*--------- select projects  of user ---------*/}
                <select
                   onChange={(e) => {
@@ -75,27 +75,33 @@ function ProjectDetail({ id }: ProjectDetailProps) {
          </div>
          <div className="projectdetail__body">
             <div className="projectdetail__tab">
-               <NavLink
-                  to={`/projects/${id}/dashboard`}
-                  exact
-                  activeStyle={linkActiveStyle}
-               >
-                  Dashboard
-               </NavLink>
-               <NavLink
-                  to={`/projects/${id}/tasks`}
-                  exact
-                  activeStyle={linkActiveStyle}
-               >
-                  Tasks
-               </NavLink>
-               <NavLink
-                  to={`/projects/${id}/reports`}
-                  exact
-                  activeStyle={linkActiveStyle}
-               >
-                  Reports
-               </NavLink>
+               <div className="projectdetail__tab-item">
+                  <NavLink
+                     to={`/projects/${id}/dashboard`}
+                     exact
+                     activeStyle={linkActiveStyle}
+                  >
+                     <img src={dashboard2} alt="dashboard-icon" /> Dashboard
+                  </NavLink>
+               </div>
+               <div className="projectdetail__tab-item">
+                  <NavLink
+                     to={`/projects/${id}/tasks`}
+                     exact
+                     activeStyle={linkActiveStyle}
+                  >
+                     <img src={task} alt="task-icon" /> Tasks
+                  </NavLink>
+               </div>
+               <div className="projectdetail__tab-item">
+                  <NavLink
+                     to={`/projects/${id}/reports`}
+                     exact
+                     activeStyle={linkActiveStyle}
+                  >
+                     <img src={report} alt="report-icon" /> Reports
+                  </NavLink>
+               </div>
             </div>
             {/*----- nested router-------- */}
             <Switch>

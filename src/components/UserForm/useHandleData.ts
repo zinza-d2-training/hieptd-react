@@ -82,16 +82,17 @@ export const useHandleData = ({ id }: UseHandleData) => {
 
    //   ----------- handle upload image base64 ---------
 
-   const handleUploadFile = (e) => {
+   const handleUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
       try {
-         const file = e.target.files[0];
-         const fileReader = new FileReader();
-         fileReader.readAsDataURL(file);
-         fileReader.onload = () => {
-            const res = fileReader.result?.toString();
-
-            if (res) setFormData({ ...formData, avatar: res });
-         };
+         if (e.target.files) {
+            const file = e.target.files[0];
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+               const res = fileReader.result?.toString();
+               if (res) setFormData({ ...formData, avatar: res });
+            };
+         }
       } catch (error) {
          console.error(error);
       }

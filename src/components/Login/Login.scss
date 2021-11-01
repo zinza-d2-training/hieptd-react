@@ -12,8 +12,8 @@
       justify-content: space-around;
       align-items: center;
       h1 {
-         color: $primary;
-         opacity: 0.8;
+         color: $text;
+         font-weight: 600;
       }
       .login__message {
          background-color: #f7dfdf;
@@ -37,7 +37,7 @@
             align-items: flex-start;
             justify-content: center;
             label {
-               font-size: 20px;
+               font-size: 18px;
             }
             input {
                margin: 5px auto;
