@@ -23,9 +23,9 @@
 }
 @mixin input {
    display: block;
-   height: 34px;
-   width: 200px;
-   padding: 6px 10px;
+   min-height: 45px;
+   min-width: 200px;
+   padding: 6px 15px;
    font-size: 14px;
    line-height: 1.4;
    color: $text;
@@ -43,7 +43,8 @@
    }
 }
 @mixin select {
-   padding: 6px 10px;
+   padding: 6px 15px;
+   min-height: 45px;
    border: 1px solid #dddd;
    color: #333;
    background-color: $input-background;
@@ -134,13 +135,11 @@
                }
 
                a {
-                  color: $primary;
                   text-decoration: none;
                   padding: 4px 5px;
-                  background-color: $active-primary;
-                  color: $white;
+                  color: $text;
                   border-radius: 4px;
-                  font-size: 14px;
+                  font-size: 16px;
 
                   & + a {
                      margin-left: 2px;
@@ -148,6 +147,7 @@
 
                   &:hover {
                      background-color: $success;
+                     color: $white;
                   }
                }
                a.edit--link {
