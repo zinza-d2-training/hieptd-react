@@ -63,7 +63,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                  <td className="td-description">
                                     {project.description}
                                  </td>
-                                 <td>{project.endDate}</td>
+                                 <td className="td-date">{project.endDate}</td>
                                  {currentUser?.role === Role.Admin ? (
                                     <td>
                                        <select

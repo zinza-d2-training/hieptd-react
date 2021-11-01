@@ -6,6 +6,9 @@ import { Response } from 'utils/types';
 import { FilterType as FilerProject } from 'components/ListProjects/types';
 
 const userService = {
+   getAllUser: (): Promise<Response<User[]>> => {
+      return axiosClient.get('/users');
+   },
    getAllUserToExport: async (): Promise<Response<UserExport[]>> =>
       await axiosClient.get('/users'),
    getUsers: async (
