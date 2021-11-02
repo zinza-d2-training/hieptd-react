@@ -42,12 +42,14 @@
    }
    .createproject__members {
       padding: 0 20px;
+      flex: 0 100%;
    }
    .createproject__btn {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       margin: 20px 0;
+      flex: 0 100%;
    }
 }
 @media (max-width: 730px) {

@@ -1,4 +1,5 @@
 import Breadcrumb from 'components/Breadcrumb';
+import { useApiUser } from 'components/Users/useApiUser';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -15,7 +16,8 @@ import { useCreateProjectForm } from './useCreateProjectForm';
 
 function CreateProject() {
    const history = useHistory();
-   const { getAllUsers, createProject } = useApiCreateProject();
+   const { createProject } = useApiCreateProject();
+   const { getAllUsers } = useApiUser();
    const [users, setUsers] = useState<User[]>([]);
 
    useEffect(() => {
@@ -173,38 +175,38 @@ function CreateProject() {
                   </div>
                </div>
             </div>
+            <div className="createproject__members">
+               <h3>Select member</h3>
+               <ProjectMembersField
+                  allUsers={users.filter((user) => user.role === Role.Member)}
+                  value={users.filter((user) =>
+                     formData.memberIds?.includes(user.id!)
+                  )}
+                  onChange={(members: User[]) => {
+                     setFormData({
+                        ...formData,
+                        memberIds: members.map((user) => user.id!),
+                     });
+                  }}
+               />
+            </div>
+            <div className="createproject__btn">
+               <button type="button" onClick={() => history.goBack()}>
+                  Cancel
+               </button>
+               <button
+                  disabled={
+                     !values.name ||
+                     !values.client ||
+                     !formData.status ||
+                     !formData.pmId
+                  }
+                  type="submit"
+               >
+                  Create
+               </button>
+            </div>
          </form>
-         <div className="createproject__members">
-            <h3>Select member</h3>
-            <ProjectMembersField
-               allUsers={users.filter((user) => user.role === Role.Member)}
-               value={users.filter((user) =>
-                  formData.memberIds?.includes(user.id!)
-               )}
-               onChange={(members: User[]) => {
-                  setFormData({
-                     ...formData,
-                     memberIds: members.map((user) => user.id!),
-                  });
-               }}
-            />
-         </div>
-         <div className="createproject__btn">
-            <button type="button" onClick={() => history.goBack()}>
-               Cancel
-            </button>
-            <button
-               disabled={
-                  !values.name ||
-                  !values.client ||
-                  !formData.status ||
-                  !formData.pmId
-               }
-               type="submit"
-            >
-               Create
-            </button>
-         </div>
       </div>
    );
 }

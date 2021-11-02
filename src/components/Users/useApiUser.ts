@@ -5,6 +5,18 @@ import { FilterType } from './types';
 
 export const useApiUser = () => {
    const [loading, setLoading] = useState(false);
+   const getAllUsers = useCallback(async (): Promise<Response<User[]>> => {
+      setLoading(true);
+      setLoading(true);
+      try {
+         setLoading(false);
+         const res = await userService.getAllUsers();
+         return res;
+      } catch (e) {
+         setLoading(false);
+         throw e;
+      }
+   }, []);
 
    const getUsers = useCallback(
       async (
@@ -68,5 +80,6 @@ export const useApiUser = () => {
       deleteUser,
       getUsers,
       deleteUsers,
+      getAllUsers,
    };
 };
