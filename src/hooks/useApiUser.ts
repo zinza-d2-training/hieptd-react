@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import userService from 'services/user';
-import { User, Response } from 'utils/types';
-import { FilterType } from './types';
+import { Response, User } from 'utils/types';
+import { FilterType } from '../components/Users/types';
 
 export const useApiUser = () => {
    const [loading, setLoading] = useState(false);

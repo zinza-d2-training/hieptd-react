@@ -1,5 +1,5 @@
 import Breadcrumb from 'components/Breadcrumb';
-import { useApiUser } from 'components/Users/useApiUser';
+import { useApiUser } from 'hooks/useApiUser';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';

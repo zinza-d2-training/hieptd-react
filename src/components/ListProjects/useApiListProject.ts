@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import projectService from 'services/project';
-import userService from 'services/user';
 import { Project, Response } from 'utils/types';
 import { FilterType } from './types';
 
@@ -21,34 +20,11 @@ export const useApiListProject = () => {
                limit,
                filterData
             );
+            console.log(res);
             return res;
          } catch (e: any) {
             setLoading(false);
-            throw e.response.data.message;
-         }
-      },
-      []
-   );
-
-   const getProjectsWithMember = useCallback(
-      async (
-         id: number,
-         page: number,
-         limit: number,
-         filterData: FilterType
-      ): Promise<Response<Project[]>> => {
-         setLoading(true);
-         try {
-            setLoading(false);
-            const res = await userService.getProjects(
-               id,
-               page,
-               limit,
-               filterData
-            );
-            return res;
-         } catch (e) {
-            setLoading(false);
+            console.log(e);
             throw e;
          }
       },
@@ -58,6 +34,5 @@ export const useApiListProject = () => {
    return {
       loading,
       getAllProjects,
-      getProjectsWithMember,
    };
 };

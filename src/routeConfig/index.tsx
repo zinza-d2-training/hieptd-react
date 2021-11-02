@@ -80,15 +80,6 @@ const routes = [
          }
       }}
    />,
-   <Route
-      key="user-project"
-      path="/users/:id/projects"
-      exact
-      withAuth
-      component={ListProjects}
-      layout={Admin}
-      roles={[Role.PM, Role.Member, Role.Admin]}
-   />,
 
    <Route
       key="users"

@@ -48,85 +48,77 @@ function ProjectTable({ projects }: ProjectTableProp) {
                         <th>Member</th>
                      </tr>
                   </thead>
-                  {projects.length !== 0 && (
-                     <tbody>
-                        {projects &&
-                           projects.map((project) => (
-                              <tr key={project.id}>
-                                 <td>
-                                    <Link
-                                       to={`/projects/${project.id}/dashboard`}
-                                    >
-                                       {project.name}
-                                    </Link>
-                                 </td>
-                                 <td className="td-description">
-                                    {project.description}
-                                 </td>
-                                 <td className="td-date">{project.endDate}</td>
-                                 {currentUser?.role === Role.Admin ? (
-                                    <td>
-                                       <select
-                                          className={`${
-                                             ProjectStatus[project.status]
-                                          }`}
-                                          onChange={(e) =>
-                                             handleChangeStatus(
-                                                e,
-                                                project.status,
-                                                project.id
-                                             )
-                                          }
-                                       >
-                                          <option
-                                             value={
-                                                ProjectStatus[project.status]
-                                             }
-                                          >
-                                             {ProjectStatus[project.status]}
-                                          </option>
-                                          {Object.keys(ProjectStatus)
-                                             .filter((key) =>
-                                                isNaN(
-                                                   Number(ProjectStatus[key])
-                                                )
-                                             )
-                                             .filter(
-                                                (item) =>
-                                                   Number(item) !==
-                                                   project.status
-                                             )
-                                             .map((item, index) => (
-                                                <option key={index}>
-                                                   {ProjectStatus[item]}
-                                                </option>
-                                             ))}
-                                       </select>
-                                    </td>
-                                 ) : (
-                                    <td> {ProjectStatus[project.status]}</td>
-                                 )}
 
-                                 <td className="td-member">
-                                    {project.members?.map((member, index) => (
-                                       <Link
-                                          key={index}
-                                          to={`/users/${member.id}/details`}
+                  <tbody>
+                     {projects &&
+                        projects.map((project) => (
+                           <tr key={project.id}>
+                              <td>
+                                 <Link to={`/projects/${project.id}/dashboard`}>
+                                    {project.name}
+                                 </Link>
+                              </td>
+                              <td className="td-description">
+                                 {project.description}
+                              </td>
+                              <td>{project.endDate}</td>
+                              {currentUser?.role === Role.Admin ? (
+                                 <td>
+                                    <select
+                                       className={`${
+                                          ProjectStatus[project.status]
+                                       }`}
+                                       onChange={(e) =>
+                                          handleChangeStatus(
+                                             e,
+                                             project.status,
+                                             project.id
+                                          )
+                                       }
+                                    >
+                                       <option
+                                          value={ProjectStatus[project.status]}
                                        >
-                                          {member.username}
-                                       </Link>
-                                    ))}
+                                          {ProjectStatus[project.status]}
+                                       </option>
+                                       {Object.keys(ProjectStatus)
+                                          .filter((key) =>
+                                             isNaN(Number(ProjectStatus[key]))
+                                          )
+                                          .filter(
+                                             (item) =>
+                                                Number(item) !== project.status
+                                          )
+                                          .map((item, index) => (
+                                             <option key={index}>
+                                                {ProjectStatus[item]}
+                                             </option>
+                                          ))}
+                                    </select>
                                  </td>
-                              </tr>
-                           ))}
-                     </tbody>
-                  )}
+                              ) : (
+                                 <td> {ProjectStatus[project.status]}</td>
+                              )}
+
+                              <td className="td-member">
+                                 {project.members?.map((member, index) => (
+                                    <Link
+                                       key={index}
+                                       to={`/users/${member.id}/details`}
+                                    >
+                                       {member.username}
+                                    </Link>
+                                 ))}
+                              </td>
+                           </tr>
+                        ))}
+                     {projects.length === 0 && (
+                        <tr>
+                           <td colSpan={5}>There are no project found!</td>
+                        </tr>
+                     )}
+                  </tbody>
                </table>
-               {projects.length === 0 && (
-                  <div className="table__notfound">
-                     There are no project found!
-                  </div>
-               )}
             </div>
          )}
       </>

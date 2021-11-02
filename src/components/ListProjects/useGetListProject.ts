@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { PaginationType, Project, ProjectStatus, Role } from 'utils/types';
 import { useApiListProject } from './useApiListProject';
-
 export type ProjectFilter = {
    keyword?: string;
    endDate?: string;
@@ -18,8 +17,8 @@ export const useGetListProject = ({
    userId,
    role,
 }: UseGetListProject) => {
-   const { loading, getAllProjects, getProjectsWithMember } =
-      useApiListProject();
+   const { loading, getAllProjects } = useApiListProject();
+
    const [projects, setProjects] = useState<Project[]>([]);
    const [pagination, setPagination] = useState<PaginationType>({
       page: 1,
@@ -38,25 +37,13 @@ export const useGetListProject = ({
 
    const fetchData = async () => {
       try {
-         if (role === Role.Admin) {
-            const { data, pagination: paginationRes } = await getAllProjects(
-               pagination.page,
-               pagination.limit,
-               _filter
-            );
-            setProjects(data);
-            setPagination(paginationRes || { page: 1, limit: 10 });
-         } else {
-            const { data, pagination: paginationRes } =
-               await getProjectsWithMember(
-                  userId!,
-                  pagination.page,
-                  pagination.limit,
-                  _filter
-               );
-            setProjects(data);
-            setPagination(paginationRes || { page: 1, limit: 10 });
-         }
+         const { data, pagination: paginationRes } = await getAllProjects(
+            pagination.page,
+            pagination.limit,
+            _filter
+         );
+         setProjects(data || []);
+         setPagination(paginationRes || { page: 1, limit: 10 });
       } catch (e) {
          console.log(e);
          setProjects([]);
