@@ -39,10 +39,14 @@ function CreateProject() {
    const handleSubmitNewProject = async () => {
       const { name, client } = values;
       if (name && client && formData.pmId !== 0) {
-         const { data } = await createProject(formData);
-         if (data) {
-            toast.success('Project created successfully');
-            history.push('/projects');
+         try {
+            const { data, message } = await createProject(formData);
+            if (data) {
+               toast.success(message);
+               history.push('/projects');
+            }
+         } catch (error) {
+            toast.error(error as string);
          }
       }
    };

@@ -12,9 +12,9 @@ export const useApiCreateProject = () => {
             setLoading(false);
             const res = await projectService.createProject(project);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []

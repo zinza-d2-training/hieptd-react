@@ -22,9 +22,9 @@ export const useApiListProject = () => {
                filterData
             );
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []

@@ -12,9 +12,9 @@ export const useApiUser = () => {
          setLoading(false);
          const res = await userService.getAllUsers();
          return res;
-      } catch (e) {
+      } catch (e: any) {
          setLoading(false);
-         throw e;
+         throw e.response.data.message;
       }
    }, []);
 
@@ -29,9 +29,9 @@ export const useApiUser = () => {
             setLoading(false);
             const res = await userService.getUsers(page, limit, filterData);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []
@@ -44,9 +44,9 @@ export const useApiUser = () => {
             setLoading(false);
             const res = await userService.editUser(id, editData);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []
