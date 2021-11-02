@@ -55,7 +55,9 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
          <form onSubmit={handleSubmit}>
             {/*--- Username ---*/}
             <div className="userForm__input">
-               <label htmlFor="userForm__input-username">Username*</label>
+               <label className="required" htmlFor="userForm__input-username">
+                  Username
+               </label>
                <div className="userForm__wrap">
                   <input
                      id="userForm__input-username"
@@ -70,7 +72,9 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
             </div>
             {/*--- Email ---*/}
             <div className="userForm__input">
-               <label htmlFor="userForm__input-email">Email*</label>
+               <label className="required" htmlFor="userForm__input-email">
+                  Email
+               </label>
                <div className="userForm__wrap">
                   <input
                      id="userForm__input-email"
@@ -83,39 +87,41 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   <div className="userForm__err">{errors.email}</div>
                </div>
             </div>
-
-            {/*--- Avatar ---*/}
-
+            {/*--- firstName and lastName---- */}
             <div className="userForm__input">
-               <label htmlFor="userForm__input-avatar">Avatar</label>
+               <label className="required" htmlFor="userForm__input-name">
+                  FirstName
+               </label>
+
                <div className="userForm__wrap">
                   <input
-                     accept="image/png, image/gif, image/jpeg"
-                     id="userForm__input-avatar"
-                     type="file"
-                     onChange={(e) => handleUploadFile(e)}
+                     id="userForm__input-firstname"
+                     type="text"
+                     placeholder="First name"
+                     value={values.firstName || ''}
+                     name="firstName"
+                     onChange={handleChange}
                   />
+                  <div className="userForm__err">{errors.firstName}</div>
                </div>
             </div>
-            {/*--- image ---*/}
-            {formData?.avatar && (
-               <div className="userForm__image">
-                  {formData?.avatar.includes('/uploads') ? (
-                     <img
-                        src={`${process.env.REACT_APP_BASEURL}${formData?.avatar}`}
-                        alt="avatar"
-                     />
-                  ) : (
-                     <img src={formData?.avatar} alt="avatar" />
-                  )}
-                  <i
-                     className="fas fa-times"
-                     onClick={() => {
-                        setFormData({ ...formData, avatar: null });
-                     }}
-                  ></i>
+            {/*--- lastName---- */}
+            <div className="userForm__input">
+               <label className="required" htmlFor="userForm__input-name">
+                  LastName
+               </label>
+               <div className="userForm__wrap">
+                  <input
+                     id="userForm__input-lastname"
+                     type="text"
+                     placeholder="Last name"
+                     value={values.lastName || ''}
+                     name="lastName"
+                     onChange={handleChange}
+                  />
+                  <div className="userForm__err">{errors.lastName}</div>
                </div>
-            )}
+            </div>
 
             {/* ----dateOfBirth ------*/}
             <div className="userForm__input">
@@ -134,39 +140,17 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   />
                </div>
             </div>
-            {/*--- firstName and lastName---- */}
-            <div className="userForm__input">
-               <label htmlFor="userForm__input-name">Name*</label>
-               <div className="userForm__input-name">
-                  <div className="userForm__wrap">
-                     <input
-                        id="userForm__input-firstname"
-                        type="text"
-                        placeholder="First name"
-                        value={values.firstName || ''}
-                        name="firstName"
-                        onChange={handleChange}
-                     />
-                     <div className="userForm__err">{errors.firstName}</div>
-                  </div>
-                  <div className="userForm__wrap">
-                     <input
-                        id="userForm__input-lastname"
-                        type="text"
-                        placeholder="Last name"
-                        value={values.lastName || ''}
-                        name="lastName"
-                        onChange={handleChange}
-                     />
-                     <div className="userForm__err">{errors.lastName}</div>
-                  </div>
-               </div>
-            </div>
+
             {currentUser?.role === Role.Admin &&
                currentUser.username !== formData.username && (
                   <>
                      <div className="userForm__input">
-                        <label htmlFor="userForm__input-role">Role*</label>
+                        <label
+                           className="required"
+                           htmlFor="userForm__input-role"
+                        >
+                           Role
+                        </label>
                         <div className="userForm__wrap">
                            <select
                               value={formData?.role!}
@@ -183,7 +167,12 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                         </div>
                      </div>
                      <div className="userForm__input">
-                        <label htmlFor="userForm__input-active">Status*</label>
+                        <label
+                           className="required"
+                           htmlFor="userForm__input-active"
+                        >
+                           Status
+                        </label>
                         <div className="userForm__wrap">
                            <select
                               value={UserStatus[formData?.status!]}
@@ -201,24 +190,56 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                      </div>
                   </>
                )}
+            {/*--- Avatar ---*/}
 
-            <div className="userForm__btn">
-               <button onClick={() => history.goBack()} type="button">
-                  Cancel
-               </button>
-               <button
-                  disabled={
-                     !formData?.username ||
-                     !formData.firstName ||
-                     !formData.lastName ||
-                     !formData.email
-                  }
-                  type="submit"
-               >
-                  {id ? 'Save' : 'Create'}
-               </button>
+            <div className="userForm__input">
+               <label htmlFor="userForm__input-avatar">Avatar</label>
+               <div className="userForm__wrap">
+                  <input
+                     accept="image/png, image/gif, image/jpeg"
+                     id="userForm__input-avatar"
+                     type="file"
+                     onChange={(e) => handleUploadFile(e)}
+                  />
+               </div>
             </div>
+            {/*--- image ---*/}
+            {formData?.avatar && (
+               <div className="userForm__image">
+                  <h2>Image Preview</h2>{' '}
+                  {formData?.avatar.includes('/uploads') ? (
+                     <img
+                        src={`${process.env.REACT_APP_BASEURL}${formData?.avatar}`}
+                        alt="avatar"
+                     />
+                  ) : (
+                     <img src={formData?.avatar} alt="avatar" />
+                  )}
+                  <i
+                     className="fas fa-times"
+                     onClick={() => {
+                        setFormData({ ...formData, avatar: null });
+                     }}
+                  ></i>
+               </div>
+            )}
          </form>
+         <div className="userForm__btn">
+            <button onClick={() => history.goBack()} type="button">
+               Cancel
+            </button>
+            <button
+               disabled={
+                  !formData?.username ||
+                  !formData.firstName ||
+                  !formData.lastName ||
+                  !formData.email
+               }
+               type="submit"
+            >
+               {id ? 'Save' : 'Create'}
+            </button>
+         </div>
       </div>
    );
 }

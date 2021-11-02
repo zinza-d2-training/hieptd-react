@@ -2,38 +2,58 @@
 .projectdetail {
    width: 98%;
    padding: 10px;
-   box-shadow: $box-shadow;
 
    .projectdetail__header {
       padding: 20 0px;
-      height: 90px;
-      max-height: 90px;
+      height: 60px;
+
       .projectdetail__header-item {
          display: flex;
          align-items: center;
-         justify-content: space-between;
-         margin: 5px 0;
+         justify-content: flex-end;
+
          select {
             margin-right: 20px;
          }
       }
    }
+
    .projectdetail__body {
       padding: 20px 0;
-
       .projectdetail__tab {
-         a {
-            border-bottom-color: transparent;
-            border-top: 3px solid transparent;
-            border-left: 1px solid transparent;
-            border-right: 1px solid transparent;
-            margin-left: 10px;
-            cursor: pointer;
-            color: $text;
-            background-color: $white;
-            border-radius: 5px 5px 0 0;
-            padding: 5px 8px;
-            text-align: center;
+         display: flex;
+         background-color: $white;
+         width: 360px;
+         height: 40px;
+         margin-left: 20px;
+
+         .projectdetail__tab-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% / 3);
+            border-radius: 0;
+            border: none;
+
+            a {
+               border-top-color: transparent;
+               border-bottom: 3px solid transparent;
+               cursor: pointer;
+               color: $text;
+
+               text-align: center;
+               width: 100%;
+               padding: 10px 5px;
+               font-size: 18px;
+               font-weight: 500;
+               transition: 0.2s ease;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               img {
+                  margin-right: 3px;
+               }
+            }
          }
       }
    }
@@ -46,7 +66,7 @@
       padding: 10px 20px;
       border-radius: 5px;
       margin: 20px 10px;
-      background-color: #f2f2f2;
+      background-color: $white;
       border: 1px solid #dddd;
       color: $info;
 
@@ -122,12 +142,13 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 20px;
+   padding: 8px;
+   margin-left: 20px;
    flex-wrap: wrap;
+   background-color: $white;
    .taskFilter__item {
       display: flex;
       align-items: center;
-      margin-top: 10px;
 
       label {
          margin-left: 8px;

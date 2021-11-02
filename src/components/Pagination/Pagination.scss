@@ -3,12 +3,26 @@
 .pagination {
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-end;
    margin: 15px 0;
+   width: 372px;
+   height: 32px;
+   margin-left: calc(100% - 372px);
+
    button[disabled] {
-      background-color: $error;
+      background-color: rgba(47, 73, 209, 0.1);
       cursor: default;
       opacity: 0.5;
+   }
+   button {
+      height: 32px;
+      width: 38px;
+      left: 326px;
+      top: 0px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
    }
 
    span {
@@ -18,12 +32,13 @@
       transition: 0.3s ease;
       border: 1px solid rgba(0, 0, 0, 0.1);
       margin: 0 4px;
+      height: 32px;
       &.active {
-         background-color: $primary;
+         background-color: $active-primary;
          color: $white;
       }
       &:hover:not(.active) {
-         background-color: $secondary;
+         background-color: rgba(47, 73, 209, 0.1);
          cursor: pointer;
          color: $white;
       }

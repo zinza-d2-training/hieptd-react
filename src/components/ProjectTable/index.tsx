@@ -38,13 +38,11 @@ function ProjectTable({ projects }: ProjectTableProp) {
          />
          {projects && (
             <div className="table">
-               <h1>Projects</h1>
-
                <table>
                   <thead>
                      <tr>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th className="th-name">Name</th>
+                        <th className="th-description">Description</th>
                         <th>EndDate</th>
                         <th>Status</th>
                         <th>Member</th>
@@ -62,11 +60,16 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                        {project.name}
                                     </Link>
                                  </td>
-                                 <td>{project.description}</td>
+                                 <td className="td-description">
+                                    {project.description}
+                                 </td>
                                  <td>{project.endDate}</td>
                                  {currentUser?.role === Role.Admin ? (
                                     <td>
                                        <select
+                                          className={`${
+                                             ProjectStatus[project.status]
+                                          }`}
                                           onChange={(e) =>
                                              handleChangeStatus(
                                                 e,
@@ -110,7 +113,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                           key={index}
                                           to={`/users/${member.id}/details`}
                                        >
-                                          {member.username},{' '}
+                                          {member.username}
                                        </Link>
                                     ))}
                                  </td>

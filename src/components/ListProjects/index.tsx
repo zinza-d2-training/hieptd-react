@@ -29,11 +29,11 @@ function ListProjects() {
                { name: 'Projects', link: '/projects' },
             ]}
          />
-         <h1>ListProjects</h1>
+         <h1>Projects</h1>
+
          {projects && (
             <div className="listproject__body">
                <Filter filter={filter} handleFilter={setFilter} />
-
                <ProjectTable projects={projects} />
                <Pagination info={pagination} onChange={handlePagination} />
             </div>

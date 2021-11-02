@@ -5,32 +5,48 @@
    width: 98%;
    margin: 10px;
    padding: 10px 20px;
+   h1 {
+      text-align: center;
+   }
    form {
+      display: flex;
+      flex-wrap: wrap;
+      width: 80%;
+      margin: 0 auto;
       .userForm__input {
-         display: flex;
-         align-items: center;
-         margin-top: 30px;
-         max-width: 950px;
+         width: calc(100% / 2);
+         margin-top: 10px;
+
          .userForm__input-name {
             display: flex;
          }
          label {
-            flex: 0 20%;
-            color: $text;
-            font-size: 1rem;
-            font-weight: 600;
+            display: flex;
+            padding: 5px 0;
+            &.required {
+               color: $text;
+               font-size: 1.2rem;
+               font-weight: 500;
+               &::after {
+                  content: '*';
+                  color: $error;
+               }
+            }
          }
          .userForm__wrap {
             text-align: left;
-            margin-left: 30px;
+
             input,
             select[type='file'] {
-               min-width: 250px;
+               width: 80%;
+               min-width: 160px;
+               height: 45px;
             }
             .userForm__err {
                color: $error;
                line-height: 1.1;
                margin: 5px;
+               font-size: 13px;
             }
             .userForm__wrap-eye {
                display: flex;
@@ -58,35 +74,11 @@
             cursor: pointer;
          }
       }
-      .userForm__btn {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         margin-top: 20px;
-      }
    }
-}
-@media (max-width: 768px) {
-   .userForm__input {
-      .userForm__input-name {
-         flex-direction: column;
-         label {
-            flex: 0 20%;
-            color: $text;
-            font-size: 16px;
-            font-weight: 600;
-         }
-         .userForm__wrap {
-            .userForm__err {
-               color: $error;
-               line-height: 1;
-               margin: 5px;
-               font-size: 14px;
-            }
-         }
-         .userForm__wrap + .userForm__wrap {
-            margin-top: 20px;
-         }
-      }
+   .userForm__btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 20px;
    }
 }
