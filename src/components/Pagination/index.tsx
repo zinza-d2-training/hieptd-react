@@ -13,7 +13,7 @@ function Pagination({ info, onChange }: PaginationProps) {
 
    return (
       <>
-         {total && total > limit && (
+         {!!total && total > limit && (
             <div className="pagination">
                <button
                   type="button"

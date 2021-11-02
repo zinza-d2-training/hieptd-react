@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User, UserStatus } from 'utils/types';
 import './styles/Users.scss';
-import { useApiUser } from './useApiUser';
+import { useApiUser } from '../../hooks/useApiUser';
 import { toast } from 'react-toastify';
 interface TableUserProps {
    data: User[];

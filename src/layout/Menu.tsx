@@ -65,23 +65,12 @@ export default function Menu(props: PropsMenu) {
                      </div>
                   </NavLink>
                )}
-               {currentUser && currentUser.role === Role.Admin ? (
-                  <NavLink to={`/projects`} exact activeStyle={linkActiveStyle}>
-                     <div className="menu__option-item">
-                        <i className="fas fa-clipboard-list"></i> Projects
-                     </div>
-                  </NavLink>
-               ) : (
-                  <NavLink
-                     to={`/users/${currentUser?.id}/projects`}
-                     exact
-                     activeStyle={linkActiveStyle}
-                  >
-                     <div className="menu__option-item">
-                        <i className="fas fa-clipboard-list"></i> Projects
-                     </div>
-                  </NavLink>
-               )}
+
+               <NavLink to={`/projects`} exact activeStyle={linkActiveStyle}>
+                  <div className="menu__option-item">
+                     <i className="fas fa-clipboard-list"></i> Projects
+                  </div>
+               </NavLink>
             </div>
          </div>
       </div>
