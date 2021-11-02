@@ -155,85 +155,82 @@ function UserTable({ data, refetch }: TableUserProps) {
                   </tr>
                </thead>
                <tbody>
-                  {data.length > 0 ? (
-                     data.map((user) => (
-                        <tr key={user.id}>
-                           <td className="td-checkbox">
-                              <input
-                                 type="checkbox"
-                                 onChange={(e) =>
-                                    handleSelectRow(e, Number(user.id!))
-                                 }
-                                 checked={selectedRows.includes(
-                                    Number(user.id!)
-                                 )}
-                              />
-                           </td>
-                           <td className="td-name">
+                  {data.map((user) => (
+                     <tr key={user.id}>
+                        <td className="td-checkbox">
+                           <input
+                              type="checkbox"
+                              onChange={(e) =>
+                                 handleSelectRow(e, Number(user.id!))
+                              }
+                              checked={selectedRows.includes(Number(user.id!))}
+                           />
+                        </td>
+                        <td className="td-name">
+                           <Link
+                              to={`/users/${user.id}/details`}
+                           >{`${user.firstName} ${user.lastName}`}</Link>
+                        </td>
+                        <td>{user.email}</td>
+                        <td>{user.dateOfBirth}</td>
+                        <td>{user.role}</td>
+
+                        <td className="td-active">
+                           <select
+                              className={`${
+                                 user.status === UserStatus.active
+                                    ? 'active'
+                                    : 'inactive'
+                              }`}
+                              onChange={(e) => handleChangeActive(e, user)}
+                              value={user.status}
+                           >
+                              {user.status ? (
+                                 <>
+                                    <option value={UserStatus.active}>
+                                       Active
+                                    </option>
+                                    <option value={UserStatus.inactive}>
+                                       Inactive
+                                    </option>
+                                 </>
+                              ) : (
+                                 <>
+                                    <option value={UserStatus.inactive}>
+                                       Inactive
+                                    </option>
+                                    <option value={UserStatus.active}>
+                                       Active
+                                    </option>
+                                 </>
+                              )}
+                           </select>
+                        </td>
+
+                        <td className="user__edit">
+                           <span className="user__edit-edit">
                               <Link
-                                 to={`/users/${user.id}/details`}
-                              >{`${user.firstName} ${user.lastName}`}</Link>
-                           </td>
-                           <td>{user.email}</td>
-                           <td>{user.dateOfBirth}</td>
-                           <td>{user.role}</td>
-
-                           <td className="td-active">
-                              <select
-                                 className={`${
-                                    user.status === UserStatus.active
-                                       ? 'active'
-                                       : 'inactive'
-                                 }`}
-                                 onChange={(e) => handleChangeActive(e, user)}
-                                 value={user.status}
+                                 className="edit--link"
+                                 to={`/users/${user.id}/update`}
                               >
-                                 {user.status ? (
-                                    <>
-                                       <option value={UserStatus.active}>
-                                          Active
-                                       </option>
-                                       <option value={UserStatus.inactive}>
-                                          Inactive
-                                       </option>
-                                    </>
-                                 ) : (
-                                    <>
-                                       <option value={UserStatus.inactive}>
-                                          Inactive
-                                       </option>
-                                       <option value={UserStatus.active}>
-                                          Active
-                                       </option>
-                                    </>
-                                 )}
-                              </select>
-                           </td>
-
-                           <td className="user__edit">
-                              <span className="user__edit-edit">
-                                 <Link
-                                    className="edit--link"
-                                    to={`/users/${user.id}/update`}
-                                 >
-                                    <i className="fas fa-edit"></i>
-                                 </Link>
-                              </span>{' '}
-                              <span
-                                 onClick={() => {
-                                    setDeletingUser(user);
-                                 }}
-                                 className="user__edit-delete"
-                              >
-                                 <i className="fas fa-trash-alt"></i>
-                              </span>
-                           </td>
-                        </tr>
-                     ))
-                  ) : (
-                     <div className="table__notfound">
-                        There are no user found!
-                     </div>
+                                 <i className="fas fa-edit"></i>
+                              </Link>
+                           </span>{' '}
+                           <span
+                              onClick={() => {
+                                 setDeletingUser(user);
+                              }}
+                              className="user__edit-delete"
+                           >
+                              <i className="fas fa-trash-alt"></i>
+                           </span>
+                        </td>
+                     </tr>
+                  ))}
+                  {data.length === 0 && (
+                     <tr>
+                        <td colSpan={6}>There are no user found!</td>
+                     </tr>
                   )}
                </tbody>
             </table>

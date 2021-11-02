@@ -42,7 +42,7 @@ export const useGetListProject = ({
             pagination.limit,
             _filter
          );
-         setProjects(data);
+         setProjects(data || []);
          setPagination(paginationRes || { page: 1, limit: 10 });
       } catch (e) {
          console.log(e);
