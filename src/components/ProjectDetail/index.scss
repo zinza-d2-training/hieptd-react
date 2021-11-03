@@ -110,7 +110,7 @@
 .statuscolumn {
    display: flex;
    flex-flow: column;
-   height: 100%;
+   height: calc(100% - 20px);
    min-width: 300px;
    max-width: 300px;
    margin-left: 10px;
@@ -215,7 +215,7 @@
    .projectdetail__task-dropAndDrag {
       display: flex;
       overflow: hidden;
-      overflow-x: scroll;
+      overflow-x: auto;
       flex-grow: 1;
    }
 }
