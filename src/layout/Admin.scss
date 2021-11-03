@@ -1,20 +1,21 @@
 @import 'styles/variables';
-$menuWidth: 300px;
-$dashNavWidth: calc(100vw - 300px);
+$menuWidth: 250px;
+$dashNavWidth: calc(100vw - 250px);
 $dashNavHeight: 60px;
 
 .admin {
    .dashboard__children {
       position: relative;
-      margin-top: $dashNavHeight + 10px;
-      margin-left: $menuWidth + 10px;
+      margin-top: $dashNavHeight;
+      margin-left: $menuWidth;
       border: none;
       display: flex;
       justify-content: center;
+      background-color: $input-background;
    }
 
    .menu {
-      background: $violet;
+      background: #303c54;
       width: $menuWidth;
       height: 100vh;
       padding-top: 5px;
@@ -67,17 +68,32 @@ $dashNavHeight: 60px;
       }
       .menu__option-menu {
          margin-top: 20px;
+
          a {
-            color: white;
+            height: 56px;
+            width: 235px;
+            color: #ffffff;
+            margin: 0 auto;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            transition: all 0.3s linear;
             .menu__option-item {
                padding: 18px 24px;
                font-size: 18px;
                transition: 0.2s ease;
+               display: flex;
+               align-items: center;
+
                &:hover {
                   background-color: rgba(0, 0, 0, 0.1);
                }
 
-               i {
+               i,
+               img {
                   margin-right: 10px;
                }
             }
@@ -107,6 +123,8 @@ $dashNavHeight: 60px;
          }
          .dashboard__right {
             position: relative;
+            display: flex;
+            align-items: center;
 
             i {
                padding: 0 10px;
@@ -156,44 +174,25 @@ $dashNavHeight: 60px;
             .dashboard__user {
                top: 40px;
                border-radius: 5px;
-               height: 200px;
-               justify-content: flex-start;
+               justify-content: center;
+               align-items: center;
                &::before {
                   top: -30px;
                }
-               .dashboard__user-header {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  background: linear-gradient(
-                     250deg,
-                     rgb(62, 147, 214),
-                     rgb(138, 117, 170)
-                  );
-                  padding: 10px 0;
-                  width: 200px;
-                  height: 80px;
 
-                  img {
-                     width: 40px;
-                     height: 40px;
-                     border-radius: 50%;
-                  }
-                  .dashboard__user-name {
-                     color: $white;
-                     margin-left: 5px;
-                     font-size: 14px;
-                  }
-               }
                .dashboard__user-list {
-                  margin-top: 10px;
                   width: 100%;
                   .dashboard__user-item {
                      width: 100%;
                      text-align: start;
                      padding: 5px 10px;
                      font-size: 16px;
-                     font-weight: 400;
+                     font-weight: 500;
+                     transition: 0.2s linear;
+                     &:hover {
+                        background-color: #303c54;
+                        color: #ffff;
+                     }
                   }
                }
             }
@@ -238,6 +237,25 @@ $dashNavHeight: 60px;
             .showMess {
                &:hover .dashboard__message {
                   display: flex;
+               }
+            }
+            .dashboard__user-header {
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               cursor: pointer;
+
+               img {
+                  width: 30px;
+                  height: 30px;
+                  border-radius: 64px;
+                  object-fit: cover;
+               }
+               .dashboard__user-name {
+                  color: $text;
+                  margin-left: 5px;
+                  font-size: 14px;
+                  text-transform: uppercase;
                }
             }
          }

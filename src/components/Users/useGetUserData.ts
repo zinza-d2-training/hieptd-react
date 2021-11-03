@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { PaginationType, User } from 'utils/types';
 import { FilterType } from './types';
-import { useApiUser } from './useApiUser';
+import { useApiUser } from 'hooks/useApiUser';
 
 interface GetUsersProps {
    filter: FilterType;

@@ -1,11 +1,13 @@
-import React, { useState, useRef } from 'react';
-import { getUser } from 'utils/auth';
+import ExportUserModal from 'components/ExportUserModal';
+import { DownLoadIcon } from 'components/icons/DownLoadIcon';
+import { PlusIcon } from 'components/icons/PlusIcon';
+import { UploadIcon } from 'components/icons/UploadIcon';
+import UserImportModal from 'components/UserImportModal';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Role, UserStatus } from 'utils/types';
-import { FilterType } from './types';
 import './styles/Filter.scss';
-import UserImportModal from 'components/UserImportModal';
-import ExportUserModal from 'components/ExportUserModal';
+import { FilterType } from './types';
 
 interface FilterProps {
    filter: FilterType;
@@ -13,22 +15,24 @@ interface FilterProps {
 }
 
 function Filter({ filter, handleFilter }: FilterProps) {
-   const currentUser = getUser();
-   const [showOption, setShowOption] = useState<boolean>(false);
    const [showImportModal, setShowImportModal] = useState<boolean>(false);
    const [showExportModal, setShowExportModal] = useState<boolean>(false);
    const selectRef = useRef<HTMLSelectElement>(null);
+   const selectRoleRef = useRef<HTMLSelectElement>(null);
    //--------handle filter----------
 
    const handleClearFilter = () => {
       handleFilter({
          dob: '',
-         role: '',
+         role: undefined,
          status: undefined,
          keyword: '',
       });
       if (selectRef.current) {
          selectRef.current.selectedIndex = 0;
+      }
+      if (selectRoleRef.current) {
+         selectRoleRef.current.selectedIndex = 0;
       }
    };
 
@@ -41,7 +45,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
             <ExportUserModal onClose={() => setShowExportModal(false)} />
          )}
          <div className="filter__header">
-            <div className="filter__search">
+            <div className="filter__header-left">
                <input
                   type="text"
                   placeholder="Search"
@@ -51,36 +55,8 @@ function Filter({ filter, handleFilter }: FilterProps) {
                      handleFilter({ ...filter, keyword: e.target.value });
                   }}
                />
-            </div>
-            <div className="filter__button">
-               <button onClick={() => setShowOption(!showOption)} type="button">
-                  {showOption ? ' Hide filter' : ' Show Filter'}
-               </button>
 
-               {/* if role = admin show more options */}
-               {currentUser?.role === Role.Admin && (
-                  <div className="dropdown">
-                     <button>
-                        More actions
-                        <i className="fa fa-caret-down"></i>
-                     </button>
-                     <div className="dropdown-content">
-                        <Link to="/users/create">Create new user</Link>
-                        <div onClick={() => setShowImportModal(true)}>
-                           Import
-                        </div>
-                        <div onClick={() => setShowExportModal(true)}>
-                           Export
-                        </div>
-                     </div>
-                  </div>
-               )}
-            </div>
-         </div>
-         {showOption && (
-            <div className="filter__option">
-               <div className="filter__input">
-                  <label htmlFor="date">DateOfBirth</label>
+               <div className="filter__header-options">
                   <input
                      type="date"
                      id="date"
@@ -99,23 +75,14 @@ function Filter({ filter, handleFilter }: FilterProps) {
                         }
                      }}
                   />
-               </div>
-               <div className="filter__input">
-                  <label>Role</label>
+
                   <select
-                     ref={selectRef}
+                     ref={selectRoleRef}
                      onChange={(e) => {
-                        if (e.target.value) {
-                           handleFilter({
-                              ...filter,
-                              role: Role[e.target.value],
-                           });
-                        } else {
-                           handleFilter({
-                              ...filter,
-                              role: '',
-                           });
-                        }
+                        handleFilter({
+                           ...filter,
+                           role: Role[e.target.value],
+                        });
                      }}
                   >
                      <option value="">Role</option>
@@ -123,9 +90,7 @@ function Filter({ filter, handleFilter }: FilterProps) {
                      <option value="Admin">Admin</option>
                      <option value="PM">PM</option>
                   </select>
-               </div>
-               <div className="filter__input">
-                  <label htmlFor="check">Status</label>
+
                   <select
                      ref={selectRef}
                      onChange={(e) =>
@@ -139,13 +104,27 @@ function Filter({ filter, handleFilter }: FilterProps) {
                      <option value="active">Active</option>
                      <option value="inactive">Inactive</option>
                   </select>
+
+                  <button type="button" onClick={handleClearFilter}>
+                     Clear
+                  </button>
                </div>
-               {/* clear filter */}
-               <button type="button" onClick={handleClearFilter}>
-                  Clear filter
+            </div>
+            <div className="filter__header-right">
+               <Link to="/users/create">
+                  <PlusIcon />
+                  Add
+               </Link>
+               <button type="button" onClick={() => setShowImportModal(true)}>
+                  <UploadIcon />
+                  Import
+               </button>
+               <button type="button" onClick={() => setShowExportModal(true)}>
+                  <DownLoadIcon />
+                  Export
                </button>
             </div>
-         )}
+         </div>
       </>
    );
 }

@@ -1,10 +1,12 @@
+import { UserImport } from 'components/UserImportModal/functions';
 import { FilterType } from 'components/Users/types';
 import axiosClient from 'utils/axios';
-import { User, UserExport } from 'utils/types';
-import { UserImport } from 'components/UserImportModal/functions';
-import { Response } from 'utils/types';
+import { Response, User, UserExport } from 'utils/types';
 
 const userService = {
+   getAllUsers: (): Promise<Response<User[]>> => {
+      return axiosClient.get('/users');
+   },
    getAllUserToExport: async (): Promise<Response<UserExport[]>> =>
       await axiosClient.get('/users'),
    getUsers: async (
@@ -36,5 +38,10 @@ const userService = {
       await axiosClient.post('/users', user),
    importUser: async (users: UserImport[]): Promise<Response<User[]>> =>
       await axiosClient.post(`/users/import`, users),
+
+   deleteUsers: async (ids: number[]): Promise<Response<User[]>> =>
+      await axiosClient.delete(`/users/deleteMany`, {
+         data: ids,
+      }),
 };
 export default userService;

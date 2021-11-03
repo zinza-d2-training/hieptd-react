@@ -15,7 +15,11 @@ axiosClient.interceptors.request.use(
          };
       }
 
-      if (config.method === 'POST' || config.method === 'PUT') {
+      if (
+         config.method === 'POST' ||
+         config.method === 'PUT' ||
+         config.method === 'DELETE'
+      ) {
          config.data = qs.stringify(config.data);
          config.params = qs.stringify(config.params);
       }

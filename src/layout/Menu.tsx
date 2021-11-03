@@ -3,10 +3,18 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Role } from 'utils/types';
 import './Admin.scss';
+import dashboard from 'assets/dashboard.png';
 
 interface PropsMenu {
    classMobile: string;
 }
+
+const linkActiveStyle: React.CSSProperties = {
+   color: '#FFFFFF',
+   cursor: 'default',
+   display: 'block',
+   background: '#46546C',
+};
 
 export default function Menu(props: PropsMenu) {
    const { classMobile } = props;
@@ -34,33 +42,13 @@ export default function Menu(props: PropsMenu) {
          </div>
          <div className="menu__option">
             <div className="menu__option-menu">
-               <NavLink
-                  to="/"
-                  exact
-                  activeStyle={{
-                     color: '#fff',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     display: 'block',
-                     background: 'rgba(255,255,255,0.04)',
-                  }}
-               >
+               <NavLink to="/" exact activeStyle={linkActiveStyle}>
                   <div className="menu__option-item">
-                     <i className="fas fa-chalkboard-teacher"></i> Dashboard
+                     <img src={dashboard} alt="dashboard-icon" /> Dashboard
                   </div>
                </NavLink>
                {currentUser && currentUser.role === Role.Admin && (
-                  <NavLink
-                     to="/users"
-                     exact
-                     activeStyle={{
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        cursor: 'default',
-                        display: 'block',
-                        background: 'rgba(255,255,255,0.04)',
-                     }}
-                  >
+                  <NavLink to="/users" exact activeStyle={linkActiveStyle}>
                      <div className="menu__option-item">
                         <i className="fas fa-users"></i> Users
                      </div>
@@ -70,30 +58,15 @@ export default function Menu(props: PropsMenu) {
                   <NavLink
                      to={`/users/${currentUser.id}/details`}
                      exact
-                     activeStyle={{
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        cursor: 'default',
-                        display: 'block',
-                        background: 'rgba(255,255,255,0.04)',
-                     }}
+                     activeStyle={linkActiveStyle}
                   >
                      <div className="menu__option-item">
                         <i className="fas fa-user"></i> Detail
                      </div>
                   </NavLink>
                )}
-               <NavLink
-                  to={`/projects`}
-                  exact
-                  activeStyle={{
-                     color: '#fff',
-                     fontWeight: 'bold',
-                     cursor: 'default',
-                     display: 'block',
-                     background: 'rgba(255,255,255,0.04)',
-                  }}
-               >
+
+               <NavLink to={`/projects`} exact activeStyle={linkActiveStyle}>
                   <div className="menu__option-item">
                      <i className="fas fa-clipboard-list"></i> Projects
                   </div>

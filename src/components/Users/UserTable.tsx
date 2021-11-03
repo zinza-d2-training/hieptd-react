@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User, UserStatus } from 'utils/types';
 import './styles/Users.scss';
-import { useApiUser } from './useApiUser';
+import { useApiUser } from '../../hooks/useApiUser';
 import { toast } from 'react-toastify';
 interface TableUserProps {
    data: User[];
@@ -15,7 +15,32 @@ function UserTable({ data, refetch }: TableUserProps) {
    const [deletingUser, setDeletingUser] = useState<User | undefined>();
    const [updateUser, setUpdateUser] = useState<User | undefined>();
    const [newStatus, setNewStatus] = useState<UserStatus | undefined>();
-   const { loading, editUser, deleteUser } = useApiUser();
+   const { loading, editUser, deleteUser, deleteUsers } = useApiUser();
+   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+   const [showModalDeleteUsers, setShowModalDeleteUsers] =
+      useState<boolean>(false);
+
+   // handle multiple rows selection
+   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { checked } = e.target;
+      if (checked) {
+         setSelectedRows(data.map((user) => Number(user.id!)));
+      } else {
+         setSelectedRows([]);
+      }
+   };
+   // handle one row selection
+   const handleSelectRow = (
+      e: React.ChangeEvent<HTMLInputElement>,
+      id: number
+   ) => {
+      const { checked } = e.target;
+      if (checked) {
+         setSelectedRows([...selectedRows, id]);
+      } else {
+         setSelectedRows(selectedRows.filter((row) => row !== id));
+      }
+   };
 
    // show modal
    const handleChangeActive = (e, user: User) => {
@@ -59,6 +84,22 @@ function UserTable({ data, refetch }: TableUserProps) {
       }
    };
 
+   // handle confirm delete multiple users
+   const handleConfirmDeleteUsers = async () => {
+      if (selectedRows.length > 0) {
+         try {
+            const response = await deleteUsers(selectedRows);
+            if (response) {
+               toast.success('Delete Users successfully!');
+               setSelectedRows([]);
+               refetch(1);
+            }
+         } catch (e) {
+            toast.error(e as string);
+            console.log(e);
+         }
+      }
+   };
    if (loading) {
       return <CircleLoading />;
    }
@@ -79,11 +120,33 @@ function UserTable({ data, refetch }: TableUserProps) {
             title="Confirm Delete"
             content={`Are you sure you want to delete ?`}
          />
+         <ModalConfirm
+            show={showModalDeleteUsers}
+            onClose={() => setShowModalDeleteUsers(false)}
+            handleConfirm={() => handleConfirmDeleteUsers()}
+            title="Confirm Delete"
+            content={`Are you sure you want to delete ?`}
+         />
          <div className="table">
+            {selectedRows.length > 0 && (
+               <div className="table-select">
+                  <span>{selectedRows.length} Selected</span>
+                  <button onClick={() => setShowModalDeleteUsers(true)}>
+                     Delete
+                  </button>
+               </div>
+            )}
             <table>
                <thead>
                   <tr>
-                     <th>Name</th>
+                     <th className="th-checkbox">
+                        <input
+                           type="checkbox"
+                           onChange={handleSelectAll}
+                           checked={selectedRows.length > 0}
+                        />
+                     </th>
+                     <th className="th-name">Name</th>
                      <th>Email</th>
                      <th>DateOfBirth</th>
                      <th>Role</th>
@@ -92,66 +155,82 @@ function UserTable({ data, refetch }: TableUserProps) {
                   </tr>
                </thead>
                <tbody>
-                  {data.length > 0 ? (
-                     data.map((user) => (
-                        <tr key={user.id}>
-                           <td>
+                  {data.map((user) => (
+                     <tr key={user.id}>
+                        <td className="td-checkbox">
+                           <input
+                              type="checkbox"
+                              onChange={(e) =>
+                                 handleSelectRow(e, Number(user.id!))
+                              }
+                              checked={selectedRows.includes(Number(user.id!))}
+                           />
+                        </td>
+                        <td className="td-name">
+                           <Link
+                              to={`/users/${user.id}/details`}
+                           >{`${user.firstName} ${user.lastName}`}</Link>
+                        </td>
+                        <td>{user.email}</td>
+                        <td>{user.dateOfBirth}</td>
+                        <td>{user.role}</td>
+
+                        <td className="td-active">
+                           <select
+                              className={`${
+                                 user.status === UserStatus.active
+                                    ? 'active'
+                                    : 'inactive'
+                              }`}
+                              onChange={(e) => handleChangeActive(e, user)}
+                              value={user.status}
+                           >
+                              {user.status ? (
+                                 <>
+                                    <option value={UserStatus.active}>
+                                       Active
+                                    </option>
+                                    <option value={UserStatus.inactive}>
+                                       Inactive
+                                    </option>
+                                 </>
+                              ) : (
+                                 <>
+                                    <option value={UserStatus.inactive}>
+                                       Inactive
+                                    </option>
+                                    <option value={UserStatus.active}>
+                                       Active
+                                    </option>
+                                 </>
+                              )}
+                           </select>
+                        </td>
+
+                        <td className="user__edit">
+                           <span className="user__edit-edit">
                               <Link
-                                 to={`/users/${user.id}/details`}
-                              >{`${user.firstName} ${user.lastName}`}</Link>
-                           </td>
-                           <td>{user.email}</td>
-                           <td>{user.dateOfBirth}</td>
-                           <td>{user.role}</td>
-
-                           <td className="td-active">
-                              <select
-                                 onChange={(e) => handleChangeActive(e, user)}
-                                 value={user.status}
+                                 className="edit--link"
+                                 to={`/users/${user.id}/update`}
                               >
-                                 {user.status ? (
-                                    <>
-                                       <option value={UserStatus.active}>
-                                          Active
-                                       </option>
-                                       <option value={UserStatus.inactive}>
-                                          Inactive
-                                       </option>
-                                    </>
-                                 ) : (
-                                    <>
-                                       <option value={UserStatus.inactive}>
-                                          Inactive
-                                       </option>
-                                       <option value={UserStatus.active}>
-                                          Active
-                                       </option>
-                                    </>
-                                 )}
-                              </select>
-                           </td>
-
-                           <td className="user__edit">
-                              <span className="user__edit-edit">
-                                 <Link to={`/users/${user.id}/update`}>
-                                    <i className="fas fa-edit"></i>
-                                 </Link>
-                              </span>{' '}
-                              <span
-                                 onClick={() => {
-                                    setDeletingUser(user);
-                                 }}
-                                 className="user__edit-delete"
-                              >
-                                 <i className="fas fa-trash-alt"></i>
-                              </span>
-                           </td>
-                        </tr>
-                     ))
-                  ) : (
-                     <div className="table__notfound">
-                        There are no user found!
-                     </div>
+                                 <i className="fas fa-edit"></i>
+                              </Link>
+                           </span>{' '}
+                           <span
+                              onClick={() => {
+                                 setDeletingUser(user);
+                              }}
+                              className="user__edit-delete"
+                           >
+                              <i className="fas fa-trash-alt"></i>
+                           </span>
+                        </td>
+                     </tr>
+                  ))}
+                  {data.length === 0 && (
+                     <tr>
+                        <td colSpan={6}>There are no user found!</td>
+                     </tr>
                   )}
                </tbody>
             </table>

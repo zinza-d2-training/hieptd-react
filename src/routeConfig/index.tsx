@@ -90,6 +90,7 @@ const routes = [
       layout={Admin}
       roles={[Role.Admin]}
    />,
+
    <Route
       key="projects"
       path="/projects/create"

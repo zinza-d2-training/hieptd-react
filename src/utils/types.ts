@@ -55,6 +55,10 @@ export type Project = {
    members?: User[];
    pm?: User;
 };
+export type CreateProject = Partial<Project> & {
+   memberIds?: number[];
+   pmId?: number;
+};
 export type Task = {
    id: number;
    title: string;

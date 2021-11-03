@@ -1,9 +1,6 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 .table {
-   padding: 8px;
-   padding-bottom: 20px;
-   margin-top: 20px;
    .table__notfound {
       font-size: 20px;
       padding: 20px;
@@ -12,6 +9,20 @@
       text-align: center;
    }
    @include table;
+
+   .table-select {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      span {
+         color: $info;
+      }
+      button {
+         background-color: $error;
+      }
+   }
 }
 .tasktable__header {
    display: flex;
