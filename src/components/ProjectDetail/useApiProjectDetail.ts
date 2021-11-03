@@ -14,8 +14,8 @@ export const useApiProjectDetail = () => {
             return data;
          } catch (e: any) {
             setLoading(false);
-            console.log(e);
-            throw e;
+
+            throw e.response.data.message;
          }
       },
       []
@@ -31,8 +31,8 @@ export const useApiProjectDetail = () => {
          return res;
       } catch (e: any) {
          setLoading(false);
-         console.log(e);
-         throw e;
+
+         throw e.response.data.message;
       }
    }, []);
 

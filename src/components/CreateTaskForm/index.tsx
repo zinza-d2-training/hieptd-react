@@ -17,17 +17,10 @@ function CreateTaskForm({ onClose, currentProject }: CreateTaskFormProps) {
 
    const { loading, createTask } = useApiCreateTask();
    let data = useMemo<FormData>(() => {
-      if (currentUser?.role === Role.Member) {
-         return {
-            assignToId: +currentProject?.pm?.id!,
-            requestById: +currentUser.id!,
-            projectId: +currentProject.id!,
-         };
-      } else
-         return {
-            requestById: currentUser && +currentUser?.id!,
-            projectId: +currentProject.id!,
-         };
+      return {
+         requestById: currentUser && +currentUser?.id!,
+         projectId: +currentProject.id!,
+      };
    }, [currentUser, currentProject]);
 
    const [formData, setFormData] = useState<FormData>(data);
@@ -39,9 +32,9 @@ function CreateTaskForm({ onClose, currentProject }: CreateTaskFormProps) {
    const handleSubmitTask = async () => {
       if (formData.title && formData.assignToId && formData.dueDate) {
          try {
-            const { data } = await createTask(formData);
+            const { data, message } = await createTask(formData);
             if (data) {
-               toast.success('Task created successfully');
+               toast.success(message);
                onClose();
             }
          } catch (error) {

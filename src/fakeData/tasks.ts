@@ -215,7 +215,7 @@ export const TASKS: Task[] = [
       title: 'Task 7',
       notes: 'Task 7 of project 1 note',
       dueDate: '2021-10-09',
-      status: TaskStatus.Requesting,
+      status: TaskStatus.Completed,
       priority: Priority.Medium,
    },
    {
@@ -463,7 +463,7 @@ export const TASKS: Task[] = [
       title: 'Task 1',
       notes: 'Task 1 of project 3 note',
       dueDate: '2021-10-09',
-      status: TaskStatus.Requesting,
+      status: TaskStatus.Completed,
       priority: Priority.High,
    },
    {

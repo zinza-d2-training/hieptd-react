@@ -110,13 +110,7 @@ function TaskFilter({ filter, handleFilter, currentProject }: TaskFilterProps) {
                {currentUser?.role === Role.PM && (
                   <button type="button" onClick={() => setShowTaskForm(true)}>
                      <PlusIcon />
-                     Add a Task
-                  </button>
-               )}
-               {currentUser?.role === Role.Member && (
-                  <button type="button" onClick={() => setShowTaskForm(true)}>
-                     <PlusIcon />
-                     Request a Task
+                     Add
                   </button>
                )}
             </div>

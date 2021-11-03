@@ -15,7 +15,7 @@ export const useApiCreateTask = () => {
          } catch (e: any) {
             setLoading(false);
 
-            throw e;
+            throw e.response.data.message;
          }
       },
       []

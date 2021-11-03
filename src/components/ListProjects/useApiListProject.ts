@@ -24,8 +24,8 @@ export const useApiListProject = () => {
             return res;
          } catch (e: any) {
             setLoading(false);
-            console.log(e);
-            throw e;
+
+            throw e.response.data.message;
          }
       },
       []

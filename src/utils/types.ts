@@ -11,13 +11,13 @@ export enum Role {
    Member = 'member',
 }
 export enum TaskStatus {
-   Requesting = 1,
-   Unscheduled = 2,
-   Doing = 3,
-   Reviewing = 4,
-   Completed = 5,
-   Cancelled = 6,
+   Unscheduled = 1,
+   Doing = 2,
+   Reviewing = 3,
+   Completed = 4,
+   Cancelled = 5,
 }
+
 export enum ProjectStatus {
    Pending = 1,
    InProgress = 2,
