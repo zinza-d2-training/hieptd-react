@@ -22,7 +22,7 @@ export const useApiListProject = () => {
             );
             console.log(res);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
             console.log(e);
             throw e;

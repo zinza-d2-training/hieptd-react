@@ -223,23 +223,23 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
                   ></i>
                </div>
             )}
+            <div className="userForm__btn">
+               <button onClick={() => history.goBack()} type="button">
+                  Cancel
+               </button>
+               <button
+                  disabled={
+                     !formData?.username ||
+                     !formData.firstName ||
+                     !formData.lastName ||
+                     !formData.email
+                  }
+                  type="submit"
+               >
+                  {id ? 'Save' : 'Create'}
+               </button>
+            </div>
          </form>
-         <div className="userForm__btn">
-            <button onClick={() => history.goBack()} type="button">
-               Cancel
-            </button>
-            <button
-               disabled={
-                  !formData?.username ||
-                  !formData.firstName ||
-                  !formData.lastName ||
-                  !formData.email
-               }
-               type="submit"
-            >
-               {id ? 'Save' : 'Create'}
-            </button>
-         </div>
       </div>
    );
 }

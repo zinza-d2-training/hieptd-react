@@ -1,6 +1,6 @@
 import { FilterType } from 'components/ListProjects/types';
 import axiosClient from 'utils/axios';
-import { Project } from 'utils/types';
+import { CreateProject, Project } from 'utils/types';
 import { Response } from 'utils/types';
 
 const projectService = {
@@ -19,6 +19,12 @@ const projectService = {
       }
 
       return await axiosClient.get(`/projects?${queries}`);
+   },
+   //create project
+   createProject: async (
+      project: CreateProject
+   ): Promise<Response<Project>> => {
+      return await axiosClient.post('/projects', project);
    },
 };
 export default projectService;

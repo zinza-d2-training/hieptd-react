@@ -30,16 +30,18 @@ export const useHandleData = ({ id }: UseHandleData) => {
    });
 
    useEffect(() => {
-      const fetchUser = async (id: number) => {
-         try {
-            const { data } = await getUser(id);
-            setUser(data);
-            setFormData(data);
-         } catch (error) {
-            toast.error(error as string);
-         }
-      };
-      fetchUser(id!);
+      if (id) {
+         const fetchUser = async (id: number) => {
+            try {
+               const { data } = await getUser(id);
+               setUser(data);
+               setFormData(data);
+            } catch (error) {
+               toast.error(error as string);
+            }
+         };
+         fetchUser(id);
+      }
    }, [getUser, id]);
 
    //------------ handleSubmit --------------

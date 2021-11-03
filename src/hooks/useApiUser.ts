@@ -5,6 +5,18 @@ import { FilterType } from '../components/Users/types';
 
 export const useApiUser = () => {
    const [loading, setLoading] = useState(false);
+   const getAllUsers = useCallback(async (): Promise<Response<User[]>> => {
+      setLoading(true);
+      setLoading(true);
+      try {
+         setLoading(false);
+         const res = await userService.getAllUsers();
+         return res;
+      } catch (e: any) {
+         setLoading(false);
+         throw e.response.data.message;
+      }
+   }, []);
 
    const getUsers = useCallback(
       async (
@@ -17,9 +29,9 @@ export const useApiUser = () => {
             setLoading(false);
             const res = await userService.getUsers(page, limit, filterData);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []
@@ -32,9 +44,9 @@ export const useApiUser = () => {
             setLoading(false);
             const res = await userService.editUser(id, editData);
             return res;
-         } catch (e) {
+         } catch (e: any) {
             setLoading(false);
-            throw e;
+            throw e.response.data.message;
          }
       },
       []
@@ -68,5 +80,6 @@ export const useApiUser = () => {
       deleteUser,
       getUsers,
       deleteUsers,
+      getAllUsers,
    };
 };

@@ -1,54 +1,63 @@
 import Breadcrumb from 'components/Breadcrumb';
-import { USERS } from 'fakeData/users';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useApiUser } from 'hooks/useApiUser';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ProjectStatus, Role, User } from 'utils/types';
+import { toast } from 'react-toastify';
+import {
+   CreateProject as FormDataType,
+   ProjectStatus,
+   Role,
+   User,
+} from 'utils/types';
 import './index.scss';
 import ProjectMembersField from './ProjectMembersField';
+import { useApiCreateProject } from './useApiCreateProject';
 import { useCreateProjectForm } from './useCreateProjectForm';
-
-type ProjectFormData = {
-   id: number;
-   name: string;
-   description?: string;
-   client: string;
-   status: ProjectStatus.Pending;
-   members?: User[];
-   pm?: User;
-   startDate?: string;
-   endDate?: string;
-};
 
 function CreateProject() {
    const history = useHistory();
-   const allMemberUsers = useMemo(() => {
-      return USERS.filter((user) => user.role === Role.Member);
-   }, []);
+   const { createProject } = useApiCreateProject();
+   const { getAllUsers } = useApiUser();
+   const [users, setUsers] = useState<User[]>([]);
 
-   const [formData, setFormData] = useState<ProjectFormData>({
-      id: 1,
+   useEffect(() => {
+      const fetchUsers = async () => {
+         const { data } = await getAllUsers();
+         setUsers(data || []);
+      };
+      fetchUsers();
+   }, [getAllUsers]);
+
+   const [formData, setFormData] = useState<FormDataType>({
       name: '',
-      description: '',
       client: '',
-      status: ProjectStatus.Pending,
+      status: 1,
+      pmId: undefined,
    });
 
    //------------ handleSubmit --------------
-   const handleSubmitNewProject = () => {
+   const handleSubmitNewProject = async () => {
       const { name, client } = values;
-      if (name && client) {
-         alert(JSON.stringify(formData));
-         resetForm();
+      if (name && client && formData.pmId !== 0) {
+         try {
+            const { data, message } = await createProject(formData);
+            if (data) {
+               toast.success(message);
+               history.push('/projects');
+            }
+         } catch (error) {
+            toast.error(error as string);
+         }
       }
    };
 
-   const { values, errors, handleChange, handleSubmit, resetForm } =
-      useCreateProjectForm(handleSubmitNewProject);
+   const { values, errors, handleChange, handleSubmit } = useCreateProjectForm(
+      handleSubmitNewProject
+   );
 
-   const handleSelectPm = (e) => {
+   const handleSelectPm = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const id = Number(e.target.value);
-      const user = USERS.find((user) => user.id === id);
-      setFormData({ ...formData, pm: user! });
+      setFormData({ ...formData, pmId: id! });
    };
 
    // onChange fields
@@ -100,28 +109,13 @@ function CreateProject() {
                   <div className="createproject__errr">{errors.client}</div>
                </div>
             </div>
-            <div className="createproject__item">
-               <label>Description</label>
-               <div className="createproject__item-wrap">
-                  <textarea
-                     name="description"
-                     rows={5}
-                     cols={40}
-                     value={values.description || ''}
-                     onChange={handleChange}
-                  />
-                  <div className="createproject__errr">
-                     {errors.description}
-                  </div>
-               </div>
-            </div>
 
             <div className="createproject__item">
                <label>StartDate</label>
                <input
                   type="date"
                   name="startDate"
-                  value={values.startDate || ''}
+                  value={values.startDate || formData.startDate}
                   onChange={(e) =>
                      setFormData({ ...formData, startDate: e.target.value })
                   }
@@ -132,7 +126,7 @@ function CreateProject() {
                <input
                   type="date"
                   name="endDate"
-                  value={values.endDate || ''}
+                  value={values.endDate || formData.endDate}
                   onChange={(e) =>
                      setFormData({ ...formData, endDate: e.target.value })
                   }
@@ -142,8 +136,8 @@ function CreateProject() {
             <div className="createproject__item">
                <label className="required">PM</label>
                <select onChange={(e) => handleSelectPm(e)}>
-                  <option value="">PM</option>
-                  {USERS.map(
+                  <option>Select PM</option>
+                  {users.map(
                      (user) =>
                         user.role === Role.PM && (
                            <option
@@ -160,28 +154,42 @@ function CreateProject() {
                   onChange={(e) =>
                      setFormData({
                         ...formData,
-                        status: Number(e.target.value),
+                        status: e.target.value as unknown as ProjectStatus,
                      })
                   }
                >
-                  <option value={ProjectStatus.Pending}>
-                     {ProjectStatus[ProjectStatus.Pending]}
-                  </option>
-                  <option value={ProjectStatus.InProgress}>
-                     {ProjectStatus[ProjectStatus.InProgress]}
-                  </option>
+                  <option value={ProjectStatus.Pending}>Pending</option>
+                  <option value={ProjectStatus.InProgress}>InProgress</option>
+                  <option value={ProjectStatus.Completed}>Completed</option>
+                  <option value={ProjectStatus.Cancelled}>Cancelled</option>
                </select>
             </div>
-
-            <div className="createproject__item ">
-               <label>Members</label>
+            <div className="createproject__item">
+               <label>Description</label>
+               <div className="createproject__item-wrap">
+                  <textarea
+                     name="description"
+                     rows={5}
+                     cols={40}
+                     value={values.description || ''}
+                     onChange={handleChange}
+                  />
+                  <div className="createproject__errr">
+                     {errors.description}
+                  </div>
+               </div>
+            </div>
+            <div className="createproject__members">
+               <h3>Select member</h3>
                <ProjectMembersField
-                  allUsers={allMemberUsers}
-                  value={formData.members || []}
+                  allUsers={users.filter((user) => user.role === Role.Member)}
+                  value={users.filter((user) =>
+                     formData.memberIds?.includes(user.id!)
+                  )}
                   onChange={(members: User[]) => {
                      setFormData({
                         ...formData,
-                        members,
+                        memberIds: members.map((user) => user.id!),
                      });
                   }}
                />
@@ -195,7 +203,7 @@ function CreateProject() {
                      !values.name ||
                      !values.client ||
                      !formData.status ||
-                     !formData.pm
+                     !formData.pmId
                   }
                   type="submit"
                >

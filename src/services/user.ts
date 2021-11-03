@@ -4,6 +4,9 @@ import axiosClient from 'utils/axios';
 import { Response, User, UserExport } from 'utils/types';
 
 const userService = {
+   getAllUsers: (): Promise<Response<User[]>> => {
+      return axiosClient.get('/users');
+   },
    getAllUserToExport: async (): Promise<Response<UserExport[]>> =>
       await axiosClient.get('/users'),
    getUsers: async (

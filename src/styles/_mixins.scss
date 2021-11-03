@@ -85,6 +85,11 @@
                &.th-name {
                   min-width: 100px;
                }
+               &.th-description {
+                  min-width: 120px;
+
+                  word-break: break-word;
+               }
                &.th-checkbox {
                   width: 20px;
                   input {
@@ -119,14 +124,15 @@
                width: 100px;
                position: relative;
                &.td-description {
-                  min-width: 300px;
+                  min-width: 200px;
+               }
+               &.td-date {
+                  min-width: 100px;
                }
                &.td-name {
                   min-width: 100px;
                }
-               &.th-description {
-                  min-width: 120px;
-               }
+
                &.td-checkbox {
                   width: 20px;
                   input {

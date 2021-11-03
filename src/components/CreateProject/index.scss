@@ -2,13 +2,14 @@
 .createproject {
    background: $background;
    box-shadow: $box-shadow;
-   width: 98%;
-   padding: 15px;
+   padding: 20px;
    form {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 20px;
       .createproject__item {
-         display: flex;
-         align-items: center;
-         margin: 20px 0;
+         width: calc(100% / 2 - 10px);
+         margin-top: 30px;
 
          textarea {
             outline: none;
@@ -17,21 +18,19 @@
          }
 
          label {
-            min-width: 120px;
-            position: relative;
+            display: flex;
+            padding: 10px 0;
             font-weight: 600;
             &.required::after {
                content: '*';
-               position: absolute;
-               top: 0;
                color: red;
-               padding-left: 5px;
             }
          }
          .createproject__item-wrap {
             .createproject__errr {
                color: $error;
                padding: 5px;
+               font-size: 13px;
             }
          }
       }
@@ -40,10 +39,25 @@
             width: 300px;
          }
       }
-      .createproject__btn {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
+   }
+   .createproject__members {
+      padding: 0 20px;
+      flex: 0 100%;
+   }
+   .createproject__btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 20px 0;
+      flex: 0 100%;
+   }
+}
+@media (max-width: 730px) {
+   .createproject {
+      form {
+         .createproject__item {
+            width: 100%;
+         }
       }
    }
 }
