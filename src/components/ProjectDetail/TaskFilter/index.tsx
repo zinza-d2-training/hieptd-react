@@ -7,6 +7,7 @@ import '../index.scss';
 import { categories } from '../TaskListBoard/index';
 import { textFromTaskStatus } from './functions';
 import CreateTaskForm from 'components/CreateTaskForm';
+import { PlusIcon } from 'components/icons/PlusIcon';
 
 interface TaskFilterProps {
    filter: TasksFilter;
@@ -108,11 +109,13 @@ function TaskFilter({ filter, handleFilter, projectId }: TaskFilterProps) {
             <div className="taskFilter__item">
                {currentUser?.role === Role.PM && (
                   <button type="button" onClick={() => setShowTaskForm(true)}>
+                     <PlusIcon />
                      Add a Task
                   </button>
                )}
                {currentUser?.role === Role.Member && (
                   <button type="button" onClick={() => setShowTaskForm(true)}>
+                     <PlusIcon />
                      Request a Task
                   </button>
                )}

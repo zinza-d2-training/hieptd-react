@@ -149,6 +149,10 @@
    .taskFilter__item {
       display: flex;
       align-items: center;
+      button {
+         display: flex;
+         align-items: center;
+      }
 
       label {
          margin-left: 8px;

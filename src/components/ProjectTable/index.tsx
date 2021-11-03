@@ -54,7 +54,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
                         projects.map((project) => (
                            <tr key={project.id}>
                               <td>
-                                 <Link to={`/projects/${project.id}/dashboard`}>
+                                 <Link to={`/projects/${project.id}/tasks`}>
                                     {project.name}
                                  </Link>
                               </td>
