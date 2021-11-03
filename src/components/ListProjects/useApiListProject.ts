@@ -20,7 +20,7 @@ export const useApiListProject = () => {
                limit,
                filterData
             );
-            console.log(res);
+
             return res;
          } catch (e: any) {
             setLoading(false);

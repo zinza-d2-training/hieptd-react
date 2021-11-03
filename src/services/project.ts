@@ -5,9 +5,9 @@ import { Response } from 'utils/types';
 
 const projectService = {
    getProjects: async (
-      page: number,
-      limit: number,
-      filterData: FilterType
+      page?: number,
+      limit?: number,
+      filterData?: FilterType
    ): Promise<Response<Project[]>> => {
       let queries = `page=${page}&limit=${limit}&`;
       if (filterData) {
@@ -25,6 +25,10 @@ const projectService = {
       project: CreateProject
    ): Promise<Response<Project>> => {
       return await axiosClient.post('/projects', project);
+   },
+   // get project by id
+   getProjectById: async (id: number): Promise<Response<Project>> => {
+      return await axiosClient.get(`/projects/${id}`);
    },
 };
 export default projectService;

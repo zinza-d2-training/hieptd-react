@@ -71,6 +71,10 @@ export type Task = {
    priority: Priority;
    sequence?: number;
 };
+export type CreateTask = Partial<Task> & {
+   assignToId?: number;
+   requestById?: number;
+};
 export type Report = {
    id: number;
    title: string;

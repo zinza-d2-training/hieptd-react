@@ -1,52 +1,52 @@
-import { PROJECTS } from 'fakeData/projects';
-import { USERS } from 'fakeData/users';
+import CircleLoading from 'components/Loading/CircleLoading';
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useEffect, useMemo, useState } from 'react';
-import { getUser } from 'utils/auth';
-import { Project, Role, User } from 'utils/types';
+import { toast } from 'react-toastify';
+import { CreateTask as FormData, Project, Role } from 'utils/types';
 import './index.scss';
+import { useApiCreateTask } from './useApiCreateTask';
 import { useCreateTaskForm } from './useCreateTaskForm';
 
 interface CreateTaskFormProps {
    onClose: () => void;
-   projectId: number;
+   currentProject: Project;
 }
-type FormData = {
-   title: string;
-   notes?: string;
-   assign?: User;
-   requestByUser?: User;
-   dueDate?: string;
-};
 
-function CreateTaskForm({ onClose, projectId }: CreateTaskFormProps) {
-   const currentUser = getUser();
+function CreateTaskForm({ onClose, currentProject }: CreateTaskFormProps) {
+   const { user: currentUser } = useCurrentUser();
 
-   const currentProject = useMemo<Project>(
-      () => PROJECTS.find((project) => project.id === projectId)!,
-      [projectId]
-   );
-
+   const { loading, createTask } = useApiCreateTask();
    let data = useMemo<FormData>(() => {
       if (currentUser?.role === Role.Member) {
          return {
-            title: '',
-            assign: currentProject.pm,
-            requestByUser: currentUser,
+            assignToId: +currentProject?.pm?.id!,
+            requestById: +currentUser.id!,
+            projectId: +currentProject.id!,
          };
-      } else {
+      } else
          return {
-            title: '',
-            requestByUser: currentUser,
+            requestById: currentUser && +currentUser?.id!,
+            projectId: +currentProject.id!,
          };
-      }
-   }, [currentUser, currentProject.pm]);
+   }, [currentUser, currentProject]);
 
    const [formData, setFormData] = useState<FormData>(data);
+   useEffect(() => {
+      setFormData(data);
+   }, [data]);
 
    // handle submit
-   const handleSubmitTask = () => {
-      if (formData.title) {
-         alert(JSON.stringify(formData));
+   const handleSubmitTask = async () => {
+      if (formData.title && formData.assignToId && formData.dueDate) {
+         try {
+            const { data } = await createTask(formData);
+            if (data) {
+               toast.success('Task created successfully');
+               onClose();
+            }
+         } catch (error) {
+            toast.error(error as string);
+         }
       }
    };
 
@@ -58,6 +58,7 @@ function CreateTaskForm({ onClose, projectId }: CreateTaskFormProps) {
       // eslint-disable-next-line
    }, [values]);
 
+   if (loading) return <CircleLoading />;
    return (
       <div className="createTaskForm">
          <div className="createTaskForm__overlay"></div>
@@ -91,23 +92,22 @@ function CreateTaskForm({ onClose, projectId }: CreateTaskFormProps) {
                </div>
                {currentUser?.role === Role.PM && (
                   <div className="createTaskForm__item">
-                     <label>Assignee</label>
+                     <label className="required">Assignee</label>
                      <div className="createTaskForm__wrap">
                         <select
                            onChange={(e) => {
                               if (e.target.value) {
                                  setFormData({
                                     ...formData,
-                                    assign: USERS.find(
-                                       (user) =>
-                                          user.id === Number(e.target.value)
-                                    ),
+                                    assignToId: Number(e.target.value),
                                  });
                               }
                            }}
                         >
+                           <option value="">Select member in project</option>
                            {currentProject?.members?.map((member) => (
                               <option
+                                 key={member.id}
                                  value={member.id}
                               >{`${member.lastName} ${member.email}`}</option>
                            ))}
@@ -117,12 +117,12 @@ function CreateTaskForm({ onClose, projectId }: CreateTaskFormProps) {
                )}
                {currentUser?.role === Role.Member && (
                   <div className="createTaskForm__item">
-                     <label> Assignee</label>{' '}
-                     <div className="createTaskForm__wrap">{`${currentProject.pm?.firstName} ${currentProject.pm?.lastName}-${currentProject.pm?.email}`}</div>
+                     <label className="required"> Assignee</label>{' '}
+                     <div className="createTaskForm__wrap">{`${currentProject?.pm?.firstName} ${currentProject?.pm?.lastName}-${currentProject?.pm?.email}`}</div>
                   </div>
                )}
                <div className="createTaskForm__item">
-                  <label>Due date</label>
+                  <label className="required">Due date</label>
                   <div className="createTaskForm__wrap">
                      <input
                         type="date"
@@ -134,7 +134,14 @@ function CreateTaskForm({ onClose, projectId }: CreateTaskFormProps) {
                   </div>
                </div>
                <div className="createTaskForm__btn">
-                  <button disabled={formData.title === undefined} type="submit">
+                  <button
+                     disabled={
+                        !formData.title ||
+                        !formData.dueDate ||
+                        !formData.assignToId
+                     }
+                     type="submit"
+                  >
                      Create
                   </button>
                   <button type="button" onClick={() => onClose()}>

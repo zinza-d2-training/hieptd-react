@@ -1,7 +1,7 @@
 import MultipleSelect from 'components/MultipleSelect';
 import React, { useState } from 'react';
 import { getUser } from 'utils/auth';
-import { Priority, Role, TaskStatus } from 'utils/types';
+import { Priority, Project, Role, TaskStatus } from 'utils/types';
 import { TasksFilter } from '../ProjectTasks';
 import '../index.scss';
 import { categories } from '../TaskListBoard/index';
@@ -12,14 +12,14 @@ import { PlusIcon } from 'components/icons/PlusIcon';
 interface TaskFilterProps {
    filter: TasksFilter;
    handleFilter: (filter: TasksFilter) => void;
-   projectId: number;
+   currentProject: Project;
 }
 export type TaskStatusOption = {
    text: string;
    value: TaskStatus;
 };
 
-function TaskFilter({ filter, handleFilter, projectId }: TaskFilterProps) {
+function TaskFilter({ filter, handleFilter, currentProject }: TaskFilterProps) {
    const currentUser = getUser();
    const [showTaskForm, setShowTaskForm] = useState<boolean>(false);
 
@@ -38,7 +38,7 @@ function TaskFilter({ filter, handleFilter, projectId }: TaskFilterProps) {
          {' '}
          {showTaskForm && (
             <CreateTaskForm
-               projectId={projectId}
+               currentProject={currentProject}
                onClose={() => setShowTaskForm(false)}
             />
          )}{' '}
