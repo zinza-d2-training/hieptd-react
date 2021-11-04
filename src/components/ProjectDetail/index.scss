@@ -180,7 +180,6 @@
 }
 // ------- taskItem
 .taskItem {
-   display: block;
    padding: 5px;
    border: 1px solid rgb(157, 204, 219);
    border-radius: 5px;
@@ -188,35 +187,78 @@
    margin-right: 10px;
    box-shadow: 0px 1px 5px -2px rgba(94, 163, 187, 0.72);
    background-color: $background;
+   position: relative;
+   .__react_component_tooltip {
+      max-width: 170px;
+      word-wrap: break-word;
+   }
 
    &:active {
       border: 1px solid $error;
    }
-   .taskItem__title {
+   .taskItem__title,
+   .taskItem__note {
+      display: block;
       padding: 5px;
       font-size: 14px;
-      line-height: 1.5;
+      font-weight: 500;
+      color: $text;
+      text-align: left;
+      position: relative;
+      height: 34px;
+      max-width: calc(100% - 80px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap;
+      transition: 0.2s ease;
+      z-index: 999;
+
       i {
          font-weight: 600;
          opacity: 0.8;
       }
    }
-   .taskItem__note,
-   .taskItem__member {
-      font-size: 14px;
-      line-height: 1.5;
-      margin-left: 20px;
-   }
-   .taskItem__member {
-      margin-top: 2px;
-      small {
-         font-size: 12px;
+
+   .taskItem__note {
+      display: block;
+      max-width: calc(100% - 20px);
+      color: $active-primary;
+
+      i {
+         font-weight: 600;
+         opacity: 0.8;
       }
-      a {
-         color: $primary;
-         &:hover {
-            text-decoration: underline;
+   }
+
+   .taskItem__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      img {
+         width: 30px;
+         height: 30px;
+         border-radius: 64px;
+         object-fit: cover;
+      }
+      .task__dueDate {
+         font-size: 14px;
+         i {
+            margin-left: 5px;
          }
+      }
+      .task__High,
+      .task__Medium {
+         border-radius: 5px;
+         width: 33px;
+         height: 11px;
+      }
+      .task__Medium {
+         background-color: $primary;
+      }
+      .task__High {
+         background-color: $error;
       }
    }
 }
@@ -225,7 +267,7 @@
    margin-top: 20px;
    display: flex;
    flex-direction: column;
-   height: calc(100vh - 240px);
+   height: calc(100vh - 220px);
 
    .projectdetail__task-dropAndDrag {
       display: flex;
