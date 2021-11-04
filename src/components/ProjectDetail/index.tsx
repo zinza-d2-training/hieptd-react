@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import './index.scss';
 import ProjectTasks from './ProjectTasks';
-import { useGetProjectDetail } from './useGetProjectDetail';
+import { useGetProjectDetail } from './useGetData/useGetProjectDetail';
 
 interface ProjectDetailProps {
    id: number;
@@ -14,13 +14,13 @@ function ProjectDetail({ id }: ProjectDetailProps) {
    const history = useHistory();
 
    const { projects, currentProject, loading, getProjects, getProject } =
-      useGetProjectDetail();
+      useGetProjectDetail(id);
 
    useEffect(() => {
       getProjects();
-      getProject(id);
+      getProject();
       // eslint-disable-next-line
-   }, []);
+   }, [id]);
    if (loading) return <CircleLoading />;
    return (
       <div className="projectdetail">

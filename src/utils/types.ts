@@ -24,9 +24,9 @@ export enum ProjectStatus {
    Completed = 3,
    Cancelled = 4,
 }
-export enum Priority {
-   High = 'high',
-   Medium = 'medium',
+export enum TaskPriority {
+   High = 1,
+   Medium = 2,
 }
 export enum UserStatus {
    inactive = 0,
@@ -63,12 +63,12 @@ export type Task = {
    id: number;
    title: string;
    notes?: string;
-   assign?: User;
+   assignTo?: User;
    projectId: number;
    requestByUser: User;
    dueDate: string;
    status: TaskStatus;
-   priority: Priority;
+   priority: TaskPriority;
    sequence?: number;
 };
 export type CreateTask = Partial<Task> & {

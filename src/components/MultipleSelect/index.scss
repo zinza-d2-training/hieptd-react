@@ -17,8 +17,12 @@
          background-color: #f2f2f2;
          border: none;
          border-radius: 5px;
-         padding: 10px;
-         font-size: 16px;
+         padding: 14px 10px;
+         font-size: 15px;
+         width: 100%;
+         &:hover {
+            background-color: #e6e6e6;
+         }
 
          i {
             padding: 0 5px;
@@ -28,8 +32,8 @@
 
    .multipleSelect__list {
       position: absolute;
-      top: 35px;
-      width: 200px;
+      top: 45px;
+      width: 220px;
       background-color: $background;
       box-shadow: $box-shadow;
       z-index: 99;
@@ -43,8 +47,8 @@
          margin: 5px 0;
 
          &.selected {
-            color: red;
-            background-color: rgba(158, 141, 141, 0.5);
+            color: $white;
+            background-color: $info;
          }
       }
    }

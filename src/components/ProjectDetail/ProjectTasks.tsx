@@ -1,35 +1,36 @@
-import { TASKS } from 'fakeData/tasks';
-import React, { useMemo, useState } from 'react';
-import { Priority, Project, TaskStatus } from 'utils/types';
+import React, { useEffect, useState } from 'react';
+import { Project, TaskPriority, TaskStatus } from 'utils/types';
 import './index.scss';
 import TaskFilter from './TaskFilter';
-import { useGetTaskListByFilter } from './TaskFilter/useGetTaskListFilter';
 import TaskListBoard from './TaskListBoard';
+import { useGetTasksInProject } from './useGetData/useGetTaskInProject';
+
 interface TasksProps {
    currentProject: Project;
 }
 export type TasksFilter = {
-   search: string;
-   assignTo: boolean;
-   createBy: boolean;
-   statuses: TaskStatus[];
-   priority: Priority | null;
+   keyword?: string;
+   assignToId?: number;
+   requestById?: number;
+   statuses: TaskStatus[] | [];
+   priority?: TaskPriority;
 };
 
 function ProjectTasks({ currentProject }: TasksProps) {
-   const allTasks = useMemo(
-      () => TASKS.filter((task) => task.projectId === 1),
-      []
-   );
+   const [filter, setFilter] = useState<TasksFilter>({ statuses: [] });
 
-   const [filter, setFilter] = useState<TasksFilter>({
-      search: '',
-      assignTo: true,
-      createBy: false,
-      statuses: [],
-      priority: null,
+   const { tasks, getTasksInProject } = useGetTasksInProject({
+      projectId: currentProject?.id,
+      filter,
    });
-   const { tasksFilter } = useGetTaskListByFilter(filter, allTasks);
+
+   // check props change and get data
+   useEffect(() => {
+      if (currentProject?.id) {
+         getTasksInProject();
+      }
+      // eslint-disable-next-line
+   }, [currentProject?.id, filter]);
 
    return (
       <div className="projectdetail__task">
@@ -38,7 +39,7 @@ function ProjectTasks({ currentProject }: TasksProps) {
             filter={filter}
             handleFilter={setFilter}
          />
-         <TaskListBoard tasks={tasksFilter} />
+         <TaskListBoard tasks={tasks!} />
       </div>
    );
 }

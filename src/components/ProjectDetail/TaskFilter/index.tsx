@@ -1,7 +1,7 @@
 import MultipleSelect from 'components/MultipleSelect';
 import React, { useState } from 'react';
 import { getUser } from 'utils/auth';
-import { Priority, Project, Role, TaskStatus } from 'utils/types';
+import { TaskPriority, Project, Role, TaskStatus } from 'utils/types';
 import { TasksFilter } from '../ProjectTasks';
 import '../index.scss';
 import { categories } from '../TaskListBoard/index';
@@ -43,76 +43,82 @@ function TaskFilter({ filter, handleFilter, currentProject }: TaskFilterProps) {
             />
          )}{' '}
          <div className="taskFilter">
-            <div className="taskFilter__item">
-               <label htmlFor="taskFilter-search"></label>
-               <input
-                  id="taskFilter-search"
-                  type="text"
-                  placeholder="Search"
-                  value={filter.search}
-                  onChange={(e) =>
-                     handleFilter({ ...filter, search: e.target.value })
-                  }
-               />
-            </div>
-            <div className="taskFilter__item">
-               <input
-                  id="taskFilter-checkbox"
-                  type="checkbox"
-                  checked={filter.assignTo}
-                  onChange={(e) =>
-                     handleFilter({ ...filter, assignTo: e.target.checked })
-                  }
-               />
-               <label htmlFor="taskFilter-checkbox">Assign to me</label>
-            </div>
-            <div className="taskFilter__item">
-               <input
-                  id="taskFilter-checkbox-2"
-                  type="checkbox"
-                  checked={filter.createBy}
-                  onChange={(e) => {
-                     handleFilter({ ...filter, createBy: e.target.checked });
-                  }}
-               />
-               <label htmlFor="taskFilter-checkbox-2">Create by me</label>
-            </div>{' '}
-            <div className="taskFilter__item">
-               <MultipleSelect
-                  title={'Statues'}
-                  value={filter.statuses}
-                  options={options}
-                  onChange={handleMultipleStatus}
-               />
-            </div>
-            <div className="taskFilter__item">
-               <select
-                  onChange={(e) => {
-                     if (e.target.value) {
-                        handleFilter({
-                           ...filter,
-                           priority: e.target.value as Priority,
-                        });
-                     } else {
-                        handleFilter({
-                           ...filter,
-                           priority: null,
-                        });
+            <div className="taskFilter__left">
+               {' '}
+               <div className="taskFilter__item">
+                  <label htmlFor="taskFilter-search"></label>
+                  <input
+                     id="taskFilter-search"
+                     type="text"
+                     placeholder="Search"
+                     value={filter.keyword}
+                     onChange={(e) =>
+                        handleFilter({ ...filter, keyword: e.target.value })
                      }
-                  }}
-               >
-                  <option value="">Priority</option>
-                  <option value={Priority.High}>High</option>
-                  <option value={Priority.Medium}>Medium</option>
-               </select>
+                  />
+               </div>
+               <div className="taskFilter__item">
+                  <input
+                     type="checkbox"
+                     onChange={(e) => {
+                        if (e.target.checked) {
+                           handleFilter({
+                              ...filter,
+                              assignToId: currentUser?.id,
+                           });
+                        } else {
+                           handleFilter({
+                              ...filter,
+                              assignToId: undefined,
+                           });
+                        }
+                     }}
+                  />
+                  <label>Assign to me</label>
+               </div>
+               <div className="taskFilter__item">
+                  <MultipleSelect
+                     title={'Statues'}
+                     value={filter.statuses!}
+                     options={options}
+                     onChange={handleMultipleStatus}
+                  />
+               </div>
+               <div className="taskFilter__item">
+                  <select
+                     onChange={(e) => {
+                        if (e.target.value) {
+                           handleFilter({
+                              ...filter,
+                              priority: e.target
+                                 .value as unknown as TaskPriority,
+                           });
+                        } else {
+                           handleFilter({
+                              ...filter,
+                              priority: undefined,
+                           });
+                        }
+                     }}
+                  >
+                     <option value="">Priority</option>
+                     <option value={TaskPriority.High}>High</option>
+                     <option value={TaskPriority.Medium}>Medium</option>
+                  </select>
+               </div>
             </div>
-            <div className="taskFilter__item">
-               {currentUser?.role === Role.PM && (
-                  <button type="button" onClick={() => setShowTaskForm(true)}>
-                     <PlusIcon />
-                     Add
-                  </button>
-               )}
+            <div className="taskFilter__right">
+               <div className="taskFilter__item">
+                  {currentUser?.role === Role.PM && (
+                     <button
+                        type="button"
+                        onClick={() => setShowTaskForm(true)}
+                     >
+                        <PlusIcon />
+                        Add
+                     </button>
+                  )}
+               </div>
             </div>
          </div>
       </>

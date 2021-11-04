@@ -1,91 +1,20 @@
 @import 'styles/variables';
 .projectdetail {
-   width: 98%;
+   width: 100%;
    padding: 10px;
 
    .projectdetail__header {
-      padding: 20 0px;
-      height: 60px;
-
       .projectdetail__header-item {
          display: flex;
          align-items: center;
          justify-content: flex-end;
-
          select {
             margin-right: 20px;
          }
       }
    }
-
-   .projectdetail__body {
-      padding: 20px 0;
-      .projectdetail__tab {
-         display: flex;
-         background-color: $white;
-         width: 360px;
-         height: 40px;
-         margin-left: 20px;
-
-         .projectdetail__tab-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: calc(100% / 3);
-            border-radius: 0;
-            border: none;
-
-            a {
-               border-top-color: transparent;
-               border-bottom: 3px solid transparent;
-               cursor: pointer;
-               color: $text;
-
-               text-align: center;
-               width: 100%;
-               padding: 10px 5px;
-               font-size: 18px;
-               font-weight: 500;
-               transition: 0.2s ease;
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               img {
-                  margin-right: 3px;
-               }
-            }
-         }
-      }
-   }
 }
-// -------------projectdetail__dashboard
-.projectdetail__dashboard {
-   padding: 5px 10px;
-   .projectdetail__dashboard-info {
-      width: 300px;
-      padding: 10px 20px;
-      border-radius: 5px;
-      margin: 20px 10px;
-      background-color: $white;
-      border: 1px solid #dddd;
-      color: $info;
 
-      h2 {
-         font-weight: 500;
-      }
-      span {
-         font-size: 2rem;
-         font-weight: 500;
-      }
-      progress[value] {
-         width: 100%;
-         height: 20px;
-      }
-      p {
-         font-size: 16px;
-      }
-   }
-}
 // -----------projectdetail__report
 .projectdetail__report {
    padding: 10px 20px;
@@ -142,13 +71,29 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 8px;
+   padding: 2px 2px 10px 2px;
    margin-left: 20px;
    flex-wrap: wrap;
    background-color: $white;
+   border-radius: 4px;
+   .taskFilter__left {
+      display: flex;
+      flex-wrap: wrap;
+   }
+   .taskFilter__right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-grow: 1;
+   }
    .taskFilter__item {
       display: flex;
       align-items: center;
+      & + .taskFilter__item {
+         margin-left: 20px;
+      }
+
+      margin-top: 15px;
       button {
          display: flex;
          align-items: center;
@@ -165,7 +110,6 @@
 }
 // ------- taskItem
 .taskItem {
-   display: block;
    padding: 5px;
    border: 1px solid rgb(157, 204, 219);
    border-radius: 5px;
@@ -173,44 +117,87 @@
    margin-right: 10px;
    box-shadow: 0px 1px 5px -2px rgba(94, 163, 187, 0.72);
    background-color: $background;
+   position: relative;
+   .__react_component_tooltip {
+      max-width: 170px;
+      word-wrap: break-word;
+   }
 
    &:active {
       border: 1px solid $error;
    }
-   .taskItem__title {
+   .taskItem__title,
+   .taskItem__note {
+      display: block;
       padding: 5px;
       font-size: 14px;
-      line-height: 1.5;
+      font-weight: 500;
+      color: $text;
+      text-align: left;
+      position: relative;
+      height: 34px;
+      max-width: calc(100% - 80px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap;
+      transition: 0.2s ease;
+      z-index: 999;
+
       i {
          font-weight: 600;
          opacity: 0.8;
       }
    }
-   .taskItem__note,
-   .taskItem__member {
-      font-size: 14px;
-      line-height: 1.5;
-      margin-left: 20px;
-   }
-   .taskItem__member {
-      margin-top: 2px;
-      small {
-         font-size: 12px;
+
+   .taskItem__note {
+      display: block;
+      max-width: calc(100% - 20px);
+      color: $active-primary;
+
+      i {
+         font-weight: 600;
+         opacity: 0.8;
       }
-      a {
-         color: $primary;
-         &:hover {
-            text-decoration: underline;
+   }
+
+   .taskItem__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      img {
+         width: 30px;
+         height: 30px;
+         border-radius: 64px;
+         object-fit: cover;
+      }
+      .task__dueDate {
+         font-size: 14px;
+         i {
+            margin-left: 5px;
          }
+      }
+      .task__High,
+      .task__Medium {
+         border-radius: 5px;
+         width: 33px;
+         height: 11px;
+      }
+      .task__Medium {
+         background-color: $primary;
+      }
+      .task__High {
+         background-color: $error;
       }
    }
 }
 //-------projectdetail__task
 .projectdetail__task {
-   margin-top: 20px;
+   margin-top: 10px;
    display: flex;
    flex-direction: column;
-   height: calc(100vh - 240px);
+   height: calc(100vh - 170px);
 
    .projectdetail__task-dropAndDrag {
       display: flex;
