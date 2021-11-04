@@ -33,20 +33,14 @@ function ProjectTasks({ currentProject }: TasksProps) {
    }, [currentProject?.id, filter]);
 
    return (
-      <>
-         {tasks && tasks.length > 0 ? (
-            <div className="projectdetail__task">
-               <TaskFilter
-                  currentProject={currentProject}
-                  filter={filter}
-                  handleFilter={setFilter}
-               />
-               <TaskListBoard tasks={tasks!} />
-            </div>
-         ) : (
-            <div>There are no task in the projects</div>
-         )}
-      </>
+      <div className="projectdetail__task">
+         <TaskFilter
+            currentProject={currentProject}
+            filter={filter}
+            handleFilter={setFilter}
+         />
+         <TaskListBoard tasks={tasks!} />
+      </div>
    );
 }
 
