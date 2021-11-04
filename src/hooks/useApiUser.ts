@@ -57,9 +57,9 @@ export const useApiUser = () => {
          setLoading(false);
          const res = await userService.deleteUSer(id);
          return res;
-      } catch (e) {
+      } catch (e: any) {
          setLoading(false);
-         throw e;
+         throw e.response.data.message;
       }
    }, []);
    const deleteUsers = useCallback(async (ids: number[]) => {
@@ -68,9 +68,9 @@ export const useApiUser = () => {
          setLoading(false);
          const res = await userService.deleteUsers(ids);
          return res;
-      } catch (e) {
+      } catch (e: any) {
          setLoading(false);
-         throw e;
+         throw e.response.data.message;
       }
    }, []);
 

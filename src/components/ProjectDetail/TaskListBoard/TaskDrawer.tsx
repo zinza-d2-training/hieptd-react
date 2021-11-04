@@ -206,7 +206,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                         <label>Status</label>
                         <select
                            disabled={
-                              task.status === TaskStatus.Requesting || !canEdit
+                              task.status === TaskStatus.Unscheduled || !canEdit
                            }
                            onChange={(e) => {
                               if (e.target.value) {
@@ -263,20 +263,6 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                )}
             </div>
          </form>
-         {task.status === TaskStatus.Requesting &&
-            currentUser?.role === Role.PM && (
-               <div className="taskDrawer__option-btn">
-                  <button type="button" onClick={() => alert('Approve task')}>
-                     Approve
-                  </button>
-                  <button
-                     className="taskDrawer__btn-reject"
-                     onClick={() => alert('Reject task')}
-                  >
-                     Reject
-                  </button>
-               </div>
-            )}
       </div>
    );
 }

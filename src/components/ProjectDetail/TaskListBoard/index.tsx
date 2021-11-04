@@ -10,7 +10,6 @@ interface TaskListBoardProp {
    tasks: Task[];
 }
 export const categories = [
-   TaskStatus.Requesting,
    TaskStatus.Unscheduled,
    TaskStatus.Doing,
    TaskStatus.Reviewing,

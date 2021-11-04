@@ -20,12 +20,12 @@ export const useApiListProject = () => {
                limit,
                filterData
             );
-            console.log(res);
+
             return res;
          } catch (e: any) {
             setLoading(false);
-            console.log(e);
-            throw e;
+
+            throw e.response.data.message;
          }
       },
       []

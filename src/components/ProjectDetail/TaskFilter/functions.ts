@@ -8,8 +8,6 @@ export const textFromTaskStatus = (status: TaskStatus): string => {
          return 'Completed';
       case TaskStatus.Doing:
          return 'Doing';
-      case TaskStatus.Requesting:
-         return 'Requesting';
       case TaskStatus.Reviewing:
          return 'Reviewing';
       case TaskStatus.Unscheduled:
