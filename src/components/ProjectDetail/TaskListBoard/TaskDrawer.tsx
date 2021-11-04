@@ -15,7 +15,7 @@ interface TaskDrawerProps {
 type FormValue = {
    title?: string;
    notes?: string;
-   assign?: User;
+   assignTo?: User;
    status?: TaskStatus;
    dueDate?: string;
 };
@@ -29,7 +29,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
    const canEdit = useMemo<boolean | undefined>(
       () =>
          currentUser &&
-         (task.assign?.id === currentUser.id ||
+         (task.assignTo === currentUser.id ||
             task.requestByUser.id === currentUser.id),
       [task, currentUser]
    );
@@ -161,7 +161,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                               if (e.target.value) {
                                  setFormData({
                                     ...formData,
-                                    assign: USERS.find(
+                                    assignTo: USERS.find(
                                        (user) =>
                                           user.id === Number(e.target.value)
                                     ),
@@ -246,8 +246,8 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                         <strong>Assign to</strong>
 
                         <Link
-                           to={`/users/${task.assign?.id}/details`}
-                        >{` ${task.assign?.firstName} ${task.assign?.lastName}`}</Link>
+                           to={`/users/${task.assignTo?.id}/details`}
+                        >{` ${task.assignTo?.firstName} ${task.assignTo?.lastName}`}</Link>
                      </div>
                      <div className="taskDrawer__option-item-info">
                         <strong>Due Date</strong>

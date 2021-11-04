@@ -142,13 +142,28 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 8px;
+   padding: 8px 8px 20px 8px;
    margin-left: 20px;
    flex-wrap: wrap;
    background-color: $white;
+   .taskFilter__left {
+      display: flex;
+      flex-wrap: wrap;
+   }
+   .taskFilter__right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-grow: 1;
+   }
    .taskFilter__item {
       display: flex;
       align-items: center;
+      & + .taskFilter__item {
+         margin-left: 20px;
+      }
+
+      margin-top: 15px;
       button {
          display: flex;
          align-items: center;

@@ -28,7 +28,7 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
    useEffect(() => {
       let lists: TasksMap = {};
       categories.forEach((column) => {
-         lists[column] = tasks.filter((task) => task.status === column);
+         lists[column] = tasks?.filter((task) => task.status === column);
       });
 
       setTasksMap(lists);

@@ -22,7 +22,7 @@ function MultipleSelect<T>({
          value: T;
       }[]
    >(() => {
-      return options.filter((option) => value.includes(option.value));
+      return options.filter((option) => value?.includes(option.value));
    }, [options, value]);
 
    const handleSelectItem = (item: { text: string; value: T }) => {
@@ -65,7 +65,7 @@ function MultipleSelect<T>({
                   <div
                      key={index}
                      className={`multipleSelect__item ${
-                        value.includes(item.value) ? 'selected' : ''
+                        value?.includes(item.value) ? 'selected' : ''
                      }`}
                      onClick={() => handleSelectItem(item)}
                   >

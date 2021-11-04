@@ -50,8 +50,9 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
             tasks: TASKS.filter((task) => {
                return currentUser.role === Role.Member
                   ? currentUser.id === id &&
-                       (task.assign?.id === id || task.requestByUser.id === id)
-                  : task.assign?.id === id || task.requestByUser.id === id;
+                       (task.assignTo?.id === id ||
+                          task.requestByUser.id === id)
+                  : task.assignTo?.id === id || task.requestByUser.id === id;
             }),
          };
       }

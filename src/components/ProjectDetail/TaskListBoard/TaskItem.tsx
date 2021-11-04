@@ -46,11 +46,19 @@ function TaskItem({ task, index }: TaskItemProp) {
                      <div className="taskItem__note">{task.notes}</div>
                      <div className="taskItem__member">
                         <small>
+                           <i className="far fa-address-card"></i> Assign to
+                        </small>
+                        <Link
+                           to={`/users/${task.assignTo?.id}/details`}
+                        >{` ${task.assignTo?.firstName} ${task.assignTo?.lastName}`}</Link>
+                     </div>
+                     <div className="taskItem__member">
+                        <small>
                            <i className="far fa-address-card"></i> Create by
                         </small>
                         <Link
-                           to={`/users/${task.assign?.id}/details`}
-                        >{` ${task.assign?.firstName} ${task.assign?.lastName}`}</Link>
+                           to={`/users/${task.requestByUser?.id}/details`}
+                        >{` ${task.requestByUser?.firstName} ${task.requestByUser?.lastName}`}</Link>
                      </div>
                   </div>
                );

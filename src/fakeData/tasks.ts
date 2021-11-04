@@ -1,12 +1,11 @@
-import { Task, TaskStatus, Priority, Role, UserStatus } from 'utils/types';
+import { Task, TaskStatus, TaskPriority, Role, UserStatus } from 'utils/types';
 
 export const TASKS: Task[] = [
    {
       id: 1,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
-
          firstName: 'Nguyễn',
          lastName: 'Hà',
          email: 'hellozinza6@gmail.com',
@@ -30,11 +29,11 @@ export const TASKS: Task[] = [
       notes: 'Task 1 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 2,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -61,11 +60,11 @@ export const TASKS: Task[] = [
       notes: 'Task 2 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 3,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -92,11 +91,11 @@ export const TASKS: Task[] = [
       notes: 'Task 3 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 4,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -123,11 +122,11 @@ export const TASKS: Task[] = [
       notes: 'Task 4 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 5,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -154,11 +153,11 @@ export const TASKS: Task[] = [
       notes: 'Task 5 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Doing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 6,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -185,11 +184,11 @@ export const TASKS: Task[] = [
       notes: 'Task 6 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 7,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -216,11 +215,11 @@ export const TASKS: Task[] = [
       notes: 'Task 7 of project 1 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 1,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -247,11 +246,11 @@ export const TASKS: Task[] = [
       notes: 'Task 1 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Doing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 2,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -278,11 +277,11 @@ export const TASKS: Task[] = [
       notes: 'Task 2 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 3,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -309,11 +308,11 @@ export const TASKS: Task[] = [
       notes: 'Task 3 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 4,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -340,11 +339,11 @@ export const TASKS: Task[] = [
       notes: 'Task 4 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Doing,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 5,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -371,11 +370,11 @@ export const TASKS: Task[] = [
       notes: 'Task 5 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 6,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -402,11 +401,11 @@ export const TASKS: Task[] = [
       notes: 'Task 6 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 7,
-      assign: {
+      assignTo: {
          id: 8,
          username: 'member8',
 
@@ -433,11 +432,11 @@ export const TASKS: Task[] = [
       notes: 'Task 7 of project 2 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 1,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -464,11 +463,11 @@ export const TASKS: Task[] = [
       notes: 'Task 1 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 2,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -495,11 +494,11 @@ export const TASKS: Task[] = [
       notes: 'Task 2 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 3,
-      assign: {
+      assignTo: {
          id: 8,
          username: 'member8',
 
@@ -526,11 +525,11 @@ export const TASKS: Task[] = [
       notes: 'Task 3 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 4,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -557,11 +556,11 @@ export const TASKS: Task[] = [
       notes: 'Task 4 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 5,
-      assign: {
+      assignTo: {
          id: 8,
          username: 'member8',
 
@@ -588,11 +587,11 @@ export const TASKS: Task[] = [
       notes: 'Task 5 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 6,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -619,11 +618,11 @@ export const TASKS: Task[] = [
       notes: 'Task 6 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 7,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -650,11 +649,11 @@ export const TASKS: Task[] = [
       notes: 'Task 7 of project 3 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 1,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -681,11 +680,11 @@ export const TASKS: Task[] = [
       notes: 'Task 1 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 2,
-      assign: {
+      assignTo: {
          id: 4,
          username: 'projectmanager3',
 
@@ -712,11 +711,11 @@ export const TASKS: Task[] = [
       notes: 'Task 2 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 3,
-      assign: {
+      assignTo: {
          id: 4,
          username: 'projectmanager3',
 
@@ -743,11 +742,11 @@ export const TASKS: Task[] = [
       notes: 'Task 3 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Doing,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 4,
-      assign: {
+      assignTo: {
          id: 7,
          username: 'member3',
 
@@ -774,11 +773,11 @@ export const TASKS: Task[] = [
       notes: 'Task 4 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 5,
-      assign: {
+      assignTo: {
          id: 6,
          username: 'member2',
 
@@ -805,11 +804,11 @@ export const TASKS: Task[] = [
       notes: 'Task 5 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Doing,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 6,
-      assign: {
+      assignTo: {
          id: 4,
          username: 'projectmanager3',
 
@@ -836,11 +835,11 @@ export const TASKS: Task[] = [
       notes: 'Task 6 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 7,
-      assign: {
+      assignTo: {
          id: 4,
          username: 'projectmanager3',
 
@@ -867,11 +866,11 @@ export const TASKS: Task[] = [
       notes: 'Task 7 of project 4 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 1,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -898,11 +897,11 @@ export const TASKS: Task[] = [
       notes: 'Task 1 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 2,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -929,11 +928,11 @@ export const TASKS: Task[] = [
       notes: 'Task 2 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Unscheduled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 3,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -960,11 +959,11 @@ export const TASKS: Task[] = [
       notes: 'Task 3 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 4,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -991,11 +990,11 @@ export const TASKS: Task[] = [
       notes: 'Task 4 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Completed,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
    {
       id: 5,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -1022,11 +1021,11 @@ export const TASKS: Task[] = [
       notes: 'Task 5 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Cancelled,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 6,
-      assign: {
+      assignTo: {
          id: 5,
          username: 'member1',
 
@@ -1053,11 +1052,11 @@ export const TASKS: Task[] = [
       notes: 'Task 6 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.Medium,
+      priority: TaskPriority.Medium,
    },
    {
       id: 7,
-      assign: {
+      assignTo: {
          id: 9,
          username: 'member9',
 
@@ -1084,6 +1083,6 @@ export const TASKS: Task[] = [
       notes: 'Task 7 of project 5 note',
       dueDate: '2021-10-09',
       status: TaskStatus.Reviewing,
-      priority: Priority.High,
+      priority: TaskPriority.High,
    },
 ];
