@@ -1,5 +1,4 @@
 import { useForm } from 'hooks';
-import { nonAccentVietnameses } from 'utils/convert';
 
 export const useCreateTaskForm = (handleCreateTask: () => void) => {
    return useForm({
@@ -10,9 +9,7 @@ export const useCreateTaskForm = (handleCreateTask: () => void) => {
             validate: (value: string) => {
                if (!value || value.length === 0) {
                   return 'Title is required';
-               } else if (
-                  !/^[A-Za-z\s]{2,20}$/.test(nonAccentVietnameses(value))
-               ) {
+               } else if (value.length > 20 || value.length < 2) {
                   return 'Invalid  title, at least 2, max 20 characters required';
                }
                return null;
@@ -24,9 +21,7 @@ export const useCreateTaskForm = (handleCreateTask: () => void) => {
             validate: (value: string) => {
                if (value.length === 0) {
                   return null;
-               } else if (
-                  !/^[A-Za-z\s]{10,200}$/.test(nonAccentVietnameses(value))
-               ) {
+               } else if (value.length > 200 || value.length < 10) {
                   return 'Invalid note, at least 10,  max 200 characters required';
                }
                return null;
