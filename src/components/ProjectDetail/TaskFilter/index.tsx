@@ -13,13 +13,19 @@ interface TaskFilterProps {
    filter: TasksFilter;
    handleFilter: (filter: TasksFilter) => void;
    currentProject: Project;
+   reFetch: () => void;
 }
 export type TaskStatusOption = {
    text: string;
    value: TaskStatus;
 };
 
-function TaskFilter({ filter, handleFilter, currentProject }: TaskFilterProps) {
+function TaskFilter({
+   filter,
+   handleFilter,
+   currentProject,
+   reFetch,
+}: TaskFilterProps) {
    const currentUser = getUser();
    const [showTaskForm, setShowTaskForm] = useState<boolean>(false);
 
@@ -40,6 +46,7 @@ function TaskFilter({ filter, handleFilter, currentProject }: TaskFilterProps) {
             <CreateTaskForm
                currentProject={currentProject}
                onClose={() => setShowTaskForm(false)}
+               reFetchTaskList={reFetch}
             />
          )}{' '}
          <div className="taskFilter">

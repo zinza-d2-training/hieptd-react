@@ -1,6 +1,8 @@
+import CircleLoading from 'components/Loading/CircleLoading';
 import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Task, TaskStatus } from 'utils/types';
+import { useApiTask } from '../useApi/useApiTasksInProject';
 import StatusColumn from './StatusColumn';
 
 interface TasksMap {
@@ -8,6 +10,7 @@ interface TasksMap {
 }
 interface TaskListBoardProp {
    tasks: Task[];
+   reFetch: () => void;
 }
 export const categories = [
    TaskStatus.Unscheduled,
@@ -17,13 +20,9 @@ export const categories = [
    TaskStatus.Cancelled,
 ];
 
-function TaskListBoard({ tasks }: TaskListBoardProp) {
+function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
    const [tasksMap, setTasksMap] = useState<TasksMap>({});
-
-   // add sequence of tasks
-   function addSequence(listTasks: Task[]) {
-      listTasks.forEach((task, index) => (task.sequence = index));
-   }
+   const { loading, updateTaskStatusAndSequence } = useApiTask();
 
    useEffect(() => {
       let lists: TasksMap = {};
@@ -34,8 +33,9 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       setTasksMap(lists);
    }, [tasks]);
 
-   const onDragEnd = (result) => {
+   const onDragEnd = async (result) => {
       const { destination, source, draggableId } = result;
+
       if (!destination) {
          return;
       }
@@ -51,38 +51,43 @@ function TaskListBoard({ tasks }: TaskListBoardProp) {
       const endDes = TaskStatus[destination.droppableId];
 
       let newListTasks = { ...tasksMap };
+
       // find the task dragging
       let task = newListTasks[startDes].find(
-         (item) => item.id === Number(draggableId)
+         (item) => Number(item.id) === Number(draggableId)
       );
+
       if (task) {
          // in column
          if (startDes === endDes) {
-            newListTasks[startDes].splice(source.index, 1);
-            newListTasks[startDes].splice(destination.index, 0, task);
-            addSequence(newListTasks[startDes]);
-            addSequence(newListTasks[endDes]);
+            const sequence = Number(destination.index) + 1;
+            await updateTaskStatusAndSequence(task.id, {
+               status: endDes as unknown as TaskStatus,
+               sequence,
+            });
+            reFetch();
          }
 
          //to another column
          else {
-            task.status = Number(endDes) as TaskStatus;
-            newListTasks[endDes].splice(destination.index, 0, task);
-            newListTasks[startDes] = newListTasks[startDes].filter(
-               (item) => item !== task
-            );
-            addSequence(newListTasks[startDes]);
-            addSequence(newListTasks[endDes]);
+            const sequence = Number(destination.index) + 1;
+            await updateTaskStatusAndSequence(task.id, {
+               status: endDes as unknown as TaskStatus,
+               sequence,
+            });
+            reFetch();
          }
-         setTasksMap(newListTasks);
       }
    };
+
+   if (loading) return <CircleLoading />;
 
    return (
       <div className="projectdetail__task-dropAndDrag">
          <DragDropContext onDragEnd={onDragEnd}>
             {categories.map((item, index) => (
                <StatusColumn
+                  reFetch={reFetch}
                   key={index}
                   category={item}
                   tasks={tasksMap[item]}

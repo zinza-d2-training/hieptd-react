@@ -1,38 +1,43 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { getUser } from 'utils/auth';
-import { Role, Task, TaskStatus, User } from 'utils/types';
-import { USERS } from 'fakeData/users';
-import { categories } from './index';
+import CircleLoading from 'components/Loading/CircleLoading';
+import { useCurrentUser } from 'hooks/useCurrentUser';
+import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Role, Task, TaskPriority, TaskStatus, User } from 'utils/types';
+import { useApiTask } from '../useApi/useApiTasksInProject';
+import { useGetProjectDetail } from '../useGetData/useGetProjectDetail';
 import { useTaskDrawerForm } from './useTaskDrawerForm';
-import { textFromTaskStatus } from '../TaskFilter/functions';
-import { Link } from 'react-router-dom';
 
 interface TaskDrawerProps {
    task: Task;
    onClose: () => void;
+   reFetch: () => void;
 }
-
-type FormValue = {
+const taskPriority = [TaskPriority.High, TaskPriority.Medium];
+export type FormValue = {
    title?: string;
    notes?: string;
    assignTo?: User;
+   assignToId?: number;
    status?: TaskStatus;
    dueDate?: string;
+   priority?: TaskPriority;
 };
-function TaskDrawer({ task, onClose }: TaskDrawerProps) {
-   const currentUser = getUser();
+function TaskDrawer({ task, onClose, reFetch }: TaskDrawerProps) {
+   const { user: currentUser } = useCurrentUser();
    const [showTitleInput, setShowTitleInput] = useState<boolean>(false);
    const titleInputRef = useRef<HTMLInputElement>(null);
    const [showTextArea, setShowTextArea] = useState<boolean>(false);
    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-   const canEdit = useMemo<boolean | undefined>(
-      () =>
-         currentUser &&
-         (task.assignTo === currentUser.id ||
-            task.requestByUser.id === currentUser.id),
-      [task, currentUser]
-   );
+   const { currentProject, getProject } = useGetProjectDetail(task.projectId);
+   const { loading, updateTask } = useApiTask();
+
+   useEffect(() => {
+      if (task.projectId) {
+         getProject();
+      }
+      // eslint-disable-next-line
+   }, [task]);
 
    const [formData, setFormData] = useState<FormValue>({
       title: task.title,
@@ -41,8 +46,17 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
    });
 
    //handle update
-   const handleUpdateTask = () => {
-      canEdit && alert(JSON.stringify(formData));
+   const handleUpdateTask = async () => {
+      try {
+         const { data } = await updateTask(task.id, formData);
+         if (data) {
+            toast.success('Task updated successfully');
+            onClose();
+            reFetch();
+         }
+      } catch (error) {
+         toast.error(error as string);
+      }
    };
    const { values, errors, handleChange, handleSubmit, setValues } =
       useTaskDrawerForm(handleUpdateTask);
@@ -96,6 +110,7 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
       // eslint-disable-next-line
    }, [values]);
 
+   if (loading) return <CircleLoading />;
    return (
       <div className="taskDrawer">
          <form onSubmit={handleSubmit}>
@@ -110,14 +125,14 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                ) : (
                   <div className="taskDrawer__title-text">{formData.title}</div>
                )}
-               {canEdit && !showTitleInput && (
-                  <i
-                     className="fas fa-edit"
-                     onClick={() => {
-                        setShowTitleInput(true);
-                     }}
-                  ></i>
-               )}
+
+               <i
+                  className="fas fa-edit"
+                  onClick={() => {
+                     setShowTitleInput(true);
+                  }}
+               ></i>
+
                <i onClick={() => onClose()} className="fas fa-times"></i>
             </div>
             <div className="taskDrawer__err">{errors.title}</div>
@@ -139,128 +154,94 @@ function TaskDrawer({ task, onClose }: TaskDrawerProps) {
                      <strong> Notes:</strong> <br /> {formData.notes}
                   </div>
                )}
-               {canEdit && !showTextArea && (
-                  <i
-                     className="fas fa-edit"
-                     onClick={() => {
-                        setShowTextArea(true);
-                     }}
-                  ></i>
-               )}
+
+               <i
+                  className="fas fa-edit"
+                  onClick={() => {
+                     setShowTextArea(true);
+                  }}
+               ></i>
             </div>
             <div className="taskDrawer__err">{errors.notes}</div>
             <div className="taskDrawer__option">
-               {canEdit ? (
-                  <>
-                     {' '}
-                     <div className="taskDrawer__option-item">
-                        <label>Assignee</label>
-                        <select
-                           disabled={currentUser?.role === Role.Member}
-                           onChange={(e) => {
-                              if (e.target.value) {
-                                 setFormData({
-                                    ...formData,
-                                    assignTo: USERS.find(
-                                       (user) =>
-                                          user.id === Number(e.target.value)
-                                    ),
-                                 });
-                              }
-                           }}
-                        >
-                           {currentUser?.role === Role.Member &&
-                              USERS.filter(
-                                 (user) => user.role === Role.Member
-                              ).map((user) => (
-                                 <option
-                                    key={user.id}
-                                    value={user.id}
-                                 >{`${user.lastName} ${user.email}`}</option>
-                              ))}
-                           {currentUser?.role === Role.PM &&
-                              USERS.filter((user) => user.role === Role.PM).map(
-                                 (user) => (
-                                    <option
-                                       key={user.id}
-                                       value={user.id}
-                                    >{`${user.lastName} ${user.email}`}</option>
-                                 )
-                              )}
-                        </select>
-                     </div>
-                     <div className="taskDrawer__option-item">
-                        <label>Due date</label>
-                        <input
-                           value={formData.dueDate}
-                           onChange={(e) =>
+               <>
+                  {' '}
+                  <div className="taskDrawer__option-item">
+                     <label>Assign To</label>
+                     <select
+                        disabled={currentUser?.role === Role.Member}
+                        onChange={(e) => {
+                           if (e.target.value) {
                               setFormData({
                                  ...formData,
-                                 dueDate: e.target.value,
-                              })
+                                 assignToId: Number(e.target.value),
+                              });
                            }
-                           type="date"
-                        />
-                     </div>
-                     <div className="taskDrawer__option-item">
-                        <label>Status</label>
-                        <select
-                           disabled={
-                              task.status === TaskStatus.Unscheduled || !canEdit
+                        }}
+                     >
+                        {currentProject &&
+                           currentProject?.members?.map((user) => (
+                              <option
+                                 key={user.id}
+                                 value={user.id}
+                              >{`${user.lastName} ${user.email}`}</option>
+                           ))}
+                     </select>
+                  </div>
+                  <div className="taskDrawer__option-item">
+                     <label>Due date</label>
+                     <input
+                        value={formData.dueDate}
+                        onChange={(e) =>
+                           setFormData({
+                              ...formData,
+                              dueDate: e.target.value,
+                           })
+                        }
+                        type="date"
+                     />
+                  </div>
+                  <div className="taskDrawer__option-item">
+                     <label>Priority</label>
+                     <select
+                        onChange={(e) => {
+                           if (e.target.value) {
+                              setFormData({
+                                 ...formData,
+                                 priority: Number(
+                                    e.target.value
+                                 ) as TaskPriority,
+                              });
                            }
-                           onChange={(e) => {
-                              if (e.target.value) {
-                                 setFormData({
-                                    ...formData,
-                                    status: Number(
-                                       e.target.value
-                                    ) as TaskStatus,
-                                 });
-                              }
-                           }}
-                        >
-                           {categories.map((category) => (
-                              <option value={category}>
-                                 {textFromTaskStatus(category)}
+                        }}
+                     >
+                        <option value={task.priority}>
+                           {TaskPriority[task.priority]}
+                        </option>
+
+                        {taskPriority
+                           .filter((item) => item !== task.priority)
+                           .map((priority) => (
+                              <option value={priority}>
+                                 {TaskPriority[priority]}
                               </option>
                            ))}
-                        </select>
-                     </div>
-                     <div className="taskDrawer__option-btn">
-                        <button
-                           disabled={Object.keys(formData).every(
-                              (key) => task[key] === formData[key]
-                           )}
-                           type="submit"
-                        >
-                           Update
-                        </button>
-                        <button type="button" onClick={() => onClose()}>
-                           Cancel
-                        </button>
-                     </div>
-                  </>
-               ) : (
-                  <>
-                     <div className="taskDrawer__option-item-info">
-                        <strong>Assign to</strong>
-
-                        <Link
-                           to={`/users/${task.assignTo?.id}/details`}
-                        >{` ${task.assignTo?.firstName} ${task.assignTo?.lastName}`}</Link>
-                     </div>
-                     <div className="taskDrawer__option-item-info">
-                        <strong>Due Date</strong>
-
-                        <span>{task.dueDate}</span>
-                     </div>
-                     <div className="taskDrawer__option-item-info">
-                        <strong>Status</strong>
-
-                        <span>{textFromTaskStatus(task.status)}</span>
-                     </div>
-                  </>
-               )}
+                     </select>
+                  </div>
+                  <div className="taskDrawer__option-btn">
+                     <button
+                        disabled={Object.keys(formData).every(
+                           (key) => task[key] === formData[key]
+                        )}
+                        type="submit"
+                     >
+                        Update
+                     </button>
+                     <button type="button" onClick={() => onClose()}>
+                        Cancel
+                     </button>
+                  </div>
+               </>
             </div>
          </form>
       </div>
