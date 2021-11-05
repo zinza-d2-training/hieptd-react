@@ -60,23 +60,30 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
       if (task) {
          // in column
          if (startDes === endDes) {
+            newListTasks[startDes].splice(source.index, 1);
+            newListTasks[startDes].splice(destination.index, 0, task);
             const sequence = Number(destination.index) + 1;
             await updateTaskStatusAndSequence(task.id, {
                status: endDes as unknown as TaskStatus,
                sequence,
             });
-            reFetch();
          }
 
          //to another column
          else {
+            task.status = Number(endDes) as TaskStatus;
+            newListTasks[endDes].splice(destination.index, 0, task);
+            newListTasks[startDes] = newListTasks[startDes].filter(
+               (item) => item !== task
+            );
             const sequence = Number(destination.index) + 1;
             await updateTaskStatusAndSequence(task.id, {
                status: endDes as unknown as TaskStatus,
                sequence,
             });
-            reFetch();
          }
+
+         reFetch();
       }
    };
 
