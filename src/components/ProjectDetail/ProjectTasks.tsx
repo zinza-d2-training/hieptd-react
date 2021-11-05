@@ -24,6 +24,10 @@ function ProjectTasks({ currentProject }: TasksProps) {
       filter,
    });
 
+   const reFetch = async () => {
+      await getTasksInProject();
+   };
+
    // check props change and get data
    useEffect(() => {
       if (currentProject?.id) {
@@ -38,8 +42,9 @@ function ProjectTasks({ currentProject }: TasksProps) {
             currentProject={currentProject}
             filter={filter}
             handleFilter={setFilter}
+            reFetch={reFetch}
          />
-         <TaskListBoard tasks={tasks!} />
+         <TaskListBoard reFetch={reFetch} tasks={tasks!} />
       </div>
    );
 }

@@ -10,9 +10,14 @@ import { useCreateTaskForm } from './useCreateTaskForm';
 interface CreateTaskFormProps {
    onClose: () => void;
    currentProject: Project;
+   reFetchTaskList: () => void;
 }
 
-function CreateTaskForm({ onClose, currentProject }: CreateTaskFormProps) {
+function CreateTaskForm({
+   onClose,
+   currentProject,
+   reFetchTaskList,
+}: CreateTaskFormProps) {
    const { user: currentUser } = useCurrentUser();
 
    const { loading, createTask } = useApiCreateTask();
@@ -36,6 +41,7 @@ function CreateTaskForm({ onClose, currentProject }: CreateTaskFormProps) {
             if (data) {
                toast.success(message);
                onClose();
+               reFetchTaskList();
             }
          } catch (error) {
             toast.error(error as string);

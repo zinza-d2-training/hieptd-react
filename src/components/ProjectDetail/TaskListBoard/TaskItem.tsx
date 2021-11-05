@@ -12,14 +12,19 @@ import ReactTooltip from 'react-tooltip';
 interface TaskItemProp {
    task: Task;
    index: number;
+   reFetch: () => void;
 }
 
-function TaskItem({ task, index }: TaskItemProp) {
+function TaskItem({ task, index, reFetch }: TaskItemProp) {
    const [showTaskDrawer, setShowTaskDrawer] = useState<boolean>(false);
    return (
       <>
          {showTaskDrawer && (
-            <TaskDrawer task={task} onClose={() => setShowTaskDrawer(false)} />
+            <TaskDrawer
+               reFetch={reFetch}
+               task={task}
+               onClose={() => setShowTaskDrawer(false)}
+            />
          )}
          <Draggable
             draggableId={task.id.toString()}

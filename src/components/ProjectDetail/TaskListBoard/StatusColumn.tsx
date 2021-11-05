@@ -1,34 +1,20 @@
-import React, { useMemo } from 'react';
-import { Task, TaskStatus } from 'utils/types';
-import TaskItem from './TaskItem';
-import '../index.scss';
+import React from 'react';
 import {
    Droppable,
    DroppableProvided,
    DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
+import { Task, TaskStatus } from 'utils/types';
+import '../index.scss';
+import TaskItem from './TaskItem';
 
 interface StatusColumnProp {
    tasks: Task[];
    category: TaskStatus;
+   reFetch: () => void;
 }
 
-function StatusColumn({ tasks, category }: StatusColumnProp) {
-   function sortBySequence(a: Task, b: Task) {
-      if (a.sequence && b.sequence) {
-         if (a.sequence < b.sequence) {
-            return -1;
-         }
-         if (a.sequence > b.sequence) {
-            return 1;
-         }
-      }
-      return 0;
-   }
-   const tasksSorted = useMemo<Task[]>(
-      () => tasks && tasks.sort(sortBySequence),
-      [tasks]
-   );
+function StatusColumn({ tasks, category, reFetch }: StatusColumnProp) {
    return (
       <div className="statuscolumn">
          <div className="statuscolumn__header">{TaskStatus[category]}</div>
@@ -47,9 +33,9 @@ function StatusColumn({ tasks, category }: StatusColumnProp) {
                         : '#efeff0',
                   }}
                >
-                  {tasksSorted &&
-                     tasksSorted.map((task, index) => (
-                        <TaskItem index={index} task={task} />
+                  {tasks &&
+                     tasks.map((task, index) => (
+                        <TaskItem reFetch={reFetch} index={index} task={task} />
                      ))}
 
                   {provided.placeholder}
