@@ -97,7 +97,13 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                     </select>
                                  </td>
                               ) : (
-                                 <td> {ProjectStatus[project.status]}</td>
+                                 <td
+                                    className={`${
+                                       ProjectStatus[project.status]
+                                    }`}
+                                 >
+                                    {ProjectStatus[project.status]}
+                                 </td>
                               )}
 
                               <td className="td-member">

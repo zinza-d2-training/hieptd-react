@@ -1,9 +1,11 @@
 import missing from 'assets/missing.png';
 import Breadcrumb from 'components/Breadcrumb';
+import CircleLoading from 'components/Loading/CircleLoading';
 import ProjectTable from 'components/ProjectTable';
 import TaskTable from 'components/TaskTable';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { getUser } from 'utils/auth';
 import { Role, UserStatus } from 'utils/types';
 import './index.scss';
@@ -16,8 +18,23 @@ interface UserProfileProps {
 function UserProfile({ id }: UserProfileProps) {
    const currentUser = getUser();
 
-   const { userProfile } = useGetUserProfile({ id: id });
+   const {
+      loading,
+      user,
+      projects,
+      tasks,
+      fetchTasksOfUser,
+      fetchProjectsOfUser,
+      fetchUser,
+   } = useGetUserProfile({ id: id });
 
+   useEffect(() => {
+      fetchUser();
+      fetchProjectsOfUser();
+      fetchTasksOfUser();
+      // eslint-disable-next-line
+   }, [id]);
+   if (loading) return <CircleLoading />;
    return (
       <div className="userprofile">
          <div className="userprofile__header">
@@ -30,9 +47,9 @@ function UserProfile({ id }: UserProfileProps) {
             />
          </div>
          <div className="userprofile__info">
-            {userProfile?.avatar ? (
+            {user?.avatar ? (
                <img
-                  src={`${process.env.REACT_APP_BASEURL}${userProfile?.avatar}`}
+                  src={`${process.env.REACT_APP_BASEURL}${user?.avatar}`}
                   alt="user avatar"
                />
             ) : (
@@ -42,58 +59,48 @@ function UserProfile({ id }: UserProfileProps) {
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> FullName:</span>
                   <span className="userprofile__content">
-                     {`${userProfile?.firstName} ${userProfile?.lastName}`}
+                     {`${user?.firstName} ${user?.lastName}`}
                   </span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> UserName:</span>
-                  <span className="userprofile__content">
-                     {userProfile?.username}
-                  </span>
+                  <span className="userprofile__content">{user?.username}</span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Email:</span>
-                  <span className="userprofile__content">
-                     {userProfile?.email}
-                  </span>
+                  <span className="userprofile__content">{user?.email}</span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> DateOfBirth:</span>
                   <span className="userprofile__content">
-                     {userProfile?.dateOfBirth}
+                     {user?.dateOfBirth}
                   </span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Role:</span>
-                  <span className="userprofile__content">
-                     {userProfile?.role}
-                  </span>
+                  <span className="userprofile__content">{user?.role}</span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Status:</span>
                   <span className="userprofile__content">
-                     {userProfile?.status === UserStatus.active
+                     {user?.status === UserStatus.active
                         ? 'Active'
                         : 'Inactive'}
                   </span>
                </div>
                {currentUser?.role === Role.Admin && (
-                  <Link to={`/users/${userProfile?.id}/update`}>Edit</Link>
+                  <Link to={`/users/${user?.id}/update`}>Edit</Link>
                )}
                {currentUser &&
                   currentUser.role !== Role.Admin &&
-                  userProfile?.id === currentUser.id && (
-                     <Link to={`/users/${userProfile?.id}/edit`}>Edit</Link>
+                  user?.id === currentUser.id && (
+                     <Link to={`/users/${user?.id}/edit`}>Edit</Link>
                   )}
             </div>
          </div>
 
-         {userProfile?.projects && userProfile?.role !== Role.Admin && (
-            <ProjectTable projects={userProfile.projects} />
-         )}
-         {userProfile?.tasks && userProfile?.role !== Role.Admin && (
-            <TaskTable tasks={userProfile.tasks} />
-         )}
+         {projects && <ProjectTable projects={projects} />}
+         {tasks && <TaskTable tasks={tasks} />}
       </div>
    );
 }

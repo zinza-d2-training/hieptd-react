@@ -14,6 +14,9 @@
       justify-content: space-between;
       flex-wrap: wrap;
       padding: 10px 60px;
+      margin-bottom: 40px;
+      background-color: $white;
+      border-radius: 5px;
 
       img {
          max-width: 250px;
@@ -61,6 +64,16 @@
             color: $white;
             text-align: center;
          }
+      }
+   }
+}
+@media (max-width: 768px) {
+   .userprofile {
+      .userprofile__card {
+         flex-grow: 1;
+      }
+      img {
+         margin: 0 auto;
       }
    }
 }
