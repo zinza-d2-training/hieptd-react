@@ -1,5 +1,4 @@
-import CircleLoading from 'components/Loading/CircleLoading';
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Task, TaskStatus } from 'utils/types';
 import { useApiTask } from '../useApi/useApiTasksInProject';
@@ -22,9 +21,9 @@ export const categories = [
 
 function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
    const [tasksMap, setTasksMap] = useState<TasksMap>({});
-   const { loading, updateTaskStatusAndSequence } = useApiTask();
+   const { updateTaskStatusAndSequence } = useApiTask();
 
-   useEffect(() => {
+   useLayoutEffect(() => {
       let lists: TasksMap = {};
       categories.forEach((column) => {
          lists[column] = tasks?.filter((task) => task.status === column) || [];
@@ -62,6 +61,7 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
          if (startDes === endDes) {
             newListTasks[startDes].splice(source.index, 1);
             newListTasks[startDes].splice(destination.index, 0, task);
+            setTasksMap(newListTasks);
             const sequence = Number(destination.index) + 1;
             await updateTaskStatusAndSequence(task.id, {
                status: endDes as unknown as TaskStatus,
@@ -76,6 +76,8 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
             newListTasks[startDes] = newListTasks[startDes].filter(
                (item) => item !== task
             );
+            setTasksMap(newListTasks);
+
             const sequence = Number(destination.index) + 1;
             await updateTaskStatusAndSequence(task.id, {
                status: endDes as unknown as TaskStatus,
@@ -86,8 +88,6 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
          reFetch();
       }
    };
-
-   if (loading) return <CircleLoading />;
 
    return (
       <div className="projectdetail__task-dropAndDrag">
