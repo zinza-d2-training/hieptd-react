@@ -1,3 +1,4 @@
+import { ChangePassForm } from 'components/ChangePassword';
 import { UserImport } from 'components/UserImportModal/functions';
 import { FilterType } from 'components/Users/types';
 import axiosClient from 'utils/axios';
@@ -43,5 +44,11 @@ const userService = {
       await axiosClient.delete(`/users/deleteMany`, {
          data: ids,
       }),
+   //change password
+   changePassword: async (
+      id: number,
+      changePass: ChangePassForm
+   ): Promise<Response<User>> =>
+      await axiosClient.put(`/users/${id}/change-password`, changePass),
 };
 export default userService;

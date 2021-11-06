@@ -1,3 +1,4 @@
+import ChangePassword from 'components/ChangePassword';
 import CreateProject from 'components/CreateProject';
 import Dashboard from 'components/Dashboard';
 import ListProjects from 'components/ListProjects';
@@ -80,7 +81,15 @@ const routes = [
          }
       }}
    />,
-
+   <Route
+      key="users"
+      path="/users/change-pass"
+      exact
+      withAuth
+      component={ChangePassword}
+      layout={Admin}
+      roles={[Role.Admin, Role.Member, Role.PM]}
+   />,
    <Route
       key="users"
       path="/users"

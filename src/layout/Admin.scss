@@ -181,17 +181,21 @@ $dashNavHeight: 60px;
                }
 
                .dashboard__user-list {
-                  width: 100%;
+                  width: 150px;
                   .dashboard__user-item {
-                     width: 100%;
                      text-align: start;
-                     padding: 5px 10px;
-                     font-size: 16px;
+                     padding: 10px;
+                     font-size: 15px;
                      font-weight: 500;
                      transition: 0.2s linear;
+                     transition: 0.3s ease;
+                     border-radius: 2px;
+                     a {
+                        color: $text;
+                     }
+
                      &:hover {
-                        background-color: #303c54;
-                        color: #ffff;
+                        background-color: #e9e8e3;
                      }
                   }
                }
