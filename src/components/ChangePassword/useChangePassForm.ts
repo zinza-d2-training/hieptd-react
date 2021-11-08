@@ -5,6 +5,17 @@ export const useChangePassForm = (handleChangePass: () => void) => {
       onSubmit: handleChangePass,
       fields: [
          {
+            name: 'currentPass',
+            validate: (value: string) => {
+               if (!value) {
+                  return 'Current password is required';
+               } else if (value.length < 6) {
+                  return 'Invalid password, at least 6 characters required';
+               }
+               return null;
+            },
+         },
+         {
             name: 'password',
             validate: (value: string) => {
                if (!value) {

@@ -9,6 +9,7 @@ import { useChangePassForm } from './useChangePassForm';
 export type ChangePassForm = {
    password: string;
    confirmPass: string;
+   currentPass: string;
 };
 
 const ChangePassword = () => {
@@ -17,12 +18,14 @@ const ChangePassword = () => {
    const [formData, setFormData] = useState<ChangePassForm>({
       password: '',
       confirmPass: '',
+      currentPass: '',
    });
 
    const handleChangePass = async () => {
       if (
          formData.password &&
          formData.confirmPass &&
+         formData.currentPass &&
          !Object.keys(errors).length
       ) {
          try {
@@ -53,6 +56,19 @@ const ChangePassword = () => {
          <h3>ChangePassword</h3>
          <form className="changePass__form" onSubmit={handleSubmit}>
             <div className="changePass__wrap">
+               <div className="changePass__item">
+                  <label>Current Password</label>
+                  <input
+                     type="password"
+                     placeholder="Enter your current password"
+                     value={values.currentPass || ''}
+                     onChange={handleChange}
+                     name="currentPass"
+                  />
+                  <div className="changePass__err">
+                     {errors.currentPass || ''}
+                  </div>
+               </div>
                <div className="changePass__item">
                   <label>New Password</label>
                   <input
