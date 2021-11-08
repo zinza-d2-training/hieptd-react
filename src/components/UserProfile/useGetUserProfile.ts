@@ -1,62 +1,56 @@
-import { PROJECTS } from 'fakeData/projects';
-import { TASKS } from 'fakeData/tasks';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
+import projectService from 'services/project';
 import userService from 'services/user';
-import { getUser } from 'utils/auth';
-import { Role, User, UserProfileType } from 'utils/types';
+import { Project, Task, User } from 'utils/types';
 interface GetUsersProfileProps {
    id: number;
 }
 
 export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
-   const currentUser = getUser();
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState<string>();
    const [user, setUser] = useState<User>();
+   const [projects, setProjects] = useState<Project[]>();
+   const [tasks, setTasks] = useState<Task[]>();
 
-   useEffect(() => {
-      async function fetchData(id: number) {
-         setLoading(true);
-         try {
-            const res = await userService.getUser(id);
-            setUser(res['data'] as User);
-         } catch (error) {
-            setError(error as string);
-         } finally {
-            setTimeout(() => setLoading(false), 500);
-         }
+   const fetchUser = useCallback(async () => {
+      setLoading(true);
+      try {
+         const { data } = await userService.getUser(id);
+         setUser(data);
+      } catch (error) {
+         toast.error((error as any).response.data.message as string);
       }
-      fetchData(id);
+   }, [id]);
+   const fetchProjectsOfUser = useCallback(async () => {
+      setLoading(true);
+      try {
+         setLoading(false);
+         const { data } = await projectService.getProjects();
+         setProjects(data || []);
+      } catch (error) {
+         toast.error((error as any).response.data.message as string);
+      }
+   }, []);
+
+   const fetchTasksOfUser = useCallback(async () => {
+      setLoading(true);
+      try {
+         setLoading(false);
+         const { data } = await userService.getTasksOfUser(id);
+         setTasks(data || []);
+      } catch (error) {
+         toast.error((error as any).response.data.message as string);
+      }
    }, [id]);
 
-   let userProfile = useMemo<UserProfileType | undefined>(() => {
-      if (user && currentUser) {
-         return {
-            ...user,
-            projects: PROJECTS.filter((project) => {
-               if (currentUser.role === Role.Admin) {
-                  return (
-                     (project.members &&
-                        project.members.some((member) => member.id === id)) ||
-                     project.pm?.id === id
-                  );
-               } else
-                  return (
-                     (project.members &&
-                        project.members.some((member) => member.id === id)) ||
-                     project.pm?.id === currentUser.id
-                  );
-            }),
-            tasks: TASKS.filter((task) => {
-               return currentUser.role === Role.Member
-                  ? currentUser.id === id &&
-                       (task.assignTo?.id === id ||
-                          task.requestByUser.id === id)
-                  : task.assignTo?.id === id || task.requestByUser.id === id;
-            }),
-         };
-      }
-      return undefined;
-   }, [id, currentUser, user]);
-   return { userProfile, error, loading };
+   return {
+      user,
+      projects,
+      loading,
+      fetchUser,
+      fetchProjectsOfUser,
+      fetchTasksOfUser,
+      tasks,
+   };
 };

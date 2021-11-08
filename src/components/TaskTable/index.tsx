@@ -49,7 +49,9 @@ function TaskTable({ tasks }: TaskTableProp) {
                                  <td>{task.title}</td>
                                  <td>{task.notes}</td>
                                  <td>{task.dueDate}</td>
-                                 <td>{TaskStatus[task.status]}</td>
+                                 <td className={`${TaskStatus[task.status]}`}>
+                                    {TaskStatus[task.status]}
+                                 </td>
                               </tr>
                            ))}
                      </tbody>

@@ -123,6 +123,7 @@
                word-wrap: break-word;
                width: 100px;
                position: relative;
+
                &.td-description {
                   min-width: 200px;
                }
@@ -161,6 +162,12 @@
                   border-radius: 0;
                   background-color: transparent;
                }
+               div {
+                  padding: 10px 0 10px 10px;
+                  border-radius: 5px;
+                  color: $white;
+                  width: 90px;
+               }
                select.active,
                select.inactive,
                select.Pending,
@@ -178,17 +185,23 @@
                   }
                }
                select.inactive,
-               select.Pending {
+               select.Pending,
+               div.Pending {
                   background-color: $warning;
                }
+
                select.active,
-               select.Completed {
+               select.Completed,
+               div.Completed,
+               div.active {
                   background-color: $success;
                }
-               select.Cancelled {
+               select.Cancelled,
+               div.Cancelled {
                   background-color: $error;
                }
-               select.InProgress {
+               select.InProgress,
+               div.InProgress {
                   background-color: #5d5fef;
                }
                i {
