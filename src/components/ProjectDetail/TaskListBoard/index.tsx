@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { toast } from 'react-toastify';
+import { TaskStatusAndSequence } from 'services/task';
 import { Task, TaskStatus } from 'utils/types';
 import { useApiTask } from '../useApi/useApiTasksInProject';
 import StatusColumn from './StatusColumn';
@@ -22,6 +24,21 @@ export const categories = [
 function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
    const [tasksMap, setTasksMap] = useState<TasksMap>({});
    const { updateTaskStatusAndSequence } = useApiTask();
+
+   // handle update task
+   const handleUpdateTask = async (
+      taskId: number,
+      updateTask: TaskStatusAndSequence
+   ) => {
+      try {
+         const { data } = await updateTaskStatusAndSequence(taskId, updateTask);
+         if (data) {
+            toast.success(`${data.title} updated successfully`);
+         }
+      } catch (error) {
+         toast.error(error as string);
+      }
+   };
 
    useLayoutEffect(() => {
       let lists: TasksMap = {};
@@ -63,7 +80,7 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
             newListTasks[startDes].splice(destination.index, 0, task);
             setTasksMap(newListTasks);
             const sequence = Number(destination.index) + 1;
-            await updateTaskStatusAndSequence(task.id, {
+            await handleUpdateTask(task.id, {
                status: endDes as unknown as TaskStatus,
                sequence,
             });
@@ -79,7 +96,7 @@ function TaskListBoard({ tasks, reFetch }: TaskListBoardProp) {
             setTasksMap(newListTasks);
 
             const sequence = Number(destination.index) + 1;
-            await updateTaskStatusAndSequence(task.id, {
+            await handleUpdateTask(task.id, {
                status: endDes as unknown as TaskStatus,
                sequence,
             });
