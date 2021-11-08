@@ -1,6 +1,7 @@
 import { useVisible } from 'hooks';
 import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { logout } from 'utils/auth';
 import './Admin.scss';
 import Menu from './Menu';
@@ -82,7 +83,9 @@ const Admin = ({ children }: Props) => {
                               <div className="dashboard__user-list">
                                  {' '}
                                  <div className="dashboard__user-item">
-                                    Your Profile
+                                    <Link to={`/users/change-pass`}>
+                                       Change password
+                                    </Link>
                                  </div>
                                  <div
                                     className="dashboard__user-item"

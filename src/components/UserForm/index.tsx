@@ -21,7 +21,6 @@ function UserForm({ id, showBreadcrumb }: UserFormProps) {
       errors,
       formData,
       values,
-
       handleUploadFile,
       handleChange,
       handleSubmit,
