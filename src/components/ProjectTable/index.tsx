@@ -1,8 +1,7 @@
 import ModalConfirm from 'components/ModalConfirm';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUser } from 'utils/auth';
-import { Project, ProjectStatus, Role } from 'utils/types';
+import { Project, ProjectStatus } from 'utils/types';
 import '../Components.scss';
 
 interface ProjectTableProp {
@@ -10,7 +9,6 @@ interface ProjectTableProp {
 }
 
 function ProjectTable({ projects }: ProjectTableProp) {
-   const currentUser = getUser();
    const [showModalChangeStatus, setShowModalChangeStatus] =
       useState<boolean>(false);
 
@@ -38,6 +36,7 @@ function ProjectTable({ projects }: ProjectTableProp) {
          />
          {projects && (
             <div className="table">
+               <h1>Projects</h1>
                <table>
                   <thead>
                      <tr>
@@ -62,44 +61,15 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                  {project.description}
                               </td>
                               <td>{project.endDate}</td>
-                              {currentUser?.role === Role.Admin ? (
-                                 <td>
-                                    <select
-                                       className={`${
-                                          ProjectStatus[project.status]
-                                       }`}
-                                       onChange={(e) =>
-                                          handleChangeStatus(
-                                             e,
-                                             project.status,
-                                             project.id
-                                          )
-                                       }
-                                    >
-                                       <option
-                                          value={ProjectStatus[project.status]}
-                                       >
-                                          {ProjectStatus[project.status]}
-                                       </option>
-                                       {Object.keys(ProjectStatus)
-                                          .filter((key) =>
-                                             isNaN(Number(ProjectStatus[key]))
-                                          )
-                                          .filter(
-                                             (item) =>
-                                                Number(item) !== project.status
-                                          )
-                                          .map((item, index) => (
-                                             <option key={index}>
-                                                {ProjectStatus[item]}
-                                             </option>
-                                          ))}
-                                    </select>
-                                 </td>
-                              ) : (
-                                 <td> {ProjectStatus[project.status]}</td>
-                              )}
-
+                              <td>
+                                 <div
+                                    className={`${
+                                       ProjectStatus[project.status]
+                                    }`}
+                                 >
+                                    {ProjectStatus[project.status]}
+                                 </div>
+                              </td>
                               <td className="td-member">
                                  {project.members?.map((member, index) => (
                                     <Link
