@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PaginationType, Project, ProjectStatus, Role } from 'utils/types';
+import { PaginationType, Project, ProjectStatus } from 'utils/types';
 import { useApiListProject } from './useApiListProject';
 export type ProjectFilter = {
    keyword?: string;
@@ -8,15 +8,9 @@ export type ProjectFilter = {
 };
 interface UseGetListProject {
    filter: ProjectFilter;
-   userId: number | undefined;
-   role: Role;
 }
 
-export const useGetListProject = ({
-   filter,
-   userId,
-   role,
-}: UseGetListProject) => {
+export const useGetListProject = ({ filter }: UseGetListProject) => {
    const { loading, getAllProjects } = useApiListProject();
 
    const [projects, setProjects] = useState<Project[]>([]);
@@ -55,5 +49,12 @@ export const useGetListProject = ({
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [pagination.page, pagination.limit, _filter]);
 
-   return { loading, projects, pagination, handlePagination };
+   const refetch = async (page?: number) => {
+      if (page) {
+         handlePagination(page);
+      }
+      await fetchData();
+   };
+
+   return { loading, projects, pagination, handlePagination, refetch };
 };

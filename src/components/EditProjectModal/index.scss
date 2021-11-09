@@ -1,0 +1,54 @@
+@import 'styles/variables';
+
+.editProjectModal {
+   form {
+      background-color: $white;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+
+      .editProjectModal__item {
+         display: flex;
+         flex-direction: column;
+         width: 100%;
+         margin-top: 15px;
+         label {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 10px;
+         }
+         input,
+         select {
+            padding: 10px 15px;
+         }
+         textarea {
+            border: 1px solid #c4c4c4;
+            outline: none;
+            height: 80px;
+         }
+
+         .editProjectModal__item-err {
+            color: $error;
+            font-size: 12px;
+            height: 14px;
+            width: 100%;
+            text-overflow: clip;
+         }
+      }
+      .editProjectModal__btn {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         margin-top: 25px;
+         .btn__cancel {
+            background: #eff0f6;
+            color: $text;
+            font-weight: 500;
+         }
+         button {
+            margin: 0;
+         }
+      }
+   }
+}

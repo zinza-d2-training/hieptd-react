@@ -47,5 +47,12 @@ const projectService = {
 
       return await axiosClient.get(`/projects/${id}/tasks?${queries}`);
    },
+   // edit project by id
+   editProject: async (
+      id: number,
+      project: Partial<Project>
+   ): Promise<Response<Project>> => {
+      return await axiosClient.put(`/projects/${id}`, project);
+   },
 };
 export default projectService;
