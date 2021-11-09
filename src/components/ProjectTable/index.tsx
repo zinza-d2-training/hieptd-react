@@ -66,7 +66,7 @@ function ProjectTable({ projects, refetch }: ProjectTableProp) {
                      {projects &&
                         projects.map((project) => (
                            <tr key={project.id}>
-                              <td>
+                              <td className="td-name">
                                  <Link to={`/projects/${project.id}/tasks`}>
                                     {project.name}
                                  </Link>
@@ -74,7 +74,7 @@ function ProjectTable({ projects, refetch }: ProjectTableProp) {
                               <td className="td-description">
                                  {project.description}
                               </td>
-                              <td>{project.endDate}</td>
+                              <td className="td-date">{project.endDate}</td>
                               <td>
                                  <div
                                     className={`${

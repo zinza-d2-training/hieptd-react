@@ -50,7 +50,10 @@
             }
             .userprofile__content {
                margin-left: 5px;
-               font-weight: 600;
+               font-weight: 500;
+               &.user-role {
+                  text-transform: capitalize;
+               }
             }
          }
          a {

@@ -87,7 +87,6 @@
                }
                &.th-description {
                   min-width: 120px;
-
                   word-break: break-word;
                }
                &.th-checkbox {
@@ -120,18 +119,26 @@
                border-right-width: 0px;
                border-left-width: 0px;
                padding: 10px;
-               word-wrap: break-word;
                width: 100px;
                position: relative;
 
                &.td-description {
-                  min-width: 200px;
+                  max-width: 250px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                }
                &.td-date {
                   min-width: 100px;
                }
                &.td-name {
-                  min-width: 100px;
+                  max-width: 180px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+               }
+               &.td-role {
+                  text-transform: capitalize;
                }
 
                &.td-checkbox {
@@ -176,6 +183,7 @@
                select.Cancelled {
                   color: $white;
                   appearance: none;
+
                   option {
                      color: $text;
                      border: none;
