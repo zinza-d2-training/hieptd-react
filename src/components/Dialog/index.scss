@@ -1,0 +1,58 @@
+@import 'styles/variables';
+
+.dialog {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   z-index: 999;
+   display: flex;
+
+   .dialog__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+   }
+   .dialog__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span {
+         font-size: 18px;
+         font-weight: 600;
+      }
+      i {
+         cursor: pointer;
+      }
+   }
+   .dialog__content {
+      position: absolute;
+      top: 2%;
+      left: calc(50% - 300px);
+      width: 600px;
+      height: auto;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      .dialog__title {
+         font-size: 1.5rem;
+         font-weight: bold;
+         margin-bottom: 20px;
+      }
+   }
+}
+
+@media (max-width: 600px) {
+   .dialog {
+      .dialog__content {
+         left: calc(50% - 210px);
+         width: 420px;
+      }
+   }
+}

@@ -1,3 +1,4 @@
+import Dialog from 'components/Dialog';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import projectService from 'services/project';
@@ -7,9 +8,9 @@ import { useEditProjectModalForm } from './useEditProjectModalForm';
 
 interface EditProjectModalProps {
    isOpen: boolean;
+   project: Project;
    onClose: () => void;
    refetch: () => void;
-   project: Project;
 }
 const projectStatusList: ProjectStatus[] = [
    ProjectStatus.Pending,
@@ -20,9 +21,10 @@ const projectStatusList: ProjectStatus[] = [
 
 const EditProjectModal = ({
    isOpen,
+
+   project,
    onClose,
    refetch,
-   project,
 }: EditProjectModalProps) => {
    const [formData, setFormData] = useState<Partial<Project>>({});
    const handleSubmitEdit = async () => {
@@ -37,7 +39,6 @@ const EditProjectModal = ({
             refetch();
          }
       } catch (error: any) {
-         console.log(error);
          toast.error(error.response.data.message as string);
       }
    };
@@ -73,91 +74,92 @@ const EditProjectModal = ({
 
    if (isOpen) {
       return (
-         <div className="editProjectModal">
-            <div className="editProjectModal__overlay"></div>
-
-            <form onSubmit={handleSubmit}>
-               <div className="form__header">
-                  <span>Edit project {project.id}</span>
-                  <i
-                     className="fas fa-times"
-                     onClick={() => {
-                        setFormData({});
-                        onClose();
-                     }}
-                  ></i>
-               </div>
-               <div className="editProjectModal__item">
-                  <label>Name</label>
-                  <input
-                     type="text"
-                     name="name"
-                     value={values.name || ''}
-                     onChange={handleChange}
-                  />
-                  <div className="editProjectModal__item-err">
-                     {errors.name}
+         <Dialog
+            title={`Edit project ${project?.id!}`}
+            isOpen={isOpen}
+            onClose={() => {
+               setFormData({});
+               onClose();
+            }}
+         >
+            <div className="editProjectModal">
+               <form onSubmit={handleSubmit}>
+                  <div className="editProjectModal__item">
+                     <label>Name</label>
+                     <input
+                        type="text"
+                        name="name"
+                        value={values.name || ''}
+                        onChange={handleChange}
+                     />
+                     <div className="editProjectModal__item-err">
+                        {errors.name}
+                     </div>
                   </div>
-               </div>
-               <div className="editProjectModal__item">
-                  <label>Description</label>
-                  <textarea
-                     name="description"
-                     value={values.description || ''}
-                     onChange={handleChange}
-                  />
-                  <div className="editProjectModal__item-err">
-                     {errors.description}
+                  <div className="editProjectModal__item">
+                     <label>Description</label>
+                     <textarea
+                        name="description"
+                        value={values.description || ''}
+                        onChange={handleChange}
+                     />
+                     <div className="editProjectModal__item-err">
+                        {errors.description}
+                     </div>
                   </div>
-               </div>
-               <div className="editProjectModal__item">
-                  <label>End date</label>
-                  <input
-                     type="date"
-                     value={formData.endDate}
-                     onChange={(e) =>
-                        setFormData({ ...formData, endDate: e.target.value })
-                     }
-                  />
-               </div>
-               <div className="editProjectModal__item">
-                  <label>Status</label>
-                  <select
-                     onChange={(e) =>
-                        setFormData({
-                           ...formData,
-                           status: e.target.value as unknown as ProjectStatus,
-                        })
-                     }
-                  >
-                     <option value={project.status}>
-                        {ProjectStatus[project.status]}
-                     </option>
-                     {projectStatusList
-                        .filter((status) => status !== project.status)
-                        .map((status, index) => (
-                           <option key={index} value={status}>
-                              {ProjectStatus[status]}
-                           </option>
-                        ))}
-                  </select>
-               </div>
-               <div className="editProjectModal__btn">
-                  <button
-                     className="btn__cancel"
-                     onClick={() => {
-                        setFormData({});
-                        onClose();
-                     }}
-                  >
-                     Cancel
-                  </button>
-                  <button disabled={checkDisabledSubmitButton} type="submit">
-                     Update
-                  </button>
-               </div>
-            </form>
-         </div>
+                  <div className="editProjectModal__item">
+                     <label>End date</label>
+                     <input
+                        type="date"
+                        value={formData.endDate}
+                        onChange={(e) =>
+                           setFormData({
+                              ...formData,
+                              endDate: e.target.value,
+                           })
+                        }
+                     />
+                  </div>
+                  <div className="editProjectModal__item">
+                     <label>Status</label>
+                     <select
+                        onChange={(e) =>
+                           setFormData({
+                              ...formData,
+                              status: e.target
+                                 .value as unknown as ProjectStatus,
+                           })
+                        }
+                     >
+                        <option value={project.status}>
+                           {ProjectStatus[project.status]}
+                        </option>
+                        {projectStatusList
+                           .filter((status) => status !== project.status)
+                           .map((status, index) => (
+                              <option key={index} value={status}>
+                                 {ProjectStatus[status]}
+                              </option>
+                           ))}
+                     </select>
+                  </div>
+                  <div className="editProjectModal__btn">
+                     <button
+                        className="btn__cancel"
+                        onClick={() => {
+                           setFormData({});
+                           onClose();
+                        }}
+                     >
+                        Cancel
+                     </button>
+                     <button disabled={checkDisabledSubmitButton} type="submit">
+                        Update
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </Dialog>
       );
    } else {
       return null;

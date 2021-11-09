@@ -1,56 +1,22 @@
 @import 'styles/variables';
 
 .editProjectModal {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   width: 100%;
-   z-index: 999;
-   .editProjectModal__overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-   }
    form {
-      position: fixed;
-      top: 10%;
-      left: calc(50% - 210px);
-      width: 420px;
-      height: 470px;
       background-color: $white;
       padding: 10px;
       display: flex;
       flex-direction: column;
       border-radius: 4px;
-      .form__header {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         margin-bottom: 10px;
-         span {
-            font-size: 20px;
-         }
-         i {
-            color: $text;
-            padding: 0 10px;
-            cursor: pointer;
-         }
-      }
+
       .editProjectModal__item {
          display: flex;
          flex-direction: column;
-         width: 80%;
-         margin: 5px;
-         padding-left: 10px;
+         width: 100%;
+         margin-top: 15px;
          label {
             font-size: 16px;
             font-weight: 500;
-            margin-bottom: 5px;
+            margin: 0 0 10px;
          }
          input,
          select {
@@ -74,11 +40,14 @@
          display: flex;
          align-items: center;
          justify-content: space-between;
-         margin-top: 10px;
+         margin-top: 25px;
          .btn__cancel {
             background: #eff0f6;
             color: $text;
             font-weight: 500;
+         }
+         button {
+            margin: 0;
          }
       }
    }
