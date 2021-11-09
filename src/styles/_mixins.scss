@@ -111,7 +111,7 @@
                background-color: $light;
             }
             &.err {
-               background-color: #e67e22;
+               background-color: $error;
             }
             td {
                border: 1px solid #eff0f6;
@@ -216,7 +216,7 @@
                   cursor: pointer;
                }
                i.fa-exclamation-circle {
-                  color: #f26464;
+                  color: $info;
                   position: absolute;
                   right: 10px;
                   bottom: 10px;
