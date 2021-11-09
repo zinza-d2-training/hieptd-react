@@ -29,7 +29,6 @@ function ListProjects() {
                { name: 'Projects', link: '/projects' },
             ]}
          />
-         <h1>Projects</h1>
 
          {projects && (
             <div className="listproject__body">

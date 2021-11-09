@@ -20,7 +20,7 @@ function TaskTable({ tasks }: TaskTableProp) {
       <>
          <div className="table">
             <div className="tasktable__header">
-               <h1>Task</h1>
+               <h1>Tasks</h1>
                <div>
                   <input
                      type="checkbox"
