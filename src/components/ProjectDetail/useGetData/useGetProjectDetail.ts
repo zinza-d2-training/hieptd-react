@@ -13,7 +13,6 @@ export const useGetProjectDetail = (ProjectId: number) => {
       try {
          const { data } = await getProjectById(ProjectId);
          setCurrentProject(data);
-         toast.success('Project loaded');
       } catch (error) {
          toast.error(error as string);
       }
