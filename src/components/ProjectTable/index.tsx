@@ -1,22 +1,27 @@
+import EditProjectModal from 'components/EditProjectModal';
 import ModalConfirm from 'components/ModalConfirm';
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Project, ProjectStatus } from 'utils/types';
+import { Project, ProjectStatus, Role } from 'utils/types';
 import '../Components.scss';
 
 interface ProjectTableProp {
    projects: Project[];
+   refetch?: () => void;
 }
 
-function ProjectTable({ projects }: ProjectTableProp) {
+function ProjectTable({ projects, refetch }: ProjectTableProp) {
+   const { user: currentUser } = useCurrentUser();
    const [showModalChangeStatus, setShowModalChangeStatus] =
       useState<boolean>(false);
+   const [showEditModal, setShowEditModal] = useState<boolean>(false);
+   const [editProject, setEditProject] = useState<Project>();
 
    // handleChangeStatus
    const handleChangeStatus = (
       e: React.ChangeEvent<HTMLSelectElement>,
-      status: ProjectStatus,
-      id: number
+      status: ProjectStatus
    ) => {
       const value = e?.target.value;
       const check = (value as unknown as ProjectStatus) === status;
@@ -34,6 +39,13 @@ function ProjectTable({ projects }: ProjectTableProp) {
             title="Confirm Change"
             content="Are you sure you want to change?"
          />
+         <EditProjectModal
+            isOpen={showEditModal}
+            onClose={() => setShowEditModal(false)}
+            project={editProject!}
+            refetch={refetch!}
+         />
+
          {projects && (
             <div className="table">
                <h1>Projects</h1>
@@ -45,6 +57,8 @@ function ProjectTable({ projects }: ProjectTableProp) {
                         <th>EndDate</th>
                         <th>Status</th>
                         <th>Member</th>
+                        {(currentUser?.role === Role.Admin ||
+                           currentUser?.role === Role.PM) && <th>Action</th>}
                      </tr>
                   </thead>
 
@@ -79,6 +93,15 @@ function ProjectTable({ projects }: ProjectTableProp) {
                                        {member.username}
                                     </Link>
                                  ))}
+                              </td>
+                              <td className="user__edit">
+                                 <i
+                                    className="fas fa-edit"
+                                    onClick={() => {
+                                       setEditProject(project);
+                                       setShowEditModal(true);
+                                    }}
+                                 ></i>
                               </td>
                            </tr>
                         ))}

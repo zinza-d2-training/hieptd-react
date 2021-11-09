@@ -1,25 +1,21 @@
+import Breadcrumb from 'components/Breadcrumb';
+import Pagination from 'components/Pagination';
 import ProjectTable from 'components/ProjectTable';
 import React, { useState } from 'react';
-import { getUser } from 'utils/auth';
 import Filter from './Filter';
 import './ListProject.scss';
 import { ProjectFilter, useGetListProject } from './useGetListProject';
-import Breadcrumb from 'components/Breadcrumb';
-import Pagination from 'components/Pagination';
 
 function ListProjects() {
-   const currentUser = getUser();
-   const { id, role } = currentUser!;
    const [filter, setFilter] = useState<ProjectFilter>({
       keyword: '',
       status: undefined,
       endDate: '',
    });
-   const { projects, pagination, handlePagination } = useGetListProject({
-      filter,
-      userId: id,
-      role,
-   });
+   const { projects, pagination, handlePagination, refetch } =
+      useGetListProject({
+         filter,
+      });
 
    return (
       <div className="listproject">
@@ -33,7 +29,10 @@ function ListProjects() {
          {projects && (
             <div className="listproject__body">
                <Filter filter={filter} handleFilter={setFilter} />
-               <ProjectTable projects={projects} />
+               <ProjectTable
+                  projects={projects}
+                  refetch={() => refetch(pagination.page)}
+               />
                <Pagination info={pagination} onChange={handlePagination} />
             </div>
          )}
