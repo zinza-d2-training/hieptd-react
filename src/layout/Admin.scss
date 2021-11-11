@@ -137,7 +137,7 @@ $dashNavHeight: 60px;
             .dashboard__message {
                position: absolute;
                display: flex;
-               top: 30px;
+               top: 35px;
                right: 5px;
                background-color: $background;
                box-shadow: $box-shadow;
@@ -154,10 +154,10 @@ $dashNavHeight: 60px;
                   content: '';
                   border-width: 10px;
                   border-style: solid;
-                  border-color: transparent transparent $background transparent;
+                  border-color: transparent transparent #3e93d6 transparent;
                   position: absolute;
                   top: -20px;
-                  right: 0;
+                  right: 52px;
                }
                .dashboard__user-item,
                .dashboard__message-item {
@@ -173,15 +173,21 @@ $dashNavHeight: 60px;
             }
             .dashboard__user {
                top: 40px;
+               background-color: #636e72;
+               color: $white;
                border-radius: 5px;
                justify-content: center;
                align-items: center;
                &::before {
-                  top: -30px;
+                  top: -20px;
+                  right: 10px;
+                  border-color: transparent transparent #636e72 transparent;
                }
 
                .dashboard__user-list {
                   width: 150px;
+                  position: relative;
+
                   .dashboard__user-item {
                      text-align: start;
                      padding: 10px;
@@ -191,11 +197,12 @@ $dashNavHeight: 60px;
                      transition: 0.3s ease;
                      border-radius: 2px;
                      a {
-                        color: $text;
+                        color: $white;
                      }
 
                      &:hover {
-                        background-color: #e9e8e3;
+                        background-color: #7a8386;
+                        color: $white;
                      }
                   }
                }

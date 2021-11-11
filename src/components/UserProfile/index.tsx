@@ -78,7 +78,9 @@ function UserProfile({ id }: UserProfileProps) {
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Role:</span>
-                  <span className="userprofile__content">{user?.role}</span>
+                  <span className="userprofile__content user-role">
+                     {user?.role}
+                  </span>
                </div>
                <div className="userprofile__card-item">
                   <span className="userprofile__title"> Status:</span>

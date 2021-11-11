@@ -4,11 +4,17 @@ import { useApiExportUser } from './useApiExportUser';
 import './index.scss';
 import papa from 'papaparse';
 import { UserExport } from 'utils/types';
+import Dialog from 'components/Dialog';
+import { DownLoadIcon } from 'components/icons/DownLoadIcon';
 
 interface UserExportModalProps {
    onClose: () => void;
+   isOpen: boolean;
 }
-export default function ExportUserModal({ onClose }: UserExportModalProps) {
+export default function ExportUserModal({
+   onClose,
+   isOpen,
+}: UserExportModalProps) {
    const { loading, getUsers } = useApiExportUser();
    const [users, setUsers] = useState<UserExport[]>();
 
@@ -57,48 +63,51 @@ export default function ExportUserModal({ onClose }: UserExportModalProps) {
    }
 
    return (
-      <div className="exportUser">
-         <div className="userExport__overlay"></div>
-         <div className="exportUser__container">
-            <div className="exportUser__header">Export Users</div>
-            <div className="exportUser__table">
-               <table>
-                  <thead>
-                     <tr>
+      <Dialog onClose={onClose} isOpen={isOpen} title="Export Users">
+         <div className="exportUser">
+            <div className="userExport__overlay"></div>
+            <div className="exportUser__container">
+               <div className="exportUser__table">
+                  <table>
+                     <thead>
+                        <tr>
+                           {listUsers &&
+                              Object.keys(listUsers[0]).map((item, index) => (
+                                 <th key={index}>{item}</th>
+                              ))}
+                        </tr>
+                     </thead>
+                     <tbody>
                         {listUsers &&
-                           Object.keys(listUsers[0]).map((item, index) => (
-                              <th key={index}>{item}</th>
-                           ))}
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {listUsers &&
-                        listUsers.map((user) => (
-                           <tr key={user.id}>
-                              {Object.keys(user).map((item, index) =>
-                                 item === 'status' ? (
-                                    user[item] ? (
-                                       <td key={index}>active</td>
+                           listUsers.map((user) => (
+                              <tr key={user.id}>
+                                 {Object.keys(user).map((item, index) =>
+                                    item === 'status' ? (
+                                       user[item] ? (
+                                          <td key={index}>active</td>
+                                       ) : (
+                                          <td key={index}>inactive</td>
+                                       )
                                     ) : (
-                                       <td key={index}>inactive</td>
+                                       <td key={index}>{user[item]}</td>
                                     )
-                                 ) : (
-                                    <td key={index}>{user[item]}</td>
-                                 )
-                              )}
-                           </tr>
-                        ))}
-                  </tbody>
-               </table>
-               <div className="exportUser__info">
-                  Total records : {listUsers?.length}
+                                 )}
+                              </tr>
+                           ))}
+                     </tbody>
+                  </table>
+                  <div className="exportUser__info">
+                     Total records : {listUsers?.length}
+                  </div>
+               </div>
+               <div className="exportUser__btn">
+                  <button onClick={handleExportUser}>
+                     <DownLoadIcon /> Export
+                  </button>
+                  <button onClick={() => onClose()}>Cancel</button>
                </div>
             </div>
-            <div className="exportUser__btn">
-               <button onClick={handleExportUser}>Export</button>
-               <button onClick={() => onClose()}>Cancel</button>
-            </div>
          </div>
-      </div>
+      </Dialog>
    );
 }
