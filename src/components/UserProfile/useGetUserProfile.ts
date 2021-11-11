@@ -28,7 +28,7 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
          const { data } = await userService.getProjectsOfUser(id);
          setProjects(data || []);
       } catch (error) {
-         console.error(error);
+         toast.error((error as any).response.data.message as string);
       }
    }, [id]);
 
@@ -39,7 +39,7 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
          const { data } = await userService.getTasksOfUser(id);
          setTasks(data || []);
       } catch (error) {
-         console.error(error);
+         toast.error((error as any).response.data.message as string);
       }
    }, [id]);
 

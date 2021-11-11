@@ -100,8 +100,18 @@ function UserProfile({ id }: UserProfileProps) {
             </div>
          </div>
 
-         {projects && <ProjectTable projects={projects} />}
-         {tasks && <TaskTable tasks={tasks} />}
+         {!!projects?.length && (
+            <>
+               <h1>Projects</h1>
+               <ProjectTable projects={projects} />
+            </>
+         )}
+         {!!tasks?.length && (
+            <>
+               <h1>Tasks</h1>
+               <TaskTable tasks={tasks} />
+            </>
+         )}
       </div>
    );
 }
