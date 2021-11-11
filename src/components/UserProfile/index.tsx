@@ -100,12 +100,8 @@ function UserProfile({ id }: UserProfileProps) {
             </div>
          </div>
 
-         {currentUser?.role !== Role.Admin && (
-            <>
-               {projects && <ProjectTable projects={projects} />}
-               {tasks && <TaskTable tasks={tasks} />}
-            </>
-         )}
+         {projects && <ProjectTable projects={projects} />}
+         {tasks && <TaskTable tasks={tasks} />}
       </div>
    );
 }
