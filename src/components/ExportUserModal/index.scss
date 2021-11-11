@@ -7,7 +7,7 @@
          overflow: auto;
          overflow-y: auto;
          overflow-x: auto;
-         height: 80%;
+         max-height: 400px;
          @include table;
          table {
             box-shadow: none;
@@ -17,10 +17,11 @@
                tr {
                   th {
                      text-transform: capitalize;
+                     padding: 2px 5px;
                   }
                   td {
                      text-align: start;
-                     padding: 0px 2px;
+                     padding: 2px 5px;
                   }
                }
             }
@@ -41,6 +42,9 @@
          button {
             display: flex;
             align-items: baseline;
+            svg {
+               margin-right: 5px;
+            }
          }
       }
    }

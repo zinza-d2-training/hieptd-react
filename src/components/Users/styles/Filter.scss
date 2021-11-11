@@ -5,6 +5,9 @@
    padding: 15px;
    background-color: $white;
    border-radius: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
    a,
    button {
       margin: 0;
@@ -28,10 +31,14 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      margin-top: 18px;
 
       button {
          margin-left: 16px;
+         display: flex;
+         align-items: baseline;
+         svg {
+            margin-right: 5px;
+         }
       }
 
       a {
@@ -45,9 +52,18 @@
       }
    }
 }
+@media screen and (max-width: 1242px) and (min-width: 841px) {
+   .filter__header {
+      display: block;
+      .filter__header-right {
+         margin-top: 18px;
+      }
+   }
+}
 @media screen and (max-width: 840px) {
    .filter__header {
       height: auto;
+      display: block;
       .filter__header-left {
          flex-wrap: wrap;
          justify-content: flex-start;

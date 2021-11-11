@@ -9,7 +9,7 @@ const userService = {
       return axiosClient.get('/users');
    },
    getAllUserToExport: async (): Promise<Response<UserExport[]>> =>
-      await axiosClient.get('/users'),
+      await axiosClient.post('/users/all'),
    getUsers: async (
       page: number,
       limit: number,

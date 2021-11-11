@@ -94,15 +94,17 @@ function ProjectTable({ projects, refetch }: ProjectTableProp) {
                                     </Link>
                                  ))}
                               </td>
-                              <td className="user__edit">
-                                 <i
-                                    className="fas fa-edit"
-                                    onClick={() => {
-                                       setEditProject(project);
-                                       setShowEditModal(true);
-                                    }}
-                                 ></i>
-                              </td>
+                              {currentUser?.role !== Role.Member && (
+                                 <td className="user__edit">
+                                    <i
+                                       className="fas fa-edit"
+                                       onClick={() => {
+                                          setEditProject(project);
+                                          setShowEditModal(true);
+                                       }}
+                                    ></i>
+                                 </td>
+                              )}
                            </tr>
                         ))}
                      {projects.length === 0 && (
