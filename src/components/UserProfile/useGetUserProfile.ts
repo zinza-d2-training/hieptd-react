@@ -29,7 +29,7 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
          const { data } = await projectService.getProjects();
          setProjects(data || []);
       } catch (error) {
-         toast.error((error as any).response.data.message as string);
+         console.error(error);
       }
    }, []);
 
@@ -40,7 +40,7 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
          const { data } = await userService.getTasksOfUser(id);
          setTasks(data || []);
       } catch (error) {
-         toast.error((error as any).response.data.message as string);
+         console.error(error);
       }
    }, [id]);
 
