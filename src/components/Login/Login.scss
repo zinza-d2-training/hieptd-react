@@ -18,11 +18,13 @@
       }
       .login__message {
          background-color: #f7dfdf;
-         color: #c9626a;
+         color: #d11c2b;
          padding: 15px 10px;
          border-radius: 5px;
          font-size: 14px;
          font-weight: 500;
+         width: 80%;
+         text-align: center;
       }
       .login__item {
          width: 100%;
@@ -50,9 +52,9 @@
             .login__err {
                color: $error;
                font-size: 12px;
-               margin: 5px 0;
                width: 100%;
                text-overflow: clip;
+               height: 13px;
             }
          }
       }

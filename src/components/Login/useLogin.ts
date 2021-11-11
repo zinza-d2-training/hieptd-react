@@ -15,8 +15,8 @@ export function useLogin() {
 
             setToken(res['accessToken']!);
             history.push('/');
-         } catch (e) {
-            setError(e as string);
+         } catch (error: any) {
+            setError(error.response.data.message);
          } finally {
             setLoading(false);
          }
