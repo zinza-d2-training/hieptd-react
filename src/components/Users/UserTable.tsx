@@ -62,7 +62,6 @@ function UserTable({ data, refetch }: TableUserProps) {
             }
          } catch (e) {
             toast.error(e as string);
-            console.log(e);
          }
       }
    };
@@ -79,7 +78,6 @@ function UserTable({ data, refetch }: TableUserProps) {
             }
          } catch (e) {
             toast.error(e as string);
-            console.log(e);
          }
       }
    };
@@ -96,7 +94,6 @@ function UserTable({ data, refetch }: TableUserProps) {
             }
          } catch (e) {
             toast.error(e as string);
-            console.log(e);
          }
       }
    };
@@ -172,8 +169,8 @@ function UserTable({ data, refetch }: TableUserProps) {
                            >{`${user.firstName} ${user.lastName}`}</Link>
                         </td>
                         <td>{user.email}</td>
-                        <td>{user.dateOfBirth}</td>
-                        <td>{user.role}</td>
+                        <td className="td-date">{user.dateOfBirth}</td>
+                        <td className="td-role">{user.role}</td>
 
                         <td className="td-active">
                            <select

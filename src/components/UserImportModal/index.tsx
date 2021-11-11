@@ -6,8 +6,13 @@ import { handleValidateRow, UserImport } from './functions';
 import './index.scss';
 import { useApiImportUser } from './useApiImportUser';
 import { toast } from 'react-toastify';
+import { DownLoadIcon } from 'components/icons/DownLoadIcon';
+import { UploadIcon } from 'components/icons/UploadIcon';
+import Dialog from 'components/Dialog';
+
 interface UserImportModalProps {
    onClose: () => void;
+   isOpen: boolean;
 }
 
 function renderIconWarning(data: UserImport, key: string) {
@@ -23,7 +28,7 @@ function renderIconWarning(data: UserImport, key: string) {
    return null;
 }
 
-function UserImportModal({ onClose }: UserImportModalProps) {
+function UserImportModal({ onClose, isOpen }: UserImportModalProps) {
    const { importUser, loading } = useApiImportUser();
 
    const inputRef = useRef<HTMLInputElement>(null);
@@ -81,20 +86,10 @@ function UserImportModal({ onClose }: UserImportModalProps) {
          );
          try {
             const { message } = await importUser(listUsers);
-            console.log({ message });
-            toast.success(message, {
-               position: 'top-right',
-               autoClose: 1000,
-               hideProgressBar: false,
-               closeOnClick: true,
-            });
+
+            toast.success(message);
          } catch (e) {
-            toast.error(e as string, {
-               position: 'top-right',
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: true,
-            });
+            toast.error(e as string);
          }
       }
    };
@@ -104,78 +99,83 @@ function UserImportModal({ onClose }: UserImportModalProps) {
    }
 
    return (
-      <div className="userImport">
-         <div className="userImport__overlay" onClick={() => onClose()}></div>
-         <div className="userImport__container">
-            <h1>Import users</h1>
-            <div className="userImport__options">
-               <input
-                  type="file"
-                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  ref={inputRef}
-                  name="file"
-                  onChange={handleChange}
-               />
+      <Dialog title="Import Users" onClose={onClose} isOpen={isOpen}>
+         <div className="userImport">
+            <div className="userImport__container">
+               <div className="userImport__options">
+                  <input
+                     type="file"
+                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                     ref={inputRef}
+                     name="file"
+                     onChange={handleChange}
+                  />
 
-               <button onClick={handleDownLoadTemplate}>
-                  Download Template
-               </button>
-               {!listUsers && <button onClick={() => onClose()}>Cancel</button>}
-            </div>
-
-            {listUsers && (
-               <div className="userImport__table">
-                  <table>
-                     <thead>
-                        <tr>
-                           {Object.keys(listUsers[0]).map(
-                              (item) => item !== 'password' && <th>{item}</th>
-                           )}
-                        </tr>
-                     </thead>
-                     <tbody>
-                        {listUsers.map((data, index) => {
-                           const listKeys = Object.keys(data);
-                           return (
-                              <tr
-                                 key={index}
-                                 className={`${
-                                    handleValidateRow(data).isError ? 'err' : ''
-                                 }`}
-                              >
-                                 {listKeys.map(
-                                    (key) =>
-                                       key !== 'password' && (
-                                          <td>
-                                             {data[key]}
-                                             {renderIconWarning(data, key)}
-                                          </td>
-                                       )
-                                 )}
-                              </tr>
-                           );
-                        })}
-                     </tbody>
-                  </table>
-               </div>
-            )}
-            <div className="userImport__btn">
-               {listUsers && (
-                  <>
-                     <button
-                        disabled={listUsers.some(
-                           (user) => handleValidateRow(user).isError
-                        )}
-                        onClick={() => handleImport()}
-                     >
-                        Import
-                     </button>
+                  <button onClick={handleDownLoadTemplate}>
+                     <DownLoadIcon /> Template
+                  </button>
+                  {!listUsers && (
                      <button onClick={() => onClose()}>Cancel</button>
-                  </>
+                  )}
+               </div>
+
+               {listUsers && (
+                  <div className="userImport__table">
+                     <table>
+                        <thead>
+                           <tr>
+                              {Object.keys(listUsers[0]).map(
+                                 (item) =>
+                                    item !== 'password' && <th>{item}</th>
+                              )}
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {listUsers.map((data, index) => {
+                              const listKeys = Object.keys(data);
+                              return (
+                                 <tr
+                                    key={index}
+                                    className={`${
+                                       handleValidateRow(data).isError
+                                          ? 'err'
+                                          : ''
+                                    }`}
+                                 >
+                                    {listKeys.map(
+                                       (key) =>
+                                          key !== 'password' && (
+                                             <td>
+                                                {data[key]}
+                                                {renderIconWarning(data, key)}
+                                             </td>
+                                          )
+                                    )}
+                                 </tr>
+                              );
+                           })}
+                        </tbody>
+                     </table>
+                  </div>
                )}
+               <div className="userImport__btn">
+                  {listUsers && (
+                     <>
+                        <button
+                           disabled={listUsers.some(
+                              (user) => handleValidateRow(user).isError
+                           )}
+                           onClick={() => handleImport()}
+                        >
+                           <UploadIcon /> Import
+                        </button>
+                        <button onClick={() => onClose()}>Cancel</button>
+                     </>
+                  )}
+               </div>
             </div>
          </div>
-      </div>
+      </Dialog>
    );
 }
 

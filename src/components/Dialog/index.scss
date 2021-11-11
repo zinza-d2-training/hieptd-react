@@ -32,10 +32,12 @@
    }
    .dialog__content {
       position: absolute;
-      top: 2%;
-      left: calc(50% - 300px);
-      width: 600px;
-      height: auto;
+      top: 4%;
+      left: calc(20%);
+      min-width: 420px;
+      width: 60%;
+
+      max-height: 550px;
       background-color: #fff;
       border-radius: 5px;
       padding: 20px;

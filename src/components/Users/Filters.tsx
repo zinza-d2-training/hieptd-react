@@ -39,10 +39,16 @@ function Filter({ filter, handleFilter }: FilterProps) {
    return (
       <>
          {showImportModal && (
-            <UserImportModal onClose={() => setShowImportModal(false)} />
+            <UserImportModal
+               onClose={() => setShowImportModal(false)}
+               isOpen={showImportModal}
+            />
          )}
          {showExportModal && (
-            <ExportUserModal onClose={() => setShowExportModal(false)} />
+            <ExportUserModal
+               onClose={() => setShowExportModal(false)}
+               isOpen={showExportModal}
+            />
          )}
          <div className="filter__header">
             <div className="filter__header-left">
@@ -56,59 +62,57 @@ function Filter({ filter, handleFilter }: FilterProps) {
                   }}
                />
 
-               <div className="filter__header-options">
-                  <input
-                     type="date"
-                     id="date"
-                     value={filter.dob}
-                     onChange={(e) => {
-                        if (e.target.value) {
-                           handleFilter({
-                              ...filter,
-                              dob: e.target.value,
-                           });
-                        } else {
-                           handleFilter({
-                              ...filter,
-                              dob: '',
-                           });
-                        }
-                     }}
-                  />
-
-                  <select
-                     ref={selectRoleRef}
-                     onChange={(e) => {
+               <input
+                  type="date"
+                  id="date"
+                  value={filter.dob}
+                  onChange={(e) => {
+                     if (e.target.value) {
                         handleFilter({
                            ...filter,
-                           role: Role[e.target.value],
+                           dob: e.target.value,
                         });
-                     }}
-                  >
-                     <option value="">Role</option>
-                     <option value="Member">Member</option>
-                     <option value="Admin">Admin</option>
-                     <option value="PM">PM</option>
-                  </select>
-
-                  <select
-                     ref={selectRef}
-                     onChange={(e) =>
+                     } else {
                         handleFilter({
                            ...filter,
-                           status: UserStatus[e.target.value],
-                        })
+                           dob: '',
+                        });
                      }
-                  >
-                     <option value="">Status</option>
-                     <option value="active">Active</option>
-                     <option value="inactive">Inactive</option>
-                  </select>
+                  }}
+               />
 
-                  <button type="button" onClick={handleClearFilter}>
-                     Clear
-                  </button>
-               </div>
+               <select
+                  ref={selectRoleRef}
+                  onChange={(e) => {
+                     handleFilter({
+                        ...filter,
+                        role: Role[e.target.value],
+                     });
+                  }}
+               >
+                  <option value="">Role</option>
+                  <option value="Member">Member</option>
+                  <option value="Admin">Admin</option>
+                  <option value="PM">PM</option>
+               </select>
+
+               <select
+                  ref={selectRef}
+                  onChange={(e) =>
+                     handleFilter({
+                        ...filter,
+                        status: UserStatus[e.target.value],
+                     })
+                  }
+               >
+                  <option value="">Status</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+               </select>
+
+               <button type="button" onClick={handleClearFilter}>
+                  Clear
+               </button>
             </div>
             <div className="filter__header-right">
                <Link to="/users/create">

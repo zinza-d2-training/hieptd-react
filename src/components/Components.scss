@@ -15,6 +15,7 @@
       width: 100%;
       align-items: center;
       justify-content: space-between;
+      margin: 10px 0;
 
       span {
          color: $info;
@@ -27,5 +28,6 @@
 .tasktable__header {
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: flex-end;
+   padding: 10px;
 }
