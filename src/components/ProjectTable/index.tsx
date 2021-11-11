@@ -48,7 +48,6 @@ function ProjectTable({ projects, refetch }: ProjectTableProp) {
 
          {projects && (
             <div className="table">
-               <h1>Projects</h1>
                <table>
                   <thead>
                      <tr>

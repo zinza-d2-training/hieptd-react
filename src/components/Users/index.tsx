@@ -43,7 +43,7 @@ function Users() {
                ]}
             />
          </div>
-
+         <h1>Users</h1>
          <Filter filter={filter} handleFilter={setFilter} />
 
          <UserTable data={users} refetch={refetch} />

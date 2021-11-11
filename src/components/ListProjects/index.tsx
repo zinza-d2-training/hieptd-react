@@ -28,6 +28,7 @@ function ListProjects() {
 
          {projects && (
             <div className="listproject__body">
+               <h1>Projects</h1>
                <Filter filter={filter} handleFilter={setFilter} />
                <ProjectTable
                   projects={projects}
