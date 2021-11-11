@@ -125,6 +125,7 @@ function UserTable({ data, refetch }: TableUserProps) {
             content={`Are you sure you want to delete ?`}
          />
          <div className="table">
+            <h1>Users</h1>
             {selectedRows.length > 0 && (
                <div className="table-select">
                   <span>{selectedRows.length} Selected</span>
