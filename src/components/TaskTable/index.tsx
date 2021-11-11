@@ -20,15 +20,12 @@ function TaskTable({ tasks }: TaskTableProp) {
       <>
          <div className="table">
             <div className="tasktable__header">
-               <h1>Tasks</h1>
-               <div>
-                  <input
-                     type="checkbox"
-                     checked={isCompleted}
-                     onChange={(e) => setIsCompleted(e.target.checked)}
-                  />{' '}
-                  Show completed
-               </div>
+               <input
+                  type="checkbox"
+                  checked={isCompleted}
+                  onChange={(e) => setIsCompleted(e.target.checked)}
+               />{' '}
+               Show completed
             </div>
 
             {listTasks.length !== 0 && (

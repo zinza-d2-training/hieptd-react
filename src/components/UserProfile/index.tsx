@@ -3,10 +3,9 @@ import Breadcrumb from 'components/Breadcrumb';
 import CircleLoading from 'components/Loading/CircleLoading';
 import ProjectTable from 'components/ProjectTable';
 import TaskTable from 'components/TaskTable';
+import { useCurrentUser } from 'hooks/useCurrentUser';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-import { getUser } from 'utils/auth';
 import { Role, UserStatus } from 'utils/types';
 import './index.scss';
 import { useGetUserProfile } from './useGetUserProfile';
@@ -16,7 +15,7 @@ interface UserProfileProps {
 }
 
 function UserProfile({ id }: UserProfileProps) {
-   const currentUser = getUser();
+   const { user: currentUser } = useCurrentUser();
 
    const {
       loading,
@@ -30,8 +29,10 @@ function UserProfile({ id }: UserProfileProps) {
 
    useEffect(() => {
       fetchUser();
+
       fetchProjectsOfUser();
       fetchTasksOfUser();
+
       // eslint-disable-next-line
    }, [id]);
    if (loading) return <CircleLoading />;
@@ -101,8 +102,18 @@ function UserProfile({ id }: UserProfileProps) {
             </div>
          </div>
 
-         {projects && <ProjectTable projects={projects} />}
-         {tasks && <TaskTable tasks={tasks} />}
+         {!!projects?.length && (
+            <>
+               <h1>Projects</h1>
+               <ProjectTable projects={projects} />
+            </>
+         )}
+         {!!tasks?.length && (
+            <>
+               <h1>Tasks</h1>
+               <TaskTable tasks={tasks} />
+            </>
+         )}
       </div>
    );
 }

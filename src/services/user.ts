@@ -2,7 +2,7 @@ import { ChangePassForm } from 'components/ChangePassword';
 import { UserImport } from 'components/UserImportModal/functions';
 import { FilterType } from 'components/Users/types';
 import axiosClient from 'utils/axios';
-import { Response, Task, User, UserExport } from 'utils/types';
+import { Project, Response, Task, User, UserExport } from 'utils/types';
 
 const userService = {
    getAllUsers: (): Promise<Response<User[]>> => {
@@ -53,5 +53,7 @@ const userService = {
       await axiosClient.put(`/users/${id}/change-password`, changePass),
    getTasksOfUser: async (id: number): Promise<Response<Task[]>> =>
       await axiosClient.get(`/users/${id}/tasks`),
+   getProjectsOfUser: async (id: number): Promise<Response<Project[]>> =>
+      await axiosClient.get(`/users/${id}/projects`),
 };
 export default userService;
