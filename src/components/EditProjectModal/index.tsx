@@ -21,7 +21,6 @@ const projectStatusList: ProjectStatus[] = [
 
 const EditProjectModal = ({
    isOpen,
-
    project,
    onClose,
    refetch,
