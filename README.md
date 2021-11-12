@@ -1,44 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+<h1>Project Manager</h1>
 
-## Available Scripts
+App using [React](https://reactjs.org/), [NodeJS](https://nodejs.org/en/), [TypeScript](https://www.typescriptlang.org/)
 
-In the project directory, you can run:
+## 1. Getting started
 
-### `yarn start`
+### 1.1 Requirements
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Before starting, make sure you have at least those components on your workstation:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+-  An up-to-date release of [NodeJS](https://nodejs.org/) and NPM (Yarn is recommended)
+-  Clone [Backend](https://github.com/zinza-d2-training/hieptd-nestjs.git) using [NestJs](https://nestjs.com/)
 
-### `yarn test`
+### 1.2 Project configuration
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Start by cloning this project on your workstation.
 
-### `yarn build`
+```sh
+git clone https://github.com/zinza-d2-training/hieptd-react.git
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The next thing will be to install all the dependencies of the project.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```sh
+cd ./hieptd-react
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+or
 
-### `yarn eject`
+```sh
+cd ./hieptd-react
+yarn
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Once the dependencies are installed :
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-  You can now configure your project by creating a new `.env` file containing your environment variables used for development.
+-  Place the file in the root of your project.
+-  Example: `.env.example`
+-  Copy `.env,example` to `.env`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```sh
+cp .env.example .env
+vi .env
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+-  Configure environment variables by editing the `.env` file.
 
-## Learn More
+```sh
+# Backend endpoint
+REACT_APP_BASEURL=http://localhost:5000
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1.3 Launch
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+# Launch the development server with TSNode
+## using npm
+npm start
+## or
+yarn start
+```
+
+### 1.4 Access to the application
+
+-  You can now head to http://localhost:3000 and see the application in action.
