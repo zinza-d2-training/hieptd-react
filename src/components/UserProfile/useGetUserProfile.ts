@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import projectService from 'services/project';
 import userService from 'services/user';
 import { Project, Task, User } from 'utils/types';
 interface GetUsersProfileProps {
@@ -26,12 +25,12 @@ export const useGetUserProfile = ({ id }: GetUsersProfileProps) => {
       setLoading(true);
       try {
          setLoading(false);
-         const { data } = await projectService.getProjects();
+         const { data } = await userService.getProjectsOfUser(id);
          setProjects(data || []);
       } catch (error) {
          console.error(error);
       }
-   }, []);
+   }, [id]);
 
    const fetchTasksOfUser = useCallback(async () => {
       setLoading(true);

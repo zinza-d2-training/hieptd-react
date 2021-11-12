@@ -25,11 +25,7 @@ function Login() {
       <div className="loginForm">
          <form onSubmit={handleSubmit}>
             <h1>Login to Dashboard</h1>
-            {error && (
-               <div className="login__message">
-                  Login failed because invalid username or password
-               </div>
-            )}
+            {error && <div className="login__message">{error}</div>}
             <div className="login__item">
                <div className="login__item-input">
                   <label>Username</label>
