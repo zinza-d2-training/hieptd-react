@@ -8,8 +8,8 @@ export const useEditProjectModalForm = (handleEditProject: () => void) => {
             validate: (value: string) => {
                if (!value || value.length === 0) {
                   return 'Name is required';
-               } else if (value.length < 4 || value.length > 20) {
-                  return 'Invalid  name, at least 2, max 20 characters required';
+               } else if (value.length < 4 || value.length > 255) {
+                  return 'Invalid  name, at least 2, max 255 characters required';
                }
                return null;
             },
@@ -19,8 +19,8 @@ export const useEditProjectModalForm = (handleEditProject: () => void) => {
             validate: (value: string) => {
                if (value.length === 0) {
                   return null;
-               } else if (value.length < 10 || value.length > 200) {
-                  return 'Invalid description, at least 10,  max 200 characters required';
+               } else if (value.length < 10 || value.length > 255) {
+                  return 'Invalid description, at least 10,  max 255 characters required';
                }
                return null;
             },

@@ -68,7 +68,6 @@ const EditProjectModal = ({
 
    const checkDisabledSubmitButton =
       !formData.name ||
-      !formData.endDate ||
       !Object.keys(formData).some((key) => formData[key] !== project[key]);
 
    if (isOpen) {
