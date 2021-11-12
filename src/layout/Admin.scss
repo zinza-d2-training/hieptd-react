@@ -60,9 +60,13 @@ $dashNavHeight: 60px;
             margin-left: 5px;
             text-transform: capitalize;
             text-shadow: $textShadow;
+
             p {
-               font-size: 13px;
+               font-size: 12px;
                text-transform: none;
+               max-width: 160px;
+
+               word-break: break-all;
             }
          }
       }
