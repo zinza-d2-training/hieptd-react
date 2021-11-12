@@ -11,7 +11,7 @@
       display: flex;
       align-items: center;
       box-shadow: $box-shadow;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-wrap: wrap;
       padding: 10px 60px;
       margin-bottom: 40px;
@@ -28,17 +28,18 @@
       .userprofile__card {
          padding: 15px 20px;
          border-radius: 5px;
-         width: 350px;
+         width: 420px;
          display: flex;
          flex-direction: column;
          justify-content: center;
          flex-wrap: wrap;
-         margin: 10px 0;
+         margin: 10px 0px;
 
          .userprofile__card-item {
             margin: 10px 0 0 20px;
             display: flex;
             align-items: center;
+            justify-content: center;
 
             .userprofile__title,
             .userprofile__content {
@@ -69,6 +70,7 @@
             border-radius: 5px;
             color: $white;
             text-align: center;
+            width: 350px;
          }
       }
    }
@@ -79,9 +81,6 @@
          flex-grow: 1;
          .userprofile__content {
             max-width: 58%;
-         }
-         a {
-            max-width: 320px;
          }
       }
       img {
