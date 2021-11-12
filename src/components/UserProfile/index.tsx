@@ -4,7 +4,7 @@ import CircleLoading from 'components/Loading/CircleLoading';
 import ProjectTable from 'components/ProjectTable';
 import TaskTable from 'components/TaskTable';
 import { useCurrentUser } from 'hooks/useCurrentUser';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Role, UserStatus } from 'utils/types';
 import './index.scss';
@@ -26,6 +26,15 @@ function UserProfile({ id }: UserProfileProps) {
       fetchProjectsOfUser,
       fetchUser,
    } = useGetUserProfile({ id: id });
+
+   //refetch
+   const refetch = useCallback(() => {
+      fetchUser();
+
+      fetchProjectsOfUser();
+      fetchTasksOfUser();
+      // eslint-disable-next-line
+   }, []);
 
    useEffect(() => {
       fetchUser();
@@ -105,7 +114,7 @@ function UserProfile({ id }: UserProfileProps) {
          {!!projects?.length && (
             <>
                <h1>Projects</h1>
-               <ProjectTable projects={projects} />
+               <ProjectTable refetch={refetch} projects={projects} />
             </>
          )}
          {!!tasks?.length && (
